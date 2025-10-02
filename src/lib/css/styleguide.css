@@ -13,7 +13,7 @@
 html,
 body {
     font-family: var(--main-font), sans-serif;
-    background-color: var(--background-color-primairy);
+    background-color: var(--background-color-primary);
 }
 
 
@@ -63,12 +63,12 @@ body {
     --grey-600: hsl(240 2% 10%);
     --grey-500: hsl(220 3.9% 15.1%);
     --grey-400: hsl(210 3.7% 21.2%); /* base color*/
-    --grey-300: hsl(210 3.9% 40%)
+    --grey-300: hsl(210 3.9% 40%);
     --grey-200: hsl(213 3.9% 55.1%);
     --grey-100: hsl(214 4.6% 70%);
 
     /* background color */
-    --background-color-primairy: hsl(0, 0%, 100%);
+    --background-color-primary: hsl(0, 0%, 100%);
 
     /* text colors */
     --main-text-color: var(var(--grey-700));
