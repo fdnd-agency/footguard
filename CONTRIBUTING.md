@@ -9,6 +9,7 @@ Teamleden pakken openstaande issues zelfstandig op. We wijzen alleen issues toe 
 
 # Code conventies
 
+
 ## Naamgevingen 
 - Animaties schrijven we op als: animation-(de actie bv. fade-in)-(de richting bv. up) --> animation-fade-in-up
 - Gebruik maken van kebab-case
@@ -29,5 +30,6 @@ Teamleden pakken openstaande issues zelfstandig op. We wijzen alleen issues toe 
 - Nesting in CSS
 - Comments bij lastigere code (bij alle code in JS)
 
+Hiernaast wordt er ook gehouden aan de conventions van de [FDND Agency](https://docs.fdnd.nl/conventies.html).
 
 
