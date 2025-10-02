@@ -69,6 +69,7 @@ body {
 
     /* background color */
     --background-color-primary: hsl(0, 0%, 100%);
+    --background-color-secondary: hsl(0, 0%, 91%);
 
     /* text colors */
     --main-text-color: var(var(--grey-700));
