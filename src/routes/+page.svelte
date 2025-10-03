@@ -1,12 +1,14 @@
 <script>
   let sidebarOpen = false;
+
+  import IWGDF from "$lib/assets/IWGDF-logo.png";
 </script>
 
 <div class="dashboard">
   <!-- Side nav top -->
   <aside class:open={sidebarOpen} id="sidebar">
     <header class="sidebar-header">
-      <img src="/IWGDF.png" alt="IWGDF Logo" class="logo-img" />
+      <img src={IWGDF} alt="IWGDF Logo" class="logo-img" />
     </header>
 
     <!-- Side nav items -->
@@ -67,7 +69,7 @@
       <button class="menu-button" on:click={() => (sidebarOpen = !sidebarOpen)}>
         ☰
       </button>
-      <img src="/IWGDF.png" alt="IWGDF Logo" class="mobile-logo" />
+      <img src={IWGDF} alt="IWGDF Logo" class="mobile-logo" />
     </header>
 
     <section class="content">
@@ -190,7 +192,7 @@
 
     /* logo */
     .logo-img {
-      width: 40px;
+      width: auto;
       height: 40px;
     }
   }
@@ -296,8 +298,8 @@
 
     /* Logo img */
     .mobile-logo {
-      width: 2rem;
-      height: 2rem;
+      width: auto;
+      height: 32px;
       border-radius: 0.5rem;
     }
   }
