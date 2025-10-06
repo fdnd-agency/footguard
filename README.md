@@ -1,5 +1,22 @@
-# FootGuard
+# 📖 FootGuard
 
+De International Working Group on the Diabetic Foot (IWGDF) is een wereldwijd
+samenwerkingsverband van specialisten die richtlijnen ontwikkelt voor de preventie en
+behandeling van diabetische voetproblemen. Deze richtlijnen worden internationaal
+gebruikt door artsen, verpleegkundigen en onderzoekers om de zorg voor patiënten met
+diabetesvoet te verbeteren.
+
+# 🔍 Opdrachtomschrijving
+
+De huidige website is verouderd en het beoordelen van onderzoeken gebeurt nu nog op
+een ineIiciënte manier, onder andere met Excel. Dit proces kan veel beter en makkelijker.
+Wij hebben de opdracht gekregen om een nieuwe website te ontwikkelen waarin dit
+onderzoeksproces geïntegreerd wordt. In deze website worden verschillende
+functionaliteiten toegevoegd om het beoordelen overzichtelijker, gebruiksvriendelijker
+en eIiciënter te maken.
+
+[Dev branche](https://github.com/fdnd-agency/footguard/tree/dev-main)
+Livelink(komt eraan)
 
 # 🖥️ Installatie
 
