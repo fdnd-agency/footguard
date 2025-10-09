@@ -110,3 +110,7 @@ Voer in de terminal de command npm install uit om de packages uit de package.JSO
 
 - **Start de server**
 Voer in de terminal de command 'npm run dev' of 'npm run dev -- --open' om het venster automatisch te openen.
+
+# 🪪 Licentie
+
+This project is licensed under the terms of the [MIT license](./LICENSE).
