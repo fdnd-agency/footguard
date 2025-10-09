@@ -6,14 +6,14 @@
 
 
 
-<div class="finished-label paragraph">
+<div class="not-started-label paragraph">
     <img src={notStarted} alt="" height="15" width="15">
     Not started
 </div>
 
 
 <style>
-       .finished-label {
+       .not-started-label {
         display: flex;
         flex-direction: row;
         align-items: center;
