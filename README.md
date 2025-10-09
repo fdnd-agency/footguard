@@ -94,6 +94,23 @@ De hi-fi designs laten zien hoe de uiteindelijke schermen eruitzien. Daarnaast v
 
 De kleurenpallet, huisstijl, UML-diagrammen, schetsen en hi-fi designs zijn te vinden in het [Figma-bestand](https://www.figma.com/design/FcenWarr4zCNYt1xSufqHv/Sprint-14-Footguard?node-id=16-2&p=f).
 
+# 📱 Pagina's
+Deze sprint was voornamelijk begrip krijgen van de opdracht en dit vertalen naar een ontwerp/design. Wel hebben we alvast een aantal onderdelen van de pagina's gemaakt. 
+
+### Dashboard
+De dashboardpagina is de homepagina van de gebruiker na het inloggen. Hier ziet de gebruiker in één keer alle belangrijke informatie, zoals de huidige status van verschillende onderzoeken. Het dashboard werkt als een status reminder, zodat de gebruiker snel kan zien wat er gedaan moet worden en snel weer verder kan gaan met zijn taken.
+
+| Smartphone | Tablet | Laptop |
+|-------------|-------------|-------------|
+| <img width="200" height="500" alt="Screenshot 1" src="https://github.com/user-attachments/assets/29bdecb3-74b3-4c30-8d6d-98e72d662082" /> | <img width="300" height="600" alt="Screenshot 2" src="https://github.com/user-attachments/assets/08638bed-ac0a-44b3-aabf-90cf37a1927d" /> | <img width="300" height="600" alt="Screenshot 3" src="https://github.com/user-attachments/assets/09ea0d81-5d8c-4ac9-80e0-e1455041b236" /> |
+
+### Overzicht en status onderzoek
+Op deze pagina kan de gebruiker alle artikelen zien die toegewezen aan hem/haar. Elk artikel wordt weergegeven in een card met belangrijke informatie, zoals titel, auteur van het onderzoek en uitgeef jaar. De status kan Finished, In Progress of Not Started zijn, zodat de gebruiker direct ziet waar een artikel staat in het beoordelingsproces.
+
+| Smartphone | Tablet | Laptop |
+|-------------|-------------|-------------|
+| <img width="200" height="500" alt="Screenshot 1" src="https://github.com/user-attachments/assets/45f76831-1d68-409f-83c0-c337c2f2e825" /> | <img width="300" height="600" alt="Screenshot 2" src="https://github.com/user-attachments/assets/591d0971-e22c-410f-adf5-e6673dcd8714" /> | <img width="300" height="600" alt="Screenshot 3" src="https://github.com/user-attachments/assets/f3efad33-a443-4b0c-8d3b-c451146189c0" /> |
+
 # 🖥️ Installatie
 
 - **Fork de repository**
