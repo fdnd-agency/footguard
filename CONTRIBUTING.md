@@ -7,12 +7,31 @@ https://www.figma.com/design/FcenWarr4zCNYt1xSufqHv/Sprint-14-Footguard?node-id=
 # Taakverdeling
 Teamleden pakken openstaande issues zelfstandig op. We wijzen alleen issues toe aan de leden die daadwerkelijk aan deze issues werken. Zo is altijd zichtbaar wie met welke taak bezig is en welke issues nog openstaan. Dit maakt het ook voor nieuwe teamleden eenvoudig om in het project te starten.
 
+# Projectmatige afspraken
+
+## Standup
+
+Elke maandag houden we een standup waarin we bespreken wat we deze week willen bereiken als team. Ook vertelt iedereen wat hij/zei gaat doen.
+
+Elke vrijdag houden we weer een standup waarbij we terugkijken naar de week om te kijken of we het doel hebben bereikt. Ook bespreken we wat eventueel volgende week beter kan.
+
+## Projectboard
+
+- Issues's die worden opgepakt moeten eerst worden geclosed voordat je kan beginnen met een nieuwe issue. (alleen als het echt niet mogelijk is om de issue te sluiten omdat je wacht op feedback bijvoorbeeld. Dan mag je wel een nieuwe issue oppakken.)
+
+### Issues
+- Alle issues moeten bij het assignen gelijk worden gelabeld met relevante labels.
+- De issues moeten een korte beschrijving bevatten van de functie
+
+# Branches
+- De branches die al gemerged of niet meer gebruikt worden verwijderen
+- De branche namen consistent houden aan FDND Agency richtlijnen
+
 # Taal
 De website en het designs worden in het engels verwerkt.
 De issues, readme, projectboard en communicatie worden in het nederlands verwerkt.
 
 # Code conventies
-
 
 ## Naamgevingen 
 - Animaties schrijven we op als: animation-(de actie bv. fade-in)-(de richting bv. up) --> animation-fade-in-up
@@ -51,5 +70,8 @@ Het volgt de volgende git flow:
 Op deze manier is er een constante manier van werken.
 
 ![git-flow-4](https://github.com/user-attachments/assets/69468298-8604-420d-9a62-d4c7f79ce051)
+
+
+
 
 
