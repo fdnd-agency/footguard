@@ -1,8 +1,9 @@
 <script>
     let sidebarOpen = false;
+    let form;
 
     import IWGDF from "$lib/assets/img/IWGDF-logo.webp";
-    // import Navbar from "$lib/components/Navbar.svelte";
+    import Navbar from "$lib/components/Navbar.svelte";
     import inprogress from "$lib/assets/svg/inprogress-icon.svg";
     import author from "$lib/assets/svg/author-icon.svg";
     import calender from "$lib/assets/svg/calendar-icon.svg";
@@ -12,239 +13,80 @@
 
     import finished from "$lib/assets/svg/finished-icon.svg";
     import notStarted from "$lib/assets/svg/notstarted-icon.svg";
+
+
+    import Selectbutton from "$lib/components/Filter-buttons.svelte"
+    import Filters from "$lib/components/Filters.svelte"
+
+    import GradingArticleCard from "$lib/components/Grading-article-card.svelte";
+
+    // filter buttons
+    import FinishedButtonFilter from "$lib/partials/Finished-button-filter.svelte";
+    import InProgressButtonFilter from "$lib/partials/In-progress-button-filter.svelte";
+    import NotStartedButtonFilter from "$lib/partials/Not-started-button-filter.svelte";
+
+    export let data;
+    const gradings = data.gradings
+
 </script>
 
-<!-- <Navbar /> -->
+<div class="main-container">
 
-<!-- <ProgressLabel/>
-<FinishedLabel/>
-<NotStarted/> -->
+    <Navbar />
 
-<section class="main-container-research">
+    <section class="main-container-research">
+        <h1 class="main-container-research-title">Gradings</h1>
 
-  <h1 class="main-container-research-title">Research</h1>
+        <form method="get" class="filter-form-container">
+           <FinishedButtonFilter/>
+            <InProgressButtonFilter/>
+            <NotStartedButtonFilter/>
+        </form>
 
-  <div class="research-cards-container">
-
-    <!-- card-1 -->
-
-        <article class="research-card">
-      <div class="research-card-data-container">
-        <div class="research-card-title-label">
-            <h2 class="research-card-title h3">
-                <span class="research-id">#1 -</span>
-                Home Monitoring of Foot Skin Temperatures to Prevent Ulceration
-            </h2>
-
-            <div class="status-label-container finished-label hide paragraph">
-                <img src="{finished}" alt="" height="15" width="15">
-                Finished
-            </div>
+        <div class="research-cards-container">
+            {#each gradings as grading}
+            <GradingArticleCard
+            name={grading.name}
+            article_id={grading.article_id}
+            Publisher={grading.Publisher}
+            publishing_year={grading.publishing_year}
+            />
+            {/each}
         </div>
+    </section>
 
-        <div class="research-card-author-date-container">
-            <div class="author-container">
-                <img src="{author}" class="author-icon" alt="" height="15" width="15">
-                <p class="author-name">John Doe</p>
-            </div>
+</div>
 
-            <div class="calender-container">
-                <img src="{calender}" class="calender-icon" alt="" height="15" width="15">
-                <p class="calender-date">25 Sep 2007</p>
-            </div>
-        </div>
-
-        <div class="action-container">
-            <div class="status-label-container finished-label paragraph">
-                <img src="{finished}" alt="" height="15" width="15">
-                Finished
-            </div>
-
-            <a href="/" class="research-card-action-btn paragraph">Continue</a>
-        </div>
-      </div>
-
-         <a href="/" class="research-card-action-btn hide-btn paragraph">Continue</a>
-    </article>
-
-    <!-- card-2 -->
-
-    <article class="research-card">
-      <div class="research-card-data-container">
-        <div class="research-card-title-label">
-            <h2 class="research-card-title h3">
-                <span class="research-id">#1 -</span>
-                Home Monitoring of Foot Skin Temperatures to Prevent Ulceration
-            </h2>
-
-            <div class="status-label-container not-started-label hide paragraph">
-                <img src="{notStarted}" alt="" height="15" width="15">
-                Not started
-            </div>
-        </div>
-        
-        <div class="research-card-author-date-container">
-            <div class="author-container">
-                <img src="{author}" class="author-icon" alt="" height="15" width="15">
-                <p class="author-name">John Doe</p>
-            </div>
-
-            <div class="calender-container">
-                <img src="{calender}" class="calender-icon" alt="" height="15" width="15">
-                <p class="calender-date">25 Sep 2007</p>
-            </div>
-        </div>
-
-        <div class="action-container">
-            <div class="status-label-container not-started-label paragraph">
-                <img src="{notStarted}" alt="" height="15" width="15">
-                Not started
-            </div>
-
-            <a href="/" class="research-card-action-btn paragraph">Continue</a>
-        </div>
-      </div>
-
-         <a href="/" class="research-card-action-btn hide-btn paragraph">Continue</a>
-    </article>
-
-        <!-- card-3 -->
-
-    <article class="research-card">
-      <div class="research-card-data-container">
-        <div class="research-card-title-label">
-            <h2 class="research-card-title h3">
-                <span class="research-id">#1 -</span>
-                Home Monitoring of Foot Skin Temperatures to Prevent Ulceration
-            </h2>
-
-            <div class="status-label-container hide paragraph">
-                <img src="{inprogress}" alt="" height="15" width="15">
-                In progress
-            </div>
-        </div>
-        
-        <div class="research-card-author-date-container">
-            <div class="author-container">
-                <img src="{author}" class="author-icon" alt="" height="15" width="15">
-                <p class="author-name">John Doe</p>
-            </div>
-
-            <div class="calender-container">
-                <img src="{calender}" class="calender-icon" alt="" height="15" width="15">
-                <p class="calender-date">25 Sep 2007</p>
-            </div>
-        </div>
-
-        <div class="action-container">
-            <div class="status-label-container paragraph">
-                <img src="{inprogress}" alt="" height="15" width="15">
-                In progress
-            </div>
-
-            <a href="/" class="research-card-action-btn paragraph">Continue</a>
-        </div>
-      </div>
-
-         <a href="/" class="research-card-action-btn hide-btn paragraph">Continue</a>
-    </article>
-
-        <!-- card-4 -->
-
-    <article class="research-card">
-      <div class="research-card-data-container">
-        <div class="research-card-title-label">
-            <h2 class="research-card-title h3">
-                <span class="research-id">#1 -</span>
-                Home Monitoring of Foot Skin Temperatures to Prevent Ulceration
-            </h2>
-
-            <div class="status-label-container hide paragraph">
-                <img src="{inprogress}" alt="" height="15" width="15">
-                In progress
-            </div>
-        </div>
-
-        <div class="research-card-author-date-container">
-            <div class="author-container">
-                <img src="{author}" class="author-icon" alt="" height="15" width="15">
-                <p class="author-name">John Doe</p>
-            </div>
-
-            <div class="calender-container">
-                <img src="{calender}" class="calender-icon" alt="" height="15" width="15">
-                <p class="calender-date">25 Sep 2007</p>
-            </div>
-        </div>
-
-        <div class="action-container">
-            <div class="status-label-container paragraph">
-                <img src="{inprogress}" alt="" height="15" width="15">
-                In progress
-            </div>
-
-            <a href="/" class="research-card-action-btn paragraph">Continue</a>
-        </div>
-      </div>
-
-         <a href="/" class="research-card-action-btn hide-btn paragraph">Continue</a>
-    </article>
-
-        <!-- card-5 -->
-
-    <article class="research-card">
-      <div class="research-card-data-container">
-        <div class="research-card-title-label">
-            <h2 class="research-card-title h3">
-                <span class="research-id">#1 -</span>
-                Home Monitoring of Foot Skin Temperatures to Prevent Ulceration
-            </h2>
-
-            <div class="status-label-container finished-label hide paragraph">
-                <img src="{finished}" alt="" height="15" width="15">
-                Finished
-            </div>
-        </div>
-
-        <div class="research-card-author-date-container">
-            <div class="author-container">
-                <img src="{author}" class="author-icon" alt="" height="15" width="15">
-                <p class="author-name">John Doe</p>
-            </div>
-
-            <div class="calender-container">
-                <img src="{calender}" class="calender-icon" alt="" height="15" width="15">
-                <p class="calender-date">25 Sep 2007</p>
-            </div>
-        </div>
-
-        <div class="action-container">
-            <div class="status-label-container finished-label paragraph">
-                <img src="{finished}" alt="" height="15" width="15">
-                Finished
-            </div>
-
-            <a href="/" class="research-card-action-btn paragraph">Continue</a>
-        </div>
-      </div>
-
-         <a href="/" class="research-card-action-btn hide-btn paragraph">Continue</a>
-    </article>
-  </div>
-</section>
 
 <style>
+
   :global(body) {
 	background-color: var(--background-color-primary);
 }
 
+  @media (min-width: 1024px) {
+    .main-container {
+        display: flex;        
+    }  
+}
+
 .main-container-research {
 	padding: 1rem 1rem 1rem 1rem;
+    width: 100%;
 }
 
 .main-container-research-title {
 	color: var(--blue-700);
+    padding-top: 1.5rem;
+    padding-bottom: 2rem;
 }
+
+    .filter-form-container {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        justify-content: flex-end;
+    }
 
 .research-card-title {
 	color: var(--blue-700);
@@ -255,7 +97,7 @@ h2 .research-id {
 }
 
 .research-cards-container {
-	margin-top: 2rem;
+	margin-top: 1rem;
 	display: flex;
 	flex-direction: column;
 	gap: 1rem;
@@ -358,7 +200,7 @@ h2 .research-id {
 	display: none;
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 1300px) {
 	.hide-btn {
 		display: flex;
 		margin-left: auto;
@@ -379,7 +221,7 @@ h2 .research-id {
 	}
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 1300px) {
 	.action-container .research-card-action-btn {
 		display: none;
 	}
