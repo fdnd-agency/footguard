@@ -5,20 +5,21 @@
 
 
 @font-face {
-    font-family: 'MontserratRegular';
-    src: url(/src/lib/assets/fonts/Montserrat-VariableFont_wght.ttf);
+    font-family: 'DM sans';
+    src: url(/src/lib/assets/fonts/DMSans-VariableFont_opsz\,wght.ttf);
 }
 
 
 html,
 body {
-    font-family: var(--main-font), sans-serif;
+    font-family: var(--main-font), 'sans-serif';
     background-color: var(--background-color-primary);
 }
 
 
 body {
-    --main-font: 'MontserratRegular';
+    --main-font: 'DM sans';
+
 
 
     /* ----colors------ */
