@@ -23,6 +23,17 @@ Elke vrijdag houden we weer een standup waarbij we terugkijken naar de week om t
 - Alle issues moeten bij het assignen gelijk worden gelabeld met relevante labels.
 - De issues moeten een korte beschrijving bevatten van de functie
 
+#### DOR eisen
+- De issues's zijn gepokerd op waarde
+- Bevat de als gebruiker... wil ik... zodat.. format
+- Alle eisen waaraan het moet voldoen
+- bevat acceptatiecriteria
+
+#### DOD eisen
+- Alle beschreven functionaliteiten zijn uitgevoerd (acceptatiecriteria)
+- De functionaliteit is uitgebreidt getest
+- Er is een Merge request aangemaakt.
+
 # Branches
 - De branches die al gemerged of niet meer gebruikt worden verwijderen
 - De branche namen consistent houden aan FDND Agency richtlijnen
@@ -70,6 +81,7 @@ Het volgt de volgende git flow:
 Op deze manier is er een constante manier van werken.
 
 ![git-flow-4](https://github.com/user-attachments/assets/69468298-8604-420d-9a62-d4c7f79ce051)
+
 
 
 
