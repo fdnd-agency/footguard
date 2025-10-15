@@ -16,7 +16,6 @@ Elke maandag houden we een standup waarin we bespreken wat we deze week willen b
 Elke vrijdag houden we weer een standup waarbij we terugkijken naar de week om te kijken of we het doel hebben bereikt. Ook bespreken we wat eventueel volgende week beter kan.
 
 ## Projectboard
-
 - Issues's die worden opgepakt moeten eerst worden geclosed voordat je kan beginnen met een nieuwe issue. (alleen als het echt niet mogelijk is om de issue te sluiten omdat je wacht op feedback bijvoorbeeld. Dan mag je wel een nieuwe issue oppakken.)
 
 ### Issues
@@ -87,6 +86,7 @@ Het volgt de volgende git flow:
 Op deze manier is er een constante manier van werken.
 
 ![git-flow-4](https://github.com/user-attachments/assets/69468298-8604-420d-9a62-d4c7f79ce051)
+
 
 
 
