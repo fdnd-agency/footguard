@@ -25,14 +25,20 @@ Elke vrijdag houden we weer een standup waarbij we terugkijken naar de week om t
 
 #### DOR eisen
 - De issues's zijn gepokerd op waarde
-- Bevat de als gebruiker... wil ik... zodat.. format
-- Alle eisen waaraan het moet voldoen
-- bevat acceptatiecriteria
+- Bevat de 'als gebruiker... wil ik... zodat..' format
+- Bevat acceptatiecriteria
+- Alle relevante labels zijn toegevoegd
 
 #### DOD eisen
 - Alle beschreven functionaliteiten zijn uitgevoerd (acceptatiecriteria)
 - De functionaliteit is uitgebreidt getest
+  - A11y, tab, kleur, screenreader
+  - Performance
+  - HTML validator
+  - Reponsive en device test
+  - User test  
 - Er is een Merge request aangemaakt.
+  - De template van de merge request is zoveel mogelijk ingevuld.
 
 # Branches
 - De branches die al gemerged of niet meer gebruikt worden verwijderen
@@ -81,6 +87,7 @@ Het volgt de volgende git flow:
 Op deze manier is er een constante manier van werken.
 
 ![git-flow-4](https://github.com/user-attachments/assets/69468298-8604-420d-9a62-d4c7f79ce051)
+
 
 
 
