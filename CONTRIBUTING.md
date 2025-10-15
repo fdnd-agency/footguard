@@ -56,7 +56,7 @@ De issues, readme, projectboard en communicatie worden in het nederlands verwerk
 - Duidelijke omschrijving bij PR
 
 ## Assets
-- Foto's in assets duidelijke naamgeving (icoontjes ook bv hmburger-icon.png)
+- Foto's in assets duidelijke naamgeving (icoontjes ook bv hamburger-icon.png)
 - Gebruik maken van moderne formats zols webp en avif
 
 ## Componenten
@@ -86,6 +86,7 @@ Het volgt de volgende git flow:
 Op deze manier is er een constante manier van werken.
 
 ![git-flow-4](https://github.com/user-attachments/assets/69468298-8604-420d-9a62-d4c7f79ce051)
+
 
 
 
