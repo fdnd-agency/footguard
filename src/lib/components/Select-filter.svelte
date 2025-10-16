@@ -12,7 +12,8 @@
 <!-- https://github.com/sveltejs/kit/discussions/8499
  voor het sumbitten van een geselecteerde value in een selectbutton -->
 <form  class="{className}" method="get" bind:this={form}>
-  <select class="filter-button" name="filter" on:change={() => form.requestSubmit()}>
+<label for="filter-select" class="visually-hidden">Filter status</label>
+  <select id="filter-select" class="filter-button" name="filter" on:change={() => form.requestSubmit()}>
     <option value="nofilter">No filter</option>
     <option value="inprogress">In progress</option>
     <option value="finished">Finished</option>
@@ -45,4 +46,15 @@
         background-position: right 0.5rem center;
         background-size: 1rem;
     }
+
+
+.visually-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
 </style>
