@@ -1,19 +1,18 @@
 <script>
-
     import inprogress from "$lib/assets/svg/inprogress-icon.svg";
 
+    // add class to component
+    let className = '';
+    export { className as class };
 </script>
 
-
-
-<div class="in-progress-label paragraph">
-    <img src={inprogress} alt="" height="15" width="15">
+<figure class="in-progress-label paragraph {className}">
+    <img src={inprogress} alt="" height="15" width="15" />
     In progress
-</div>
-
+</figure>
 
 <style>
-       .in-progress-label {
+    .in-progress-label {
         display: flex;
         flex-direction: row;
         align-items: center;
