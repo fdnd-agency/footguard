@@ -1,19 +1,18 @@
 <script>
-
     import finished from "$lib/assets/svg/finished-icon.svg";
 
+    // add class to component
+    let className = '';
+    export { className as class };
 </script>
 
-
-
-<div class="finished-label paragraph">
-    <img src={finished} alt="" height="15" width="15">
+<figure class="finished-label paragraph {className}">
+    <img src={finished} alt="" height="15" width="15" />
     Finished
-</div>
-
+</figure>
 
 <style>
-       .finished-label {
+    .finished-label {
         display: flex;
         flex-direction: row;
         align-items: center;
