@@ -9,7 +9,7 @@
 	export { className as class };
 </script>
 
-<a href="/" class="card-button paragraph {className}">{buttonContent}</a>
+<a href="{hrefRoute}" class="card-button paragraph {className}">{buttonContent}</a>
 
 <style>
 	.card-button {
