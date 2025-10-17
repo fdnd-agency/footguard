@@ -1,12 +1,14 @@
 <script>
-    import favicon from '$lib/assets/favicon.svg';
-	import styleguide from '$lib/css/styleguide.css';
-	
+	import '$lib/css/styleguide.css'
+	import logo from '$lib/assets/img/footguard-icon.webp'
+
+
 	let { children } = $props();
 </script>
 
 <svelte:head>
-	<link rel="icon" href={favicon} />
+	<title>Footguard</title>
+	<link rel="icon" href="{logo}">
 </svelte:head>
 
 {@render children?.()}

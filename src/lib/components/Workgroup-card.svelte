@@ -4,9 +4,9 @@
     import MembersLabel from "$lib/partials/Members-label.svelte";
 
     // stock images members
-    import profileImageJaap from "$lib/assets/img/jaap-image.png";
-    import profileImageMatilde from "$lib/assets/img/matilde-image.png";
-    import profileImageSicco from "$lib/assets/img/sicco-image.png";
+    import profileImageJaap from "$lib/assets/img/jaap-image.webp";
+    import profileImageMatilde from "$lib/assets/img/matilde-image.webp";
+    import profileImageSicco from "$lib/assets/img/sicco-image.webp";
 
      // for custom button text
 	export let profileImage = profileImageJaap || profileImageMatilde || profileImageSicco;
