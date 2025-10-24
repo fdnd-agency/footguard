@@ -34,7 +34,7 @@
     }
 
     .member-card {
-        transition: background-color 0.2s ease;
+        transition: 0.2s ease;
         border-radius: 8px;
         width: fit-content;
         display: flex;
