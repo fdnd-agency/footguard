@@ -1,13 +1,16 @@
 <script>
 	// components
-	import ProgressLabel from "$lib/partials/In-progress-label.svelte";
+	import InprogressLabel from "$lib/partials/In-progress-label.svelte";
 	import FinishedLabel from "$lib/partials/Finished-label.svelte";
 	import NotStartedLabel from "$lib/partials/Not-started-label.svelte";
-	import CardButton from "$lib/partials/Card-button.svelte";
+	import CardButton from "$lib/partials/Action-button.svelte";
+	import ThemeLabel from "$lib/partials/Theme-label.svelte";
+
 
 	// icons
 	import authorIcon from "$lib/assets/svg/author-icon.svg";
 	import calenderIcon from "$lib/assets/svg/calendar-icon.svg";
+    import InProgressLabel from "$lib/partials/In-progress-label.svelte";
 
 	// Dynamic data variables
 	export let name;
@@ -15,17 +18,20 @@
 	export let Publisher;
 	export let publishing_year;
 	export let status;
+
+
+	// add class to component
+    let className = '';
+    export { className as class };
 </script>
 
 <article class="research-card">
 	<div class="research-card-data-container">
 
-		<div class="research-card-title-label">
 			<h2 class="research-card-title h4">
 				<span class="research-id">{article_id} # -</span>
 				{name}
 			</h2>
-		</div>
 
 		<div class="research-card-author-date-container">
 			<figure class="author-container">
@@ -35,17 +41,18 @@
 
 			<figure class="calender-container">
 				<img src="{calenderIcon}" class="calender-icon" alt="" height="15" width="15">
-				<figcaption class="calender-date">{publishing_year}</figcaption>
+				<time class="calender-date">{publishing_year}</time>
 			</figure>
 		</div>
 
 		<div class="action-container">
-			<ProgressLabel/>
-			<CardButton buttonContent="Continue" hrefRoute="/" class="display-none"/>
+			<InProgressLabel/>
+			<ThemeLabel themeName="Tempature"/>
+			<CardButton buttonContent="Continue" hrefRoute="/checklist" class="display-none"/>
 		</div>
 
 	</div>
-		<CardButton buttonContent="Continue" hrefRoute="/" class="hide-btn"/>
+		<CardButton buttonContent="Continue" hrefRoute="/checklist" class="hide-btn"/>
 </article>
 
 <style>
@@ -79,6 +86,7 @@
 		flex-direction: column;
 		justify-content: center;
 		gap: 0.5rem;
+		
 	}
 
 	.research-card-author-date-container {

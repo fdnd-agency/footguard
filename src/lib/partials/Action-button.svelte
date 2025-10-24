@@ -9,10 +9,10 @@
 	export { className as class };
 </script>
 
-<a href="{hrefRoute}" class="card-button paragraph {className}">{buttonContent}</a>
+<a href="{hrefRoute}" class="action-button paragraph {className}">{buttonContent}</a>
 
 <style>
-	.card-button {
+	.action-button {
 		background-color: var(--blue-700);
 		color: var(--main-text-color-light);
 		padding: 0.5rem;
@@ -20,5 +20,10 @@
 		width: fit-content;
 		white-space: nowrap;
 		font-size: clamp(10px, 1.5vw, 16px);
+		transition: 0.2s ease-in-out;
+
+		&:hover {
+		background-color: var(--blue-500);
+		}
 	}
 </style>

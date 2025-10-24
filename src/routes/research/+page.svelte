@@ -5,13 +5,32 @@
 	// Components
 	import Navbar from "$lib/components/Navbar.svelte";
 	import GradingArticleCard from "$lib/components/Grading-article-card.svelte";
-	import FilterButton from "$lib/components/Select-filter.svelte";
+	import FilterButton from "$lib/partials/Filter-button.svelte";
 
 	// fetch data
 	let { data } = $props();
 	const gradings = data.gradings;
 	const filter = data.filter;
+
+	// values for status 
+  	let status = [
+    { value: "allstatus", text: "Status" },
+    { value: "inprogress", text: "In progress" },
+    { value: "finished", text: "Finished" },
+    { value: "notstarted", text: "Not started" }
+  ];
+
+	// custom value moeten uit theme komen van elk onderzoek uit database   
+    let theme = [
+	{ value: "alltheme", text: "Theme" },
+    { value: "tempature", text: "Tempature" },
+    { value: "color", text: "Color" },
+    { value: "numbness", text: "Numbness" },
+    { value: "age", text: "Age" }
+  ];
+
 </script>
+
 
 <div class="main-container">
 
@@ -21,7 +40,12 @@
 
         <h1 class="main-container-research-title">Gradings</h1>
 
- 		<FilterButton class="filter-form-container"/>
+		<!-- https://github.com/sveltejs/kit/discussions/8499
+		voor het sumbitten van een geselecteerde value in een selectbutton -->
+		<form class="filter-form-container" method="get" bind:this={form}>
+  			<FilterButton labelText="Filter status" selectValues={status}/>
+			<FilterButton labelText="Filter theme" selectValues={theme}/>
+		</form>
 
         <div class="research-cards-container">
             {#each gradings as grading}
