@@ -14,16 +14,16 @@
   <section class="progress-section">
     <dl class="progress-row">
       <dt class="progress-label">You</dt>
-      <dd class="progress-bar-container">
-        <span class="progress-bar" style="width: {yourProgress}%"></span>
+      <dd class="progress-bar-container blue-bg">
+        <span class="progress-bar blue" style="width: {yourProgress}%"></span>
       </dd>
       <dd class="progress-value">{yourProgress}%</dd>
     </dl>
 
     <dl class="progress-row">
       <dt class="progress-label">Assessor 2</dt>
-      <dd class="progress-bar-container">
-        <span class="progress-bar assessor" style="width: {assessor2Progress}%"
+      <dd class="progress-bar-container green-bg">
+        <span class="progress-bar green" style="width: {assessor2Progress}%"
         ></span>
       </dd>
       <dd class="progress-value">{assessor2Progress}%</dd>
@@ -105,22 +105,32 @@
 
   .progress-bar-container {
     height: 8px;
-    background: var(--grey-100);
     border-radius: 9999px;
     overflow: hidden;
     position: relative;
   }
 
+  .blue-bg {
+    background: var(--blue-100);
+  }
+
+  .green-bg {
+    background: var(--green-100);
+  }
+
   .progress-bar {
     display: block;
     height: 100%;
-    background: var(--blue-400);
     border-radius: 9999px;
     transition: width 0.3s ease;
   }
 
-  .progress-bar.assessor {
-    background: var(--green-300);
+  .progress-bar.blue {
+    background: var(--blue-500);
+  }
+
+  .progress-bar.green {
+    background: var(--green-500);
   }
 
   .progress-value {
