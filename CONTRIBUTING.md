@@ -7,6 +7,35 @@ https://www.figma.com/design/FcenWarr4zCNYt1xSufqHv/Sprint-14-Footguard?node-id=
 # Taakverdeling
 Teamleden pakken openstaande issues zelfstandig op. We wijzen alleen issues toe aan de leden die daadwerkelijk aan deze issues werken. Zo is altijd zichtbaar wie met welke taak bezig is en welke issues nog openstaan. Dit maakt het ook voor nieuwe teamleden eenvoudig om in het project te starten.
 
+# Issue-structuur
+
+Om overzicht te houden gebruiken we een duidelijke structuur met **Epics** en **subissues**.
+
+## Hoofdissue (Epic)
+- Vertegenwoordigt een groter onderdeel of feature.
+- Label: `Epic`
+- Beschrijving bevat **acceptatiecriteria**.
+- Elk acceptatiecriterium wordt uitgewerkt in een subissue.
+
+## Subissues
+- Worden aangemaakt voor elk acceptatiecriterium.
+- Gelinkt aan het hoofdissue.
+- Beschrijving bevat details, takenlijst en eventuele referenties.
+- Alle subissues moeten afgerond zijn voordat de Epic gesloten kan worden.
+
+## Voorbeeld
+
+**Epic:** `Gebruiker kan inloggen`  
+**Labels:** `Epic`, `Feature`  
+**Acceptatiecriteria:**
+- Loginpagina met e-mail en wachtwoord
+- Foutmelding bij verkeerde gegevens
+- Redirect naar dashboard na succesvolle login
+
+**Subissues:**
+1. `Loginpagina aanmaken` – pagina, route en styling
+2. `Validatie inloggegevens` – check en foutmelding
+3. `Redirect na login` – naar `/dashboard` en testen
 # Projectmatige afspraken
 
 ## Standup
@@ -87,6 +116,7 @@ Het volgt de volgende git flow:
 Op deze manier is er een constante manier van werken.
 
 ![git-flow-4](https://github.com/user-attachments/assets/69468298-8604-420d-9a62-d4c7f79ce051)
+
 
 
 
