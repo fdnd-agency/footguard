@@ -3,12 +3,10 @@
     padding: 0;
 }
 
-
 @font-face {
     font-family: 'MontserratRegular';
     src: url(/src/lib/assets/fonts/Montserrat-VariableFont_wght.ttf);
 }
-
 
 html,
 body {
@@ -16,18 +14,15 @@ body {
     background-color: var(--background-color-primary);
 }
 
-
 body {
     --main-font: 'MontserratRegular';
 
-
     /* ----colors------ */
-
-    /* Primary colors */
     --blue-700: hsl(201, 100%, 19%);
     --blue-600: hsl(201, 99%, 27%);
     --blue-500: hsl(201, 99%, 33%);
     --blue-400: hsl(201, 99%, 38%); /* base color*/
+    --blue-400: hsl(201, 99%, 38%); 
     --blue-300: hsl(201, 56%, 64%);
     --blue-200: hsl(201, 62%, 78%);
     --blue-100: hsl(202, 62%, 90%);
@@ -37,6 +32,7 @@ body {
     --red-600: hsl(3, 65%, 30%);
     --red-500: hsl(4, 65%, 40%);
     --red-400: hsl(5, 65%, 53%); /* base color*/
+    --red-400: hsl(5, 65%, 53%);
     --red-300: hsl(6, 65%, 63%);
     --red-200: hsl(7, 65%, 75%);
     --red-100: hsl(8, 64%, 89%);
@@ -45,6 +41,7 @@ body {
     --orange-600: hsl(34, 82%, 34%);
     --orange-500: hsl(34, 81%, 44%);
     --orange-400: hsl(34, 78%, 56%); /* base color*/
+    --orange-400: hsl(34, 78%, 56%);
     --orange-300: hsl(34, 83%, 66%);
     --orange-200: hsl(34, 83%, 77%);
     --orange-100: hsl(34, 97%, 88%);
@@ -54,18 +51,21 @@ body {
     --green-600: hsl(152, 100%, 14%);
     --green-500: hsl(152, 100%, 18%);
     --green-400: hsl(152, 100%, 30%); /* base color*/
+    --green-400: hsl(152, 100%, 30%);
     --green-300: hsl(152, 100%, 38%);
     --green-200: hsl(140, 100%, 43%);
     --green-100: hsl(140, 100%, 65%);
 
     /* Neutral colors */
     --grey-700: hsl(0 0% 0%); /* main font color */
+    --grey-700: hsl(0 0% 0%); 
     --grey-600: hsl(240 2% 10%);
     --grey-500: hsl(220 3.9% 15.1%);
     --grey-400: hsl(210 3.7% 21.2%); /* base color*/
+    --grey-400: hsl(210 3.7% 21.2%);
     --grey-300: hsl(210 3.9% 40%);
     --grey-200: hsl(213 3.9% 55.1%);
-    --grey-100: hsl(214 4.6% 70%);
+    --grey-100: hsl(220, 4%, 85%);
 
     /* background color */
     --background-color-primary: hsl(0, 0%, 100%);
@@ -76,10 +76,7 @@ body {
 
 }
 
-
-
 /* -----Typografie------ */
-
 /* H1  */
 .h1, .main-title {
     font-family: var(--main-font);
@@ -139,9 +136,6 @@ body {
     color: var(--grey-700);
 }
 
-
-
-
 /*  remove basic element styling */
 a {
     text-decoration: none;
@@ -153,10 +147,3 @@ button {
     border: none;
     text-decoration: none;
 }
-
-
-
-
-
-
-
