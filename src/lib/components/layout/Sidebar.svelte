@@ -58,7 +58,6 @@
 
   @media (min-width: 1024px) {
     aside {
-      position: static;
       transform: translateX(0);
       box-shadow: none;
     }
