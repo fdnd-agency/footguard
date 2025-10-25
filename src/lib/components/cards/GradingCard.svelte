@@ -31,27 +31,25 @@
   </section>
 
   <footer class="card-footer">
-    <button class="button-continue" on:click type="button">Continue</button>
+    <button class="button-continue" type="button">Continue</button>
   </footer>
 </article>
 
 <style>
   .grading-card {
     background: var(--background-color-primary);
-    border-radius: 0.75rem;
-    padding: 1.25rem;
-    box-shadow: var(--shadow-sm);
-    transition: box-shadow 0.2s ease;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px hsla(210, 12%, 15%, 0.08);
+    transition:
+      box-shadow 0.2s ease,
+      transform 0.2s ease;
+  }
 
-    @media (min-width: 640px) {
-      border-radius: 1rem;
-      padding: 1.75rem;
-    }
-
-    @media (hover: hover) {
-      &:hover {
-        box-shadow: var(--shadow-md);
-      }
+  @media (hover: hover) {
+    .grading-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px hsla(210, 12%, 15%, 0.12);
     }
   }
 
@@ -59,32 +57,18 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 1.25rem;
     gap: 0.75rem;
-
-    @media (min-width: 640px) {
-      margin-bottom: 1.5rem;
-      gap: 1rem;
-    }
+    margin-bottom: 1.25rem;
   }
 
   .card-title {
-    color: var(--main-text-color);
+    color: var(--grey-700);
     font-weight: 600;
     font-size: 1.2rem;
     line-height: 1.4;
     flex: 1;
-    min-width: 0;
     margin: 0;
     word-wrap: break-word;
-
-    @media (min-width: 640px) {
-      font-size: 1.25rem;
-    }
-
-    @media (min-width: 1024px) {
-      font-size: 1.3rem;
-    }
   }
 
   .badge {
@@ -95,13 +79,6 @@
     padding: 0.5rem 1rem;
     border-radius: 0.5rem;
     white-space: nowrap;
-    flex-shrink: 0;
-
-    @media (min-width: 640px) {
-      font-size: 0.875rem;
-      padding: 0.5rem 1rem;
-      border-radius: 0.5rem;
-    }
   }
 
   .progress-section {
@@ -109,11 +86,6 @@
     flex-direction: column;
     gap: 1rem;
     margin-bottom: 1.25rem;
-
-    @media (min-width: 640px) {
-      gap: 1.25rem;
-      margin-bottom: 1.5rem;
-    }
   }
 
   .progress-row {
@@ -122,27 +94,13 @@
     align-items: center;
     gap: 0.5rem;
     margin: 0;
-
-    @media (min-width: 480px) {
-      grid-template-columns: 80px 1fr 50px;
-      gap: 0.75rem;
-    }
-
-    @media (min-width: 640px) {
-      grid-template-columns: 100px 1fr 60px;
-      gap: 1rem;
-    }
   }
 
   .progress-label {
     font-size: 0.875rem;
     font-weight: 600;
-    color: var(--main-text-color);
+    color: var(--grey-700);
     margin: 0;
-
-    @media (min-width: 640px) {
-      font-size: 1rem;
-    }
   }
 
   .progress-bar-container {
@@ -150,12 +108,7 @@
     background: var(--grey-100);
     border-radius: 9999px;
     overflow: hidden;
-    margin: 0;
     position: relative;
-
-    @media (min-width: 640px) {
-      height: 10px;
-    }
   }
 
   .progress-bar {
@@ -164,24 +117,19 @@
     background: var(--blue-400);
     border-radius: 9999px;
     transition: width 0.3s ease;
-    will-change: width;
+  }
 
-    &.assessor {
-      background: var(--green-300);
-    }
+  .progress-bar.assessor {
+    background: var(--green-300);
   }
 
   .progress-value {
     font-size: 0.875rem;
     font-weight: 600;
-    color: var(--main-text-color);
+    color: var(--grey-700);
     text-align: right;
     margin: 0;
     font-variant-numeric: tabular-nums;
-
-    @media (min-width: 640px) {
-      font-size: 1rem;
-    }
   }
 
   .card-footer {
@@ -196,35 +144,27 @@
     border-radius: 0.5rem;
     border: none;
     cursor: pointer;
-    transition:
-      background-color 0.2s ease,
-      transform 0.1s ease;
     font-weight: 700;
     font-size: 1rem;
-    line-height: 1;
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
+    transition:
+      background 0.2s ease,
+      transform 0.1s ease;
+  }
 
-    @media (min-width: 640px) {
-      padding: 0.75rem 1.5rem;
-      font-weight: 800;
-      font-size: 1rem;
+  @media (hover: hover) {
+    .button-continue:hover {
+      background: var(--blue-600);
+      transform: translateY(-1px);
     }
+  }
 
-    @media (hover: hover) {
-      &:hover {
-        background: var(--blue-600);
-      }
-    }
+  .button-continue:active {
+    background: var(--blue-700);
+    transform: scale(0.98);
+  }
 
-    &:active {
-      transform: scale(0.98);
-      background: var(--blue-700);
-    }
-
-    &:focus-visible {
-      outline: 2px solid var(--blue-500);
-      outline-offset: 2px;
-    }
+  .button-continue:focus-visible {
+    outline: 2px solid var(--blue-500);
+    outline-offset: 2px;
   }
 </style>

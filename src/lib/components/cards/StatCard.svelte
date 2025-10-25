@@ -43,18 +43,19 @@
   .stat-card {
     background: linear-gradient(
       135deg,
-      var(--blue-100) 0%,
+      var(--blue-200) 0%,
       var(--blue-300) 100%
     );
     border-radius: 1rem;
     padding: 1.5rem;
-    transition: all 0.2s;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
   }
 
   @media (min-width: 640px) {
     .stat-card:hover {
       transform: translateY(-2px);
-      box-shadow: var(--shadow-md);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
     }
   }
 
@@ -77,7 +78,7 @@
     border: none;
     padding: 0.25rem;
     cursor: pointer;
-    color: var(--blue-500);
+    color: var(--blue-700);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -87,7 +88,7 @@
 
   .icon-button:hover,
   .icon-button:focus-visible {
-    color: var(--blue-700);
+    color: var(--blue-600);
   }
 
   .icon-button:focus-visible {
