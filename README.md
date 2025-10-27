@@ -25,11 +25,12 @@ en eficiënter te maken.
 # 📊 Datamodel
 
 ```mermaid
+
 erDiagram
     USERINFO }o--o{ ARTICLES : many_to_many
     USERINFO }o--|| WORKGROUPS : many_to_one
     ARTICLES }o--|| WORKGROUPS : many_to_one
-    ARTICLES ||--|| CHECKLIST : one_to_one
+    ARTICLES ||--|| INSPECTIONS : one_to_one
     INSPECTIONS }o--o{ CHECKLIST : one_to_many
 
 
@@ -40,15 +41,16 @@ erDiagram
         string email
         string institute
         string photo
-        string role "admin, bestuur, beoordeler"
+        string role "admin, bestuur, assesor"
         JSON assigned_articles "reeks van article_id die assigned zijn aan deze user (JSON object)"
     }
 
   ARTICLES {
         int article_id
-        string name
+        string title
         string publisher
         number publishing_year
+        string theme
         string pdf "dit wordt de path van de pdf"
         int workgroup_id "id van een toegewezen workgroup"
         string status
@@ -64,8 +66,8 @@ erDiagram
     INSPECTIONS {
         int inspection_id
         int article_id
+        in user_id
         JSON checklist_id
-    
 }
 
 CHECKLIST {
