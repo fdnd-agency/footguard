@@ -148,6 +148,8 @@
       </header>
 
       <!-- Dashboard stats -->
+      <h2 class="sub-title">Your stats</h2>
+      <p class="page-subtitle">View your personal stats below.</p>
       <section class="stats-grid">
         {#each dashboardStats as stat (stat.id)}
           <StatCard title={stat.title} value={stat.value} />
@@ -155,6 +157,8 @@
       </section>
 
       <!-- Continue grading -->
+      <h2 class="sub-title">Continue grading</h2>
+      <p class="page-subtitle">Pick up where you left off.</p>
       <section class="section">
         <div class="grading-grid">
           {#each continueGradingItems as item (item.id)}
@@ -216,14 +220,12 @@
     padding: 1.5rem 1rem;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
     margin: 2rem;
     max-width: 100%;
 
     /* Tablet */
     @media (min-width: 640px) {
       padding: 2rem 2rem;
-      gap: 2.5rem;
       max-width: 700px;
       margin: 1rem auto;
     }
@@ -232,7 +234,7 @@
     @media (min-width: 1024px) {
       padding: 2rem 3rem;
       max-width: 100%;
-      gap: 3rem;
+      gap: 2rem;
       margin: 0;
       margin-left: 15rem;
     }
@@ -251,7 +253,7 @@
       justify-content: space-between;
       align-items: flex-start;
       gap: 1.5rem;
-      margin-bottom: 2.5rem;
+      margin-bottom: 0;
       padding-bottom: 1.5rem;
     }
   }
@@ -284,7 +286,7 @@
     line-height: 1.6;
 
     @media (min-width: 640px) {
-      font-size: 0.9375rem;
+      font-size: 0.9rem;
     }
   }
 
@@ -359,6 +361,18 @@
       background: var(--blue-600);
       transform: translateY(0);
       box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    }
+  }
+
+  .sub-title {
+    font-size: 1.3rem;
+    color: var(--grey-700);
+    margin: 0;
+    line-height: 1.6;
+    margin-bottom: 0;
+
+    @media (min-width: 640px) {
+      font-size: 1.5rem;
     }
   }
 
