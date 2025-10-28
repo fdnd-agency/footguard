@@ -1,4 +1,6 @@
 <script>
+  import { onMount } from "svelte";
+
   import IWGDF from "$lib/assets/IWGDF-logo.png";
 
   // Components
