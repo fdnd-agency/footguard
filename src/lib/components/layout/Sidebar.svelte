@@ -10,7 +10,15 @@
 <aside class:open={sidebarOpen} id="sidebar">
   <!-- Sidebar header with logo -->
   <header class="sidebar-header">
-    <img src={logoSrc} alt="IWGDF Logo" class="logo-img" />
+    <img
+      src={logoSrc}
+      alt="IWGDF Logo"
+      width="120"
+      height="40"
+      decoding="async"
+      fetchpriority="high"
+      class="logo-img"
+    />
   </header>
 
   <!-- Navigation menu -->
@@ -42,9 +50,11 @@
     <span class="user-avatar">
       <img
         src="https://iwgdfguidelines.org/wp-content/uploads/2023/05/jvn-highres-square-scaled.jpg"
-        alt=""
+        alt="Profielfoto gebruiker"
         width="50"
         height="50"
+        loading="lazy"
+        decoding="async"
         class="avatar-img"
       />
     </span>
@@ -206,6 +216,7 @@
   /* Avatar image styling */
   .avatar-img {
     border-radius: 9999px;
+    background-color: var(--grey-100);
   }
 
   /* User info text container */

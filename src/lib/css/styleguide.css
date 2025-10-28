@@ -4,9 +4,12 @@
 }
 
 @font-face {
-    font-family: 'MontserratRegular';
-    src: url(/src/lib/assets/fonts/Montserrat-VariableFont_wght.ttf);
+    font-family: 'Montserrat';
+    src: url(/src/lib/assets/fonts/Montserrat-VariableFont_wght.ttf) format('truetype');
+    font-weight: 100 900;
+    font-display: swap;
 }
+
 
 html,
 body {
