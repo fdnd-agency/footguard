@@ -1,124 +1,87 @@
 <script>
   export let title;
   export let value;
+  export let variant = "default";
 </script>
 
-<article class="stat-card">
-  <header class="stat-header">
-    <h3 class="stat-title">{title}</h3>
-    <button class="icon-button" type="button">
-      <svg
-        width="20"
-        height="20"
-        viewBox="0 0 20 20"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        role="img"
-        aria-labelledby="search-icon-title"
-      >
-        <title id="search-icon-title">More information</title>
-        <path
-          d="M13.5858 13.5858C15.3668 11.8047 15.3668 8.99504 13.5858 7.21396C11.8047 5.43288 8.99504 5.43288 7.21396 7.21396C5.43288 8.99504 5.43288 11.8047 7.21396 13.5858C8.99504 15.3668 11.8047 15.3668 13.5858 13.5858Z"
-          stroke="currentColor"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-        <path
-          d="M14 14L18 18"
-          stroke="currentColor"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-      </svg>
-      <span class="visually-hidden">More information about {title}</span>
-    </button>
-  </header>
-
+<article class="stat-card" class:primary={variant === "primary"}>
+  <h3 class="stat-title">{title}</h3>
   <p class="stat-value">{value}</p>
 </article>
 
 <style>
+  /* Main stat card container */
   .stat-card {
+    background: var(--background-color-primary);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    transition: all 0.2s ease;
+    box-shadow: 0 0.25rem 0.75rem hsla(213, 12%, 15%, 0.08);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    aspect-ratio: 1;
+  }
+
+  /* Primary variant with gradient background */
+  .stat-card.primary {
     background: linear-gradient(
       135deg,
       var(--blue-200) 0%,
       var(--blue-300) 100%
     );
-    border-radius: 1rem;
-    padding: 1.5rem;
-    transition: all 0.2s ease;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
   }
 
-  @media (min-width: 640px) {
+  /* Arrow icon in top right corner */
+  .stat-card::after {
+    content: "";
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='12' cy='12' r='10' stroke='%23003d82' stroke-width='1.5'/%3E%3Cpath d='M9 15L15 9M15 9H11M15 9V13' stroke='%23003d82' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    transition: transform 0.2s ease;
+  }
+
+  @media (min-width: 768px) {
     .stat-card:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 0.375rem 1.125rem hsla(213, 12%, 15%, 0.12);
+    }
+
+    .stat-card:hover::after {
+      transform: scale(1.1);
     }
   }
 
-  .stat-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.75rem;
-  }
-
+  /* Stat card title */
   .stat-title {
-    font-size: 0.875rem;
+    font-size: 1rem;
     font-weight: 600;
     color: var(--blue-700);
     margin: 0;
+    padding-right: 2rem;
+    line-height: 1.4;
   }
 
-  .icon-button {
-    background: transparent;
-    border: none;
-    padding: 0.25rem;
-    cursor: pointer;
-    color: var(--blue-700);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: color 0.2s;
-    border-radius: 0.25rem;
-  }
-
-  .icon-button:hover,
-  .icon-button:focus-visible {
-    color: var(--blue-600);
-  }
-
-  .icon-button:focus-visible {
-    outline: 2px solid var(--blue-500);
-    outline-offset: 2px;
-  }
-
+  /* Stat card value (large number) */
   .stat-value {
-    font-size: 2rem;
+    font-size: 3rem;
     font-weight: 700;
     color: var(--blue-700);
     line-height: 1;
     margin: 0;
-  }
 
-  @media (min-width: 640px) {
-    .stat-value {
-      font-size: 2.5rem;
+    @media (min-width: 768px) {
+      font-size: 3.5rem;
     }
-  }
 
-  .visually-hidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
+    @media (min-width: 1024px) {
+      font-size: 4rem;
+    }
   }
 </style>

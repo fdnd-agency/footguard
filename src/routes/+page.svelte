@@ -4,7 +4,6 @@
   // Components
   import Sidebar from "$lib/components/layout/Sidebar.svelte";
   import MobileHeader from "$lib/components/layout/MobileHeader.svelte";
-  import Article from "$lib/components/cards/ArticleCard.svelte";
   import GradingCard from "$lib/components/cards/GradingCard.svelte";
   import StatCard from "$lib/components/cards/StatCard.svelte";
   import CircleGraph from "$lib/components/charts/CircleGraph.svelte";
@@ -35,6 +34,7 @@
       id: 1,
       title: "Total papers",
       value: "15",
+      variant: "primary",
     },
     {
       id: 2,
@@ -77,17 +77,43 @@
   ];
 
   const navItems = [
-    { name: "Dashboard", subItems: "Sub-items here…" },
-    { name: "Grading", subItems: "Sub-items here…" },
-    { name: "Results", subItems: "Sub-items here…" },
-    { name: "Admin", subItems: "Sub-items here…" },
+    {
+      name: "Dashboard",
+      subItems: [
+        { name: "Overview", href: "/dashboard" },
+        { name: "Statistics", href: "/dashboard/stats" },
+      ],
+    },
+    {
+      name: "Grading",
+      subItems: [
+        { name: "Active papers", href: "/grading/active" },
+        { name: "Completed papers", href: "/grading/completed" },
+        { name: "Pending review", href: "/grading/pending" },
+      ],
+    },
+    {
+      name: "Results",
+      subItems: [
+        { name: "View all", href: "/results" },
+        { name: "Export data", href: "/results/export" },
+      ],
+    },
+    {
+      name: "Admin",
+      subItems: [
+        { name: "Users", href: "/admin/users" },
+        { name: "Settings", href: "/admin/settings" },
+      ],
+    },
   ];
 </script>
 
-<!-- <a href="#main-content" class="skip-link">Skip navigation</a> -->
+<!-- Skip to main content link (for accessibility) -->
+<a href="#main-content" class="skip-link">Skip to main content</a>
 
+<!-- Main layout container -->
 <div class="dashboard">
-  <!-- Sidebar -->
   <Sidebar
     bind:sidebarOpen
     {navItems}
@@ -96,70 +122,47 @@
     userRole="Researcher"
   />
 
-  <!-- Main content -->
   <main id="main-content">
-    <!-- Mobile header -->
     <MobileHeader
       logoSrc={IWGDF}
       onMenuClick={() => (sidebarOpen = !sidebarOpen)}
     />
 
+    <!-- Main content area -->
     <section class="content">
+      <!-- Page header with title and actions -->
       <header class="dashboard-header">
         <hgroup class="header-content">
           <h1 class="page-title">Welcome back, Admin</h1>
           <p class="page-subtitle">Continue grading and track your progress.</p>
         </hgroup>
         <nav class="header-actions">
-          <button class="button-secondary" type="button">
-            <svg
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-              <polyline points="7 10 12 15 17 10"></polyline>
-              <line x1="12" y1="15" x2="12" y2="3"></line>
-            </svg>
-            Export
-          </button>
-          <button class="button-primary" type="button">
-            <svg
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"
-              ></polygon>
-            </svg>
-            Filter
-          </button>
+          <input type="search" placeholder="Search..." class="search-input" />
+          <button class="button-secondary" type="button"
+            >Export dashboard</button
+          >
         </nav>
       </header>
 
-      <!-- Dashboard stats -->
-      <h2 class="sub-title">Your stats</h2>
-      <p class="page-subtitle">View your personal stats below.</p>
-      <section class="stats-grid">
-        {#each dashboardStats as stat (stat.id)}
-          <StatCard title={stat.title} value={stat.value} />
-        {/each}
+      <!-- Dashboard statistics section -->
+      <section>
+        <h2 class="section-title">Your stats</h2>
+        <p class="section-subtitle">View your personal stats below.</p>
+        <div class="stats-grid">
+          {#each dashboardStats as stat (stat.id)}
+            <StatCard
+              title={stat.title}
+              value={stat.value}
+              variant={stat.variant}
+            />
+          {/each}
+        </div>
       </section>
 
-      <!-- Continue grading -->
-      <h2 class="sub-title">Continue grading</h2>
-      <p class="page-subtitle">Pick up where you left off.</p>
-      <section class="section">
+      <!-- Continue grading section -->
+      <section>
+        <h2 class="section-title">Continue grading</h2>
+        <p class="section-subtitle">Pick up where you left off.</p>
         <div class="grading-grid">
           {#each continueGradingItems as item (item.id)}
             <GradingCard {...item} />
@@ -167,27 +170,27 @@
         </div>
       </section>
 
-      <!-- Papers progress section -->
-      <section class="section">
+      <!-- Bottom section: Papers progress and Compare grading -->
+      <section>
         <div class="bottom-grid">
-          <!-- Papers progress -->
-          <section class="papers-progress-card">
-            <h2 class="section-title">Papers progress</h2>
+          <!-- Papers progress card -->
+          <article class="card">
+            <h2 class="card-title">Papers progress</h2>
             <CircleGraph />
-          </section>
+          </article>
 
-          <!-- Compare grading -->
-          <div class="compare-grading-card">
-            <h2 class="section-title">Compare grading</h2>
+          <!-- Compare grading card -->
+          <article class="card">
+            <h2 class="card-title">Compare grading</h2>
             <div class="compare-list">
               {#each compareGradingItems as item (item.id)}
                 <div class="compare-item">
                   <p class="compare-text">{item.title}</p>
-                  <button class="button-compare">Compare</button>
+                  <button class="button-outline" type="button">Compare</button>
                 </div>
               {/each}
             </div>
-          </div>
+          </article>
         </div>
       </section>
     </section>
@@ -195,7 +198,38 @@
 </div>
 
 <style>
-  /* Dashboard layout */
+  /* Skip link for keyboard navigation */
+  .skip-link {
+    position: absolute;
+    top: -100%;
+    left: 1rem;
+    z-index: 100;
+    background: var(--orange-400);
+    color: var(--background-color-primary);
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-decoration: none;
+    transition: top 0.2s ease;
+    box-shadow: 0 0.25rem 0.75rem hsla(213, 12%, 15%, 0.15);
+  }
+
+  .skip-link:focus {
+    top: 1rem;
+    outline: 3px solid var(--blue-500);
+    outline-offset: 2px;
+  }
+
+  .skip-link:hover {
+    background: var(--blue-400);
+  }
+
+  .skip-link:active {
+    transform: scale(0.98);
+  }
+
+  /* Main dashboard layout */
   .dashboard {
     display: flex;
     min-height: 100vh;
@@ -207,6 +241,7 @@
     );
   }
 
+  /* Main content container */
   main {
     flex: 1;
     display: flex;
@@ -214,63 +249,61 @@
     width: 100%;
   }
 
-  /* Content */
+  /* Content wrapper with responsive spacing */
   .content {
     flex: 1;
-    padding: 1.5rem 1rem;
     display: flex;
     flex-direction: column;
-    margin: 2rem;
+    margin: 1rem;
     max-width: 100%;
+    gap: 2rem;
 
-    /* Tablet */
-    @media (min-width: 640px) {
-      padding: 2rem 2rem;
-      max-width: 700px;
+    @media (min-width: 768px) {
+      padding: 2rem;
+      max-width: 43.75rem;
       margin: 1rem auto;
     }
 
-    /* Desktop */
     @media (min-width: 1024px) {
       padding: 2rem 3rem;
       max-width: 100%;
-      gap: 2rem;
-      margin: 0;
-      margin-left: 15rem;
+      margin: 0 0 0 15rem;
     }
   }
 
+  /* Page header container */
   .dashboard-header {
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
-    margin-bottom: 2rem;
     padding-bottom: 1.25rem;
-    border-bottom: 1px solid var(--grey-200);
 
-    @media (min-width: 640px) {
+    @media (min-width: 768px) {
       flex-direction: row;
       justify-content: space-between;
       align-items: flex-start;
       gap: 1.5rem;
-      margin-bottom: 0;
       padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--grey-200);
     }
   }
 
+  /* Header text content area */
   .header-content {
     flex: 1;
     min-width: 0;
   }
 
+  /* Main page title */
   .page-title {
+    font-size: 1.5rem;
     font-weight: 700;
     color: var(--grey-700);
     margin: 0 0 0.5rem 0;
     line-height: 1.4;
     letter-spacing: -0.02em;
 
-    @media (min-width: 640px) {
+    @media (min-width: 768px) {
       font-size: 1.75rem;
     }
 
@@ -279,30 +312,59 @@
     }
   }
 
+  /* Page subtitle text */
   .page-subtitle {
-    font-size: 1rem;
+    font-size: 0.875rem;
     color: var(--grey-600);
     margin: 0;
     line-height: 1.6;
-
-    @media (min-width: 640px) {
-      font-size: 0.9rem;
-    }
   }
 
+  /* Header actions container */
   .header-actions {
     display: flex;
     gap: 0.75rem;
     width: 100%;
 
-    @media (min-width: 640px) {
+    @media (min-width: 768px) {
       width: auto;
       flex-shrink: 0;
     }
   }
 
-  .button-secondary,
-  .button-primary {
+  /* Search input field */
+  .search-input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    border: 1px solid var(--grey-300);
+    background: var(--background-color-primary);
+    color: var(--grey-700);
+    transition: all 0.2s ease;
+
+    @media (min-width: 768px) {
+      flex: 0 0 auto;
+      min-width: 15.625rem;
+    }
+  }
+
+  .search-input::placeholder {
+    color: var(--grey-500);
+  }
+
+  .search-input:hover {
+    border-color: var(--grey-400);
+  }
+
+  .search-input:focus {
+    outline: none;
+    border-color: var(--blue-500);
+    box-shadow: 0 0 0 3px hsla(213, 100%, 50%, 0.1);
+  }
+
+  /* Secondary button styling */
+  .button-secondary {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -314,117 +376,106 @@
     cursor: pointer;
     transition: all 0.2s ease;
     white-space: nowrap;
-    border: none;
     flex: 1;
-
-    @media (min-width: 640px) {
-      flex: 0 0 auto;
-      padding: 0.625rem 1.125rem;
-    }
-
-    svg {
-      flex-shrink: 0;
-    }
-  }
-
-  .button-secondary {
     background: var(--background-color-primary);
     color: var(--grey-700);
     border: 1px solid var(--grey-300);
+  }
 
-    &:hover {
-      background: var(--grey-100);
-      border-color: var(--grey-400);
-      color: var(--grey-600);
-      transform: translateY(-1px);
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    }
-
-    &:active {
-      transform: translateY(0);
-      box-shadow: none;
+  @media (min-width: 768px) {
+    .button-secondary {
+      flex: 0 0 auto;
     }
   }
 
-  .button-primary {
-    background: var(--blue-500);
-    color: white;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-
-    &:hover {
-      background: var(--blue-400);
-      transform: translateY(-1px);
-      box-shadow: 0 4px 8px rgba(59, 130, 246, 0.2);
-    }
-
-    &:active {
-      background: var(--blue-600);
-      transform: translateY(0);
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-    }
+  .button-secondary:hover {
+    background: var(--grey-100);
+    border-color: var(--grey-400);
+    transform: translateY(-1px);
   }
 
-  .sub-title {
-    font-size: 1.3rem;
+  .button-secondary:active {
+    transform: translateY(0);
+  }
+
+  .button-secondary:focus-visible {
+    outline: 3px solid var(--blue-500);
+    outline-offset: 2px;
+  }
+
+  /* Section title styling */
+  .section-title {
+    font-size: 1.25rem;
+    font-weight: 600;
     color: var(--grey-700);
-    margin: 0;
-    line-height: 1.6;
-    margin-bottom: 0;
+    margin: 0 0 0.5rem 0;
+    line-height: 1.4;
 
-    @media (min-width: 640px) {
+    @media (min-width: 768px) {
       font-size: 1.5rem;
     }
   }
 
-  /* Dashboard stats grid */
+  /* Section subtitle styling */
+  .section-subtitle {
+    font-size: 0.875rem;
+    color: var(--grey-600);
+    margin: 0 0 1rem 0;
+    line-height: 1.6;
+  }
+
+  /* Stats grid layout */
   .stats-grid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+    grid-template-columns: repeat(2, minmax(8.75rem, 10rem));
+    gap: 1rem;
+    justify-content: start;
+    width: 100%;
 
-    @media (min-width: 640px) {
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(4, minmax(10rem, 11.25rem));
+      gap: 1.25rem;
     }
   }
 
-  /* Grading cards grid */
+  /* Grading cards grid layout */
   .grading-grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: 1.5rem;
 
-    @media (min-width: 640px) {
-      grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(auto-fit, minmax(31.25rem, 1fr));
     }
   }
 
-  /* Bottom section grid */
+  /* Bottom section grid layout */
   .bottom-grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: 1.5rem;
 
     @media (min-width: 1024px) {
-      grid-template-columns: 450px 1fr;
+      grid-template-columns: 28.125rem 1fr;
       gap: 2rem;
     }
   }
 
-  /* Cards styling */
-  .compare-grading-card,
-  .papers-progress-card {
+  /* Card container styling */
+  .card {
     background: var(--background-color-primary);
     border-radius: 1rem;
     padding: 2rem;
-    box-shadow: 0 8px 24px hsla(0, 0%, 0%, 0.08);
+    box-shadow: 0 0.25rem 0.75rem hsla(213, 12%, 15%, 0.08);
   }
 
-  /* Section title */
-  .section-title {
+  /* Card title styling */
+  .card-title {
     font-size: 1.25rem;
     font-weight: 600;
-    color: var(--main-text-color);
-    margin-bottom: 1.5rem;
+    color: var(--grey-700);
+    margin: 0 0 1.5rem 0;
+    line-height: 1.4;
 
     @media (min-width: 1024px) {
       font-size: 1.5rem;
@@ -438,28 +489,32 @@
     gap: 1rem;
   }
 
+  /* Compare list item */
   .compare-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
     padding-bottom: 1rem;
-    border-bottom: 1px solid hsl(210, 17%, 90%);
+    border-bottom: 1px solid var(--grey-200);
   }
 
   .compare-item:last-child {
     border-bottom: none;
+    padding-bottom: 0;
   }
 
+  /* Compare item text */
   .compare-text {
     flex: 1;
     margin: 0;
     font-size: 0.875rem;
-    color: var(--main-text-color);
+    color: var(--grey-700);
     line-height: 1.5;
   }
 
-  .button-compare {
+  /* Outline button styling */
+  .button-outline {
     background: transparent;
     color: var(--blue-500);
     padding: 0.5rem 1.25rem;
@@ -468,11 +523,20 @@
     font-size: 0.875rem;
     border: 1.5px solid var(--blue-500);
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.2s ease;
     flex-shrink: 0;
   }
 
-  .button-compare:hover {
+  .button-outline:hover {
     background: var(--blue-100);
+  }
+
+  .button-outline:active {
+    transform: scale(0.98);
+  }
+
+  .button-outline:focus-visible {
+    outline: 3px solid var(--blue-500);
+    outline-offset: 2px;
   }
 </style>
