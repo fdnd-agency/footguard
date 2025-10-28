@@ -137,7 +137,12 @@
           <p class="page-subtitle">Continue grading and track your progress.</p>
         </hgroup>
         <nav class="header-actions">
-          <input type="search" placeholder="Search..." class="search-input" />
+          <input
+            type="search"
+            placeholder="Search..."
+            class="search-input"
+            aria-label="Search dashboard"
+          />
           <button class="button-secondary" type="button"
             >Export dashboard</button
           >
