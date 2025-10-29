@@ -71,4 +71,8 @@
         color: var(--blue-700);
     }
 
+    .profile-name a:focus {
+        outline: 2px solid var(--orange-400)
+    }
+
 </style>
