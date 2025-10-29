@@ -7,7 +7,7 @@
 </script>
 
 <svelte:head>
-	<title>Footguard</title>
+	<title>Workgroups</title>
 	<link rel="icon" href="{logo}">
 </svelte:head>
 
