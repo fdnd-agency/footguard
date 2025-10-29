@@ -4,6 +4,7 @@
     let className = '';
     export { className as class };
 
+    // for custom theme name
     export let themeName = '';
 </script>
 

@@ -5,10 +5,9 @@
   let className = "";
   export { className as class };
 
-// dynamic data select button to reuse
+  // dynamic data select button to reuse
   export let labelText = "";
   export let selectValues = [];
-
 </script>
 
 <!-- https://github.com/sveltejs/kit/discussions/8499
@@ -47,14 +46,13 @@
     transition: 0.2s ease-in-out;
 
     &:hover {
-		background-color: var(--blue-500);
-		}
+      background-color: var(--blue-500);
+    }
   }
 
-.filter-button:focus {
-  outline: 2px solid var(--orange-400)
-}
-
+  .filter-button:focus {
+    outline: 2px solid var(--orange-400);
+  }
 
   .visually-hidden {
     clip: rect(0 0 0 0);
@@ -65,6 +63,4 @@
     white-space: nowrap;
     width: 1px;
   }
-
-
 </style>

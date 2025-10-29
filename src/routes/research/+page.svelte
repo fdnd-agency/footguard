@@ -1,4 +1,8 @@
 <script>
+	// voor performance enhancement :https://svelte.dev/docs/kit/page-options
+	export const csr = true;
+	export const prerender = false;
+
 	let sidebarOpen = false;
 	let form;
 
@@ -12,25 +16,23 @@
 	const gradings = data.gradings;
 	const filter = data.filter;
 
-	// values for status 
-  	let status = [
-    { value: "allstatus", text: "Status" },
-    { value: "inprogress", text: "In progress" },
-    { value: "finished", text: "Finished" },
-    { value: "notstarted", text: "Not started" }
-  ];
+	// values for status
+	let status = [
+		{ value: "allstatus", text: "Status" },
+		{ value: "inprogress", text: "In progress" },
+		{ value: "finished", text: "Finished" },
+		{ value: "notstarted", text: "Not started" },
+	];
 
-	// custom value moeten uit theme komen van elk onderzoek uit database   
-    let theme = [
-	{ value: "alltheme", text: "Theme" },
-    { value: "tempature", text: "Tempature" },
-    { value: "color", text: "Color" },
-    { value: "numbness", text: "Numbness" },
-    { value: "age", text: "Age" }
-  ];
-
+	// custom value moeten uit theme komen van elk onderzoek uit database
+	let theme = [
+		{ value: "alltheme", text: "Theme" },
+		{ value: "tempature", text: "Tempature" },
+		{ value: "color", text: "Color" },
+		{ value: "numbness", text: "Numbness" },
+		{ value: "age", text: "Age" },
+	];
 </script>
-
 
 <div class="main-container">
 
