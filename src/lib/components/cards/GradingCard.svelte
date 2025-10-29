@@ -14,6 +14,7 @@
 
   <!-- Progress bars section -->
   <section class="progress-section">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dl -->
     <dl class="progress-row">
       <dt class="progress-label">You</dt>
       <dd class="progress-bar-container blue-bg">
@@ -159,6 +160,7 @@
     text-align: right;
     margin: 0;
     font-variant-numeric: tabular-nums;
+    /* https://developer.mozilla.org/en-US/docs/Web/CSS/font-variant-numeric */
   }
 
   /* Card footer container */

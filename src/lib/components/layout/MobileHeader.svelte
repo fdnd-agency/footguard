@@ -73,6 +73,7 @@
     margin: -1px;
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
+    /* https://developer.mozilla.org/en-US/docs/Web/CSS/clip */
     white-space: nowrap;
     border-width: 0;
   }

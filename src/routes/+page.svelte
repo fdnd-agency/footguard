@@ -134,6 +134,7 @@
     <section class="content">
       <!-- Page header with title and actions -->
       <header class="dashboard-header">
+        <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/hgroup -->
         <hgroup class="header-content">
           <h1 class="page-title">Welcome back, Admin</h1>
           <p class="page-subtitle">Continue grading and track your progress.</p>
@@ -193,7 +194,9 @@
               {#each compareGradingItems as item (item.id)}
                 <div class="compare-item">
                   <p class="compare-text">{item.title}</p>
-                  <button class="button-outline" tabindex="0" type="button">Compare</button>
+                  <button class="button-outline" tabindex="0" type="button"
+                    >Compare</button
+                  >
                 </div>
               {/each}
             </div>
@@ -240,6 +243,7 @@
   .dashboard {
     display: flex;
     min-height: 100vh;
+    /* https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/radial-gradient */
     background: radial-gradient(
       circle at 100% 0%,
       hsla(208, 100%, 32%, 0.35) 0%,
@@ -308,7 +312,6 @@
     color: var(--grey-700);
     margin: 0 0 0.5rem 0;
     line-height: 1.4;
-    letter-spacing: -0.02em;
 
     @media (min-width: 768px) {
       font-size: 1.75rem;
@@ -336,6 +339,8 @@
     @media (min-width: 768px) {
       width: auto;
       flex-shrink: 0;
+
+      /* https://developer.mozilla.org/en-US/docs/Web/CSS/flex-shrink */
     }
   }
 
@@ -384,6 +389,7 @@
     transition: all 0.2s ease;
     white-space: nowrap;
     flex: 1;
+    /* https://developer.mozilla.org/en-US/docs/Web/CSS/flex */
     background: var(--background-color-primary);
     color: var(--grey-700);
     border: 1px solid var(--grey-300);

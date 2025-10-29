@@ -22,10 +22,12 @@
     justify-content: space-between;
     position: relative;
     aspect-ratio: 1;
+    /* https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio */
   }
 
   /* Primary variant with gradient background */
   .stat-card.primary {
+    /* https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/linear-gradient */
     background: linear-gradient(
       135deg,
       var(--blue-200) 0%,
