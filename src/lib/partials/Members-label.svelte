@@ -5,12 +5,13 @@
     import profileImageMatilde from "$lib/assets/img/matilde-image.webp";
     import profileImageSicco from "$lib/assets/img/sicco-image.webp";
 
-
     // for custom button text
 	export let profileImage = profileImageJaap;
 
 	// for custom href route
 	export let hrefRoute = "/";
+
+    // custom alt text
     export let imageAlt = ""
 
 	// add class to component

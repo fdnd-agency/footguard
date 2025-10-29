@@ -22,26 +22,16 @@
 	export { className as class };
 </script>
 
-
-
-
 <section class="members-container">
     <h2 class="members-container-title h4">{groupNumber}</h2>
     <MembersLabel hrefRoute="/profile" imageAlt="Jaap Van Netten" profileImage={profileImageMatilde}/>
     <MembersLabel hrefRoute="/profile" imageAlt="Jaap Van Netten" profileImage={profileImageSicco}/>
 </section>
 
-        
-
 <style>
     :global(body) {
         background-color: var(--background-color-primary);
     }
-
-    /* .main-container-workgroups {
-        height: 95vh;
-        overflow: scroll;
-  } */
 
     @media (min-width: 1024px) {
         .main-container {

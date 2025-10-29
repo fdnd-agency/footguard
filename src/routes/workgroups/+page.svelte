@@ -28,11 +28,6 @@
         background-color: var(--background-color-primary);
     }
 
-    /* .main-container-workgroups {
-        height: 95vh;
-        overflow: scroll;
-  } */
-
     @media (min-width: 1024px) {
         .main-container {
             display: flex;
