@@ -47,7 +47,7 @@
 
 		<div class="action-container">
 			<InProgressLabel/>
-			<ThemeLabel themeName="Tempature"/>
+			<ThemeLabel themeName="Temperature"/>
 			<CardButton buttonContent="Continue" hrefRoute="/checklist" class="display-none"/>
 		</div>
 
