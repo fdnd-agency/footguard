@@ -22,7 +22,11 @@
 
 <article class="member-card {className}">
     <figure class="profile-image-container">
-        <img src="{profileImage}" class="profile-image" alt="{imageAlt}" height="50" width="70">
+        <picture>
+            <source type="image/avif" srcset="">
+            <source type="image/webp" srcset="">
+            <img src="{profileImage}" class="profile-image" alt="{imageAlt}" height="50" width="70">
+        </picture>
     </figure>
 
     <h3 class="profile-name paragraph"><a href="{hrefRoute}">Dr.Jaap J van Netten</a></h3>
