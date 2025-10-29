@@ -9,7 +9,6 @@
 	import questionIcon from "$lib/assets/svg/question-icon.svg";
 </script>
 
-
 <div class="main-container">
     <Navbar/>
 
@@ -21,7 +20,7 @@
 			<article class="pdf-container">
 				<figure class="pdf-file">
 					<!-- https://www.geeksforgeeks.org/html/how-to-embed-pdf-file-using-html/ -->
-					<embed src="{Pdf}" type="application/pdf" width="100%" height="620">
+					<embed src="{Pdf}" type="application/pdf" width="100" height="620" alt="pdf-file">
 				</figure>
 			</article>
 
@@ -79,11 +78,6 @@
 		background-color: var(--background-color-primary);
 	}
 
-	/* .main-container-checklist {
-        height: 95vh;
-        overflow: scroll;
-  } */
-
 	@media (min-width: 1024px) {
 		.main-container {
 			display: flex;
@@ -108,8 +102,10 @@
 		display: grid;
 		grid-template-columns: 1fr;
 		gap: 1rem;
+	}
 
-		@media (min-width: 920px) {
+	@media (min-width: 920px) {
+		.pdf-questions-container {
 			grid-template-columns: 1fr 1fr;
 		}
 	}
@@ -164,7 +160,7 @@
 	.buttons-container {
 		display: flex;
 		gap: 1rem;
-		justify-content: flex-end; 
+		justify-content: flex-end;
 		padding: 1rem;
 	}
 

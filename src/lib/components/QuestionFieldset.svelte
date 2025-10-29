@@ -3,7 +3,6 @@
     export let questionId;
     export let questionName;
     export let questionTitle;
-
 </script>
 
 <fieldset class="form-item">
@@ -41,7 +40,7 @@
         display: flex;
         flex-direction: column;
         gap: 1rem;
-        background-color: var(--blue-100);
+        background-color: var(--background-color-primary);
         padding: 1rem;
         border-radius: 1rem;
     }
@@ -59,12 +58,15 @@
     .question-title {
         color: var(--blue-700);
         font-weight: 400;
+        background-color: var(--blue-100);
+        padding: 0.6rem;
+        border-radius: 1rem;
     }
 
     textarea {
         resize: none;
         border-radius: 1rem;
-        padding: 0.5rem;
+        padding: 0.6rem;
         border: 1.5px solid var(--blue-300);
     }
 
@@ -76,13 +78,13 @@
         cursor: pointer;
         padding-left: 0.5rem;
         padding: 0.5rem;
+    }
 
-        &:hover {
-            color: var(--main-text-color-light);
-            border-radius: 1rem;
-            background-color: var(--grey-200);
-            padding: 0.5rem;
-        }
+    .question-label:hover {
+        color: var(--main-text-color-light);
+        border-radius: 1rem;
+        background-color: var(--grey-200);
+        padding: 0.5rem;
     }
 
     .radio-buttons {
@@ -90,15 +92,18 @@
         flex-direction: column;
         justify-content: center;
         gap: 0.5rem;
+        background-color: var(--blue-100);
+        padding: 0.5rem;
+        border-radius: 1rem;
+    }
 
-        input[type="radio"] {
-            accent-color: var(--orange-700);
-            height: 15px;
-            width: 15px;
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-        }
+    .radio-buttons input[type="radio"] {
+        accent-color: var(--orange-700);
+        height: 15px;
+        width: 15px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
     }
 
     .radio-buttons label:has(input[type="radio"]:checked) {
