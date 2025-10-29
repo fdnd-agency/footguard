@@ -51,6 +51,11 @@
 		}
   }
 
+.filter-button:focus {
+  outline: 2px solid var(--orange-400)
+}
+
+
   .visually-hidden {
     clip: rect(0 0 0 0);
     clip-path: inset(50%);
@@ -60,4 +65,6 @@
     white-space: nowrap;
     width: 1px;
   }
+
+
 </style>
