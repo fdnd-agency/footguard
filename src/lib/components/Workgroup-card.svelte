@@ -27,8 +27,8 @@
 
 <section class="members-container">
     <h2 class="members-container-title h4">{groupNumber}</h2>
-    <MembersLabel hrefRoute="/profile" profileImage={profileImageMatilde}/>
-    <MembersLabel hrefRoute="/profile" profileImage={profileImageSicco}/>
+    <MembersLabel hrefRoute="/profile" imageAlt="Jaap Van Netten" profileImage={profileImageMatilde}/>
+    <MembersLabel hrefRoute="/profile" imageAlt="Jaap Van Netten" profileImage={profileImageSicco}/>
 </section>
 
         

@@ -11,6 +11,7 @@
 
 	// for custom href route
 	export let hrefRoute = "/";
+    export let imageAlt = ""
 
 	// add class to component
 	let className = "";
@@ -21,7 +22,7 @@
 
 <article class="member-card {className}">
     <figure class="profile-image-container">
-        <img src="{profileImage}" class="profile-image" height="50" width="70" alt="">
+        <img src="{profileImage}" class="profile-image" alt="{imageAlt}" height="50" width="70">
     </figure>
 
     <h3 class="profile-name paragraph"><a href="{hrefRoute}">Dr.Jaap J van Netten</a></h3>
