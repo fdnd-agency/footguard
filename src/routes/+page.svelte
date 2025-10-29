@@ -112,7 +112,7 @@
 </script>
 
 <!-- Skip to main content link (for accessibility) -->
-<a href="#main-content" class="skip-link">Skip to main content</a>
+<a href="#main-content" tabindex="0" class="skip-link">Skip to main content</a>
 
 <!-- Main layout container -->
 <div class="dashboard">
@@ -145,7 +145,7 @@
             class="search-input"
             aria-label="Search dashboard"
           />
-          <button class="button-secondary" type="button"
+          <button class="button-secondary" tabindex="0" type="button"
             >Export dashboard</button
           >
         </nav>
@@ -193,7 +193,7 @@
               {#each compareGradingItems as item (item.id)}
                 <div class="compare-item">
                   <p class="compare-text">{item.title}</p>
-                  <button class="button-outline" type="button">Compare</button>
+                  <button class="button-outline" tabindex="0" type="button">Compare</button>
                 </div>
               {/each}
             </div>

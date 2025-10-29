@@ -34,7 +34,7 @@
           <ul class="nav-sub-list">
             {#each navItem.subItems as subItem}
               <li>
-                <a href={subItem.href} class="nav-sub-link">
+                <a href={subItem.href} tabindex="0" class="nav-sub-link">
                   {subItem.name}
                 </a>
               </li>

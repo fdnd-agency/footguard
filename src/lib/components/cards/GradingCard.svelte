@@ -34,7 +34,7 @@
 
   <!-- Card footer with action button -->
   <footer class="card-footer">
-    <button class="button-primary" type="button">Continue</button>
+    <button class="button-primary" tabindex="0" type="button">Continue</button>
   </footer>
 </article>
 

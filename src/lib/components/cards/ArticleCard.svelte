@@ -18,9 +18,6 @@
     <span>{year}</span>
     <span>{journal}</span>
   </div>
-
-  <!-- Start grading button -->
-  <button class="button-primary" type="button" on:click>Start grading</button>
 </article>
 
 <style>
@@ -114,35 +111,5 @@
     content: "•";
     margin-right: 0.5rem;
     color: var(--grey-400);
-  }
-
-  /* Primary action button */
-  .button-primary {
-    background: var(--blue-500);
-    color: var(--background-color-primary);
-    padding: 0.75rem 1.5rem;
-    border-radius: 0.5rem;
-    font-weight: 600;
-    font-size: 0.875rem;
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    flex-shrink: 0;
-  }
-
-  @media (min-width: 768px) {
-    .button-primary:hover {
-      background: var(--blue-400);
-      transform: translateY(-1px);
-    }
-  }
-
-  .button-primary:active {
-    transform: scale(0.98);
-  }
-
-  .button-primary:focus-visible {
-    outline: 3px solid var(--blue-500);
-    outline-offset: 2px;
   }
 </style>

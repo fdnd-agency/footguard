@@ -5,7 +5,7 @@
 
 <!-- Mobile header bar -->
 <header class="mobile-header">
-  <button class="menu-button" type="button" on:click={onMenuClick}>
+  <button class="menu-button" tabindex="0" type="button" on:click={onMenuClick}>
     ☰
     <span class="visually-hidden">Toggle menu</span>
   </button>
