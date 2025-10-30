@@ -11,7 +11,7 @@
   - [Workgroups](#workgroups)
   - [Checklist](#checklist)
 - [🚓 Bijdragen aan het project](#-bijdragen-aan-het-project)
-  - [📋 Stappen om bij te dragen](#-stappen-om-bij-te-dragen)
+  - [📋 Stappen om bij te dragen](#-conventions)
 - [🖥️ Installatie](#️-installatie)
 - [🪪 Licentie](#-licentie)
 
