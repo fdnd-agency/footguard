@@ -15,6 +15,8 @@
 - [🖥️ Installatie](#️-installatie)
 - [🪪 Licentie](#-licentie)
 
+---
+
 # 📖 FootGuard
 
 De International Working Group on the Diabetic Foot (IWGDF) is een wereldwijd
@@ -25,6 +27,8 @@ diabetesvoet te verbeteren.
 
 - Livelink(TBD)
 
+---
+
 # 🔍 Opdrachtomschrijving
 
 De huidige website is verouderd en het beoordelen van onderzoeken gebeurt nu nog op
@@ -34,9 +38,13 @@ onderzoeksproces geïntegreerd wordt. In deze website worden verschillende
 functionaliteiten toegevoegd om het beoordelen overzichtelijker, gebruiksvriendelijker
 en eficiënter te maken.
 
+---
+
 # 🪾 Branches
 - [Dev branche](https://github.com/fdnd-agency/footguard/tree/dev-main)
 - [Main branche](https://github.com/fdnd-agency/footguard/tree/main)
+
+---
 
 # 🎨 Ontwerp en design
 
@@ -134,7 +142,7 @@ Op deze pagina start de gebruiker met het beoordelen van een artikel. De gebruik
 |-------------|------------|
 | <video width="150" height="250" alt="Workgroups video" src="https://github.com/user-attachments/assets/aff179ec-6577-4974-9e57-38541aca3245" /> | <video width="150" height="250" alt="Checklist video" src="https://github.com/user-attachments/assets/af512d10-9d8d-43d5-8977-58d825660a8d" /> |
 
-
+---
 
 ## 🚓 Bijdragen aan het project
 
