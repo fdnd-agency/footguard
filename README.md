@@ -148,7 +148,7 @@ Op deze pagina start de gebruiker met het beoordelen van een artikel. De gebruik
 
 Volg dan de onderstaande richtlijnen om een bijdrage te kunnen leveren.
 
-### 📋 Stappen om bij te dragen
+### 📋 Convetions
 
 Om bij te dragen aan dit project, dien je de werkwijze te volgen van **FDND Agency**:
 
