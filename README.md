@@ -11,7 +11,7 @@
   - [Workgroups](#workgroups)
   - [Checklist](#checklist)
 - [🚓 Bijdragen aan het project](#-bijdragen-aan-het-project)
-  - [📋 Stappen om bij te dragen](#-conventions)
+  - [📋 conventions](#-conventions)
 - [🖥️ Installatie](#️-installatie)
 - [🪪 Licentie](#-licentie)
 
@@ -148,7 +148,7 @@ Op deze pagina start de gebruiker met het beoordelen van een artikel. De gebruik
 
 Volg dan de onderstaande richtlijnen om een bijdrage te kunnen leveren.
 
-### 📋 Convetions
+### 📋 Conventions
 
 Om bij te dragen aan dit project, dien je de werkwijze te volgen van **FDND Agency**:
 
