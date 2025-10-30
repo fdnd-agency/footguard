@@ -1,3 +1,20 @@
+# 📚 Inhoudsopgave
+
+- [📖 FootGuard](#-footguard)
+- [🔍 Opdrachtomschrijving](#-opdrachtomschrijving)
+- [🪾 Branches](#-branches)
+- [🎨 Ontwerp en design](#-ontwerp-en-design)
+- [📊 Datamodel](#-datamodel)
+- [📱 Pagina's](#-paginas)
+  - [Dashboard](#dashboard)
+  - [Grading](#grading)
+  - [Workgroups](#workgroups)
+  - [Checklist](#checklist)
+- [🚓 Bijdragen aan het project](#-bijdragen-aan-het-project)
+  - [📋 Stappen om bij te dragen](#-stappen-om-bij-te-dragen)
+- [🖥️ Installatie](#️-installatie)
+- [🪪 Licentie](#-licentie)
+
 # 📖 FootGuard
 
 De International Working Group on the Diabetic Foot (IWGDF) is een wereldwijd
@@ -21,6 +38,23 @@ en eficiënter te maken.
 - [Dev branche](https://github.com/fdnd-agency/footguard/tree/dev-main)
 - [Main branche](https://github.com/fdnd-agency/footguard/tree/main)
 
+# 🎨 Ontwerp en design
+
+Bij het ontwerpen van deze tool zijn de volgende ontwerpkeuzen gemaakt.
+
+- **Kleurenpallet:**  
+De primaire kleuren van de tool zijn afgeleid van het logo. Vanuit deze kleuren zijn meerdere iteraties gemaakt, wat uiteindelijk heeft geleid tot het definitieve kleurenpalet.
+
+- **Typografie:**  
+Voor de typografie is gekozen voor DM Sans vanwege de moderne en goed leesbare stijl. Als fallback wordt de font sans-serif gebruikt.
+
+- **Navigatie:**  
+De tool functioneert als een dashboard. De navigatie bevindt zich in een sidebar aan de linkerkant van het scherm. Op kleinere schermen wordt deze sidebar inklapbaar om ruimte te besparen en de gebruikservaring te verbeteren.
+
+- **Hi-fi designs:**  
+De hi-fi designs laten zien hoe de uiteindelijke schermen eruitzien. Daarnaast visualiseert het UML-diagram de gebruikersflow en de structuur van de verschillende pagina’s.
+
+De kleurenpallet, huisstijl, UML-diagrammen, schetsen en hi-fi designs zijn te vinden in het [Figma-bestand](https://www.figma.com/design/FcenWarr4zCNYt1xSufqHv/Sprint-14-Footguard?node-id=16-2&p=f).
 
 # 📊 Datamodel
 
@@ -78,40 +112,55 @@ CHECKLIST {
 }
 ```
 
-# 🎨 Ontwerp en design
-
-Bij het ontwerpen van deze tool zijn de volgende ontwerpkeuzen gemaakt.
-
-- **Kleurenpallet:**  
-De primaire kleuren van de tool zijn afgeleid van het logo. Vanuit deze kleuren zijn meerdere iteraties gemaakt, wat uiteindelijk heeft geleid tot het definitieve kleurenpalet.
-
-- **Typografie:**  
-Voor de typografie is gekozen voor DM Sans vanwege de moderne en goed leesbare stijl. Als fallback wordt de font sans-serif gebruikt.
-
-- **Navigatie:**  
-De tool functioneert als een dashboard. De navigatie bevindt zich in een sidebar aan de linkerkant van het scherm. Op kleinere schermen wordt deze sidebar inklapbaar om ruimte te besparen en de gebruikservaring te verbeteren.
-
-- **Hi-fi designs:**  
-De hi-fi designs laten zien hoe de uiteindelijke schermen eruitzien. Daarnaast visualiseert het UML-diagram de gebruikersflow en de structuur van de verschillende pagina’s.
-
-De kleurenpallet, huisstijl, UML-diagrammen, schetsen en hi-fi designs zijn te vinden in het [Figma-bestand](https://www.figma.com/design/FcenWarr4zCNYt1xSufqHv/Sprint-14-Footguard?node-id=16-2&p=f).
-
 # 📱 Pagina's
-Deze sprint was voornamelijk begrip krijgen van de opdracht en dit vertalen naar een ontwerp/design. Wel hebben we alvast een aantal onderdelen van de pagina's gemaakt. 
 
 ### Dashboard
 De dashboardpagina is de homepagina van de gebruiker na het inloggen. Hier ziet de gebruiker in één keer alle belangrijke informatie, zoals de huidige status van verschillende onderzoeken. Het dashboard werkt als een status reminder, zodat de gebruiker snel kan zien wat er gedaan moet worden en snel weer verder kan gaan met zijn taken.
 
-| Smartphone | Tablet | Laptop |
-|-------------|-------------|-------------|
-| <img width="200" height="500" alt="Screenshot 1" src="https://github.com/user-attachments/assets/29bdecb3-74b3-4c30-8d6d-98e72d662082" /> | <img width="300" height="600" alt="Screenshot 2" src="https://github.com/user-attachments/assets/08638bed-ac0a-44b3-aabf-90cf37a1927d" /> | <img width="300" height="600" alt="Screenshot 3" src="https://github.com/user-attachments/assets/09ea0d81-5d8c-4ac9-80e0-e1455041b236" /> |
+### Grading
+Op deze pagina kan de gebruiker alle artikelen zien die toegewezen aan hem/haar. Elk artikel wordt weergegeven in een card met belangrijke informatie, zoals titel, auteur van het onderzoek en uitgeef jaar. De status kan Finished, In Progress of Not Started zijn, zodat de gebruiker direct ziet waar een artikel staat in het beoordelingsproces. De gebruiker kan de artikeen filteren op status en/of thema.
 
-### Overzicht en status onderzoek
-Op deze pagina kan de gebruiker alle artikelen zien die toegewezen aan hem/haar. Elk artikel wordt weergegeven in een card met belangrijke informatie, zoals titel, auteur van het onderzoek en uitgeef jaar. De status kan Finished, In Progress of Not Started zijn, zodat de gebruiker direct ziet waar een artikel staat in het beoordelingsproces.
+### Workgroups
+Op deze pagina ziet de gebruiker een overzicht van alle workgroups. Elke workgroup bestaat uit 2 members die samen artikelen beoordelen. De gebruiker ziet wie er in welke workgroup zit en kan op een member klikken op naar zijn profiel te gaan.
 
-| Smartphone | Tablet | Laptop |
-|-------------|-------------|-------------|
-| <img width="200" height="500" alt="Screenshot 1" src="https://github.com/user-attachments/assets/45f76831-1d68-409f-83c0-c337c2f2e825" /> | <img width="300" height="600" alt="Screenshot 2" src="https://github.com/user-attachments/assets/591d0971-e22c-410f-adf5-e6673dcd8714" /> | <img width="300" height="600" alt="Screenshot 3" src="https://github.com/user-attachments/assets/f3efad33-a443-4b0c-8d3b-c451146189c0" /> |
+### Checklist
+Op deze pagina start de gebruiker met het beoordelen van een artikel. De gebruiker kan door de pdf file scrollen en kan aantekeningen of markeringen toevoegen. Rechts bevindt zich de vragenlijst die de gebruiker invult. Elke vraag heeft een tekstvak om aantekeningen in te voeren die eventueel later gebruikt kunnen worden bij de definieve oordeel. De checklist bevat 25 vragen waarbij er een counter is die aangeeft hoeveel vragen van de 25 al zijn ingevuld.
+
+| Dashboard | Grading |
+|------------|----------|
+| <video width="150" height="250" alt="Dashboard video" src="https://github.com/user-attachments/assets/d9306041-19b1-46b9-badd-9e075fe532b1" /> | <video width="150" height="250" alt="Grading video" src="https://github.com/user-attachments/assets/3dd91bdb-86c8-4c86-b658-5e5cd98009d9" /> |
+
+| Workgroups | Checklist |
+|-------------|------------|
+| <video width="150" height="250" alt="Workgroups video" src="https://github.com/user-attachments/assets/aff179ec-6577-4974-9e57-38541aca3245" /> | <video width="150" height="250" alt="Checklist video" src="https://github.com/user-attachments/assets/af512d10-9d8d-43d5-8977-58d825660a8d" /> |
+
+
+
+## 🚓 Bijdragen aan het project
+
+Volg dan de onderstaande richtlijnen om een bijdrage te kunnen leveren.
+
+### 📋 Stappen om bij te dragen
+
+Om bij te dragen aan dit project, dien je de werkwijze te volgen van **FDND Agency**:
+
+- Werken volgens de technische conventies van [FDND Agency](https://docs.fdnd.nl/conventies.html):
+  - 🌀 **Git workflow**
+  - 💬 **Commits**
+  - 🔀 **Pull requests**
+  - 💻 **Code conventions**
+  - 🎨 **Design conventions**
+---
+
+Ook dien je je te houden aan de afspraken die zijn vastgelegd in de [`CONTRIBUTING.md`](./CONTRIBUTING.md):
+- ✏️ Code style & conventions  
+- 🧩 Commitregels  
+- 🔎 Merge- en reviewproces  
+- 🗂️ Werkwijze projectboard  
+- 🧠 Opbouw van user story’s  
+- 🤝 Samenwerking  
+
+---
 
 # 🖥️ Installatie
 
