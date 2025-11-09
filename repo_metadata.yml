@@ -1,0 +1,5 @@
+title: "Footguard"
+status: "in progress"
+main_link: "https://footguard.agency.fdnd.nl/"
+dev_link: "https://footguard.dev.fdnd.nl/"
+tech_stack: ["SvelteKit", "Directus"]
