@@ -1,8 +1,8 @@
 <script>
 	import '$lib/css/styleguide.css'
 	import logo from '$lib/assets/img/footguard-icon.webp'
-
-
+  import favicon from '$lib/assets/favicon.svg'
+  
 	let { children } = $props();
 </script>
 
