@@ -4,21 +4,21 @@
 }
 
 @font-face {
-    font-family: 'Montserrat';
-    src: url(/src/lib/assets/fonts/Montserrat-VariableFont_wght.ttf) format('truetype');
+    font-family: 'DM sans';
+    src: url(/src/lib/assets/fonts/DMSans-VariableFont_opsz\,wght.ttf);
     font-weight: 100 900;
-    font-display: swap;
+    font-display: swap
 }
 
 
 html,
 body {
-    font-family: var(--main-font), sans-serif;
+    font-family: var(--main-font), 'sans-serif';
     background-color: var(--background-color-primary);
 }
 
 body {
-    --main-font: 'MontserratRegular';
+    --main-font: 'DM sans';
 
     /* Primary blue colors */
     --blue-700: hsl(203, 90%, 22%);
