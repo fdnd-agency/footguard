@@ -3,10 +3,11 @@
     padding: 0;
 }
 
-
 @font-face {
     font-family: 'DM sans';
     src: url(/src/lib/assets/fonts/DMSans-VariableFont_opsz\,wght.ttf);
+    font-weight: 100 900;
+    font-display: swap
 }
 
 
@@ -16,92 +17,89 @@ body {
     background-color: var(--background-color-primary);
 }
 
-
 body {
     --main-font: 'DM sans';
 
+    /* Primary blue colors */
+    --blue-700: hsl(203, 90%, 22%);
+    --blue-600: hsl(203, 85%, 32%);
+    --blue-500: hsl(203, 80%, 42%);
+    --blue-400: hsl(203, 75%, 52%);
+    --blue-300: hsl(203, 65%, 65%);
+    --blue-200: hsl(203, 60%, 78%);
+    --blue-100: hsl(203, 55%, 90%);
 
-    /* ----colors------ */
+    /* Secondary red / alert */
+    --red-700: hsl(4, 75%, 25%);
+    --red-600: hsl(4, 70%, 35%);
+    --red-500: hsl(4, 65%, 45%);
+    --red-400: hsl(4, 60%, 55%);
+    --red-300: hsl(4, 55%, 65%);
+    --red-200: hsl(4, 50%, 75%);
+    --red-100: hsl(4, 45%, 85%);
 
-    /* Primary colors */
-    --blue-700: hsl(201, 100%, 19%);
-    --blue-600: hsl(201, 99%, 27%);
-    --blue-500: hsl(201, 99%, 33%);
-    --blue-400: hsl(201, 99%, 38%); /* base color*/
-    --blue-300: hsl(201, 56%, 64%);
-    --blue-200: hsl(201, 62%, 78%);
-    --blue-100: hsl(202, 62%, 90%);
+    /* Accent orange */
+    --orange-700: hsl(30, 80%, 28%);
+    --orange-600: hsl(30, 75%, 38%);
+    --orange-500: hsl(30, 70%, 48%);
+    --orange-400: hsl(30, 65%, 58%);
+    --orange-300: hsl(30, 60%, 68%);
+    --orange-200: hsl(30, 55%, 78%);
+    --orange-100: hsl(30, 50%, 88%);
 
-    /* Secundary colors */
-    --red-700: hsl(2, 66%, 17%);
-    --red-600: hsl(3, 65%, 30%);
-    --red-500: hsl(4, 65%, 40%);
-    --red-400: hsl(5, 65%, 53%); /* base color*/
-    --red-300: hsl(6, 65%, 63%);
-    --red-200: hsl(7, 65%, 75%);
-    --red-100: hsl(8, 64%, 89%);
+    /* Accent green */
+    --green-700: hsl(150, 90%, 18%);
+    --green-600: hsl(150, 85%, 28%);
+    --green-500: hsl(150, 80%, 38%);
+    --green-400: hsl(150, 75%, 48%);
+    --green-300: hsl(150, 65%, 60%);
+    --green-200: hsl(150, 55%, 72%);
+    --green-100: hsl(150, 45%, 85%);
 
-    --orange-700: 	hsl(34, 86%, 22%);
-    --orange-600: hsl(34, 82%, 34%);
-    --orange-500: hsl(34, 81%, 44%);
-    --orange-400: hsl(34, 78%, 56%); /* base color*/
-    --orange-300: hsl(34, 83%, 66%);
-    --orange-200: hsl(34, 83%, 77%);
-    --orange-100: hsl(34, 97%, 88%);
+    /* Neutral / grey */
+    --grey-700: hsl(210, 12%, 15%);
+    --grey-600: hsl(210, 10%, 25%);
+    --grey-500: hsl(210, 8%, 40%);
+    --grey-400: hsl(210, 7%, 55%);
+    --grey-300: hsl(210, 6%, 70%);
+    --grey-200: hsl(210, 5%, 80%);
+    --grey-100: hsl(210, 4%, 95%);
 
-    /* accent colors */
-    --green-700: 	hsl(152, 100%, 8%);
-    --green-600: hsl(152, 100%, 14%);
-    --green-500: hsl(152, 100%, 18%);
-    --green-400: hsl(152, 100%, 30%); /* base color*/
-    --green-300: hsl(152, 100%, 38%);
-    --green-200: hsl(140, 100%, 43%);
-    --green-100: hsl(140, 100%, 65%);
-
-    /* Neutral colors */
-    --grey-700: hsl(0 0% 0%); /* main font color */
-    --grey-600: hsl(240 2% 10%);
-    --grey-500: hsl(220 3.9% 15.1%);
-    --grey-400: hsl(210 3.7% 21.2%); /* base color*/
-    --grey-300: hsl(210 3.9% 40%);
-    --grey-200: hsl(213 3.9% 55.1%);
-    --grey-100: hsl(214 4.6% 70%);
-
-    /* background color */
+    /* Backgrounds */
     --background-color-primary: hsl(0, 0%, 100%);
+    --background-color-secondary: hsl(210, 10%, 97%);
 
-    /* text colors */
-    --main-text-color: var(var(--grey-700));
-
+    /* Text */
+    --main-text-color: var(--grey-700);
 }
 
-
-
-/* -----Typografie------ */
-
 /* H1  */
-.h1, .main-title {
+.h1,
+.main-title {
     font-family: var(--main-font);
     font-size: clamp(24px, 5vw, 48px);
     color: var(--grey-700);
 }
 
 /* H2  */
-.h2, .large-title {
+.h2,
+.large-title {
     font-family: var(--main-font);
     font-size: clamp(20px, 4.5vw, 36px);
     color: var(--grey-700);
 }
 
 /* H3 */
-.h3, .sub-title {
+.h3,
+.sub-title {
     font-family: var(--main-font);
     font-size: clamp(16px, 3vw, 25px);
     color: var(--grey-700);
 }
 
 /* H4 */
-.h4, .large-copy {
+.h4,
+.large-copy {
     font-family: var(--main-font);
     font-size: clamp(14px, 2.5vw, 18px);
     font-weight: 300;
@@ -109,7 +107,8 @@ body {
 }
 
 /* H5  */
-.h5, .body-copy {
+.h5,
+.body-copy {
     font-family: var(--main-font);
     font-size: clamp(12px, 2vw, 16px);
     font-weight: 300;
@@ -117,7 +116,8 @@ body {
 }
 
 /* H6  */
-.h6, .micro-copy {
+.h6,
+.micro-copy {
     font-family: var(--main-font);
     font-size: clamp(10px, 1.5vw, 12px);
     font-weight: 300;
@@ -138,9 +138,6 @@ body {
     color: var(--grey-700);
 }
 
-
-
-
 /*  remove basic element styling */
 a {
     text-decoration: none;
@@ -152,10 +149,3 @@ button {
     border: none;
     text-decoration: none;
 }
-
-
-
-
-
-
-
