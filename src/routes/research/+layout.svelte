@@ -1,14 +1,14 @@
 <script>
 	import '$lib/css/styleguide.css'
 	import logo from '$lib/assets/img/footguard-icon.webp'
-  import favicon from '$lib/assets/favicon.svg'
-  
+
 	let { children } = $props();
 </script>
 
 <svelte:head>
-	<title>Footguard</title>
+	<title>Grading</title>
 	<link rel="icon" href="{logo}">
 </svelte:head>
 
 {@render children?.()}
+
