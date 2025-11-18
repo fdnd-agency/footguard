@@ -24,7 +24,6 @@
   select {
     background: none;
     color: inherit;
-    border: none;
     padding: 0;
     font: inherit;
     cursor: pointer;
@@ -36,7 +35,7 @@
     padding: 0.5rem;
 
     background-color: var(--blue-700);
-    color: var(--main-text-color-light);
+    color: var(--background-color-secondary);
     font-size: clamp(13px, 1.5vw, 15px);
 
     background-image: url("/src/lib/assets/svg/select-button-arrow.svg");
@@ -63,4 +62,10 @@
     white-space: nowrap;
     width: 1px;
   }
+
+
+
+
+
+
 </style>
