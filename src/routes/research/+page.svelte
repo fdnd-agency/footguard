@@ -7,9 +7,10 @@
 	let form;
 
 	// Components
-	import Navbar from "$lib/components/Navbar.svelte";
+	import Sidebar from "$lib/components/layout/Sidebar.svelte";
 	import GradingArticleCard from "$lib/components/Grading-article-card.svelte";
 	import FilterButton from "$lib/partials/Filter-button.svelte";
+	import SearchBar from "$lib/partials/Search-bar.svelte";
 
 	// fetch data
 	let { data } = $props();
@@ -36,18 +37,21 @@
 
 <div class="main-container">
 
-    <Navbar/>
+    <!-- <Navbar/> -->
 
     <section class="main-container-research">
 
-        <h1 class="main-container-research-title">Gradings</h1>
+        <h1 class="main-container-research-title">Assigned Gradings</h1>
 
 		<!-- https://github.com/sveltejs/kit/discussions/8499
 		voor het sumbitten van een geselecteerde value in een selectbutton -->
 		<form class="filter-form-container" method="get" bind:this={form}>
-  			<FilterButton labelText="Filter status" selectValues={status}/>
-			<FilterButton labelText="Filter theme" selectValues={theme}/>
+  			<FilterButton filterLabel_ID="status" labelText="Filter status" selectValues={status}/>
+			<FilterButton filterLabel_ID="theme" labelText="Filter theme" selectValues={theme}/>
 		</form>
+
+		<SearchBar searchBar_ID="search" labelText="Search"/>
+
 
         <div class="research-cards-container">
             {#each gradings as grading}
@@ -66,7 +70,7 @@
 
 <style>
 	:global(body) {
-		background-color: var(--background-color-primary);
+		background-color: var(--background-color-secondary);
 	}
 
 	@media (min-width: 1024px) {
@@ -78,16 +82,16 @@
 	.main-container-research {
 		padding: 1rem 1rem 1rem 1rem;
 		width: 100%;
-	}
 
-	.main-container-research-title {
-		color: var(--blue-700);
-		padding-top: 1.5rem;
-		padding-bottom: 2rem;
+		& .main-container-research-title {
+			color: var(--grey-700);
+			padding-top: 1.5rem;
+			padding-bottom: 2rem;
+		}
 	}
 
 	/* positioning filter form */
-	:global(.filter-form-container) {
+	.filter-form-container {
 		display: flex;
 		flex-direction: row;
 		gap: 1rem;
