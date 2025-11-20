@@ -5,7 +5,7 @@
 
   // Components
   import Sidebar from "$lib/components/layout/Sidebar.svelte";
-  import MobileHeader from "$lib/components/layout/MobileHeader.svelte";
+  import MobileHeader from "$lib/components/layout/MobileNav.svelte";
   import GradingCard from "$lib/components/cards/GradingCard.svelte";
   import StatCard from "$lib/components/cards/StatCard.svelte";
   import CircleGraph from "$lib/components/charts/CircleGraph.svelte";
