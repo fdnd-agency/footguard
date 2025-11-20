@@ -8,12 +8,13 @@
   // dynamic data select button to reuse
   export let labelText = "";
   export let selectValues = [];
+  export let filterLabel_ID = "";
 </script>
 
 <!-- https://github.com/sveltejs/kit/discussions/8499
  voor het sumbitten van een geselecteerde value in een selectbutton -->
-<label for="filter-select" class="visually-hidden">{labelText}</label>
-  <select id="filter-select" class="filter-button" name="filter">
+<label for="{filterLabel_ID}" class="visually-hidden">{labelText}</label>
+  <select id="{filterLabel_ID}" class="filter-button" name="filter">
 
   {#each selectValues as selectValue}
     <option value={selectValue.value}>{selectValue.text}</option>
