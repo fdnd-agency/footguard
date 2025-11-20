@@ -1,5 +1,6 @@
 <script>
-    import { Navbar } from '$lib/';
+    import { Navbar, MobileNav } from '$lib/';
 </script>
 
 <Navbar/>
+<!-- <MobileNav/> -->
