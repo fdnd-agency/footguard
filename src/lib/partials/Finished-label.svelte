@@ -7,7 +7,7 @@
 </script>
 
 <figure class="finished-label paragraph {className}">
-    <img src={finished} alt="" height="15" width="15" />
+    <img src={finished} alt="" height="15" width="15">
     Finished
 </figure>
 
@@ -25,4 +25,12 @@
         background-color: var(--green-100);
         white-space: nowrap;
     }
+
+
+
+
+
+
+
+
 </style>

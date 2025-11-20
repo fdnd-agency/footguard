@@ -21,7 +21,7 @@
         padding: 0.35rem;
         border-radius: 0.5rem;
         color: var(--red-400);
-        background-color: var(--red-100);
+        background-color: rgb(255, 249, 249);
         white-space: nowrap;
     }
 </style>
