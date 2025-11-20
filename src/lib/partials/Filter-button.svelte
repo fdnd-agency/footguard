@@ -48,10 +48,10 @@
     &:hover {
       background-color: var(--blue-500);
     }
-  }
 
-  .filter-button:focus {
-    outline: 2px solid var(--orange-400);
+    &:focus {
+      outline: 2px solid var(--orange-400);
+    }
   }
 
   .visually-hidden {
@@ -63,10 +63,4 @@
     white-space: nowrap;
     width: 1px;
   }
-
-
-
-
-
-
 </style>

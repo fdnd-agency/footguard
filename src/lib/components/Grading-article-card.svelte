@@ -6,11 +6,10 @@
 	import CardButton from "$lib/partials/Action-button.svelte";
 	import ThemeLabel from "$lib/partials/Theme-label.svelte";
 
-
 	// icons
 	import authorIcon from "$lib/assets/svg/author-icon.svg";
 	import calenderIcon from "$lib/assets/svg/calendar-icon.svg";
-    import InProgressLabel from "$lib/partials/In-progress-label.svelte";
+	import InProgressLabel from "$lib/partials/In-progress-label.svelte";
 
 	// Dynamic data variables
 	export let name;
@@ -19,10 +18,9 @@
 	export let publishing_year;
 	export let status;
 
-
 	// add class to component
-    let className = '';
-    export { className as class };
+	let className = "";
+	export { className as class };
 </script>
 
 <a class="anchor-container-card" href="/checklist">
@@ -53,11 +51,13 @@
 	</article>
 </a>
 
-
-
 <style>
-	h2 .research-id {
-		color: var(--grey-500);
+	.anchor-container-card {
+		transition: transform 0.3s ease;
+
+		&:hover {
+			transform: translateY(-2px);
+		}
 	}
 
 	.research-card {
@@ -71,18 +71,11 @@
 		&:hover {
 			background-color: hsl(200, 90%, 96%);
 		}
-	}
 
-	@media (min-width: 700px) {
-		.research-card {
+		@media (min-width: 700px) {
 			flex-direction: row;
 			align-items: center;
 		}
-	}
-
-	.research-card-title {
-		font-weight: bold;
-		color: var(--grey-700);
 	}
 
 	.research-card-data-container {
@@ -90,7 +83,15 @@
 		flex-direction: column;
 		justify-content: center;
 		gap: 0.5rem;
-		
+
+		& .research-card-title {
+			font-weight: bold;
+			color: var(--grey-700);
+		}
+
+		& h2 .research-id {
+			color: var(--grey-500);
+		}
 	}
 
 	.research-card-author-date-container {
@@ -98,22 +99,22 @@
 		flex-direction: row;
 		align-items: center;
 		gap: 0.5rem;
-	}
 
-	.author-container,
-	.calender-container {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		gap: 0.2rem;
-		justify-content: center;
-		text-align: center;
-	}
+		& .author-container,
+		.calender-container {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			gap: 0.2rem;
+			justify-content: center;
+			text-align: center;
+		}
 
-	.author-name,
-	.calender-date {
-		font-size: clamp(10px, 1.5vw, 12px);
-		color: var(--grey-700);
+		& .author-name,
+		.calender-date {
+			font-size: clamp(10px, 1.5vw, 12px);
+			color: var(--grey-700);
+		}
 	}
 
 	.action-container {
@@ -122,13 +123,4 @@
 		align-items: center;
 		gap: 0.5rem;
 	}
-
-	.anchor-container-card {
-		transition: transform 0.3s ease;
-
-		&:hover {
-			transform: translateY(-2px);
-		}
-	}
-	
 </style>
