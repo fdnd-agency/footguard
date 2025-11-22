@@ -54,8 +54,8 @@
 				<span class="label">Results</span>
 			</a>
 		</li>
-		<li>
-			<a href="/admin" class="admin-item">
+		<li class="admin-item">
+			<a href="/admin" >
 				<span class="icon"><AdminIcon /></span>
 				<span class="label">Admin</span>
 			</a>
@@ -99,6 +99,8 @@
         align-items: center;
         gap: 20px;
     }
+	
+
     .logo{
         display: flex;
         align-items: center;
@@ -114,7 +116,13 @@
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
+		transition: transform 0.25s ease; 
 	}
+
+	nav.collapsed .collapse-btn{
+		transform: rotate(180deg);
+	}
+	
 
     ul{
         display: flex;
@@ -124,14 +132,7 @@
         li{
             justify-content: center;
             list-style-type: none;
-            padding: 10px 25px;
             background: var(--background-color-primary);
-
-            &:hover{
-                background: var(--blue-200);
-                color:var(--blue-600);
-                border-radius: 100px;
-            }
 
             a{
                 display: flex;
@@ -141,16 +142,27 @@
                 text-decoration: none;
                 color: var(--main-svg-icon-color);
                 font-weight: 500;
+				padding: 10px 25px;
                 
                 &:hover{
-                    color:var(--blue-600);
-                }
-            }
-
-            .admin-item{
-                color: var(--secondary-svg-icon-color);
-            }
+					background: var(--blue-200);
+					color:var(--blue-600);
+					border-radius: 100px;
+				}
+            }    
         }
+
+		.admin-item{
+
+				a{
+					color:var(--secondary-svg-icon-color);
+
+					&:hover{
+						color:var(--secondary-svg-icon-color);
+						background: var(--secondary-svg-icon-hover-color);
+					}
+				}
+			}
     }
 
 	.icon{

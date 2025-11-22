@@ -56,7 +56,7 @@
 				<span class="label">Results</span>
 			</a>
 		</li>
-		<li>
+		<li class="admin-item">
 			<a href="/admin">	
 				<span class="icon"><AdminIcon /></span>
 				<span class="label">Admin</span>
@@ -144,8 +144,8 @@
 			text-decoration: none;
 			font-size: 1.1rem;
 			font-weight: 500;
-			padding: 0.8rem 0.4rem;
-			border-radius: 8px;
+			padding: 0.8rem 1.5rem;
+			border-radius: 100px;
 			color: var(--main-svg-icon-color);
 
 			&:hover {
@@ -155,6 +155,17 @@
 		}
 	}
 	
+	.admin-item{
+			a{
+				color:var(--secondary-svg-icon-color);
+
+				&:hover{
+					color:var(--secondary-svg-icon-color);
+					background: var(--secondary-svg-icon-hover-color);
+				}
+			}
+		}
+
 	.icon {
 		display: inline-flex;
 	}
