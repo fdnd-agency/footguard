@@ -4,7 +4,11 @@
 //   import variables from "$lib/css/variables.css";
   import logo from '$lib/assets/img/footguard-icon.webp'
 
-  let { children } = $props();   
+  let { children } = $props();  
+  
+  
 </script>
 
 {@render children?.()}
+
+
