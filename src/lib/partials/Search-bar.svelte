@@ -2,11 +2,11 @@
 
     // dynamic data search input to reuse
     let { searchBar_ID, labelText, className, form } = $props();
-    
+
 </script>
 
 <div class="input-bar-container">
-    <input type="text" name="searchbar" class="input-bar" placeholder="" id="{searchBar_ID}">
+    <input type="search" name="searchbar" class="input-bar" placeholder="" id="{searchBar_ID}">
     <label class="form-label" for="{searchBar_ID}">{labelText}</label>
 </div>
 
@@ -56,7 +56,7 @@
         transition: transform 0.3s ease;
         pointer-events: none;
 
-        color: var(--grey-400);
+        color: var(--grey-500);
         font-size: clamp(13px, 1.5vw, 15px);
     }
 
