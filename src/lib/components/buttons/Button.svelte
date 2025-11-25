@@ -153,4 +153,8 @@
       outline-offset: 2px;
     }
   }
+
+  .button-full-width {
+    width: 100%;
+  }
 </style>
