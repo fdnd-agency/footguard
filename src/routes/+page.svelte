@@ -126,10 +126,10 @@
   />
 
   <main id="main-content">
-    <MobileHeader
+    <!-- <MobileHeader
       logoSrc={IWGDF}
       onMenuClick={() => (sidebarOpen = !sidebarOpen)}
-    />
+    /> -->
 
     <!-- Main content area -->
     <section class="content">
