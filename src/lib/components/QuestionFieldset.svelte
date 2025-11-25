@@ -12,17 +12,17 @@
     <div class="radio-buttons">
         <label  class="question-label paragraph">
             <input type="radio"  name={questionName} value="Yes" required>
-            Yes
+            Yes (+)
         </label>
 
         <label class="question-label paragraph">
             <input type="radio"  name={questionName} value="No">
-            No
+            No (-)
         </label>
 
         <label  class="question-label paragraph">
             <input type="radio"  name={questionName} value="Unclear">
-            Unclear
+            Unclear (?)
         </label>
     </div>
 
