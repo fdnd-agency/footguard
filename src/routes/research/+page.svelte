@@ -2,8 +2,6 @@
 	// voor performance enhancement :https://svelte.dev/docs/kit/page-options
 	export const csr = true;
 	export const prerender = false;
-
-	let sidebarOpen = false;
 	let form;
 
 	// Components
@@ -12,32 +10,33 @@
 	import FilterButton from "$lib/partials/Filter-button.svelte";
 	import SearchBar from "$lib/partials/Search-bar.svelte";
 
-	// fetch data
-	let { data } = $props();
+	// values for status
+	// custom value moeten uit theme komen van elk onderzoek uit database
+	// data is voor de fetch data
+	let {
+		theme = [
+			{ value: "alltheme", text: "Theme" },
+			{ value: "tempature", text: "Tempature" },
+			{ value: "color", text: "Color" },
+			{ value: "numbness", text: "Numbness" },
+			{ value: "age", text: "Age" },
+		],
+		status = [
+			{ value: "allstatus", text: "Status" },
+			{ value: "inprogress", text: "In progress" },
+			{ value: "finished", text: "Finished" },
+			{ value: "notstarted", text: "Not started" },
+		],
+		data,
+	} = $props();
+
 	const gradings = data.gradings;
 	const filter = data.filter;
 
-	// values for status
-	let status = [
-		{ value: "allstatus", text: "Status" },
-		{ value: "inprogress", text: "In progress" },
-		{ value: "finished", text: "Finished" },
-		{ value: "notstarted", text: "Not started" },
-	];
-
-	// custom value moeten uit theme komen van elk onderzoek uit database
-	let theme = [
-		{ value: "alltheme", text: "Theme" },
-		{ value: "tempature", text: "Tempature" },
-		{ value: "color", text: "Color" },
-		{ value: "numbness", text: "Numbness" },
-		{ value: "age", text: "Age" },
-	];
+	
 </script>
 
 <div class="main-container">
-
-    <!-- <Navbar/> -->
 
     <section class="main-container-research">
 
@@ -49,9 +48,6 @@
   			<FilterButton filterLabel_ID="status" labelText="Filter status" selectValues={status}/>
 			<FilterButton filterLabel_ID="theme" labelText="Filter theme" selectValues={theme}/>
 		</form>
-
-		<SearchBar searchBar_ID="search" labelText="Search"/>
-
 
         <div class="research-cards-container">
             {#each gradings as grading}
