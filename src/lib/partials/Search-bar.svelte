@@ -1,13 +1,8 @@
 <script>
-    export let form;
-
-    // add class to component
-    let className = "";
-    export { className as class };
 
     // dynamic data search input to reuse
-    export let labelText = "";
-    export let searchBar_ID = "";
+    let { searchBar_ID, labelText, className, form } = $props();
+    
 </script>
 
 <div class="input-bar-container">
