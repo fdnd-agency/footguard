@@ -1,12 +1,7 @@
 <script>
-  // for custom button text
-  export let buttonContent = "buttontext";
-  // for custom href route
-  export let hrefRoute = "/";
 
-  // add class to component
-  let className = "";
-  export { className as class };
+  let {buttonContent, hrefRoute, className} = $props()
+
 </script>
 
 <a href={hrefRoute} class="action-button paragraph {className}">{buttonContent}</a>
