@@ -23,12 +23,12 @@
             cursor: pointer;
             outline: inherit;
             appearance: none;
+            border: none;
 
-            border-radius: 0.5rem;
             padding: 0.5rem;
-            border: 0.5px solid var(--blue-700);
+            border-bottom: 2px solid rgba(255, 166, 0, 0);
 
-            background-color: var(--background-color-primary);
+            background-color: var(--background-color-secondary);
             color: var(--grey-700);
             font-size: clamp(13px, 1.1vw, 15px);
 
@@ -38,13 +38,12 @@
             transition: 0.2s ease-in-out;
             padding-left: 2rem;
 
-            &:hover {
-                border-color: var(--blue-500);
+            &:focus {
+                border-bottom: 2px solid var(--blue-700);
             }
 
-            &:focus {
-                outline: 2px solid var(--orange-400);
-                border: 0.5px solid var(--orange-400);
+            &:hover {
+                border-bottom-color: var(--blue-500);
             }
         }
     }
@@ -57,22 +56,22 @@
         transition: transform 0.3s ease;
         pointer-events: none;
 
-        color: var(--grey-200);
+        color: var(--grey-400);
         font-size: clamp(13px, 1.5vw, 15px);
     }
 
     /* als er een focus op de input is of als de placeholder niet meer zichtbaar is wordt op de .form-label de css uitgevoerd */
     .input-bar:focus + .form-label,
     .input-bar:not(:placeholder-shown) + .form-label {
-        transform: translateY(-45px);
+        transform: translateY(-35px);
         transition: transform 0.3s ease-in-out;
-        color: var(--grey-600);
+        color: var(--grey-400);
     }
 
-    @container (min-width: 60rem) {
+    @container (min-width: 50rem) {
         .input-bar:focus + .form-label,
         .input-bar:not(:placeholder-shown) + .form-label {
-            transform: translateY(-50%) translateX(10.6rem);
+            transform: translateY(-50%) translateX(10.3rem);
             transition: transform 0.5s ease;
 
             background-color: var(--blue-700);
