@@ -1,8 +1,7 @@
 <script>
     // custom variables for reuse
-    export let questionId;
-    export let questionName;
-    export let questionTitle;
+    const { questionId, questionName, questionTitle } = $props()
+    
 </script>
 
 <fieldset class="form-item">
@@ -11,26 +10,29 @@
 
     <div class="radio-buttons">
         <label  class="question-label paragraph">
-            <input type="radio"  name={questionName} value="Yes" required>
+            <input type="radio" name={questionName} value="Yes" required>
             Yes (+)
         </label>
 
         <label class="question-label paragraph">
-            <input type="radio"  name={questionName} value="No">
+            <input type="radio" name={questionName} value="No">
             No (-)
         </label>
 
         <label  class="question-label paragraph">
-            <input type="radio"  name={questionName} value="Unclear">
+            <input type="radio" name={questionName} value="Unclear">
             Unclear (?)
         </label>
     </div>
 
-    <textarea class="paragraph" rows="3" cols="10" placeholder=" Notes..."></textarea>
+    <details>
+        <summary class="paragraph">Add a note...</summary>
+            <textarea class="paragraph" rows="3" cols="10" placeholder="Notes..."></textarea>
+    </details>
 </fieldset>
 
 <style>
-    fieldset {
+   fieldset {
         border: none;
         padding: 0;
         margin: 0;
@@ -68,6 +70,7 @@
         border-radius: 1rem;
         padding: 0.6rem;
         border: 1.5px solid var(--blue-300);
+        margin-top: 0.5rem;
     }
 
     .question-label {
@@ -111,5 +114,26 @@
         border-radius: 1rem;
         background-color: var(--orange-400);
         padding: 0.5rem;
+    }
+
+     details textarea {
+        width: 100%;
+    }
+
+    details > summary {
+        list-style: none;
+        cursor: pointer;
+        color: var(--blue-700);
+    }
+
+    details summary {
+        padding: 0.6rem;
+        background-color: var(--orange-100);
+        border-radius: 1rem;
+
+        &:hover {
+            background-color: var(--orange-400);
+            color: var(--main-text-color-light);
+        }
     }
 </style>
