@@ -2,7 +2,6 @@
 	// voor performance enhancement :https://svelte.dev/docs/kit/page-options
 	export const csr = true;
 	export const prerender = false;
-	let form;
 
 	// Components
 	import Sidebar from "$lib/components/layout/Sidebar.svelte";
@@ -28,6 +27,7 @@
 			{ value: "notstarted", text: "Not started" },
 		],
 		data,
+		form
 	} = $props();
 
 	const gradings = data.gradings;
