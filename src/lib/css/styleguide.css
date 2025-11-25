@@ -14,7 +14,7 @@
 
 html,
 body {
-    font-family: var(--main-font), 'sans-serif';
+    font-family: var(--main-font), sans-serif;
     background-color: var(--background-color-primary);
 
 
@@ -67,7 +67,7 @@ body {
     --grey-400: hsl(210, 7%, 55%);
     --grey-300: hsl(210, 6%, 70%);
     --grey-200: hsl(210, 5%, 80%);
-    --grey-100: hsl(210, 4%, 95%);
+    --grey-100: hsl(240, 4%, 95%);
 
     /* Backgrounds */
     --background-color-primary: hsl(0, 0%, 100%);
@@ -75,6 +75,14 @@ body {
 
     /* Text */
     --main-text-color: var(--grey-700);
+
+    /* SVG Colors */
+    --main-svg-icon-color:hsl(213, 4%, 55%);
+    --secondary-svg-icon-color:hsl(256, 85%, 63%);
+    --secondary-svg-icon-hover-color:hsl(256, 85%, 90%);
+}
+body{
+    background:var(--grey-100) ;
 }
 
 /* H1  */
