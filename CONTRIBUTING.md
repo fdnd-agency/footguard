@@ -153,7 +153,7 @@ Prop	Type	Default	Uitleg
 - Rendert als echte `<button>`, dus correcte toetsenbord­interactie (Enter/Space) en focusgedrag.
 - Zichtbare focusring via `:focus-visible`.
 - `disabled` voorkomt interactie én maakt de knop visueel minder prominent.
-- Gebruik duidelijke tekst in de slot voor screenreaders.
+- Gebruik duidelijke tekst in de slot voor screen readers.
 
 ### Richtlijnen
 - **Primary**: belangrijkste actie op de pagina (bijv. Opslaan, Verzenden).
