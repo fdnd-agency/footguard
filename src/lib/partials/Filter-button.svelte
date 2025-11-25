@@ -1,14 +1,8 @@
 <script>
-  export let form;
-
-  // add class to component
-  let className = "";
-  export { className as class };
 
   // dynamic data select button to reuse
-  export let labelText = "";
-  export let selectValues = [];
-  export let filterLabel_ID = "";
+  let {labelText, selectValues, filterLabel_ID, className, form} = $props()
+
 </script>
 
 <!-- https://github.com/sveltejs/kit/discussions/8499
