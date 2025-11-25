@@ -9,6 +9,7 @@
   import GradingCard from "$lib/components/cards/GradingCard.svelte";
   import StatCard from "$lib/components/cards/StatCard.svelte";
   import CircleGraph from "$lib/components/charts/CircleGraph.svelte";
+  import Footer from "$lib/components/layout/Footer.svelte";
 
   // Sidebar toggle state
   let sidebarOpen = false;
@@ -206,6 +207,8 @@
     </section>
   </main>
 </div>
+
+<Footer />
 
 <style>
   /* Skip link for keyboard navigation */
