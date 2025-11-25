@@ -1,8 +1,7 @@
 <script>
     import notStarted from "$lib/assets/svg/notstarted-icon.svg";
 
-    let className = "";
-    export { className as class };
+    let {className} = $props()
 </script>
 
 <figure class="not-started-label paragraph {className}">

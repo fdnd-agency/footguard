@@ -12,15 +12,7 @@
 	import InProgressLabel from "$lib/partials/In-progress-label.svelte";
 
 	// Dynamic data variables
-	export let name;
-	export let article_id;
-	export let Publisher;
-	export let publishing_year;
-	export let status;
-
-	// add class to component
-	let className = "";
-	export { className as class };
+	let {name, article_id, Publisher, publishing_year, status, className} = $props()
 </script>
 
 <a class="anchor-container-card" href="/checklist">

@@ -2,8 +2,7 @@
     import finished from "$lib/assets/svg/finished-icon.svg";
 
     // add class to component
-    let className = '';
-    export { className as class };
+    let {className} = $props()
 </script>
 
 <figure class="finished-label paragraph {className}">
@@ -25,12 +24,5 @@
         background-color: var(--green-100);
         white-space: nowrap;
     }
-
-
-
-
-
-
-
 
 </style>

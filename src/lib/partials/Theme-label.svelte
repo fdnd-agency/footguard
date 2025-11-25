@@ -1,10 +1,7 @@
 <script>
-    // add class to component
-    let className = '';
-    export { className as class };
 
-    // for custom theme name
-    export let themeName = '';
+    let {className, themeName} = $props()
+
 </script>
 
 <span class="theme-label sub-text {className}">{themeName}</span>
