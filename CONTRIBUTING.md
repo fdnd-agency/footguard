@@ -118,7 +118,7 @@ Op deze manier is er een constante manier van werken.
 ![git-flow-4](https://github.com/user-attachments/assets/69468298-8604-420d-9a62-d4c7f79ce051)
 
 ## Button component (usage)
-De Button is een herbruikbaar component die consistente knoppen binnen Footguard mogelijk maakt. Gebruik dit component voor alle interactieve acties in de interface.
+De Button is een herbruikbare component die consistente knoppen binnen Footguard mogelijk maakt. Gebruik dit component voor alle interactieve acties in de interface.
 
 ### Props
 Prop	Type	Default	Uitleg
