@@ -1,16 +1,14 @@
 <script>
-	let sidebarOpen = false;
 
 	// Components
-	import Navbar from "$lib/components/Navbar.svelte";
 	import Pdf from "$lib/assets/img/pdf-1.pdf";
 	import QuestionFieldset from "$lib/components/QuestionFieldset.svelte";
-
 	import questionIcon from "$lib/assets/svg/question-icon.svg";
+	
 </script>
 
+
 <div class="main-container">
-    <Navbar/>
 
     <section class="main-container-checklist">
         <h1 class="main-container-checklist-title">Answering questions</h1>
