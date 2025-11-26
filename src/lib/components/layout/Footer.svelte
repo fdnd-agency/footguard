@@ -53,14 +53,12 @@
       .footer-madeby {
         font-family: var(--main-font);
         font-size: clamp(14px, 1.5vw, 15px);
-        color: var(--blue-700);
         font-style: normal;
       }
 
       .footer-info {
         font-family: var(--main-font);
         font-size: clamp(14px, 1.5vw, 15px);
-        color: var(--blue-700);
 
         a {
           color: var(--blue-600);
