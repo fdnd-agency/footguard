@@ -7,6 +7,8 @@
   export let tabindex = 0;
 </script>
 
+<!-- https://svelte.dev/docs/svelte/legacy-export-let -->
+
 <button
   class="button button-{variant} button-{size}"
   class:button-full-width={fullWidth}
@@ -17,6 +19,8 @@
 >
   <slot />
 </button>
+
+<!-- https://sveltebyexample.com/class-and-style-directives/ -->
 
 <style>
   /* Base button styling */
