@@ -117,13 +117,47 @@ Op deze manier is er een constante manier van werken.
 
 ![git-flow-4](https://github.com/user-attachments/assets/69468298-8604-420d-9a62-d4c7f79ce051)
 
+## Button component (usage)
+De Button is een herbruikbare component die consistente knoppen binnen Footguard mogelijk maakt. Gebruik dit component voor alle interactieve acties in de interface.
 
+### Props
+Prop	Type	Default	Uitleg
+- `variant	"primary" | "secondary" | "outline" | "danger"	"primary"` -->	Bepaalt de visuele stijl van de knop.
+- `size	"small" | "medium" | "large"	"medium"` --> Regelt de afmeting van de knop.
+- `disabled	boolean	false`	--> Maakt de knop niet interactief en past de styling hierop aan.
+- `fullWidth	boolean	false` --> Laat de knop de volledige breedte van zijn container innemen.
+- `type	"button" | "submit" | "reset"	"button"` --> Native HTML-button type.
+- `tabindex	number	0`	--> Regelt de tabbable volgorde.
+- `slot	—`	—->	Inhoud van de knop (tekst, iconen).
 
+### Voorbeelden
+```html
+<Button>Standaard</Button>
 
+<Button variant="secondary">Secundair</Button>
+<Button variant="outline">Outline</Button>
+<Button variant="danger">Danger</Button>
 
+<Button size="small">Klein</Button>
+<Button size="medium">Middel</Button>
+<Button size="large">Groot</Button>
 
+<Button variant="outline" size="small">Klein Outline</Button>
 
+<Button disabled>Niet actief</Button>
+<Button fullWidth>Volledige breedte</Button>
+<Button type="submit">Verzenden</Button>
+```
 
+### Accessibility
+- Rendert als echte `<button>`, dus correcte toetsenbord­interactie (Enter/Space) en focusgedrag.
+- Zichtbare focusring via `:focus-visible`.
+- `disabled` voorkomt interactie én maakt de knop visueel minder prominent.
+- Gebruik duidelijke tekst in de slot voor screen readers.
 
-
-
+### Richtlijnen
+- **Primary**: belangrijkste actie op de pagina (bijv. Opslaan, Verzenden).
+- **Secondary**: minder nadrukkelijke acties (bijv. Annuleren).
+- **Outline**: lichte of secundaire acties (bijv. Bewerken, Meer info).
+- **Danger**: destructieve acties (bijv. Verwijderen).
+- **Sizes**: small voor compacte UI, large voor belangrijke CTA’s.

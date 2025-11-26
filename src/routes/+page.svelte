@@ -10,6 +10,7 @@
   import StatCard from "$lib/components/cards/StatCard.svelte";
   import CircleGraph from "$lib/components/charts/CircleGraph.svelte";
   import Footer from "$lib/components/layout/Footer.svelte";
+  import Button from "$lib/components/buttons/Button.svelte";
 
   // Sidebar toggle state
   let sidebarOpen = false;
@@ -126,10 +127,10 @@
   />
 
   <main id="main-content">
-    <MobileHeader
+    <!-- <MobileHeader
       logoSrc={IWGDF}
       onMenuClick={() => (sidebarOpen = !sidebarOpen)}
-    />
+    /> -->
 
     <!-- Main content area -->
     <section class="content">
@@ -147,9 +148,7 @@
             class="search-input"
             aria-label="Search dashboard"
           />
-          <button class="button-secondary" tabindex="0" type="button"
-            >Export dashboard</button
-          >
+          <Button variant="secondary">Export dashboard</Button>
         </nav>
       </header>
 
@@ -195,9 +194,7 @@
               {#each compareGradingItems as item (item.id)}
                 <div class="compare-item">
                   <p class="compare-text">{item.title}</p>
-                  <button class="button-outline" tabindex="0" type="button"
-                    >Compare</button
-                  >
+                  <Button variant="outline">Compare</Button>
                 </div>
               {/each}
             </div>
@@ -378,47 +375,6 @@
     box-shadow: 0 0 0 3px hsla(213, 100%, 50%, 0.1);
   }
 
-  /* Secondary button styling */
-  .button-secondary {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1rem;
-    border-radius: 0.5rem;
-    font-size: 0.875rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    white-space: nowrap;
-    flex: 1;
-    /* https://developer.mozilla.org/en-US/docs/Web/CSS/flex */
-    background: var(--background-color-primary);
-    color: var(--grey-700);
-    border: 1px solid var(--grey-300);
-  }
-
-  @media (min-width: 768px) {
-    .button-secondary {
-      flex: 0 0 auto;
-    }
-  }
-
-  .button-secondary:hover {
-    background: var(--grey-100);
-    border-color: var(--grey-400);
-    transform: translateY(-1px);
-  }
-
-  .button-secondary:active {
-    transform: translateY(0);
-  }
-
-  .button-secondary:focus-visible {
-    outline: 3px solid var(--blue-500);
-    outline-offset: 2px;
-  }
-
   /* Section title styling */
   .section-title {
     font-size: 1.25rem;
@@ -527,32 +483,5 @@
     font-size: 0.875rem;
     color: var(--grey-700);
     line-height: 1.5;
-  }
-
-  /* Outline button styling */
-  .button-outline {
-    background: transparent;
-    color: var(--blue-500);
-    padding: 0.5rem 1.25rem;
-    border-radius: 0.5rem;
-    font-weight: 600;
-    font-size: 0.875rem;
-    border: 1.5px solid var(--blue-500);
-    cursor: pointer;
-    transition: all 0.2s ease;
-    flex-shrink: 0;
-  }
-
-  .button-outline:hover {
-    background: var(--blue-100);
-  }
-
-  .button-outline:active {
-    transform: scale(0.98);
-  }
-
-  .button-outline:focus-visible {
-    outline: 3px solid var(--blue-500);
-    outline-offset: 2px;
   }
 </style>
