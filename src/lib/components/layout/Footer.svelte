@@ -7,6 +7,7 @@
   <div class="footer-content">
     <img src={logoSrc} alt="IWGDF Logo" class="footer-logo" />
 
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/address -->
     <address class="footer-madeby">
       <strong>Made by:</strong> Kim Nikita Schijf, Ravi Tjikhoeri, Süleyman Huzeyfe
       Gökgül
@@ -28,9 +29,8 @@
 <style>
   .footer {
     width: 100%;
-    background-color: var(--blue-100);
-    border-top: 1px solid var(--blue-200);
-    padding: 2rem 1rem;
+    background-color: var(--background-color-primary);
+    padding: 1rem 0;
     display: flex;
     justify-content: center;
 
@@ -47,18 +47,19 @@
       .footer-logo {
         height: 28px;
         width: auto;
+        margin: 0 1.5rem;
       }
 
       .footer-madeby {
         font-family: var(--main-font);
-        font-size: clamp(12px, 1.5vw, 14px);
+        font-size: clamp(14px, 1.5vw, 15px);
         color: var(--blue-700);
         font-style: normal;
       }
 
       .footer-info {
         font-family: var(--main-font);
-        font-size: clamp(12px, 1.5vw, 14px);
+        font-size: clamp(14px, 1.5vw, 15px);
         color: var(--blue-700);
 
         a {
