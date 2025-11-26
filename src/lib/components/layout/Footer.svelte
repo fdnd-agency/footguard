@@ -68,10 +68,14 @@
           text-decoration: underline;
           transition: color 0.2s;
 
-          &:hover,
-          &:focus {
-            color: var(--blue-800);
+          &:hover {
+            color: var(--orange-500);
             outline: none;
+          }
+
+          &:focus-visible {
+            outline: 3px solid var(--blue-500);
+            outline-offset: 2px;
           }
         }
       }
