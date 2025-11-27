@@ -11,14 +11,16 @@
 		IwgdfLogoCollapsed
 	} from "$lib";
 
-	let isCollapsed = false;
+	import { isCollapsed } from "$lib/stores/sidebar.js";
 
-	const toggleCollapse = () => (isCollapsed = !isCollapsed);
+	const toggleCollapse = () => {
+		isCollapsed.update((value) => !value);
+	};
 </script>
 
-<nav class:collapsed={isCollapsed}>
+<nav class:collapsed={$isCollapsed}>
 	<div class="logo">
-		{#if isCollapsed}
+		{#if $isCollapsed}
 			<IwgdfLogoCollapsed />
 		{:else}
 			<IwgdfLogo />
@@ -29,7 +31,7 @@
 			class="collapse-btn"
 			on:click={toggleCollapse}
 			aria-label="Toggle sidebar"
-			aria-expanded={!isCollapsed}
+			aria-expanded={!$isCollapsed}
 		>
 			<CollapseMenuIcon />
 		</button>
@@ -55,7 +57,7 @@
 			</a>
 		</li>
 		<li class="admin-item">
-			<a href="/admin" >
+			<a href="/admin">
 				<span class="icon"><AdminIcon /></span>
 				<span class="label">Admin</span>
 			</a>
@@ -74,6 +76,7 @@
 		</li>
 	</ul>
 </nav>
+
 
 <style>
     nav{
