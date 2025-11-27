@@ -1,8 +1,7 @@
 <script>
     import notStarted from "$lib/assets/svg/notstarted-icon.svg";
 
-    let className = "";
-    export { className as class };
+    let {className} = $props()
 </script>
 
 <figure class="not-started-label paragraph {className}">
@@ -21,7 +20,7 @@
         padding: 0.35rem;
         border-radius: 0.5rem;
         color: var(--red-400);
-        background-color: var(--red-100);
+        background-color: rgb(255, 249, 249);
         white-space: nowrap;
     }
 </style>

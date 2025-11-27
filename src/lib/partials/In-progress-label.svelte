@@ -2,8 +2,7 @@
     import inprogress from "$lib/assets/svg/inprogress-icon.svg";
 
     // add class to component
-    let className = '';
-    export { className as class };
+    let {className} = $props()
 </script>
 
 <figure class="in-progress-label paragraph {className}">

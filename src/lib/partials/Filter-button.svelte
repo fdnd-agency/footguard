@@ -1,19 +1,14 @@
 <script>
-  export let form;
-
-  // add class to component
-  let className = "";
-  export { className as class };
 
   // dynamic data select button to reuse
-  export let labelText = "";
-  export let selectValues = [];
+  let {labelText, selectValues, filterLabel_ID, className, form} = $props()
+
 </script>
 
 <!-- https://github.com/sveltejs/kit/discussions/8499
  voor het sumbitten van een geselecteerde value in een selectbutton -->
-<label for="filter-select" class="visually-hidden">{labelText}</label>
-  <select id="filter-select" class="filter-button" name="filter">
+<label for="{filterLabel_ID}" class="visually-hidden">{labelText}</label>
+  <select id="{filterLabel_ID}" class="filter-button" name="filter">
 
   {#each selectValues as selectValue}
     <option value={selectValue.value}>{selectValue.text}</option>
@@ -24,7 +19,6 @@
   select {
     background: none;
     color: inherit;
-    border: none;
     padding: 0;
     font: inherit;
     cursor: pointer;
@@ -36,7 +30,7 @@
     padding: 0.5rem;
 
     background-color: var(--blue-700);
-    color: var(--main-text-color-light);
+    color: var(--background-color-secondary);
     font-size: clamp(13px, 1.5vw, 15px);
 
     background-image: url("/src/lib/assets/svg/select-button-arrow.svg");
@@ -48,10 +42,10 @@
     &:hover {
       background-color: var(--blue-500);
     }
-  }
 
-  .filter-button:focus {
-    outline: 2px solid var(--orange-400);
+    &:focus {
+      outline: 2px solid var(--orange-400);
+    }
   }
 
   .visually-hidden {
