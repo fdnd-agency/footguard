@@ -117,21 +117,7 @@
 <a href="#main-content" tabindex="0" class="skip-link">Skip to main content</a>
 
 <!-- Main layout container -->
-<div class="dashboard">
-  <Sidebar
-    bind:sidebarOpen
-    {navItems}
-    logoSrc={IWGDF}
-    userName="Admin"
-    userRole="Researcher"
-  />
-
-  <main id="main-content">
-    <!-- <MobileHeader
-      logoSrc={IWGDF}
-      onMenuClick={() => (sidebarOpen = !sidebarOpen)}
-    /> -->
-
+  <div class="dashboard">
     <!-- Main content area -->
     <section class="content">
       <!-- Page header with title and actions -->
@@ -202,7 +188,6 @@
         </div>
       </section>
     </section>
-  </main>
 </div>
 
 <Footer />
@@ -242,7 +227,6 @@
   /* Main dashboard layout */
   .dashboard {
     display: flex;
-    min-height: 100vh;
     /* https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/radial-gradient */
     background: radial-gradient(
       circle at 100% 0%,
@@ -252,33 +236,32 @@
     );
   }
 
-  /* Main content container */
-  main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
+  
 
   /* Content wrapper with responsive spacing */
   .content {
     flex: 1;
     display: flex;
     flex-direction: column;
-    margin: 1rem;
+    padding: 2rem 1rem;
     max-width: 100%;
     gap: 2rem;
+      /* https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/radial-gradient */
+    background: radial-gradient(
+      circle at 100% 0%,
+      hsla(208, 100%, 32%, 0.35) 0%,
+      hsla(217, 100%, 79%, 0.15) 35%,
+      hsl(0, 0%, 100%) 45%
+    );
 
     @media (min-width: 768px) {
-      padding: 2rem;
       max-width: 43.75rem;
-      margin: 1rem auto;
+      
     }
 
     @media (min-width: 1024px) {
-      padding: 2rem 3rem;
       max-width: 100%;
-      margin: 0 0 0 15rem;
+      
     }
   }
 

@@ -14,3 +14,4 @@
         initiallyStarred={email.initiallyStarred}
     />
 {/each}
+

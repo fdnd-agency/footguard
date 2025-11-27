@@ -45,7 +45,7 @@
 			</a>
 		</li>
 		<li>
-			<a href="/grading">
+			<a href="/research">
 				<span class="icon"><GradingIcon /></span>
 				<span class="label">Grading</span>
 			</a>
@@ -80,6 +80,7 @@
 
 <style>
     nav{
+		z-index: 9999;
         position: fixed;
 		top: 0;
 		left: 0;
