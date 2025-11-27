@@ -80,6 +80,9 @@ body {
     --main-svg-icon-color:hsl(213, 4%, 55%);
     --secondary-svg-icon-color:hsl(256, 85%, 63%);
     --secondary-svg-icon-hover-color:hsl(256, 85%, 90%);
+
+    /* Email favorite */
+    --favorite-notification-color:hsl(54, 100%, 60%);
 }
 body{
     background:var(--grey-100) ;

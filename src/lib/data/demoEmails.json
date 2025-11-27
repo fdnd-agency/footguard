@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "sender": "Harper Mills",
+    "subject": "Update on your subscription",
+    "snippet": "Your plan will renew automatically next month.",
+    "timeLabel": "07:18",
+    "timeDate": "2025-11-27T07:18",
+    "initiallyStarred": false,
+    "href": "#"
+  },
+  {
+    "id": 2,
+    "sender": "NovaTech",
+    "subject": "Your device is ready for pickup",
+    "snippet": "You can collect it at any time during business hours.",
+    "timeLabel": "09:52",
+    "timeDate": "2025-11-26T09:52",
+    "initiallyStarred": true,
+       "href": "#"
+  },
+  {
+    "id": 3,
+    "sender": "Emily Carter",
+    "subject": "Booking confirmation",
+    "snippet": "Your table reservation for Friday is confirmed.",
+    "timeLabel": "Gisteren",
+    "timeDate": "2025-11-26T18:04",
+    "initiallyStarred": false,
+    "href": "#"
+  },
+  {
+    "id": 4,
+    "sender": "BlueWave Airlines",
+    "subject": "Check-in now available",
+    "snippet": "Online check-in is open for your upcoming flight.",
+    "timeLabel": "11:03",
+    "timeDate": "2025-11-27T11:03",
+    "initiallyStarred": false,
+    "href": "#"
+  },
+  {
+    "id": 5,
+    "sender": "Daily News Digest",
+    "subject": "Today’s top stories",
+    "snippet": "Catch up with the latest global headlines.",
+    "timeLabel": "06:29",
+    "timeDate": "2025-11-27T06:29",
+    "initiallyStarved": true,
+    "href": "#"
+  },
+  {
+    "id": 6,
+    "sender": "Oceanic Bank",
+    "subject": "Monthly statement ready",
+    "snippet": "Your November statement is now available.",
+    "timeLabel": "08:41 AM",
+    "timeDate": "2025-11-25T08:41",
+    "initiallyStarred": false,
+    "href": "#"
+  },
+  {
+    "id": 7,
+    "sender": "Luna Cosmetics",
+    "subject": "Exclusive offer inside",
+    "snippet": "Enjoy 25% off all skincare products this week.",
+    "timeLabel": "Maandag",
+    "timeDate": "2025-11-24T14:22",
+    "initiallyStarred": false,
+    "href": "#"
+  },
+  {
+    "id": 8,
+    "sender": "MetroTransit",
+    "subject": "Service interruption notice",
+    "snippet": "Expect delays due to scheduled maintenance.",
+    "timeLabel": "10:15",
+    "timeDate": "2025-11-27T10:15",
+    "initiallyStarred": false,
+    "href": "#"
+  },
+  {
+    "id": 9,
+    "sender": "Aurelia Hotels",
+    "subject": "Your loyalty points update",
+    "snippet": "You have earned 600 new points this month.",
+    "timeLabel": "07:59",
+    "timeDate": "2025-11-27T07:59",
+    "initiallyStarred": true,
+    "href": "#"
+  },
+  {
+    "id": 10,
+    "sender": "BrightSpace Learning",
+    "subject": "Your course deadline is near",
+    "snippet": "Don’t forget to submit assignment 3.",
+    "timeLabel": "Gisteren",
+    "timeDate": "2025-11-26T16:11",
+    "initiallyStarred": false,
+    "href": "#"
+  },
+  {
+    "id": 11,
+    "sender": "SilverPeak Outdoors",
+    "subject": "Your order has shipped",
+    "snippet": "Track your package with the link provided.",
+    "timeLabel": "04:50",
+    "timeDate": "2025-11-27T04:50",
+    "initiallyStarred": true,
+    "href": "#"
+  },
+  {
+    "id": 12,
+    "sender": "Aurora Finance",
+    "subject": "Important account update",
+    "snippet": "We’ve made changes to our terms and conditions.",
+    "timeLabel": "Vandaag",
+    "timeDate": "2025-11-27T05:21",
+    "initiallyStarred": false,
+    "href": "#"
+  }
+]
