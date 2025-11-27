@@ -15,4 +15,6 @@ export { default as IwgdfLogoCollapsed } from './components/navbar-icons/IWGDGF-
 export { default as IwgdfLogoMobile } from './components/navbar-icons/IWGDF-Logo-Mobile.svelte'
 export { default as HamburgerMenuIcon } from './components/navbar-icons/hamburger-menu-icon.svelte'
 
- 
+//Notifications page
+export { default as Notificationitem } from './components/NotificationItem.svelte'
+    
