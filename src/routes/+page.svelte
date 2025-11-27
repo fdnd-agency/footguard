@@ -9,6 +9,7 @@
   import GradingCard from "$lib/components/cards/GradingCard.svelte";
   import StatCard from "$lib/components/cards/StatCard.svelte";
   import CircleGraph from "$lib/components/charts/CircleGraph.svelte";
+  import Footer from "$lib/components/layout/Footer.svelte";
   import Button from "$lib/components/buttons/Button.svelte";
 
   // Sidebar toggle state
@@ -204,6 +205,8 @@
   </main>
 </div>
 
+<Footer />
+
 <style>
   /* Skip link for keyboard navigation */
   .skip-link {
@@ -245,7 +248,7 @@
       circle at 100% 0%,
       hsla(208, 100%, 32%, 0.35) 0%,
       hsla(217, 100%, 79%, 0.15) 35%,
-      hsl(0, 0%, 100%) 85%
+      hsl(0, 0%, 100%) 45%
     );
   }
 
