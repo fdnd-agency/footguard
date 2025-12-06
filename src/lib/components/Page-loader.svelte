@@ -4,10 +4,8 @@
     import logo from "../assets/img/footguard-icon.webp";
 
     // The whole loader container
-    let mainContainer;
-
     // De footguard logo element
-    let logoFootGuard;
+    let{ mainContainer, logoFootGuard } = $props();
 
     // Used sources: https://github.com/fdnd-agency/footguard/issues/155#issue-3702085279 
 
