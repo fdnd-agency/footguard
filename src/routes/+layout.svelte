@@ -2,8 +2,11 @@
 	import "$lib/css/styleguide.css";
 	import { Navbar, MobileNav } from "$lib/";
 	import { isCollapsed } from "$lib/stores/sidebar.js";
+	import { PageLoader } from "$lib";
 
 	let { children } = $props();
+
+
 
 	let isMobile = $state(false);
 
@@ -13,6 +16,9 @@
 		window.addEventListener("resize", check);
 	}
 </script>
+
+<PageLoader/>
+
 
 <div class="app-layout">
 	{#if isMobile}
@@ -51,3 +57,6 @@
 		}
 	}
 </style>
+
+
+
