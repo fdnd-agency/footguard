@@ -7,26 +7,26 @@
 
 	let isMobile = $state(false);
 
-	if (typeof window !== "undefined") {
-		const check = () => (isMobile = window.innerWidth <= 768);
-		check();
-		window.addEventListener("resize", check);
-	}
+	// if (typeof window !== "undefined") {
+	// 	const check = () => (isMobile = window.innerWidth <= 768);
+	// 	check();
+	// 	window.addEventListener("resize", check);
+	// }
 </script>
 
-<div class="app-layout">
+<!-- <div class="app-layout">
 	{#if isMobile}
 		<MobileNav />
 	{:else}
 		<Navbar />
-	{/if}
+	{/if}  -->
 
 	<main class="page-content" class:collapsed={$isCollapsed}>
 		{@render children?.()}
 	</main>
-</div>
+<!-- </div> -->
 
-<style>
+<!-- <style>
 	.app-layout {
 		min-height: 100vh;
 		display: flex;
@@ -50,4 +50,4 @@
 			margin-left: 0;
 		}
 	}
-</style>
+</style> -->
