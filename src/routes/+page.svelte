@@ -12,6 +12,8 @@
   import Footer from "$lib/components/layout/Footer.svelte";
   import Button from "$lib/components/buttons/Button.svelte";
 
+  import "../lib/css/anchor-positioning.css";
+
   // Sidebar toggle state
   let sidebarOpen = false;
 
@@ -111,83 +113,141 @@
       ],
     },
   ];
+
+  // Retro cursor state
+  let active = false;
+  let x = 0,
+    y = 0;
+  let oldX = 0,
+    oldY = 0;
+
+  // Toggle retro cursor aan/uit
+  function toggle() {
+    active = !active;
+    document.body.classList.toggle("retro-active", active);
+  }
+
+  // Track mouse movement
+  function move(e) {
+    if (!active) return;
+
+    // Update posities
+    oldX = x;
+    oldY = y;
+    x = e.clientX;
+    y = e.clientY;
+
+    // Maak trail blokje
+    const trail = document.createElement("div");
+    trail.className = "trail";
+    trail.style.left = x + "px";
+    trail.style.top = y + "px";
+    document.body.appendChild(trail);
+    setTimeout(() => trail.remove(), 600);
+
+    // Teken lijn tussen oude en nieuwe positie
+    const dist = Math.hypot(x - oldX, y - oldY);
+    if (dist > 10) {
+      const line = document.createElement("div");
+      line.className = "line";
+      line.style.left = oldX + "px";
+      line.style.top = oldY + "px";
+      line.style.width = dist + "px";
+      line.style.transform = `rotate(${Math.atan2(y - oldY, x - oldX)}rad)`;
+      document.body.appendChild(line);
+      setTimeout(() => line.remove(), 400);
+    }
+  }
 </script>
+<!-- Zonder deze regel wordt move functie niet aangeroepen -->
+<svelte:window on:mousemove={move} />
 
 <!-- Skip to main content link (for accessibility) -->
 <a href="#main-content" tabindex="0" class="skip-link">Skip to main content</a>
 
 <!-- Main layout container -->
-  <div class="dashboard">
-    <!-- Main content area -->
-    <section class="content">
-      <!-- Page header with title and actions -->
-      <header class="dashboard-header">
-        <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/hgroup -->
-        <hgroup class="header-content">
-          <h1 class="page-title">Welcome back, Admin</h1>
-          <p class="page-subtitle">Continue grading and track your progress.</p>
-        </hgroup>
-        <nav class="header-actions">
-          <input
-            type="search"
-            placeholder="Search..."
-            class="search-input"
-            aria-label="Search dashboard"
+<div class="dashboard">
+  <!-- Main content area -->
+  <section class="content">
+    <!-- Page header with title and actions -->
+    <header class="dashboard-header">
+      <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/hgroup -->
+      <hgroup class="header-content">
+        <h1 class="page-title">Welcome back, Admin</h1>
+        <p class="page-subtitle">Continue grading and track your progress.</p>
+      </hgroup>
+      <nav class="header-actions">
+
+        <!-- Retro cursor button -->
+        <button class="retro-button" class:active on:click={toggle}>
+          {active ? "ACTIVE" : "START"}
+        </button>
+
+        {#if active}
+          <div class="retro-cursor" style="left:{x}px;top:{y}px"></div>
+          <div class="cursor-pixel" style="left:{x}px;top:{y}px"></div>
+        {/if}
+
+        <input
+          type="search"
+          placeholder="Search..."
+          class="search-input"
+          aria-label="Search dashboard"
+        />
+        <Button variant="secondary">Export dashboard</Button>
+      </nav>
+    </header>
+
+    <!-- Dashboard statistics section -->
+    <section>
+      <h2 class="section-title">Your stats</h2>
+      <p class="section-subtitle">View your personal stats below.</p>
+      <div class="stats-grid">
+        {#each dashboardStats as stat (stat.id)}
+          <StatCard
+            title={stat.title}
+            value={stat.value}
+            variant={stat.variant}
           />
-          <Button variant="secondary">Export dashboard</Button>
-        </nav>
-      </header>
-
-      <!-- Dashboard statistics section -->
-      <section>
-        <h2 class="section-title">Your stats</h2>
-        <p class="section-subtitle">View your personal stats below.</p>
-        <div class="stats-grid">
-          {#each dashboardStats as stat (stat.id)}
-            <StatCard
-              title={stat.title}
-              value={stat.value}
-              variant={stat.variant}
-            />
-          {/each}
-        </div>
-      </section>
-
-      <!-- Continue grading section -->
-      <section>
-        <h2 class="section-title">Continue grading</h2>
-        <p class="section-subtitle">Pick up where you left off.</p>
-        <div class="grading-grid">
-          {#each continueGradingItems as item (item.id)}
-            <GradingCard {...item} />
-          {/each}
-        </div>
-      </section>
-
-      <!-- Bottom section: Papers progress and Compare grading -->
-      <section>
-        <div class="bottom-grid">
-          <!-- Papers progress card -->
-          <article class="card">
-            <h2 class="card-title">Papers progress</h2>
-            <CircleGraph />
-          </article>
-
-          <!-- Compare grading card -->
-          <article class="card">
-            <h2 class="card-title">Compare grading</h2>
-            <div class="compare-list">
-              {#each compareGradingItems as item (item.id)}
-                <div class="compare-item">
-                  <p class="compare-text">{item.title}</p>
-                  <Button variant="outline">Compare</Button>
-                </div>
-              {/each}
-            </div>
-          </article>
-        </div>
-      </section>
+        {/each}
+      </div>
     </section>
+
+    <!-- Continue grading section -->
+    <section>
+      <h2 class="section-title">Continue grading</h2>
+      <p class="section-subtitle">Pick up where you left off.</p>
+      <div class="grading-grid">
+        {#each continueGradingItems as item (item.id)}
+          <GradingCard {...item} />
+        {/each}
+      </div>
+    </section>
+
+    <!-- Bottom section: Papers progress and Compare grading -->
+    <section>
+      <div class="bottom-grid">
+        <!-- Papers progress card -->
+        <article class="card">
+          <h2 class="card-title">Papers progress</h2>
+          <CircleGraph />
+        </article>
+
+        <!-- Compare grading card -->
+        <article class="card">
+          <h2 class="card-title">Compare grading</h2>
+          <div class="compare-list">
+            {#each compareGradingItems as item (item.id)}
+              <div class="compare-item">
+                <p class="compare-text">{item.title}</p>
+                <Button variant="outline">Compare</Button>
+              </div>
+            {/each}
+          </div>
+        </article>
+      </div>
+    </section>
+  </section>
 </div>
 
 <Footer />
@@ -236,8 +296,6 @@
     );
   }
 
-  
-
   /* Content wrapper with responsive spacing */
   .content {
     flex: 1;
@@ -246,7 +304,7 @@
     padding: 2rem 1rem;
     max-width: 100%;
     gap: 2rem;
-      /* https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/radial-gradient */
+    /* https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/radial-gradient */
     background: radial-gradient(
       circle at 100% 0%,
       hsla(208, 100%, 32%, 0.35) 0%,
@@ -256,12 +314,10 @@
 
     @media (min-width: 768px) {
       max-width: 43.75rem;
-      
     }
 
     @media (min-width: 1024px) {
       max-width: 100%;
-      
     }
   }
 

@@ -1,0 +1,151 @@
+/* Custom cursor wanneer actief */
+body.retro-active {
+    cursor: url(http://www.rw-designer.com/cursor-extern.php?id=178945), auto;
+}
+
+/* Anchor point voor positioning (nieuwe CSS techniek) */
+.retro-cursor {
+    position: fixed;
+    width: 1px;
+    height: 1px;
+    pointer-events: none;
+    z-index: 9998;
+    anchor-name: --my-cursor;
+    /* Anchor voor trail positioning */
+}
+
+/* Onzichtbare pixel voor anchor */
+.cursor-pixel {
+    position: fixed;
+    width: 1px;
+    height: 1px;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0;
+}
+
+/* Trail vierkantjes */
+.trail {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    background: currentColor;
+    pointer-events: none;
+    position-anchor: --my-cursor;
+    /* Gebruikt anchor positioning */
+    image-rendering: pixelated;
+    /* Retro pixelated edges */
+    box-shadow: 2px 2px 0 hsla(0, 0%, 0%, 0.3), 0 0 8px currentColor;
+    animation: trail-fade 0.6s steps(6) forwards;
+    /* Stepped animatie */
+}
+
+/* Fade out trail */
+@keyframes trail-fade {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+}
+
+/* Retro line art */
+.line {
+    position: fixed;
+    height: 2px;
+    pointer-events: none;
+    transform-origin: left;
+    image-rendering: pixelated;
+    /* Dashed pattern voor retro look */
+    background: repeating-linear-gradient(90deg,
+            hsl(120, 100%, 50%) 0px, hsl(120, 100%, 50%) 4px,
+            transparent 4px, transparent 8px);
+    box-shadow: 0 0 4px hsl(120, 100%, 50%);
+    animation: line-fade 0.4s steps(4) forwards;
+}
+
+@keyframes line-fade {
+    to {
+        opacity: 0;
+    }
+}
+
+/* style button */
+.retro-button {
+    padding: 10px 20px;
+    background: hsl(0, 0%, 0%);
+    color: hsl(120, 100%, 50%);
+    border: 2px solid hsl(120, 100%, 50%);
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    font-size: 12px;
+    text-transform: uppercase;
+    cursor: pointer;
+    image-rendering: pixelated;
+    box-shadow: 0 0 10px hsl(120, 100%, 50%), 4px 4px 0 hsl(120, 100%, 10%);
+}
+
+.retro-button::before {
+    content: '[ ';
+}
+
+.retro-button::after {
+    content: ' ]';
+}
+
+.retro-button:hover {
+    background: hsl(120, 100%, 10%);
+    transform: translate(2px, 2px);
+    box-shadow: 0 0 10px hsl(120, 100%, 50%), 2px 2px 0 hsl(120, 100%, 10%);
+}
+
+.retro-button.active {
+    background: hsl(120, 100%, 50%);
+    color: hsl(0, 0%, 0%);
+    animation: flicker 0.1s steps(2) infinite;
+}
+
+@keyframes flicker {
+    50% {
+        opacity: 0.8;
+    }
+}
+
+/* kleuren palette (classic 80s) */
+.trail:nth-child(4n+1) {
+    color: hsl(120, 100%, 50%);
+}
+
+/* Green */
+.trail:nth-child(4n+2) {
+    color: hsl(180, 100%, 50%);
+}
+
+/* Cyan */
+.trail:nth-child(4n+3) {
+    color: hsl(300, 100%, 50%);
+}
+
+/* Magenta */
+.trail:nth-child(4n+4) {
+    color: hsl(60, 100%, 50%);
+}
+
+/* Yellow */
+
+/* scanlines overlay */
+body.retro-active::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9997;
+    background: repeating-linear-gradient(0deg,
+            transparent 0px,
+            hsla(0, 0%, 0%, 0.1) 2px,
+            transparent 4px);
+}

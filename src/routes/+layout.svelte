@@ -39,6 +39,7 @@
 		@media (min-width: 769px) {
 			margin-left: 240px;
 			margin-top: 0;
+			padding: 0;
 
 			&.collapsed {
 				margin-left: 80px;
