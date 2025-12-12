@@ -35,6 +35,11 @@
 
 	/* Main page content */
 	.page-content {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background: var(--grey-700);
+		height: 100vh;
 		padding: 1rem;
 		@media (min-width: 769px) {
 			margin-left: 240px;
