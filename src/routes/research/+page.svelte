@@ -1,25 +1,12 @@
 <script>
-	// voor performance enhancement :https://svelte.dev/docs/kit/page-options
-	export const csr = true;
-	export const prerender = false;
-
 	// Components
 	import Sidebar from "$lib/components/layout/Sidebar.svelte";
 	import GradingArticleCard from "$lib/components/Grading-article-card.svelte";
 	import FilterButton from "$lib/partials/Filter-button.svelte";
 	import SearchBar from "$lib/partials/Search-bar.svelte";
+	import Heading from "$lib/partials/Heading.svelte";
 
-	// values for status
-	// custom value moeten uit theme komen van elk onderzoek uit database
-	// data is voor de fetch data
 	let {
-		theme = [
-			{ value: "alltheme", text: "Theme" },
-			{ value: "tempature", text: "Tempature" },
-			{ value: "color", text: "Color" },
-			{ value: "numbness", text: "Numbness" },
-			{ value: "age", text: "Age" },
-		],
 		status = [
 			{ value: "allstatus", text: "Status" },
 			{ value: "inprogress", text: "In progress" },
@@ -30,44 +17,107 @@
 		form
 	} = $props();
 
-	const gradings = data.gradings;
-	const filter = data.filter;
+	const gradings = data.cardData;
+	// const filter = data.filter;
 
-	
 </script>
 
 <div class="main-container">
-
     <section class="main-container-research">
+		<Heading title="Assigned Gradings" subTitle="An overview of all your gradings"/>
 
-        <h1 class="main-container-research-title">Assigned Gradings</h1>
 
-		<!-- https://github.com/sveltejs/kit/discussions/8499
+
+		<!-- <form method="get">
+  <select name="theme" bind:value={data.filter}>
+    <option value="all-themes">All Themes</option>
+    <option value="Temperature">Temperature</option>
+    <option value="Ulcers">Ulcers</option>
+    <option value="High risk ">High-Risk</option>
+    <option value="Age">Age</option>
+  </select>
+  <button type="submit">Filter</button>
+</form> -->
+
+		<form method="get">
+  <select name="status" bind:value={data.status}>
+	<option value="all">Status</option>
+    <option value="Not started">Not started</option>
+    <option value="Finished">Finished</option>
+    <option value="In progress">In progress</option>
+  </select>
+
+
+  <select name="theme" bind:value={data.theme}>
+    <option value="all-themes">All Themes</option>
+    <option value="Temperature">Temperature</option>
+    <option value="Ulcers">Ulcers</option>
+    <option value="High risk ">High-Risk</option>
+    <option value="Age">Age</option>
+  </select>
+
+
+  <button type="submit">Filter</button>
+</form>
+
+<h2> {data.theme}</h2>
+<h2>{data.status}</h2>
+
+
+		<!-- <form method="get" filter={data.filter}>
+        <button class="filterButton" type="submit" name="filter" value="Age">Alle</button>
+        <button class="filterButton" type="submit" name="filter" value="High-risk">Morning</button>
+        <button class="filterButton" type="submit" name="filter" value="Ulcers">Evening</button>
+    </form> -->
+
+<!-- https://github.com/sveltejs/kit/discussions/8499
 		voor het sumbitten van een geselecteerde value in een selectbutton -->
-		<form class="filter-form-container" method="get" bind:this={form}>
-  			<FilterButton filterLabel_ID="status" labelText="Filter status" selectValues={status}/>
-			<FilterButton filterLabel_ID="theme" labelText="Filter theme" selectValues={theme}/>
-		</form>
+		<!-- <form class="filter-form-container" method="get" bind:this={form} filter={data.filter}> -->
+  			<!-- <FilterButton filterLabel_ID="status" labelText="Filter status" selectValues={status}/> -->
+			<!-- <FilterButton filterLabel_ID="theme" labelText="Filter theme" selectValues={theme}/> -->
+			<!-- <FilterButton {selectValues} filterLabel_ID="theme" labelText="Filter theme"/> -->
+		<!-- </form> -->
 
-        <div class="research-cards-container">
-            {#each gradings as grading}
+
+		{#if data.cardData.length === 0}
+			<p>No results found</p>
+			{:else}
+		<div class="research-cards-container">
+  			{#each data.cardData as cardInfo}
                 <GradingArticleCard
-                name={grading.name}
-                article_id={grading.article_id}
-                Publisher={grading.Publisher}
-                publishing_year={grading.publishing_year}
+                name={cardInfo.title}
+                article_id={cardInfo.id}
+                Publisher={cardInfo.Publisher}
+    			publishing_year={new Date(cardInfo.publishing_year).getFullYear()}
+				status={cardInfo.status}
+            	theme={cardInfo.theme}
                 />
             {/each}
         </div>
+	{/if}
+
+
+
+
+
+        <!-- <div class="research-cards-container">
+  			{#each data.cardData as cardInfo}
+                <GradingArticleCard
+                name={cardInfo.title}
+                article_id={cardInfo.id}
+                Publisher={cardInfo.Publisher}
+    			publishing_year={new Date(cardInfo.publishing_year).getFullYear()}
+				status={cardInfo.status}
+            	theme={cardInfo.theme}
+                />
+            {/each}
+        </div> -->
 
     </section>
 	
 </div>
 
 <style>
-	:global(body) {
-		background-color: var(--background-color-secondary);
-	}
 
 	@media (min-width: 1024px) {
 		.main-container {
@@ -78,12 +128,6 @@
 	.main-container-research {
 		padding: 1rem 1rem 1rem 1rem;
 		width: 100%;
-
-		& .main-container-research-title {
-			color: var(--grey-700);
-			padding-top: 1.5rem;
-			padding-bottom: 2rem;
-		}
 	}
 
 	/* positioning filter form */
