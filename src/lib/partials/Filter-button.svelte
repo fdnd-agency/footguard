@@ -15,6 +15,8 @@
   {/each}
 </select>
 
+
+
 <style>
   select {
     background: none;
@@ -24,7 +26,7 @@
     cursor: pointer;
     outline: inherit;
     appearance: none;
-    width: 7.5rem;
+    width: 8rem;
 
     border-radius: 0.5rem;
     padding: 0.5rem;
