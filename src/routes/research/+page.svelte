@@ -49,7 +49,7 @@
 
 
   <select name="theme" bind:value={data.theme}>
-    <option value="all-themes">All Themes</option>
+    <option value="all-themes">Themes</option>
     <option value="Temperature">Temperature</option>
     <option value="Ulcers">Ulcers</option>
     <option value="High risk ">High-Risk</option>
@@ -60,8 +60,8 @@
   <button type="submit">Filter</button>
 </form>
 
-<h2> {data.theme}</h2>
-<h2>{data.status}</h2>
+<!-- <h2> {data.theme}</h2>
+<h2>{data.status}</h2> -->
 
 
 		<!-- <form method="get" filter={data.filter}>
@@ -80,7 +80,7 @@
 
 
 		{#if data.cardData.length === 0}
-			<p>No results found</p>
+			<p class="no-results-text">No gradings found</p>
 			{:else}
 		<div class="research-cards-container">
   			{#each data.cardData as cardInfo}
@@ -140,6 +140,16 @@
 		@media (min-width: 560px) {
 			justify-content: flex-end;
 		}
+	}
+
+	.no-results-text {
+		padding: 4rem;
+		text-align: center;
+		background-color: hsla(197, 7%, 79%, 0.127);
+		margin-top: 2rem;
+		border-radius: 1rem;
+		color: var(--grey-700);
+
 	}
 
 	.research-cards-container {
