@@ -33,95 +33,47 @@
     <section class="main-container-research">
 		<Heading title="Assigned Gradings" subTitle="An overview of all your gradings"/>
 
+		<form method="get" class="filter-form-container" id="myForm">
+			<label for="status" class="visually-hidden">filter status</label>
+			<select class="filter-button" id="status" name="status" bind:value={data.status} on:change={updateFilters}>
+				<option value="all">Status</option>
+				<option value="Not started">Not started</option>
+				<option value="Finished">Finished</option>
+				<option value="In progress">In progress</option>
+			</select>
 
+			<label for="theme" class="visually-hidden">filter theme</label>
+			<select class="filter-button" id="theme" name="theme" bind:value={data.theme} on:change={updateFilters}>
+				<option value="all">Themes</option>
+				<option value="Temperature">Temperature</option>
+				<option value="Ulcers">Ulcers</option>
+				<option value="High risk">High-Risk</option>
+				<option value="Age">Age</option>
+			</select>
 
-		<!-- <form method="get">
-  <select name="theme" bind:value={data.filter}>
-    <option value="all-themes">All Themes</option>
-    <option value="Temperature">Temperature</option>
-    <option value="Ulcers">Ulcers</option>
-    <option value="High risk ">High-Risk</option>
-    <option value="Age">Age</option>
-  </select>
-  <button type="submit">Filter</button>
-</form> -->
-
-		<form method="get">
-  <select name="status" bind:value={data.status}>
-	<option value="all">Status</option>
-    <option value="Not started">Not started</option>
-    <option value="Finished">Finished</option>
-    <option value="In progress">In progress</option>
-  </select>
-
-
-  <select name="theme" bind:value={data.theme}>
-    <option value="all-themes">Themes</option>
-    <option value="Temperature">Temperature</option>
-    <option value="Ulcers">Ulcers</option>
-    <option value="High risk ">High-Risk</option>
-    <option value="Age">Age</option>
-  </select>
-
-
-  <button type="submit">Filter</button>
-</form>
-
-<!-- <h2> {data.theme}</h2>
-<h2>{data.status}</h2> -->
-
-
-		<!-- <form method="get" filter={data.filter}>
-        <button class="filterButton" type="submit" name="filter" value="Age">Alle</button>
-        <button class="filterButton" type="submit" name="filter" value="High-risk">Morning</button>
-        <button class="filterButton" type="submit" name="filter" value="Ulcers">Evening</button>
-    </form> -->
-
-<!-- https://github.com/sveltejs/kit/discussions/8499
-		voor het sumbitten van een geselecteerde value in een selectbutton -->
-		<!-- <form class="filter-form-container" method="get" bind:this={form} filter={data.filter}> -->
-  			<!-- <FilterButton filterLabel_ID="status" labelText="Filter status" selectValues={status}/> -->
-			<!-- <FilterButton filterLabel_ID="theme" labelText="Filter theme" selectValues={theme}/> -->
-			<!-- <FilterButton {selectValues} filterLabel_ID="theme" labelText="Filter theme"/> -->
-		<!-- </form> -->
+			<button bind:this={buttonOff} class="submit-button" type="submit">Filter</button>
+		</form>
 
 
 		{#if data.cardData.length === 0}
 			<p class="no-results-text">No gradings found</p>
-			{:else}
-		<div class="research-cards-container">
-  			{#each data.cardData as cardInfo}
-                <GradingArticleCard
-                name={cardInfo.title}
-                article_id={cardInfo.id}
-                Publisher={cardInfo.Publisher}
-    			publishing_year={new Date(cardInfo.publishing_year).getFullYear()}
-				status={cardInfo.status}
-            	theme={cardInfo.theme}
-                />
-            {/each}
-        </div>
-	{/if}
 
-
-
-
-
-        <!-- <div class="research-cards-container">
-  			{#each data.cardData as cardInfo}
-                <GradingArticleCard
-                name={cardInfo.title}
-                article_id={cardInfo.id}
-                Publisher={cardInfo.Publisher}
-    			publishing_year={new Date(cardInfo.publishing_year).getFullYear()}
-				status={cardInfo.status}
-            	theme={cardInfo.theme}
-                />
-            {/each}
-        </div> -->
+		{:else}
+			<div class="research-cards-container">
+				{#each data.cardData as cardInfo}
+					<GradingArticleCard
+					name={cardInfo.title}
+					article_id={cardInfo.id}
+					Publisher={cardInfo.Publisher}
+					publishing_year={new Date(cardInfo.publishing_year).getFullYear()}
+					status={cardInfo.status}
+					theme={cardInfo.theme}
+					/>
+				{/each}
+			</div>
+		{/if}
 
     </section>
-	
 </div>
 
 <style>
@@ -156,7 +108,7 @@
 		margin-top: 2rem;
 		border-radius: 1rem;
 		color: var(--grey-700);
-
+		animation: fadeIn 0.4s ease-out;
 	}
 
 	.research-cards-container {
@@ -164,5 +116,85 @@
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;
+
+		animation: fadeIn 0.4s ease-out;
 	}
+
+	@keyframes fadeIn {
+		from { 
+			opacity: 0;
+			transform: translateX(30rem);
+
+
+		} to {
+			opacity: 1;
+			transform: translateX(0);
+
+		}
+	}
+
+
+
+	.filter-button {
+		background: none;
+		color: inherit;
+		padding: 0;
+		font: inherit;
+		cursor: pointer;
+		outline: inherit;
+		appearance: none;
+		width: 8rem;
+
+		border-radius: 0.5rem;
+		padding: 0.5rem;
+
+		background-color: var(--blue-700);
+		color: var(--background-color-secondary);
+		font-size: clamp(13px, 1.5vw, 15px);
+
+		background-image: url("/src/lib/assets/svg/select-button-arrow.svg");
+		background-repeat: no-repeat;
+		background-position: right 0.5rem center;
+		background-size: 1rem;
+		transition: 0.2s ease-in-out;
+
+		&:hover {
+		background-color: var(--blue-500);
+		}
+
+		&:focus {
+		outline: 2px solid var(--orange-400);
+		}
+	}
+
+	.visually-hidden {
+		clip: rect(0 0 0 0);
+		clip-path: inset(50%);
+		height: 1px;
+		overflow: hidden;
+		position: absolute;
+		white-space: nowrap;
+		width: 1px;
+	}
+
+	.submit-button {
+		background: none;
+		color: inherit;
+		padding: 0;
+		font: inherit;
+		cursor: pointer;
+		outline: inherit;
+		appearance: none;
+
+		border-radius: 0.5rem;
+		padding: 0.5rem;
+
+		background-color: var(--red-500);
+		color: var(--background-color-secondary);
+		font-size: clamp(13px, 1.5vw, 15px);
+	}
+
+	 :global(.js-on) {
+    display: none; 
+  }
 </style>
