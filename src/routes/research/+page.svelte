@@ -7,13 +7,12 @@
 	import SearchBar from "$lib/partials/Search-bar.svelte";
 	import Heading from "$lib/partials/Heading.svelte";
 
-	let {
     import { text } from "@sveltejs/kit";
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
 
+	let { data, form, buttonOff } = $props();
 	const gradings = data.cardData;
-	// const filter = data.filter;
 
 	
 	// https://svelte.dev/docs/kit/$app-navigation#goto
@@ -21,6 +20,11 @@
 	function updateFilters() {
 		goto(`?status=${data.status}&theme=${data.theme}`);
 	}
+
+	// adding class to remove submit-button
+	onMount(() => {
+		buttonOff.classList.add('js-on');
+	});
 
 
 </script>
