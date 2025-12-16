@@ -35,7 +35,6 @@
     );
   }
 
-  /* Arrow icon in top right corner */
   .stat-card::after {
     content: "";
     position: absolute;
@@ -46,17 +45,18 @@
     background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='12' cy='12' r='10' stroke='%23003d82' stroke-width='1.5'/%3E%3Cpath d='M9 15L15 9M15 9H11M15 9V13' stroke='%23003d82' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
     background-size: contain;
     background-repeat: no-repeat;
-    transition: transform 0.2s ease;
+    transition:
+      transform 0.4s ease,
+      filter 0.6s ease;
+    cursor: pointer;
+    pointer-events: auto;
   }
 
   @media (min-width: 768px) {
-    .stat-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 0.375rem 1.125rem hsla(213, 12%, 15%, 0.12);
-    }
-
     .stat-card:hover::after {
-      transform: scale(1.1);
+      transform: scale(1.2);
+      filter: brightness(2.1) contrast(1.2);
+      /* https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/filter#try_it */
     }
   }
 
