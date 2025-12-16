@@ -54,6 +54,7 @@
         font-family: var(--main-font);
         font-size: clamp(14px, 1.5vw, 15px);
         font-style: normal;
+        line-height: 1.6;
       }
 
       .footer-info {

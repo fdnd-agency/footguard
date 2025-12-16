@@ -30,7 +30,7 @@
 	.app-layout {
 		min-height: 100vh;
 		display: flex;
-		flex-direction: column; /* MobileNav staat bovenaan */
+		flex-direction: column;
 	}
 
 	/* Main page content */
@@ -46,7 +46,7 @@
 		}
 
 		@media (max-width: 768px) {
-			margin-top: 80px; /* hoogte mobile nav */
+			margin-top: 80px;
 			margin-left: 0;
 		}
 	}
