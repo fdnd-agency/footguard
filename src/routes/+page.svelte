@@ -236,11 +236,12 @@
     );
   }
 
+  /* Content wrapper with responsive spacing */
   .content {
     flex: 1;
     display: flex;
     flex-direction: column;
-    padding: 1.5rem;
+    padding: 2rem 0 4rem 0;
     max-width: 100%;
     gap: 2rem;
     background: radial-gradient(
@@ -251,14 +252,37 @@
     );
 
     @media (min-width: 768px) {
-      padding: 3rem 2rem;
+      padding: 2rem 0 5rem 0;
+      gap: 2.5rem;
     }
 
     @media (min-width: 1024px) {
-      max-width: 100%;
+      padding: 3rem 0 6rem 0;
+      gap: 3rem;
     }
   }
 
+  /* Add horizontal padding to all sections */
+  .content > section,
+  .content > .dashboard-header {
+    padding-left: 1rem;
+    padding-right: 1rem;
+
+    @media (min-width: 768px) {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+
+    @media (min-width: 1024px) {
+      padding-left: 3rem;
+      padding-right: 3rem;
+    }
+
+    @media (min-width: 1440px) {
+      padding-left: 4rem;
+      padding-right: 4rem;
+    }
+  }
   /* Page header container */
   .dashboard-header {
     display: flex;
@@ -316,7 +340,6 @@
     @media (min-width: 768px) {
       width: auto;
       flex-shrink: 0;
-
       /* https://developer.mozilla.org/en-US/docs/Web/CSS/flex-shrink */
     }
   }
@@ -377,14 +400,15 @@
   .stats-grid {
     display: flex;
     gap: 1rem;
-    justify-content: flex-start;
     width: 100%;
     flex-wrap: wrap;
-    align-items: stretch;
-    flex-direction: row;
 
-    @media (min-width: 768px) {
+    @media (min-width: 640px) {
       gap: 1.25rem;
+    }
+
+    @media (min-width: 1024px) {
+      gap: 1.5rem;
     }
   }
 
@@ -405,9 +429,19 @@
     grid-template-columns: 1fr;
     gap: 1.5rem;
 
-    @media (min-width: 1024px) {
-      grid-template-columns: 28.125rem 1fr;
+    @media (min-width: 768px) {
+      grid-template-columns: 1fr;
       gap: 2rem;
+    }
+
+    @media (min-width: 1024px) {
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    @media (min-width: 1440px) {
+      grid-template-columns: 1.2fr 1fr;
+      gap: 2.5rem;
     }
   }
 
@@ -415,8 +449,19 @@
   .card {
     background: var(--background-color-primary);
     border-radius: 1rem;
-    padding: 2rem;
-    box-shadow: 0 0.25rem 0.75rem hsla(213, 12%, 15%, 0.08);
+    padding: 1.5rem;
+    box-shadow:
+      0 0.25rem 0.75rem hsla(213, 12%, 15%, 0.12),
+      0 0.125rem 0.25rem hsla(213, 12%, 15%, 0.08);
+    border: 1px solid hsla(213, 12%, 15%, 0.06);
+
+    @media (min-width: 768px) {
+      padding: 2rem;
+    }
+
+    @media (min-width: 1024px) {
+      padding: 2.5rem;
+    }
   }
 
   /* Card title styling */

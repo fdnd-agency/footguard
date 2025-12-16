@@ -12,20 +12,32 @@
 <style>
   /* Main stat card container */
   .stat-card {
-    width: 100%;
-    max-width: 11rem;
-    aspect-ratio: 1; 
+    flex: 0 0 auto;
+    width: calc(50% - 0.5rem);
+    min-width: 8.5rem;
+    max-width: 10rem;
+    aspect-ratio: 1;
+    /* https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio */
     background: var(--background-color-primary);
     border-radius: 1rem;
     padding: 1.5rem;
     transition: all 0.2s ease;
-    box-shadow: 0 0.25rem 0.75rem hsla(213, 12%, 15%, 0.08);
+    box-shadow:
+      0 0.25rem 0.75rem hsla(213, 12%, 15%, 0.12),
+      0 0.125rem 0.25rem hsla(213, 12%, 15%, 0.08);
+    border: 1px solid hsla(213, 12%, 15%, 0.06);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     position: relative;
 
-    /* https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio */
+    @media (min-width: 640px) {
+      width: auto;
+    }
+
+    @media (min-width: 1024px) {
+      max-width: 11rem;
+    }
   }
 
   /* Primary variant with gradient background */
