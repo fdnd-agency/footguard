@@ -45,14 +45,19 @@
     background: var(--background-color-primary);
     border-radius: 1rem;
     padding: 1.5rem;
-    box-shadow: 0 0.25rem 0.75rem hsla(213, 12%, 15%, 0.08);
+    box-shadow:
+      0 0.25rem 0.75rem hsla(213, 12%, 15%, 0.12),
+      0 0.125rem 0.25rem hsla(213, 12%, 15%, 0.08);
+    border: 1px solid hsla(213, 12%, 15%, 0.06);
     transition: all 0.2s ease;
   }
 
   @media (min-width: 768px) {
     .grading-card:hover {
       transform: translateY(-2px);
-      box-shadow: 0 0.375rem 1.125rem hsla(213, 12%, 15%, 0.12);
+      box-shadow:
+        0 0.5rem 1.25rem hsla(213, 12%, 15%, 0.16),
+        0 0.25rem 0.5rem hsla(213, 12%, 15%, 0.1);
     }
   }
 

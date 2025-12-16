@@ -125,8 +125,8 @@
   <section class="content">
     <!-- Page header with title and actions -->
     <header class="dashboard-header">
-      <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/hgroup -->
       <hgroup class="header-content">
+        <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/hgroup -->
         <h1 class="page-title">Welcome back, Admin</h1>
         <p class="page-subtitle">Continue grading and track your progress.</p>
       </hgroup>
@@ -252,7 +252,7 @@
     flex-direction: column;
     padding: 2rem 0 4rem 0;
     max-width: 100%;
-    gap: 2rem;
+    gap: 1.5rem;
     background: radial-gradient(
       circle at 100% 0%,
       hsla(208, 100%, 32%, 0.12) 0%,
@@ -262,12 +262,11 @@
 
     @media (min-width: 768px) {
       padding: 2rem 0 5rem 0;
-      gap: 2.5rem;
     }
 
     @media (min-width: 1024px) {
       padding: 3rem 0 6rem 0;
-      gap: 3rem;
+      gap: 2rem;
     }
   }
 
@@ -292,6 +291,7 @@
       padding-right: 4rem;
     }
   }
+
   /* Page header container */
   .dashboard-header {
     display: flex;
@@ -343,6 +343,7 @@
   /* Header actions container */
   .header-actions {
     display: flex;
+    flex-direction: column;
     gap: 0.75rem;
     width: 100%;
 
