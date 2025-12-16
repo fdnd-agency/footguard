@@ -15,7 +15,7 @@
 html,
 body {
     font-family: var(--main-font), sans-serif;
-    background-color: var(--background-color-primary);
+    /* background-color: var(--background-color-primary); */
 
 
     
@@ -85,7 +85,7 @@ body {
     --favorite-notification-color:hsl(54, 100%, 60%);
 }
 body{
-    background:var(--grey-100) ;
+    /* background:var(--grey-100) ; */
 }
 
 /* H1  */
