@@ -102,7 +102,7 @@
   /* Individual progress row layout */
   .progress-row {
     display: grid;
-    grid-template-columns: 4.375rem 1fr 2.813rem;
+    grid-template-columns: 5.5rem 1fr 2.813rem;
     align-items: center;
     gap: 0.75rem;
     margin: 0;
