@@ -19,5 +19,5 @@ export { default as HamburgerMenuIcon } from './components/navbar-icons/hamburge
 export { default as Notificationitem } from './components/NotificationItem.svelte'
     
 
-
-export 	{ default as PageLoader } from "$lib/components/Page-loader.svelte";
+// Page loader
+export 	{ default as PageLoader } from "$lib/components/PageLoader.svelte";
