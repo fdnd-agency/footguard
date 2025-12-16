@@ -63,7 +63,6 @@
     transition:
       transform 0.4s ease,
       filter 0.6s ease;
-    cursor: pointer;
     pointer-events: auto;
   }
 

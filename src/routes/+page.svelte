@@ -11,6 +11,9 @@
   import CircleGraph from "$lib/components/charts/CircleGraph.svelte";
   import Footer from "$lib/components/layout/Footer.svelte";
   import Button from "$lib/components/buttons/Button.svelte";
+  import CustomCursor from "$lib/components/CustomCursor.svelte";
+
+  let cursorActive = false;
 
   // Sidebar toggle state
   let sidebarOpen = false;
@@ -134,7 +137,12 @@
           class="search-input"
           aria-label="Search dashboard"
         />
-        <Button variant="secondary">Export dashboard</Button>
+        <Button
+          variant="secondary"
+          on:click={() => (cursorActive = !cursorActive)}
+        >
+          {cursorActive ? "Disable" : "Enable"} custom cursor
+        </Button>
       </nav>
     </header>
 
@@ -188,6 +196,7 @@
       </div>
     </section>
   </section>
+  <CustomCursor active={cursorActive} />
 </div>
 
 <Footer />
