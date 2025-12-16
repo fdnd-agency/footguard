@@ -236,34 +236,28 @@
     );
   }
 
-  
-
-  /* Content wrapper with responsive spacing */
   .content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    padding: 2rem 1rem;
-    max-width: 100%;
-    gap: 2rem;
-      /* https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/radial-gradient */
-    background: radial-gradient(
-      circle at 100% 0%,
-      hsla(208, 100%, 32%, 0.35) 0%,
-      hsla(217, 100%, 79%, 0.15) 35%,
-      hsl(0, 0%, 100%) 45%
-    );
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  max-width: 100%;
+  gap: 2rem;
+  background: radial-gradient(
+    circle at 100% 0%,
+    hsla(208, 100%, 32%, 0.35) 0%,
+    hsla(217, 100%, 79%, 0.15) 35%,
+    hsl(0, 0%, 100%) 45%
+  );
 
-    @media (min-width: 768px) {
-      max-width: 43.75rem;
-      
-    }
-
-    @media (min-width: 1024px) {
-      max-width: 100%;
-      
-    }
+  @media (min-width: 768px) {
+    padding: 3rem 2rem;
   }
+
+  @media (min-width: 1024px) {
+    max-width: 100%;
+  }
+}
 
   /* Page header container */
   .dashboard-header {
@@ -381,14 +375,15 @@
 
   /* Stats grid layout */
   .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(8.75rem, 10rem));
+    display: flex;
     gap: 1rem;
-    justify-content: start;
+    justify-content: flex-start;
     width: 100%;
+    flex-wrap: wrap;
+    align-items: stretch;
+    flex-direction: row;
 
     @media (min-width: 768px) {
-      grid-template-columns: repeat(4, minmax(10rem, 11.25rem));
       gap: 1.25rem;
     }
   }

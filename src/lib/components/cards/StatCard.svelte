@@ -12,6 +12,9 @@
 <style>
   /* Main stat card container */
   .stat-card {
+    width: 100%;
+    max-width: 11rem;
+    aspect-ratio: 1; 
     background: var(--background-color-primary);
     border-radius: 1rem;
     padding: 1.5rem;
@@ -21,7 +24,7 @@
     flex-direction: column;
     justify-content: space-between;
     position: relative;
-    aspect-ratio: 1;
+
     /* https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio */
   }
 

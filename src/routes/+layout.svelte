@@ -35,7 +35,7 @@
 
 	/* Main page content */
 	.page-content {
-		padding: 1rem;
+		padding: 0;
 		@media (min-width: 769px) {
 			margin-left: 240px;
 			margin-top: 0;
