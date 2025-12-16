@@ -1,107 +1,117 @@
 <script>
-  export let data = {
-    graded: 6,
-    finalized: 3,
-    inProgress: 4,
-    notStarted: 9,
-  };
+  import { onMount } from "svelte";
 
-  // Calculate total and percentages
-  $: total = data.graded + data.finalized + data.inProgress + data.notStarted;
-  $: gradedPercent = ((data.graded / total) * 100).toFixed(1);
-  $: finalizedPercent = ((data.finalized / total) * 100).toFixed(1);
-  $: inProgressPercent = ((data.inProgress / total) * 100).toFixed(1);
-  $: notStartedPercent = ((data.notStarted / total) * 100).toFixed(1);
+  // Chart data with order, label, value, and color
+  let sections = [
+    {
+      key: "notStarted",
+      label: "Not started",
+      value: 9,
+      color: "var(--grey-200)",
+    },
+    {
+      key: "inProgress",
+      label: "In progress",
+      value: 4,
+      color: "var(--orange-500)",
+    },
+    { key: "graded", label: "Graded", value: 6, color: "var(--green-500)" },
+    {
+      key: "finalized",
+      label: "Finalized",
+      value: 3,
+      color: "var(--blue-500)",
+    },
+  ];
 
-  // Calculate degrees for semicircle (180 degrees total)
-  $: gradedDeg = (data.graded / total) * 180;
-  $: finalizedDeg = (data.finalized / total) * 180;
-  $: inProgressDeg = (data.inProgress / total) * 180;
-  $: notStartedDeg = (data.notStarted / total) * 180;
+  // Total value for computing percentages
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce
+  $: total = sections.reduce((sum, s) => sum + s.value, 0);
 
-  // Gradient style for donut chart
+  // Radius percent for label positioning based on screen size
+  // https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio
+  let radiusPercent = 70;
+
+  function updateRadius() {
+    radiusPercent = window.innerWidth < 768 ? 40 : 70;
+  }
+
+  onMount(() => {
+    updateRadius();
+    window.addEventListener("resize", updateRadius);
+    return () => window.removeEventListener("resize", updateRadius);
+  });
+
+  // Compute position of labels based on slice degrees
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/cos
+  function getPosition(startDeg, segmentDeg, radiusPercent = 70) {
+    const middleDeg = startDeg + segmentDeg / 2;
+    const angleRad = ((middleDeg - 90) * Math.PI) / 180;
+    return {
+      x: `${50 + radiusPercent * Math.cos(angleRad)}%`,
+      y: `${50 + radiusPercent * Math.sin(angleRad)}%`,
+    };
+  }
+
+  // Compute percentage, slice degrees, start deg, and positions for each section
+  $: sectionsWithCalc = sections.map((s, i) => {
+    const percent = ((s.value / total) * 100).toFixed(1);
+    const deg = (s.value / total) * 360;
+    const startDeg = sections
+      .slice(0, i)
+      .reduce((sum, x) => sum + (x.value / total) * 360, 0);
+    return {
+      ...s,
+      percent,
+      deg,
+      startDeg,
+      pos: getPosition(startDeg, deg, radiusPercent),
+    };
+  });
+
+  // Build conic-gradient CSS string for chart background
+  // https://css-tricks.com/almanac/functions/c/conic-gradient/
   $: gradientStyle = `
     conic-gradient(
       from 0deg,
-      var(--green-500) 0deg ${gradedDeg}deg,
-      var(--blue-500) ${gradedDeg}deg ${gradedDeg + finalizedDeg}deg,
-      var(--orange-500) ${gradedDeg + finalizedDeg}deg ${gradedDeg + finalizedDeg + inProgressDeg}deg,
-      var(--grey-200) ${gradedDeg + finalizedDeg + inProgressDeg}deg 180deg
+      ${sectionsWithCalc
+        .map((s) => `${s.color} ${s.startDeg}deg ${s.startDeg + s.deg}deg`)
+        .join(",")}
     )
   `;
-
-  // Calculate positions for percentage labels
-  function getPosition(startDeg, segmentDeg) {
-    const middleDeg = startDeg + segmentDeg / 2;
-    const radius = 85;
-    const angleRad = (middleDeg * Math.PI) / 180;
-    const x = 50 + radius * Math.cos(angleRad);
-    const y = 50 + radius * Math.sin(angleRad);
-    return { x: `${x}%`, y: `${y}%` };
-  }
-
-  $: gradedPos = getPosition(0, gradedDeg);
-  $: finalizedPos = getPosition(gradedDeg, finalizedDeg);
-  $: inProgressPos = getPosition(gradedDeg + finalizedDeg, inProgressDeg);
-  $: notStartedPos = getPosition(
-    gradedDeg + finalizedDeg + inProgressDeg,
-    notStartedDeg
-  );
 </script>
 
 <!-- Chart container -->
 <section class="chart">
-  <!-- Donut chart visual -->
+  <!-- Circle chart visual -->
   <figure class="chart-visual">
     <figcaption class="visually-hidden">Paper progress distribution</figcaption>
-    <span class="donut-container">
-      <span class="donut" style="background: {gradientStyle};">
-        <span
-          class="percentage graded-text"
-          style="left: {gradedPos.x}; top: {gradedPos.y};"
-        >
-          {gradedPercent}%
-        </span>
-        <span
-          class="percentage finalized-text"
-          style="left: {finalizedPos.x}; top: {finalizedPos.y};"
-        >
-          {finalizedPercent}%
-        </span>
-        <span
-          class="percentage inprogress-text"
-          style="left: {inProgressPos.x}; top: {inProgressPos.y};"
-        >
-          {inProgressPercent}%
-        </span>
-        <span
-          class="percentage notstarted-text"
-          style="left: {notStartedPos.x}; top: {notStartedPos.y};"
-        >
-          {notStartedPercent}%
-        </span>
+    <span class="circle-container">
+      <span class="circle" style="background: {gradientStyle};">
+        {#each sectionsWithCalc as section}
+          <span
+            class="percentage"
+            style="
+        left: {section.pos.x};
+        top: {section.pos.y};
+        color: {section.color};
+      "
+          >
+            {section.percent}%
+          </span>
+        {/each}
       </span>
     </span>
   </figure>
 
   <!-- Chart legend -->
   <ul class="legend">
-    <li class="legend-item">
-      <span class="legend-dot graded"></span>
-      <span>Graded ({data.graded})</span>
-    </li>
-    <li class="legend-item">
-      <span class="legend-dot finalized"></span>
-      <span>Finalized ({data.finalized})</span>
-    </li>
-    <li class="legend-item">
-      <span class="legend-dot in-progress"></span>
-      <span>In progress ({data.inProgress})</span>
-    </li>
-    <li class="legend-item">
-      <span class="legend-dot not-started"></span>
-      <span>Not started ({data.notStarted})</span>
-    </li>
+    {#each sections as section}
+      <li class="legend-item">
+        <span class="legend-dot" style="background: {section.color};"></span>
+        <span>{section.label} ({section.value})</span>
+      </li>
+    {/each}
   </ul>
 </section>
 
@@ -109,6 +119,7 @@
   /* Main chart container */
   .chart {
     width: 100%;
+    margin-top: 4rem;
   }
 
   /* Chart visual container */
@@ -116,71 +127,47 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 9.375rem;
+    height: 12.5rem;
     margin: 0 0 1.5rem 0;
-    overflow: hidden;
 
     @media (min-width: 768px) {
-      height: 11.25rem;
+      height: 15rem;
       margin-bottom: 2rem;
     }
   }
-  
+
   .visually-hidden {
     display: none;
   }
 
-  /* Donut container wrapper */
-  .donut-container {
+  /* Circle container wrapper with responsive aspect ratio */
+  .circle-container {
+    width: 100%;
+    max-width: 15rem;
+    height: auto;
+    aspect-ratio: 1 / 1; 
+    /* https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio */
+
+    @media (min-width: 768px) {
+      width: 15rem;
+      height: 15rem;
+    }
+  }
+
+  /* Circle chart element */
+  .circle {
     display: block;
-    width: 17.5rem;
-    height: 8.75rem;
-    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
     position: relative;
-    transform: scaleY(-1);
-
-    @media (min-width: 768px) {
-      width: 20rem;
-      height: 10rem;
-    }
   }
 
-  /* Donut chart element */
-  .donut {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    display: block;
-    width: 17.5rem;
-    height: 17.5rem;
-    border-radius: 50%;
-    transform: scaleY(-1);
-
-    @media (min-width: 768px) {
-      width: 20rem;
-      height: 20rem;
-    }
-  }
-
-  /* Donut inner circle (cutout) */
-  .donut::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 60%;
-    height: 60%;
-    background: var(--background-color-primary);
-    border-radius: 50%;
-    z-index: 1;
-  }
-
-  /* Percentage labels on donut */
+  /* Percentage labels on circle */
   .percentage {
     position: absolute;
     transform: translate(-50%, -50%);
-    font-size: 0.875rem;
+    font-size: 0.75rem;
     font-weight: 600;
     color: var(--grey-700);
     z-index: 2;
@@ -197,8 +184,9 @@
     grid-template-columns: 1fr;
     gap: 0.75rem;
     list-style: none;
-    padding: 0;
-    margin: 0;
+    padding: 1rem;
+    margin-top: 5rem;
+    justify-items: center;
 
     @media (min-width: 768px) {
       grid-template-columns: repeat(2, 1fr);
@@ -221,22 +209,5 @@
     height: 0.75rem;
     border-radius: 50%;
     flex-shrink: 0;
-  }
-
-  /* Legend dot colors */
-  .legend-dot.graded {
-    background: var(--green-500);
-  }
-
-  .legend-dot.finalized {
-    background: var(--blue-500);
-  }
-
-  .legend-dot.in-progress {
-    background: var(--orange-500);
-  }
-
-  .legend-dot.not-started {
-    background: var(--grey-200);
   }
 </style>
