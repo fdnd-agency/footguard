@@ -1,4 +1,5 @@
 <script>
+
 	// Components
 	import Sidebar from "$lib/components/layout/Sidebar.svelte";
 	import GradingArticleCard from "$lib/components/Grading-article-card.svelte";
@@ -7,18 +8,20 @@
 	import Heading from "$lib/partials/Heading.svelte";
 
 	let {
-		status = [
-			{ value: "allstatus", text: "Status" },
-			{ value: "inprogress", text: "In progress" },
-			{ value: "finished", text: "Finished" },
-			{ value: "notstarted", text: "Not started" },
-		],
-		data,
-		form
-	} = $props();
+    import { text } from "@sveltejs/kit";
+	import { goto } from '$app/navigation';
+	import { onMount } from 'svelte';
 
 	const gradings = data.cardData;
 	// const filter = data.filter;
+
+	
+	// https://svelte.dev/docs/kit/$app-navigation#goto
+	// for changening the url without page refresh
+	function updateFilters() {
+		goto(`?status=${data.status}&theme=${data.theme}`);
+	}
+
 
 </script>
 
