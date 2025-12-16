@@ -11,21 +11,14 @@
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
 
-	let { data, form, buttonOff } = $props();
+	let { data, form } = $props();
 	const gradings = data.cardData;
 
-	
 	// https://svelte.dev/docs/kit/$app-navigation#goto
 	// for changening the url without page refresh
 	function updateFilters() {
 		goto(`?status=${data.status}&theme=${data.theme}`);
 	}
-
-	// adding class to remove submit-button
-	onMount(() => {
-		buttonOff.classList.add('js-on');
-	});
-
 
 </script>
 
@@ -51,7 +44,9 @@
 				<option value="Age">Age</option>
 			</select>
 
-			<button bind:this={buttonOff} class="submit-button" type="submit">Filter</button>
+			<noscript>
+				<button class="submit-button"  type="submit">Filter</button>
+			</noscript>
 		</form>
 
 
@@ -125,15 +120,11 @@
 			opacity: 0;
 			transform: translateX(30rem);
 
-
 		} to {
 			opacity: 1;
 			transform: translateX(0);
-
 		}
 	}
-
-
 
 	.filter-button {
 		background: none;
@@ -193,8 +184,4 @@
 		color: var(--background-color-secondary);
 		font-size: clamp(13px, 1.5vw, 15px);
 	}
-
-	 :global(.js-on) {
-    display: none; 
-  }
 </style>
