@@ -112,8 +112,17 @@
   .progress-label {
     font-size: 0.875rem;
     font-weight: 600;
-    color: var(--grey-700);
     margin: 0;
+  }
+
+  /* Blue color for "You" label */
+  .progress-row:first-child .progress-label {
+    color: var(--blue-600);
+  }
+
+  /* Green color for "Assessor 2" label */
+  .progress-row:last-child .progress-label {
+    color: var(--green-600);
   }
 
   /* Progress bar container/track */
