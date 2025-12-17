@@ -6,6 +6,9 @@
 	import FilterButton from "$lib/partials/Filter-button.svelte";
 	import SearchBar from "$lib/partials/Search-bar.svelte";
 	import Heading from "$lib/partials/Heading.svelte";
+	import { fly } from 'svelte/transition';
+	import { fade } from 'svelte/transition';
+
 
     import { text } from "@sveltejs/kit";
 	import { goto } from '$app/navigation';
@@ -49,25 +52,25 @@
 			</noscript>
 		</form>
 
-
+         <!-- https://dev.to/a1guy/svelte-motion-theming-guide-transitions-animations-and-dark-mode-explained-4e3h: svelktekit animations -->
 		{#if data.cardData.length === 0}
-			<p class="no-results-text">No gradings found</p>
-
+			<p class="no-results-text" in:fade>No gradings found</p>
 		{:else}
 			<div class="research-cards-container">
 				{#each data.cardData as cardInfo}
-					<GradingArticleCard
-					name={cardInfo.title}
-					article_id={cardInfo.id}
-					Publisher={cardInfo.Publisher}
-					publishing_year={new Date(cardInfo.publishing_year).getFullYear()}
-					status={cardInfo.status}
-					theme={cardInfo.theme}
-					/>
+					<div  transition:fly={{y: 100, duration: 400}}>
+						<GradingArticleCard
+							name={cardInfo.title}
+							article_id={cardInfo.id}
+							Publisher={cardInfo.Publisher}
+							publishing_year={new Date(cardInfo.publishing_year).getFullYear()}
+							status={cardInfo.status}
+							theme={cardInfo.theme}
+						/>
+					</div>
 				{/each}
 			</div>
 		{/if}
-
     </section>
 </div>
 
@@ -103,7 +106,7 @@
 		margin-top: 2rem;
 		border-radius: 1rem;
 		color: var(--grey-700);
-		animation: fadeIn 0.4s ease-out;
+		/* animation: fadeIn 0.4s ease-out; */
 	}
 
 	.research-cards-container {
@@ -112,10 +115,10 @@
 		flex-direction: column;
 		gap: 1rem;
 
-		animation: fadeIn 0.4s ease-out;
+		/* animation: fadeIn 0.4s ease-out; */
 	}
 
-	@keyframes fadeIn {
+	/* @keyframes fadeIn {
 		from { 
 			opacity: 0;
 			transform: translateX(30rem);
@@ -124,7 +127,7 @@
 			opacity: 1;
 			transform: translateX(0);
 		}
-	}
+	} */
 
 	.filter-button {
 		background: none;
@@ -185,3 +188,6 @@
 		font-size: clamp(13px, 1.5vw, 15px);
 	}
 </style>
+
+
+
