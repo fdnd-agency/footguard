@@ -32,6 +32,7 @@ body {
     --blue-300: hsl(203, 65%, 65%);
     --blue-200: hsl(203, 60%, 78%);
     --blue-100: hsl(203, 55%, 90%);
+    --blue-50: hsl(203, 50%, 95%);
 
     /* Secondary red / alert */
     --red-700: hsl(4, 75%, 25%);
@@ -68,6 +69,7 @@ body {
     --grey-300: hsl(210, 6%, 70%);
     --grey-200: hsl(210, 5%, 80%);
     --grey-100: hsl(240, 4%, 95%);
+    --grey-50: hsl(210, 5%, 98%);
 
     /* Backgrounds */
     --background-color-primary: hsl(0, 0%, 100%);
