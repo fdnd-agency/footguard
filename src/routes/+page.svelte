@@ -101,10 +101,9 @@
 <div class="dashboard">
   <!-- Main content area -->
   <main class="content" id="main-content">
-    <!-- HEADER SECTION -->
+    <!-- Header section -->
     <header class="dashboard-header">
       <hgroup class="header-content">
-        <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/hgroup -->
         <h1 class="page-title h1">Welcome back, Admin</h1>
         <p class="page-subtitle body-copy">
           Continue your research and track your progress.
@@ -129,9 +128,9 @@
       </nav>
     </header>
 
-    <!-- STATS SECTION -->
+    <!-- Stats section -->
     <section aria-labelledby="stats-heading">
-      <h2 id="stats-heading" class="section-title">Your personal stats</h2>
+      <h2 id="stats-heading" class="section-title h2">Your personal stats</h2>
       <p class="section-subtitle body-copy">View your personal stats below.</p>
 
       <div class="stats-grid" role="list">
@@ -147,11 +146,13 @@
       </div>
     </section>
 
-    <!-- GRADING SECTION -->
+    <!-- Grading section -->
     <section aria-labelledby="grading-heading">
       <div class="section-header">
         <div>
-          <h2 id="grading-heading" class="section-title">Continue grading</h2>
+          <h2 id="grading-heading" class="section-title h2">
+            Continue grading
+          </h2>
           <p class="section-subtitle body-copy">Pick up where you left off.</p>
         </div>
       </div>
@@ -184,13 +185,13 @@
       </div>
     </section>
 
-    <!-- COMPARISON SECTION -->
+    <!-- Comparison section -->
     <section aria-labelledby="comparison-heading" class="bottom-section">
       <div class="bottom-grid">
         <!-- Progress card -->
         <article class="card progress-card">
           <header class="card-header">
-            <h2 id="progress-heading" class="section-title">
+            <h2 id="progress-heading" class="section-title h2">
               Progress overview
             </h2>
             <p class="section-subtitle body-copy">
@@ -212,7 +213,7 @@
         <!-- Compare card -->
         <article class="card compare-card">
           <header class="card-header">
-            <h2 id="comparison-heading" class="section-title">
+            <h2 id="comparison-heading" class="section-title h2">
               Available for comparison
             </h2>
             <p class="section-subtitle body-copy">
@@ -287,46 +288,11 @@
     [aria-pressed] {
       display: none;
     }
-    .view-all-card {
-      display: none;
-    }
   </style>
 </noscript>
 
 <style>
-  /* Skip to main content link */
-  /* https://webaim.org/techniques/skipnav/ */
-  .skip-link {
-    position: absolute;
-    top: -100%;
-    left: 1rem;
-    z-index: 100;
-    background: var(--orange-400);
-    color: var(--background-color-primary);
-    padding: 0.75rem 1.5rem;
-    border-radius: 0.5rem;
-    font-weight: 600;
-    font-size: 0.875rem;
-    text-decoration: none;
-    box-shadow: 0 0.25rem 0.75rem hsla(213, 12%, 15%, 0.15);
-
-    &:focus {
-      top: 1rem;
-      outline: 3px solid var(--blue-500);
-      outline-offset: 2px;
-    }
-
-    &:hover {
-      background: var(--blue-400);
-    }
-
-    &:active {
-      transform: scale(0.98);
-    }
-  }
-
   /* Dashboard layout */
-  /* https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/radial-gradient */
   .dashboard {
     display: flex;
     background: radial-gradient(
@@ -337,7 +303,6 @@
     );
   }
 
-  /* Main content wrapper */
   .content {
     flex: 1;
     display: flex;
@@ -385,7 +350,7 @@
     }
   }
 
-  /* Dashboard header */
+  /* Header */
   .dashboard-header {
     display: flex;
     flex-direction: column;
@@ -402,25 +367,19 @@
     }
   }
 
-  /* Header text content */
   .header-content {
     flex: 1;
     min-width: 0;
   }
 
-  /* Page title */
   .page-title {
-    margin: 0 0 0.5rem 0;
-    line-height: 1.4;
+    margin-bottom: 0.5rem;
   }
 
-  /* Page subtitle */
   .page-subtitle {
     margin: 0;
-    line-height: 1.6;
   }
 
-  /* Header actions */
   .header-actions {
     display: flex;
     flex-direction: column;
@@ -430,11 +389,9 @@
     @media (min-width: 768px) {
       width: auto;
       flex-shrink: 0;
-      /* https://developer.mozilla.org/en-US/docs/Web/CSS/flex-shrink */
     }
   }
 
-  /* Search input */
   .search-input {
     flex: 1;
     padding: 0.75rem 1rem;
@@ -464,19 +421,15 @@
     }
   }
 
-  /* Section titles */
+  /* Sections */
   .section-title {
-    margin: 0 0 0.5rem 0;
-    line-height: 1.4;
+    margin-bottom: 0.5rem;
   }
 
-  /* Section subtitles */
   .section-subtitle {
-    margin: 0 0 1rem 0;
-    line-height: 1.6;
+    margin-bottom: 1rem;
   }
 
-  /* Section header layout */
   .section-header {
     display: grid;
     grid-template-columns: 1fr;
@@ -498,14 +451,12 @@
     }
   }
 
-  /* Stats grid */
-  /* https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_flexible_box_layout */
+  /* Stats card */
   .stats-grid {
     display: flex;
     gap: 1rem;
     width: 100%;
     flex-wrap: wrap;
-    /* https://developer.mozilla.org/en-US/docs/Web/CSS/flex-wrap */
 
     @media (min-width: 640px) {
       gap: 1.25rem;
@@ -516,8 +467,7 @@
     }
   }
 
-  /* Grading grid */
-  /* https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout */
+  /* Grading card */
   .grading-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -525,17 +475,14 @@
 
     @media (min-width: 768px) {
       grid-template-columns: repeat(auto-fit, minmax(31.25rem, 1fr));
-      /* https://developer.mozilla.org/en-US/docs/Web/CSS/repeat */
     }
   }
 
-  /* View all grading card */
   .view-all-card {
     display: flex;
     align-items: center;
     justify-content: center;
     background: linear-gradient(135deg, var(--blue-200), var(--blue-300));
-    /* https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/linear-gradient */
     border-radius: 1rem;
     padding: 2rem;
     box-shadow:
@@ -548,7 +495,6 @@
     text-align: center;
   }
 
-  /* View all card content */
   .view-all-content {
     display: flex;
     flex-direction: column;
@@ -556,7 +502,6 @@
     gap: 1rem;
   }
 
-  /* View all card text */
   .view-all-text {
     max-width: 18rem;
   }
@@ -566,7 +511,6 @@
     width: 100%;
   }
 
-  /* Bottom grid layout */
   .bottom-grid {
     display: flex;
     flex-direction: column;
@@ -584,7 +528,7 @@
     }
   }
 
-  /* Base card */
+  /* Cards */
   .card {
     background: var(--background-color-primary);
     border-radius: 1rem;
@@ -600,7 +544,6 @@
     }
   }
 
-  /* Card header */
   .card-header {
     padding: 1.5rem 1.5rem 0 1.5rem;
     margin-bottom: 1.5rem;
@@ -610,7 +553,6 @@
     }
   }
 
-  /* Card footer */
   .card-footer {
     padding: 1.5rem;
     border-top: 1px solid var(--grey-200);
@@ -629,7 +571,6 @@
     }
   }
 
-  /* Graph container */
   .graph-container {
     padding: 0 1.5rem;
     display: flex;
@@ -650,7 +591,7 @@
     }
   }
 
-  /* Compare card */
+  /* Compare section */
   .compare-card {
     @media (min-width: 1024px) {
       height: 100%;
@@ -659,7 +600,6 @@
     }
   }
 
-  /* Compare list */
   .compare-list {
     padding: 0 1.5rem;
     display: flex;
@@ -667,7 +607,6 @@
     gap: 1rem;
     margin-bottom: 1.5rem;
     list-style: none;
-    /* Remove default list styling */
 
     @media (min-width: 768px) {
       padding: 0 2rem;
@@ -678,8 +617,6 @@
       overflow-y: auto;
       max-height: 450px;
 
-      /* Custom scrollbar styling */
-      /* https://developer.mozilla.org/en-US/docs/Web/CSS/::-webkit-scrollbar */
       &::-webkit-scrollbar {
         width: 4px;
       }
@@ -696,7 +633,6 @@
     }
   }
 
-  /* Compare list item */
   .compare-item {
     display: flex;
     flex-direction: column;
@@ -714,7 +650,6 @@
     }
   }
 
-  /* Compare item content */
   .compare-item-content {
     display: flex;
     align-items: flex-start;
@@ -722,7 +657,6 @@
     flex: 1;
   }
 
-  /* Compare icon */
   .compare-icon {
     flex-shrink: 0;
     width: 2rem;
@@ -736,34 +670,27 @@
     margin-top: 0.125rem;
   }
 
-  /* Compare text content */
   .compare-text-content {
     flex: 1;
     min-width: 0;
   }
 
-  /* Compare title */
   .compare-title {
     font-weight: 500;
     margin: 0 0 0.375rem 0;
-    line-height: 1.4;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    /* https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-line-clamp */
   }
 
-  /* Compare meta info */
   .compare-meta {
     display: flex;
     align-items: center;
     gap: 0.5rem;
     flex-wrap: wrap;
-    /* https://developer.mozilla.org/en-US/docs/Web/CSS/flex-wrap */
   }
 
-  /* Compare tag */
   .compare-tag {
     font-weight: 500;
     color: var(--blue-600);
@@ -772,13 +699,11 @@
     border-radius: 999px;
   }
 
-  /* Compare separator dot */
   .compare-dot {
     color: var(--grey-400);
     font-size: 0.75rem;
   }
 
-  /* Compare due date */
   .compare-date {
     color: var(--grey-600);
   }
