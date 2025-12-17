@@ -12,7 +12,8 @@
 	import InProgressLabel from "$lib/partials/In-progress-label.svelte";
 
 	// Dynamic data variables
-	let {name, article_id, Publisher, publishing_year, status, className} = $props()
+	let {name, article_id, Publisher, publishing_year, status, className, theme} = $props()
+
 </script>
 
 <a class="anchor-container-card" href="/checklist">
@@ -36,8 +37,17 @@
 			</div>
 
 			<div class="action-container">
-				<InProgressLabel/>
-				<ThemeLabel themeName="Temperature"/>
+
+				{#if status === "Not started"}
+					<NotStartedLabel/>
+				{:else if status === "In progress"}
+					<InProgressLabel/>
+				{:else if status === "Finished"}
+					<FinishedLabel/>
+				{/if}
+
+                <ThemeLabel themeName={theme} />
+
 			</div>
 		</div>
 	</article>
@@ -55,7 +65,7 @@
 	.research-card {
 		padding: 1rem;
 		border-radius: 1rem;
-		background-color: var(--background-color-primary);
+		background-color: hsla(197, 7%, 79%, 0.127);
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;
@@ -79,6 +89,11 @@
 		& .research-card-title {
 			font-weight: bold;
 			color: var(--grey-700);
+
+			display: -webkit-box;
+			-webkit-line-clamp: 2; 
+			-webkit-box-orient: vertical;
+			overflow: hidden;
 		}
 
 		& h2 .research-id {
