@@ -1,15 +1,27 @@
 <script>
+  import Button from "$lib/components/buttons/Button.svelte";
+
   export let title;
   export let daysLeft;
   export let yourProgress = 53;
   export let assessor2Progress = 25;
+
+  // Dynamische class voor badge op basis van days left
+  function getDaysLeftClass(days) {
+    if (days <= 3) return "badge-intense";
+    if (days <= 6) return "badge-medium";
+    return "badge-light";
+  }
 </script>
 
 <article class="grading-card">
   <!-- Card header with title and badge -->
   <header class="card-header">
     <h3 class="card-title">{title}</h3>
-    <span class="badge">{daysLeft} days left</span>
+    <span class="badge {getDaysLeftClass(daysLeft)}">
+      {daysLeft}
+      {daysLeft === 1 ? "day" : "days"} left
+    </span>
   </header>
 
   <!-- Progress bars section -->
@@ -35,7 +47,7 @@
 
   <!-- Card footer with action button -->
   <footer class="card-footer">
-    <button class="button-primary" tabindex="0" type="button">Continue</button>
+    <Button variant="primary" size="medium" type="button">Continue</Button>
   </footer>
 </article>
 
@@ -45,15 +57,11 @@
     background: var(--background-color-primary);
     border-radius: 1rem;
     padding: 1.5rem;
-    box-shadow: 0 0.25rem 0.75rem hsla(213, 12%, 15%, 0.08);
+    box-shadow:
+      0 0.25rem 0.75rem hsla(213, 12%, 15%, 0.12),
+      0 0.125rem 0.25rem hsla(213, 12%, 15%, 0.08);
+    border: 1px solid hsla(213, 12%, 15%, 0.06);
     transition: all 0.2s ease;
-  }
-
-  @media (min-width: 768px) {
-    .grading-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 0.375rem 1.125rem hsla(213, 12%, 15%, 0.12);
-    }
   }
 
   /* Card header container */
@@ -91,6 +99,19 @@
     white-space: nowrap;
   }
 
+  /* Badge kleuren op basis van daysLeft */
+  .badge-intense {
+    background-color: var(--red-500);
+  }
+
+  .badge-medium {
+    background-color: var(--orange-500);
+  }
+
+  .badge-light {
+    background-color: var(--green-500);
+  }
+
   /* Progress bars section container */
   .progress-section {
     display: flex;
@@ -102,7 +123,7 @@
   /* Individual progress row layout */
   .progress-row {
     display: grid;
-    grid-template-columns: 4.375rem 1fr 2.813rem;
+    grid-template-columns: 5.5rem 1fr 2.813rem;
     align-items: center;
     gap: 0.75rem;
     margin: 0;
@@ -111,9 +132,18 @@
   /* Progress label text */
   .progress-label {
     font-size: 0.875rem;
-    font-weight: 600;
-    color: var(--grey-700);
+    font-weight: 800;
     margin: 0;
+  }
+
+  /* Blue color for "You" label */
+  .progress-row:first-child .progress-label {
+    color: var(--blue-600);
+  }
+
+  /* Green color for "Assessor 2" label */
+  .progress-row:last-child .progress-label {
+    color: var(--green-600);
   }
 
   /* Progress bar container/track */
@@ -126,12 +156,12 @@
 
   /* Blue progress track background */
   .blue-bg {
-    background: var(--blue-200);
+    background: var(--blue-100);
   }
 
   /* Green progress track background */
   .green-bg {
-    background: var(--green-200);
+    background: var(--green-100);
   }
 
   /* Progress bar fill */
@@ -167,34 +197,5 @@
   .card-footer {
     display: flex;
     justify-content: flex-start;
-  }
-
-  /* Primary action button */
-  .button-primary {
-    background: var(--blue-500);
-    color: var(--background-color-primary);
-    padding: 0.75rem 1.5rem;
-    border-radius: 0.5rem;
-    border: none;
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 0.875rem;
-    transition: all 0.2s ease;
-  }
-
-  @media (min-width: 768px) {
-    .button-primary:hover {
-      background: var(--blue-400);
-      transform: translateY(-1px);
-    }
-  }
-
-  .button-primary:active {
-    transform: scale(0.98);
-  }
-
-  .button-primary:focus-visible {
-    outline: 3px solid var(--blue-500);
-    outline-offset: 2px;
   }
 </style>
