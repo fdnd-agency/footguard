@@ -228,7 +228,7 @@
 
 	.form-submit-button,
 	.form-save-button {
-		color: #ffffff;
+		color: var(--font-color-card);
 		padding: 0.5rem;
 		border-radius: 1rem;
 		width: fit-content;
