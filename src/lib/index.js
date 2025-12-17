@@ -18,3 +18,8 @@ export { default as HamburgerMenuIcon } from './components/navbar-icons/hamburge
 //Notifications page
 export { default as Notificationitem } from './components/NotificationItem.svelte'
     
+
+// Page loader
+
+export {default as PageLoader} from './components/PageLoader.svelte'
+
