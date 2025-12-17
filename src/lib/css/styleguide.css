@@ -82,6 +82,9 @@ body {
 
     /* Email favorite */
     --favorite-notification-color:hsl(54, 100%, 60%);
+
+    /* question card text color */
+    --font-color-card: hsl(0, 0%, 100%);
 }
 body{
     background:var(--grey-100) ;
