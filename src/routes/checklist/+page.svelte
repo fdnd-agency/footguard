@@ -77,16 +77,7 @@
 </div>
 
 <style>
-	:global(body) {
-		background-color: var(--background-color-primary);
-	}
-
-	@media (min-width: 1024px) {
-		.main-container {
-			display: flex;
-		}
-	}
-
+	
 	.main-container-checklist {
 		padding: 1rem 1rem 1rem 1rem;
 		width: 100%;
