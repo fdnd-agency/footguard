@@ -119,6 +119,7 @@
           aria-label="Search dashboard"
         />
         <Button
+          class="js-only"
           variant="primary"
           on:click={() => (cursorActive = !cursorActive)}
           aria-pressed={cursorActive}
@@ -279,6 +280,10 @@
 <!-- Progressive Enhancement fallback -->
 <noscript>
   <style>
+    .js-only {
+      display: none !important;
+    }
+
     [aria-pressed] {
       display: none;
     }

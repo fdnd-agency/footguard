@@ -5,12 +5,16 @@
   export let fullWidth = false;
   export let type = "button";
   export let tabindex = 0;
+
+  // https://svelte.dev/docs/svelte/legacy-export-let
+
+  // Allow custom classes to be passed
+  let className = "";
+  export { className as class };
 </script>
 
-<!-- https://svelte.dev/docs/svelte/legacy-export-let -->
-
 <button
-  class="button button-{variant} button-{size}"
+  class="button button-{variant} button-{size} {className}"
   class:button-full-width={fullWidth}
   {disabled}
   {type}
@@ -19,6 +23,7 @@
 >
   <slot />
 </button>
+
 
 <!-- https://sveltebyexample.com/class-and-style-directives/ -->
 
