@@ -81,12 +81,19 @@ body {
 
     /* Text */
     --main-text-color: var(--grey-700);
+  
+  /* Email favorite */
+    --favorite-notification-color:hsl(54, 100%, 60%);
+
+    /* question card text color */
+    --font-color-card: hsl(0, 0%, 100%);
 }
 
 html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+
 
 html,
 body {
