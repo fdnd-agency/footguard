@@ -92,6 +92,7 @@
 		background: var(--background-color-primary);
         padding: 1.5em 0.5em;
 		transition: width 0.2s ease;
+		border-right:1px solid var(--grey-200);
     }
 
 	nav.collapsed{

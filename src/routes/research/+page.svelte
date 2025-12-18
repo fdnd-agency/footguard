@@ -1,73 +1,80 @@
 <script>
-	// voor performance enhancement :https://svelte.dev/docs/kit/page-options
-	export const csr = true;
-	export const prerender = false;
 
 	// Components
 	import Sidebar from "$lib/components/layout/Sidebar.svelte";
 	import GradingArticleCard from "$lib/components/Grading-article-card.svelte";
 	import FilterButton from "$lib/partials/Filter-button.svelte";
 	import SearchBar from "$lib/partials/Search-bar.svelte";
+	import Heading from "$lib/partials/Heading.svelte";
+	import { fly } from 'svelte/transition';
+	import { fade } from 'svelte/transition';
 
-	// values for status
-	// custom value moeten uit theme komen van elk onderzoek uit database
-	// data is voor de fetch data
-	let {
-		theme = [
-			{ value: "alltheme", text: "Theme" },
-			{ value: "tempature", text: "Tempature" },
-			{ value: "color", text: "Color" },
-			{ value: "numbness", text: "Numbness" },
-			{ value: "age", text: "Age" },
-		],
-		status = [
-			{ value: "allstatus", text: "Status" },
-			{ value: "inprogress", text: "In progress" },
-			{ value: "finished", text: "Finished" },
-			{ value: "notstarted", text: "Not started" },
-		],
-		data,
-		form
-	} = $props();
 
-	const gradings = data.gradings;
-	const filter = data.filter;
+    import { text } from "@sveltejs/kit";
+	import { goto } from '$app/navigation';
+	import { onMount } from 'svelte';
 
-	
+	let { data, form } = $props();
+	const gradings = data.cardData;
+
+	// https://svelte.dev/docs/kit/$app-navigation#goto
+	// for changening the url without page refresh
+	function updateFilters() {
+		goto(`?status=${data.status}&theme=${data.theme}`);
+	}
+
 </script>
 
 <div class="main-container">
-
     <section class="main-container-research">
+		<Heading title="Assigned Gradings" subTitle="An overview of all your gradings"/>
 
-        <h1 class="main-container-research-title">Assigned Gradings</h1>
+		<form method="get" class="filter-form-container" id="myForm">
+			<label for="status" class="visually-hidden">filter status</label>
+			<select class="filter-button" id="status" name="status" bind:value={data.status} on:change={updateFilters}>
+				<option value="all">Status</option>
+				<option value="Not started">Not started</option>
+				<option value="Finished">Finished</option>
+				<option value="In progress">In progress</option>
+			</select>
 
-		<!-- https://github.com/sveltejs/kit/discussions/8499
-		voor het sumbitten van een geselecteerde value in een selectbutton -->
-		<form class="filter-form-container" method="get" bind:this={form}>
-  			<FilterButton filterLabel_ID="status" labelText="Filter status" selectValues={status}/>
-			<FilterButton filterLabel_ID="theme" labelText="Filter theme" selectValues={theme}/>
+			<label for="theme" class="visually-hidden">filter theme</label>
+			<select class="filter-button" id="theme" name="theme" bind:value={data.theme} on:change={updateFilters}>
+				<option value="all">Themes</option>
+				<option value="Temperature">Temperature</option>
+				<option value="Ulcers">Ulcers</option>
+				<option value="High risk">High-Risk</option>
+				<option value="Age">Age</option>
+			</select>
+
+			<noscript>
+				<button class="submit-button"  type="submit">Filter</button>
+			</noscript>
 		</form>
 
-        <div class="research-cards-container">
-            {#each gradings as grading}
-                <GradingArticleCard
-                name={grading.name}
-                article_id={grading.article_id}
-                Publisher={grading.Publisher}
-                publishing_year={grading.publishing_year}
-                />
-            {/each}
-        </div>
-
+         <!-- https://dev.to/a1guy/svelte-motion-theming-guide-transitions-animations-and-dark-mode-explained-4e3h: svelktekit animations -->
+		{#if data.cardData.length === 0}
+			<p class="no-results-text" in:fade>No gradings found</p>
+		{:else}
+			<div class="research-cards-container">
+				{#each data.cardData as cardInfo}
+					<div  transition:fly={{y: 100, duration: 400}}>
+						<GradingArticleCard
+							name={cardInfo.title}
+							article_id={cardInfo.id}
+							Publisher={cardInfo.Publisher}
+							publishing_year={new Date(cardInfo.publishing_year).getFullYear()}
+							status={cardInfo.status}
+							theme={cardInfo.theme}
+						/>
+					</div>
+				{/each}
+			</div>
+		{/if}
     </section>
-	
 </div>
 
 <style>
-	:global(body) {
-		background-color: var(--background-color-secondary);
-	}
 
 	@media (min-width: 1024px) {
 		.main-container {
@@ -78,12 +85,6 @@
 	.main-container-research {
 		padding: 1rem 1rem 1rem 1rem;
 		width: 100%;
-
-		& .main-container-research-title {
-			color: var(--grey-700);
-			padding-top: 1.5rem;
-			padding-bottom: 2rem;
-		}
 	}
 
 	/* positioning filter form */
@@ -98,10 +99,95 @@
 		}
 	}
 
+	.no-results-text {
+		padding: 4rem;
+		text-align: center;
+		background-color: hsla(197, 7%, 79%, 0.127);
+		margin-top: 2rem;
+		border-radius: 1rem;
+		color: var(--grey-700);
+		/* animation: fadeIn 0.4s ease-out; */
+	}
+
 	.research-cards-container {
 		margin-top: 1rem;
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;
+
+		/* animation: fadeIn 0.4s ease-out; */
+	}
+
+	/* @keyframes fadeIn {
+		from { 
+			opacity: 0;
+			transform: translateX(30rem);
+
+		} to {
+			opacity: 1;
+			transform: translateX(0);
+		}
+	} */
+
+	.filter-button {
+		background: none;
+		color: inherit;
+		padding: 0;
+		font: inherit;
+		cursor: pointer;
+		outline: inherit;
+		appearance: none;
+		width: 8rem;
+
+		border-radius: 0.5rem;
+		padding: 0.5rem;
+
+		background-color: var(--blue-700);
+		color: var(--background-color-secondary);
+		font-size: clamp(13px, 1.5vw, 15px);
+
+		background-image: url("/src/lib/assets/svg/select-button-arrow.svg");
+		background-repeat: no-repeat;
+		background-position: right 0.5rem center;
+		background-size: 1rem;
+		transition: 0.2s ease-in-out;
+
+		&:hover {
+		background-color: var(--blue-500);
+		}
+
+		&:focus {
+		outline: 2px solid var(--orange-400);
+		}
+	}
+
+	.visually-hidden {
+		clip: rect(0 0 0 0);
+		clip-path: inset(50%);
+		height: 1px;
+		overflow: hidden;
+		position: absolute;
+		white-space: nowrap;
+		width: 1px;
+	}
+
+	.submit-button {
+		background: none;
+		color: inherit;
+		padding: 0;
+		font: inherit;
+		cursor: pointer;
+		outline: inherit;
+		appearance: none;
+
+		border-radius: 0.5rem;
+		padding: 0.5rem;
+
+		background-color: var(--red-500);
+		color: var(--background-color-secondary);
+		font-size: clamp(13px, 1.5vw, 15px);
 	}
 </style>
+
+
+

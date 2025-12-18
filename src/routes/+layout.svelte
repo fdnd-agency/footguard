@@ -2,6 +2,7 @@
 	import "$lib/css/styleguide.css";
 	import { Navbar, MobileNav } from "$lib/";
 	import { isCollapsed } from "$lib/stores/sidebar.js";
+	import { PageLoader } from "$lib";
 
 	let { children } = $props();
 
@@ -13,6 +14,8 @@
 		window.addEventListener("resize", check);
 	}
 </script>
+
+<PageLoader/>
 
 <div class="app-layout">
 	{#if isMobile}
@@ -30,12 +33,12 @@
 	.app-layout {
 		min-height: 100vh;
 		display: flex;
-		flex-direction: column; /* MobileNav staat bovenaan */
+		flex-direction: column;
 	}
 
 	/* Main page content */
 	.page-content {
-		padding: 1rem;
+		padding: 0;
 		@media (min-width: 769px) {
 			margin-left: 240px;
 			margin-top: 0;
@@ -46,7 +49,7 @@
 		}
 
 		@media (max-width: 768px) {
-			margin-top: 80px; /* hoogte mobile nav */
+			margin-top: 80px;
 			margin-left: 0;
 		}
 	}
