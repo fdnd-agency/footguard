@@ -139,7 +139,7 @@
 		display: flex;
 		flex-direction: column;
 		gap: 0.7rem;
-		background-color: hsla(197, 7%, 79%, 0.127);
+		background-color: var(--grey-100);
 		padding: 1rem;
 		border-radius: 1rem;
 		height: 75vh;
@@ -159,6 +159,8 @@
 		overflow: scroll;
 		padding: 1rem;
 		border-radius: 1rem;
+		background-color: var(--background-color-primary);
+
 	}
 
 	.questions-container {
@@ -167,7 +169,7 @@
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;
-		background-color: hsla(197, 7%, 79%, 0.127);
+		background-color: var(--grey-100);
 		padding: 1rem;
 		border-radius: 1rem;
 

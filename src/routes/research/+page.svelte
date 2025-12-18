@@ -102,7 +102,7 @@
 	.no-results-text {
 		padding: 4rem;
 		text-align: center;
-		background-color: hsla(197, 7%, 79%, 0.127);
+		background-color: var(--grey-100);
 		margin-top: 2rem;
 		border-radius: 1rem;
 		color: var(--grey-700);
