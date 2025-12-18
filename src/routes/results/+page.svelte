@@ -67,20 +67,20 @@
 				<h2 class="h3"><span>Assesor 1:</span> John Doe</h2>
 
 				<div class="all-answers-container">
-					<QuestionCard question="Skin Temperature Monitoring Reduces the Risk for Diabetic Foot Ulceration in High-risk Patients" questionAnswer="Unclear" questionIcon={minus} questionNumber="1" color="var(--red-500)"/>
+					<QuestionCard question="Skin Temperature Monitoring Reduces the Risk for Diabetic Foot Ulceration in High-risk Patients" questionAnswer="Unclear" questionIcon={minus} questionNumber="1" color="#801800"/>
 					<QuestionCard question="Skin Temperature Monitoring Reduces the Risk for Diabetic Foot Ulceration in High-risk Patients" questionAnswer="No" questionIcon={plus} questionNumber="2" color="var(--green-600)"/>
 					<QuestionCard question="Skin Temperature Monitoring Reduces the Risk for Diabetic Foot Ulceration in High-risk Patients" questionAnswer="Yes" questionIcon={question} questionNumber="3" color="var(--orange-600)"/>
 					<QuestionCard question="Skin Temperature Monitoring Reduces the Risk for Diabetic Foot Ulceration in High-risk Patients" questionAnswer="Unclear" questionIcon={plus} questionNumber="4" color="var(--green-600)"/>
-					<QuestionCard question="Skin Temperature Monitoring Reduces the Risk for Diabetic Foot Ulceration in High-risk Patients" questionAnswer="No" questionIcon={minus} questionNumber="5" color="var(--red-500)"/>
+					<QuestionCard question="Skin Temperature Monitoring Reduces the Risk for Diabetic Foot Ulceration in High-risk Patients" questionAnswer="No" questionIcon={minus} questionNumber="5" color="#801800"/>
 					<QuestionCard question="Skin Temperature Monitoring Reduces the Risk for Diabetic Foot Ulceration in High-risk Patients" questionAnswer="No" questionIcon={plus} questionNumber="6" color="var(--green-600)"/>
 					<QuestionCard question="Skin Temperature Monitoring Reduces the Risk for Diabetic Foot Ulceration in High-risk Patients" questionAnswer="Unclear" questionIcon={plus} questionNumber="7" color="var(--green-600)"/>
 					<QuestionCard question="Skin Temperature Monitoring Reduces the Risk for Diabetic Foot Ulceration in High-risk Patients" questionAnswer="Yes" questionIcon={question} questionNumber="8" color="var(--orange-600)"/>
-					<QuestionCard question="Skin Temperature Monitoring Reduces the Risk for Diabetic Foot Ulceration in High-risk Patients" questionAnswer="Yes" questionIcon={minus} questionNumber="9" color="var(--red-500)"/>
+					<QuestionCard question="Skin Temperature Monitoring Reduces the Risk for Diabetic Foot Ulceration in High-risk Patients" questionAnswer="Yes" questionIcon={minus} questionNumber="9" color="#801800"/>
 					<QuestionCard question="Skin Temperature Monitoring Reduces the Risk for Diabetic Foot Ulceration in High-risk Patients" questionAnswer="Yes" questionIcon={question} questionNumber="10" color="var(--orange-600)"/>
 					<QuestionCard question="Skin Temperature Monitoring Reduces the Risk for Diabetic Foot Ulceration in High-risk Patients" questionAnswer="Unclear" questionIcon={plus} questionNumber="11" color="var(--green-600)"/>
 					<QuestionCard question="Skin Temperature Monitoring Reduces the Risk for Diabetic Foot Ulceration in High-risk Patients" questionAnswer="No" questionIcon={plus} questionNumber="12" color="var(--green-600)"/>
 					<QuestionCard question="Skin Temperature Monitoring Reduces the Risk for Diabetic Foot Ulceration in High-risk Patients" questionAnswer="Yes" questionIcon={question} questionNumber="13" color="var(--orange-600)"/>
-					<QuestionCard question="Skin Temperature Monitoring Reduces the Risk for Diabetic Foot Ulceration in High-risk Patients" questionAnswer="Unclear" questionIcon={minus} questionNumber="14" color="var(--red-500)"/>
+					<QuestionCard question="Skin Temperature Monitoring Reduces the Risk for Diabetic Foot Ulceration in High-risk Patients" questionAnswer="Unclear" questionIcon={minus} questionNumber="14" color="#801800"/>
 				</div>
 			</article>
 
@@ -94,14 +94,14 @@
 					<QuestionCard question="Skin Temperature Monitoring Reduces the Risk for Diabetic Foot Ulceration in High-risk Patients" questionAnswer="Unclear" questionIcon={plus} questionNumber="4" color="var(--green-600)"/>
 					<QuestionCard question="Skin Temperature Monitoring Reduces the Risk for Diabetic Foot Ulceration in High-risk Patients" questionAnswer="No" questionIcon={plus} questionNumber="5" color="var(--green-600)"/>
 					<QuestionCard question="Skin Temperature Monitoring Reduces the Risk for Diabetic Foot Ulceration in High-risk Patients" questionAnswer="No" questionIcon={question} questionNumber="6" color="var(--orange-600)"/>
-					<QuestionCard question="Skin Temperature Monitoring Reduces the Risk for Diabetic Foot Ulceration in High-risk Patients" questionAnswer="Unclear" questionIcon={minus} questionNumber="7" color="var(--red-500)"/>
+					<QuestionCard question="Skin Temperature Monitoring Reduces the Risk for Diabetic Foot Ulceration in High-risk Patients" questionAnswer="Unclear" questionIcon={minus} questionNumber="7" color="#801800"/>
 					<QuestionCard question="Skin Temperature Monitoring Reduces the Risk for Diabetic Foot Ulceration in High-risk Patients" questionAnswer="Yes" questionIcon={plus} questionNumber="8" color="var(--green-600)"/>
 					<QuestionCard question="Skin Temperature Monitoring Reduces the Risk for Diabetic Foot Ulceration in High-risk Patients" questionAnswer="Yes" questionIcon={question} questionNumber="9" color="var(--orange-600)"/>
 					<QuestionCard question="Skin Temperature Monitoring Reduces the Risk for Diabetic Foot Ulceration in High-risk Patients" questionAnswer="Yes" questionIcon={plus} questionNumber="10" color="var(--green-600)"/>
 					<QuestionCard question="Skin Temperature Monitoring Reduces the Risk for Diabetic Foot Ulceration in High-risk Patients" questionAnswer="Unclear" questionIcon={question} questionNumber="11" color="var(--orange-600)"/>
 					<QuestionCard question="Skin Temperature Monitoring Reduces the Risk for Diabetic Foot Ulceration in High-risk Patients" questionAnswer="No" questionIcon={question} questionNumber="12" color="var(--orange-600)"/>
 					<QuestionCard question="Skin Temperature Monitoring Reduces the Risk for Diabetic Foot Ulceration in High-risk Patients" questionAnswer="Yes" questionIcon={plus} questionNumber="13" color="var(--green-600)"/>
-					<QuestionCard question="Skin Temperature Monitoring Reduces the Risk for Diabetic Foot Ulceration in High-risk Patients" questionAnswer="Unclear" questionIcon={minus} questionNumber="14" color="var(--red-500)"/>
+					<QuestionCard question="Skin Temperature Monitoring Reduces the Risk for Diabetic Foot Ulceration in High-risk Patients" questionAnswer="Unclear" questionIcon={minus} questionNumber="14" color="#801800"/>
 				</div>
 			</article>
 		</div>

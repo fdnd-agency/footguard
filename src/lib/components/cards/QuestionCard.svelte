@@ -21,6 +21,11 @@
         gap: 1rem;
         border-radius: 0.6rem;
         padding: 0.5rem;
+        transition: transform 0.3s ease;
+
+		&:hover {
+			transform: translateY(-2px);
+		}
     }
 
     figure {
