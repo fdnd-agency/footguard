@@ -14,7 +14,7 @@
 
     <section class="main-container-checklist">
 
-	<Heading title="Compare grading" subTitle="Compare grades from different assessors side by side"/>
+	<Heading title="Checklist completion" subTitle="Fill in the checklist based on your expertise"/>
 
 		<div class="pdf-questions-container">
 
