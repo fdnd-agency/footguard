@@ -79,7 +79,7 @@
 <style>
 	
 	.main-container-checklist {
-		padding: 1rem 1rem 1rem 1rem;
+		padding: 1rem;
 		width: 100%;
 		display: flex;
 		flex-direction: column;
@@ -105,7 +105,7 @@
 	}
 
 	.pdf-container {
-		background-color: hsl(200, 90%, 100%);
+		background-color: hsla(197, 7%, 79%, 0.127);
 		border-radius: 1rem;
 		height: 75vh;
 		padding: 1rem;
@@ -123,7 +123,7 @@
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;
-		background-color: hsl(200, 900%, 100%);
+		background-color: hsla(197, 7%, 79%, 0.127);
 		padding: 1rem;
 		border-radius: 1rem;
 	}

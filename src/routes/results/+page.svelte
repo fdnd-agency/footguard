@@ -109,7 +109,7 @@
 
 <style>
 	.main-container-compare-grading {
-		padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+		padding: 1rem;
 		width: 100%;
 		display: flex;
 		flex-direction: column;
@@ -139,7 +139,7 @@
 		display: flex;
 		flex-direction: column;
 		gap: 0.7rem;
-		background-color: hsl(200, 900%, 100%);
+		background-color: hsla(197, 7%, 79%, 0.127);
 		padding: 1rem;
 		border-radius: 1rem;
 		height: 75vh;
@@ -167,7 +167,7 @@
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;
-		background-color: hsl(200, 900%, 100%);
+		background-color: hsla(197, 7%, 79%, 0.127);
 		padding: 1rem;
 		border-radius: 1rem;
 
