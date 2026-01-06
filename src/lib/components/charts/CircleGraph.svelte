@@ -145,7 +145,7 @@
     width: 100%;
     max-width: 15rem;
     height: auto;
-    aspect-ratio: 1 / 1; 
+    aspect-ratio: 1 / 1;
     /* https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio */
 
     @media (min-width: 768px) {
@@ -189,7 +189,6 @@
     justify-items: center;
 
     @media (min-width: 768px) {
-      grid-template-columns: repeat(2, 1fr);
       gap: 1rem;
     }
   }
