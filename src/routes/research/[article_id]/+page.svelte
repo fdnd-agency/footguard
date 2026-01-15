@@ -1,7 +1,6 @@
 <script>
 
 	// Components
-	import Pdf from "$lib/assets/img/pdf-1.pdf";
 	import QuestionFieldset from "$lib/components/QuestionFieldset.svelte";
 	import questionIcon from "$lib/assets/svg/round-question-icon.svg";
 	import Heading from "$lib/partials/Heading.svelte";
@@ -9,18 +8,14 @@
     let { data } = $props();
 	const article = data.detailsInfo;
 
-	
 </script>
 
 
 <div class="main-container">
-
     <section class="main-container-checklist">
-
 	<Heading title="Checklist completion" subTitle="Fill in the checklist based on your expertise"/>
 
 		<div class="pdf-questions-container">
-
 			<article class="pdf-container">
 				<figure class="pdf-file">
 					<!-- https://www.geeksforgeeks.org/html/how-to-embed-pdf-file-using-html/ -->
@@ -37,7 +32,6 @@
 				</figure>
 				
 				<form class="questions-form" method="post">
-					<!-- hardcoded for now, when api it can be looped -->
 					 <div class="questions-scroll-container">
 						<QuestionFieldset questionId="1" questionName="question-1" questionTitle="Skin Temperature Monitoring Reduces the Risk for Diabetic Foot Ulceration in High-risk Patients" />
 						<QuestionFieldset questionId="2" questionName="question-2" questionTitle="Skin Temperature Monitoring Reduces the Risk for Diabetic Foot Ulceration in High-risk Patients" />
@@ -76,7 +70,6 @@
 
 		</div>
     </section>
-
 </div>
 
 <style>
