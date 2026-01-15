@@ -16,7 +16,7 @@
 
 </script>
 
-<a class="anchor-container-card" href="/checklist">
+<a class="anchor-container-card" href="/research/{article_id}">
 	<article class="research-card">
 		<div class="research-card-data-container">
 			<h2 class="research-card-title h4">
