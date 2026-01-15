@@ -24,7 +24,7 @@
 			<article class="pdf-container">
 				<figure class="pdf-file">
 					<!-- https://www.geeksforgeeks.org/html/how-to-embed-pdf-file-using-html/ -->
-					<embed src="{Pdf}" type="application/pdf" width="100" height="620" alt="pdf-file">
+					<embed src="https://fdnd-agency.directus.app/assets/{article.paper_file}" type="application/pdf" width="100" height="620" alt="pdf-file">
 				</figure>
 			</article>
 
