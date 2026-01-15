@@ -41,10 +41,6 @@
     &:hover {
         text-decoration-color: var(--red-400);
     }
-
-    &:focus {
-      outline: 2px solid var(--grey-700);
-    }
 }
 
 .svg-arrow {
