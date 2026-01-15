@@ -1,7 +1,7 @@
 <script>
 
 	// Components
-	import QuestionFieldset from "$lib/components/QuestionFieldset.svelte";
+	import QuestionFieldset from "$lib/components/form/QuestionFieldset.svelte";
 	import questionIcon from "$lib/assets/svg/round-question-icon.svg";
 	import Heading from "$lib/components/textual/Heading.svelte"
     import FilterButton from "$lib/components/buttons/FilterButton.svelte";
