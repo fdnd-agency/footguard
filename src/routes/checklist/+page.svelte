@@ -1,12 +1,10 @@
 <script>
 
 	// Components
-	import Pdf from "$lib/assets/img/pdf-1.pdf";
 	import QuestionFieldset from "$lib/components/QuestionFieldset.svelte";
 	import questionIcon from "$lib/assets/svg/round-question-icon.svg";
-	import Heading from "$lib/partials/Heading.svelte";
+	import Heading from "$lib/components/textual/Heading.svelte"
 
-	
 </script>
 
 
@@ -21,7 +19,7 @@
 			<article class="pdf-container">
 				<figure class="pdf-file">
 					<!-- https://www.geeksforgeeks.org/html/how-to-embed-pdf-file-using-html/ -->
-					<embed src="{Pdf}" type="application/pdf" width="100" height="620" alt="pdf-file">
+					<embed src="" type="application/pdf" width="100" height="620" alt="pdf-file">
 				</figure>
 			</article>
 
