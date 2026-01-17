@@ -1,32 +1,32 @@
 <script>
 
 	// Components
-	import Pdf from "$lib/assets/img/pdf-1.pdf";
-	import QuestionFieldset from "$lib/components/QuestionFieldset.svelte";
+	import QuestionFieldset from "$lib/components/form/QuestionFieldset.svelte";
 	import questionIcon from "$lib/assets/svg/round-question-icon.svg";
-	import Heading from "$lib/partials/Heading.svelte";
+	import Heading from "$lib/components/textual/Heading.svelte"
+    import FilterButton from "$lib/components/buttons/FilterButton.svelte";
 
-	
+    let { data } = $props();
+	const article = data.detailsInfo;
+
 </script>
 
 
+
 <div class="main-container">
-
     <section class="main-container-checklist">
-
 	<Heading title="Checklist completion" subTitle="Fill in the checklist based on your expertise"/>
 
 		<div class="pdf-questions-container">
-
 			<article class="pdf-container">
 				<figure class="pdf-file">
 					<!-- https://www.geeksforgeeks.org/html/how-to-embed-pdf-file-using-html/ -->
-					<embed src="{Pdf}" type="application/pdf" width="100" height="620" alt="pdf-file">
+					<embed src="https://fdnd-agency.directus.app/assets/{article.paper_file}" type="application/pdf" width="100" height="620" alt="pdf-file">
 				</figure>
 			</article>
 
 			<article class="questions-container">
-				<h2 class="h3"><span class="">5 # - </span> Skin Temperature Monitoring Reduces the Risk for Diabetic Foot Ulceration in High-risk Patients</h2>
+				<h2 class="h3"><span class="">{article.id} # - </span> {article.title}</h2>
 
 				<figure class="anwsered-questions-count-container">
 					<img src="{questionIcon}" alt="" height="25" width="25">
@@ -34,7 +34,6 @@
 				</figure>
 				
 				<form class="questions-form" method="post">
-					<!-- hardcoded for now, when api it can be looped -->
 					 <div class="questions-scroll-container">
 						<QuestionFieldset questionId="1" questionName="question-1" questionTitle="Skin Temperature Monitoring Reduces the Risk for Diabetic Foot Ulceration in High-risk Patients" />
 						<QuestionFieldset questionId="2" questionName="question-2" questionTitle="Skin Temperature Monitoring Reduces the Risk for Diabetic Foot Ulceration in High-risk Patients" />
@@ -73,7 +72,6 @@
 
 		</div>
     </section>
-
 </div>
 
 <style>

@@ -5,9 +5,8 @@
 	import minus from "$lib/assets/svg/minus-icon.svg";
 
 	// Components
-	import Pdf from "$lib/assets/img/pdf-1.pdf";
-	import QuestionFieldset from "$lib/components/QuestionFieldset.svelte";
-	import Heading from "$lib/partials/Heading.svelte";
+	import QuestionFieldset from "$lib/components/form/QuestionFieldset.svelte";
+	import Heading from "$lib/components/textual/Heading.svelte";
 	import QuestionCard from "$lib/components/cards/QuestionCard.svelte";
 </script>
 

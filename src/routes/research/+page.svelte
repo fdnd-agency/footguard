@@ -2,10 +2,10 @@
 
 	// Components
 	import Sidebar from "$lib/components/layout/Sidebar.svelte";
-	import GradingArticleCard from "$lib/components/Grading-article-card.svelte";
-	import FilterButton from "$lib/partials/Filter-button.svelte";
-	import SearchBar from "$lib/partials/Search-bar.svelte";
-	import Heading from "$lib/partials/Heading.svelte";
+	import GradingArticleCard from "$lib/components/cards/ResearchArticleCard.svelte";
+	import FilterButton from "$lib/components/buttons/FilterButton.svelte";
+	import SearchBar from "$lib/components/form/SearchBar.svelte";
+	import Heading from "$lib/components/textual/Heading.svelte"
 	import { fly } from 'svelte/transition';
 	import { fade } from 'svelte/transition';
 

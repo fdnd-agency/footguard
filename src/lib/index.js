@@ -21,5 +21,5 @@ export { default as Notificationitem } from './components/NotificationItem.svelt
 
 // Page loader
 
-export {default as PageLoader} from './components/PageLoader.svelte'
+export {default as PageLoader} from './components/animations/PageLoader.svelte'
 

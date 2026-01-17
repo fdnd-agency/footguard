@@ -1,7 +1,6 @@
 <script>
   import { gsap } from "gsap";
   import { onMount } from "svelte";
-  import logo from "../assets/img/footguard-icon.webp";
 
   // The whole loader container
   // De footguard logo element

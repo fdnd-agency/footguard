@@ -1,22 +1,20 @@
 <script>
 	// components
-	import InprogressLabel from "$lib/partials/In-progress-label.svelte";
-	import FinishedLabel from "$lib/partials/Finished-label.svelte";
-	import NotStartedLabel from "$lib/partials/Not-started-label.svelte";
-	import CardButton from "$lib/partials/Action-button.svelte";
-	import ThemeLabel from "$lib/partials/Theme-label.svelte";
+	import InProgressLabel from "$lib/components/textual/InProgressLabel.svelte";
+	import FinishedLabel from "$lib/components/textual/FinishedLabel.svelte";
+	import NotStartedLabel from "$lib/components/textual/NotStartedLabel.svelte";
+	import ThemeLabel from "$lib/components/textual/ThemeLabel.svelte";
 
 	// icons
 	import authorIcon from "$lib/assets/svg/author-icon.svg";
 	import calenderIcon from "$lib/assets/svg/calendar-icon.svg";
-	import InProgressLabel from "$lib/partials/In-progress-label.svelte";
 
 	// Dynamic data variables
 	let {name, article_id, Publisher, publishing_year, status, className, theme} = $props()
 
 </script>
 
-<a class="anchor-container-card" href="/checklist">
+<a class="anchor-container-card" href="/research/{article_id}">
 	<article class="research-card">
 		<div class="research-card-data-container">
 			<h2 class="research-card-title h4">
