@@ -35,18 +35,18 @@ Op dit moment gebeurt dit beoordelingsproces grotendeels via Excel, wat onoverzi
   - **Grading**  
     Overzicht van artikelen die aan de gebruiker zijn toegewezen. Artikelen worden weergegeven in cards met informatie zoals titel, auteur, publicatiejaar en status (Not Started, In Progress, Finished). Filteren op status en thema is mogelijk.
   - **Checklist completion page**  
-    Een PDF-bestand van het betreffende researchartikel. Aan de rechterkant is de checklist weergeven. Deze kan vanuit hier worden doorgelopen naast het research paper en worden verstuurd.
+    Een PDF-bestand van het betreffende researchartikel. Aan de rechterkant is de checklist weergegeven. Deze kan vanuit hier worden doorgelopen naast het research paper en worden verstuurd.
   - **Results**  
     Overzicht van 2 ingevulde checklist antwoordmodellen. Hier kan er vergeleken worden of de antwoorden overeen komen en de uiteindelijke versie kan hier worden verstuurd.
   - **Notification centre**  
     Een overzichtelijke pagina waar alle meldingen worden weergeven in een lijst. Hier worden meldingen getoond over mensen uit onder andere jouw workgroup die een research paper hebben ingeleverd, waarna je deze kan gaan comparen met jouw eigen. 
   - **Settings**
-    Nog niet uitgewerkt. Hier komen uiteindelijk persoonlijke instellingen over bijvoorbeeld perfered color shememe (dark of light mode) maar ook taal voorkeuren etc. 
+    Nog niet uitgewerkt. Hier komen uiteindelijk persoonlijke instellingen over bijvoorbeeld preferred color scheme (dark of light mode) maar ook taal voorkeuren etc. 
 
 - **Technische basis**
   - Lokale ontwikkelomgeving werkt (`npm install`, `npm run dev`).
   - Gebruik van een `dev` en `main` branch.
-  - `dev` branch werkt met feature branches. Deze worden gemaakt vanaf de dev en ook hiernaar toe gemerched. De `main` branch word **niet** zomaar naar gemerched zonder volledige testing.
+  - `dev` branch werkt met feature branches. Deze worden gemaakt vanaf de dev en ook hiernaartoe gemerched. De `main` branch wordt **niet** zomaar naar gemerched zonder volledige testing.
   - FDND Agency conventies worden gevolgd.
 
 
