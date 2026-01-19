@@ -45,7 +45,7 @@
 			</a>
 		</li>
 		<li>
-			<a href="/grading">
+			<a href="/research">
 				<span class="icon"><GradingIcon /></span>
 				<span class="label">Grading</span>
 			</a>
