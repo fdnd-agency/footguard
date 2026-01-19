@@ -16,7 +16,9 @@ export { default as IwgdfLogoMobile } from './components/navbar-icons/IWGDF-Logo
 export { default as HamburgerMenuIcon } from './components/navbar-icons/hamburger-menu-icon.svelte'
 
 //Notifications page
-export { default as Notificationitem } from './components/NotificationItem.svelte'
+export { default as NotificationItem } from './components/NotificationItem.svelte'
+export { default as EmailSearchbar } from './components/EmailSearchbar.svelte'
+export { default as EmailFilter } from './components/EmailFilter.svelte'
     
 
 // Page loader
