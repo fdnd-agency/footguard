@@ -1,17 +1,11 @@
 <script>
   import Button from "$lib/components/buttons/Button.svelte";
+  import { getDaysLeftClass } from "$lib/helpers/dashboardStats.js";
 
   export let title;
   export let daysLeft;
   export let yourProgress = 53;
   export let assessor2Progress = 25;
-
-  // Dynamische class voor badge op basis van days left
-  function getDaysLeftClass(days) {
-    if (days <= 3) return "badge-intense";
-    if (days <= 6) return "badge-medium";
-    return "badge-light";
-  }
 </script>
 
 <article class="grading-card">
@@ -19,8 +13,11 @@
   <header class="card-header">
     <h3 class="card-title">{title}</h3>
     <span class="badge {getDaysLeftClass(daysLeft)}">
-      {daysLeft}
-      {daysLeft === 1 ? "day" : "days"} left
+      {#if Number.isFinite(daysLeft)}
+        {daysLeft} {daysLeft === 1 ? "day" : "days"} left
+      {:else}
+        No deadline set
+      {/if}
     </span>
   </header>
 
@@ -110,6 +107,11 @@
 
   .badge-light {
     background-color: var(--green-500);
+  }
+
+  .badge-no-deadline {
+    background-color: var(--grey-200);
+    color: var(--grey-600);
   }
 
   /* Progress bars section container */
