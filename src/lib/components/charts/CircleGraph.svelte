@@ -1,35 +1,41 @@
 <script>
   import { onMount } from "svelte";
 
-  // Chart data with order, label, value, and color
-  let sections = [
+  // Props van parent component
+  export let articles = [];
+
+  // Bereken sections dynamisch op basis van articles
+  $: sections = [
     {
       key: "notStarted",
       label: "Not started",
-      value: 9,
+      value: articles.filter((a) => a.grading_status === "not_started").length,
       color: "var(--grey-200)",
     },
     {
       key: "inProgress",
       label: "In progress",
-      value: 4,
+      value: articles.filter((a) => a.grading_status === "in_progress").length,
       color: "var(--orange-500)",
     },
-    { key: "graded", label: "Graded", value: 6, color: "var(--green-500)" },
+    {
+      key: "graded",
+      label: "Graded",
+      value: articles.filter((a) => a.grading_status === "completed").length,
+      color: "var(--green-500)",
+    },
     {
       key: "finalized",
       label: "Finalized",
-      value: 3,
+      value: articles.filter((a) => a.grading_status === "finalized").length,
       color: "var(--blue-500)",
     },
-  ];
+  ].filter((s) => s.value > 0);
 
   // Total value for computing percentages
-  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce
   $: total = sections.reduce((sum, s) => sum + s.value, 0);
 
   // Radius percent for label positioning based on screen size
-  // https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio
   let radiusPercent = 70;
 
   function updateRadius() {
@@ -43,7 +49,6 @@
   });
 
   // Compute position of labels based on slice degrees
-  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/cos
   function getPosition(startDeg, segmentDeg, radiusPercent = 70) {
     const middleDeg = startDeg + segmentDeg / 2;
     const angleRad = ((middleDeg - 90) * Math.PI) / 180;
@@ -55,11 +60,11 @@
 
   // Compute percentage, slice degrees, start deg, and positions for each section
   $: sectionsWithCalc = sections.map((s, i) => {
-    const percent = ((s.value / total) * 100).toFixed(1);
-    const deg = (s.value / total) * 360;
+    const percent = total > 0 ? ((s.value / total) * 100).toFixed(1) : 0;
+    const deg = total > 0 ? (s.value / total) * 360 : 0;
     const startDeg = sections
       .slice(0, i)
-      .reduce((sum, x) => sum + (x.value / total) * 360, 0);
+      .reduce((sum, x) => sum + (total > 0 ? (x.value / total) * 360 : 0), 0);
     return {
       ...s,
       percent,
@@ -70,15 +75,15 @@
   });
 
   // Build conic-gradient CSS string for chart background
-  // https://css-tricks.com/almanac/functions/c/conic-gradient/
-  $: gradientStyle = `
-    conic-gradient(
-      from 0deg,
-      ${sectionsWithCalc
-        .map((s) => `${s.color} ${s.startDeg}deg ${s.startDeg + s.deg}deg`)
-        .join(",")}
-    )
-  `;
+  $: gradientStyle =
+    total > 0
+      ? `conic-gradient(
+        from 0deg,
+        ${sectionsWithCalc
+          .map((s) => `${s.color} ${s.startDeg}deg ${s.startDeg + s.deg}deg`)
+          .join(",")}
+      )`
+      : "var(--grey-200)";
 </script>
 
 <!-- Chart container -->
@@ -189,6 +194,7 @@
     justify-items: center;
 
     @media (min-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
       gap: 1rem;
     }
   }
