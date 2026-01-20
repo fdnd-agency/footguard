@@ -72,7 +72,6 @@
     font-size: 0.875rem;
     text-decoration: none;
     box-shadow: 0 0.25rem 0.75rem hsla(213, 12%, 15%, 0.15);
-    /* https://developer.mozilla.org/en-US/docs/Web/CSS/transition */
     transition: all 0.2s ease;
   }
 
@@ -105,17 +104,17 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    padding: 2rem 0 4rem 0;
+    padding: 2rem 0 4rem;
     max-width: 100%;
     gap: 1.5rem;
 
     @media (min-width: 768px) {
-      padding: 2rem 0 5rem 0;
+      padding: 2rem 0 5rem;
       gap: 2rem;
     }
 
     @media (min-width: 1024px) {
-      padding: 3rem 0 6rem 0;
+      padding: 3rem 0 6rem;
       gap: 2.5rem;
     }
   }
