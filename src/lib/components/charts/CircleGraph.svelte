@@ -1,10 +1,8 @@
 <script>
   import { onMount } from "svelte";
 
-  // Props van parent component
   export let articles = [];
 
-  // Bereken sections dynamisch op basis van articles
   $: sections = [
     {
       key: "notStarted",
@@ -32,10 +30,8 @@
     },
   ].filter((s) => s.value > 0);
 
-  // Total value for computing percentages
   $: total = sections.reduce((sum, s) => sum + s.value, 0);
 
-  // Radius percent for label positioning based on screen size
   let radiusPercent = 70;
 
   function updateRadius() {
@@ -48,7 +44,6 @@
     return () => window.removeEventListener("resize", updateRadius);
   });
 
-  // Compute position of labels based on slice degrees
   function getPosition(startDeg, segmentDeg, radiusPercent = 70) {
     const middleDeg = startDeg + segmentDeg / 2;
     const angleRad = ((middleDeg - 90) * Math.PI) / 180;
@@ -58,7 +53,6 @@
     };
   }
 
-  // Compute percentage, slice degrees, start deg, and positions for each section
   $: sectionsWithCalc = sections.map((s, i) => {
     const percent = total > 0 ? ((s.value / total) * 100).toFixed(1) : 0;
     const deg = total > 0 ? (s.value / total) * 360 : 0;
@@ -74,21 +68,16 @@
     };
   });
 
-  // Build conic-gradient CSS string for chart background
   $: gradientStyle =
     total > 0
       ? `conic-gradient(
         from 0deg,
-        ${sectionsWithCalc
-          .map((s) => `${s.color} ${s.startDeg}deg ${s.startDeg + s.deg}deg`)
-          .join(",")}
+        ${sectionsWithCalc.map((s) => `${s.color} ${s.startDeg}deg ${s.startDeg + s.deg}deg`).join(",")}
       )`
       : "var(--grey-200)";
 </script>
 
-<!-- Chart container -->
 <section class="chart">
-  <!-- Circle chart visual -->
   <figure class="chart-visual">
     <figcaption class="visually-hidden">Paper progress distribution</figcaption>
     <span class="circle-container">
@@ -96,11 +85,8 @@
         {#each sectionsWithCalc as section}
           <span
             class="percentage"
-            style="
-        left: {section.pos.x};
-        top: {section.pos.y};
-        color: {section.color};
-      "
+            style="left: {section.pos.x}; top: {section.pos
+              .y}; color: {section.color};"
           >
             {section.percent}%
           </span>
@@ -109,7 +95,6 @@
     </span>
   </figure>
 
-  <!-- Chart legend -->
   <ul class="legend">
     {#each sections as section}
       <li class="legend-item">
@@ -121,19 +106,17 @@
 </section>
 
 <style>
-  /* Main chart container */
   .chart {
     width: 100%;
     margin-top: 4rem;
   }
 
-  /* Chart visual container */
   .chart-visual {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 12.5rem;
-    margin: 0 0 1.5rem 0;
+    margin: 0 0 1.5rem;
 
     @media (min-width: 768px) {
       height: 15rem;
@@ -145,13 +128,12 @@
     display: none;
   }
 
-  /* Circle container wrapper with responsive aspect ratio */
   .circle-container {
     width: 100%;
     max-width: 15rem;
     height: auto;
-    aspect-ratio: 1 / 1;
     /* https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio */
+    aspect-ratio: 1 / 1;
 
     @media (min-width: 768px) {
       width: 15rem;
@@ -159,7 +141,6 @@
     }
   }
 
-  /* Circle chart element */
   .circle {
     display: block;
     width: 100%;
@@ -168,7 +149,6 @@
     position: relative;
   }
 
-  /* Percentage labels on circle */
   .percentage {
     position: absolute;
     transform: translate(-50%, -50%);
@@ -183,7 +163,6 @@
     }
   }
 
-  /* Legend list container */
   .legend {
     display: grid;
     grid-template-columns: 1fr;
@@ -199,7 +178,6 @@
     }
   }
 
-  /* Individual legend item */
   .legend-item {
     display: flex;
     align-items: center;
@@ -208,7 +186,6 @@
     color: var(--grey-700);
   }
 
-  /* Legend color dot */
   .legend-dot {
     width: 0.75rem;
     height: 0.75rem;
