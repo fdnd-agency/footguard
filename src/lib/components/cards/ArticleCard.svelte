@@ -21,7 +21,6 @@
 </article>
 
 <style>
-  /* Main article card container */
   .article-card {
     display: flex;
     flex-direction: column;
@@ -42,14 +41,12 @@
     }
   }
 
-  /* Card header container */
   .card-header {
     display: flex;
     align-items: flex-start;
     gap: 0.75rem;
   }
 
-  /* Card title styling */
   .card-title {
     margin: 0;
     font-size: 1rem;
@@ -62,7 +59,6 @@
     }
   }
 
-  /* Article icon with document styling */
   .article-icon {
     width: 2.5rem;
     height: 2.5rem;
@@ -75,7 +71,6 @@
     justify-content: center;
   }
 
-  /* Document icon border */
   .article-icon::before {
     content: "";
     position: absolute;
@@ -85,7 +80,6 @@
     border-radius: 0.15rem;
   }
 
-  /* Document icon lines */
   .article-icon::after {
     content: "";
     position: absolute;
@@ -97,7 +91,6 @@
       0 0.25rem 0 var(--orange-500);
   }
 
-  /* Article metadata container */
   .article-meta {
     display: flex;
     flex-wrap: wrap;
@@ -106,7 +99,6 @@
     color: var(--grey-500);
   }
 
-  /* Bullet separator between metadata items */
   .article-meta span:not(:first-child)::before {
     content: "•";
     margin-right: 0.5rem;
