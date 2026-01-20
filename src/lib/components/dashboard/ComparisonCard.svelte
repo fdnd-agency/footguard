@@ -1,14 +1,8 @@
 <script>
   import Button from "$lib/components/buttons/Button.svelte";
 
-  // Props van parent component
   export let articles = [];
 
-  /**
-   * Helper functie: bereken aantal dagen tot deadline
-   * @param {string|null} deadline - ISO 8601 datum string
-   * @returns {number} Aantal dagen tot deadline
-   */
   function calculateDaysLeft(deadline) {
     if (!deadline) return 0;
     const today = new Date();
@@ -18,12 +12,11 @@
     return diffDays > 0 ? diffDays : 0;
   }
 
-  // Filter articles voor comparison, alleen completed en finalized
   $: compareGradingItems = articles
     .filter(
       (article) =>
         article.grading_status === "completed" ||
-        article.grading_status === "finalized"
+        article.grading_status === "finalized",
     )
     .map((article) => ({
       id: article.id,
@@ -32,9 +25,7 @@
     }));
 </script>
 
-<!-- Comparison card HTML -->
 <article class="card compare-card">
-  <!-- Card header -->
   <header class="card-header">
     <h2 id="comparison-heading" class="section-title">
       Available for comparison
@@ -44,15 +35,12 @@
     </p>
   </header>
 
-  <!-- Toon lijst met openstaande items of empty state fallback -->
   <!-- https://svelte.dev/docs/logic-blocks#if -->
   {#if compareGradingItems.length > 0}
     <ul class="compare-list">
       {#each compareGradingItems as item (item.id)}
         <li class="compare-item">
-          <!-- Item content wrapper -->
           <div class="compare-item-content">
-            <!-- Icon -->
             <div class="compare-icon">
               <svg
                 width="16"
@@ -78,7 +66,6 @@
               </svg>
             </div>
 
-            <!-- Text content -->
             <div class="compare-text-content">
               <p class="compare-title body-copy">{item.title}</p>
               <div class="compare-meta">
@@ -93,7 +80,6 @@
             </div>
           </div>
 
-          <!-- Compare button -->
           <Button
             variant="outline"
             size="small"
@@ -105,7 +91,6 @@
       {/each}
     </ul>
 
-    <!-- Card footer met action button -->
     <footer class="card-footer">
       <Button
         variant="primary"
@@ -116,7 +101,6 @@
       </Button>
     </footer>
   {:else}
-    <!-- Empty state fallback -->
     <div class="empty-state">
       <svg
         class="empty-icon"
@@ -150,7 +134,6 @@
 </article>
 
 <style>
-  /* Base card styling */
   .card {
     background: var(--background-color-primary);
     border-radius: 1rem;
@@ -160,14 +143,12 @@
     overflow: hidden;
   }
 
-  /* Compare card met flexbox layout */
   .compare-card {
     display: flex;
     flex-direction: column;
     height: 100%;
   }
 
-  /* Card header */
   .card-header {
     padding: 1.5rem 1.5rem 0;
     margin-bottom: 1.5rem;
@@ -178,7 +159,7 @@
   }
 
   .section-title {
-    margin: 0 0 0.5rem 0;
+    margin: 0 0 0.5rem;
     line-height: 1.4;
     color: var(--grey-700);
   }
@@ -189,7 +170,6 @@
     color: var(--grey-600);
   }
 
-  /* Compare list met scrollable container */
   .compare-list {
     padding: 0 1.5rem;
     display: flex;
@@ -203,12 +183,10 @@
       padding: 0 2rem;
     }
 
-    /* Desktop: scrollable lijst met custom scrollbar */
     @media (min-width: 1024px) {
       overflow-y: auto;
       max-height: 450px;
 
-      /* Custom scrollbar styling voor betere UX */
       /* https://developer.mozilla.org/en-US/docs/Web/CSS/::-webkit-scrollbar */
       &::-webkit-scrollbar {
         width: 4px;
@@ -230,7 +208,6 @@
     }
   }
 
-  /* Compare list item */
   .compare-item {
     display: flex;
     flex-direction: column;
@@ -241,7 +218,6 @@
     border: 1px solid var(--grey-200);
     transition: all 0.2s ease;
 
-    /* Tablet: horizontal layout */
     @media (min-width: 768px) {
       flex-direction: row;
       align-items: center;
@@ -254,7 +230,6 @@
     background: var(--blue-50);
   }
 
-  /* Item content wrapper */
   .compare-item-content {
     display: flex;
     align-items: flex-start;
@@ -263,7 +238,6 @@
     min-width: 0;
   }
 
-  /* Compare icon */
   .compare-icon {
     flex-shrink: 0;
     width: 2rem;
@@ -277,16 +251,14 @@
     margin-top: 0.125rem;
   }
 
-  /* Text content wrapper */
   .compare-text-content {
     flex: 1;
     min-width: 0;
   }
 
-  /* Compare title met ellipsis voor lange titels */
   .compare-title {
     font-weight: 500;
-    margin: 0 0 0.375rem 0;
+    margin: 0 0 0.375rem;
     line-height: 1.4;
     color: var(--grey-700);
     /* https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-line-clamp */
@@ -297,7 +269,6 @@
     text-overflow: ellipsis;
   }
 
-  /* Meta info container */
   .compare-meta {
     display: flex;
     align-items: center;
@@ -305,7 +276,6 @@
     flex-wrap: wrap;
   }
 
-  /* Compare tag */
   .compare-tag {
     font-weight: 500;
     color: var(--blue-600);
@@ -314,18 +284,15 @@
     border-radius: 999px;
   }
 
-  /* Separator dot */
   .compare-dot {
     color: var(--grey-400);
     font-size: 0.75rem;
   }
 
-  /* Date text */
   .compare-date {
     color: var(--grey-600);
   }
 
-  /* Card footer */
   .card-footer {
     padding: 1.5rem;
     border-top: 1px solid var(--grey-200);
@@ -336,7 +303,6 @@
     }
   }
 
-  /* Empty state fallback */
   .empty-state {
     display: flex;
     flex-direction: column;
@@ -356,7 +322,7 @@
     font-size: 1.125rem;
     font-weight: 600;
     color: var(--grey-700);
-    margin: 0 0 0.5rem 0;
+    margin: 0 0 0.5rem;
   }
 
   .empty-text {
