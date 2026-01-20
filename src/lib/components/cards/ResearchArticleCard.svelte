@@ -52,24 +52,22 @@
 </a>
 
 <style>
-	.anchor-container-card {
-		transition: transform 0.3s ease;
-
-		&:hover {
-			transform: translateY(-2px);
-		}
-	}
-
 	.research-card {
 		padding: 1rem;
 		border-radius: 1rem;
-		background-color: hsla(197, 7%, 79%, 0.127);
+    	background: var(--background-color-primary);
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;
 
+		box-shadow:
+      0 0.25rem 0.75rem hsla(213, 12%, 15%, 0.12),
+      0 0.125rem 0.25rem hsla(213, 12%, 15%, 0.08);
+    border: 1px solid hsla(213, 12%, 15%, 0.06);
+		transition: transform 0.3s ease;
+
 		&:hover {
-			background-color: hsl(200, 90%, 96%);
+			transform: translateY(-2px);
 		}
 
 		@media (min-width: 700px) {
