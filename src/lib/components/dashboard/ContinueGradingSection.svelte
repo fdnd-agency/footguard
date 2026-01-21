@@ -49,7 +49,7 @@
       {/each}
 
       {#if continueGradingItems.length > 3}
-        <article class="view-all-card" role="complementary">
+        <article class="view-all-card">
           <div class="view-all-content">
             <p class="view-all-text large-copy">
               Oops... looks like you have {continueGradingItems.length - 3} more
@@ -75,7 +75,6 @@
         height="48"
         viewBox="0 0 24 24"
         fill="none"
-        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M9 11L12 14L22 4"
@@ -149,7 +148,7 @@
     @media (min-width: 768px) {
       /* https://developer.mozilla.org/en-US/docs/Web/CSS/repeat */
       /* https://developer.mozilla.org/en-US/docs/Web/CSS/minmax */
-      grid-template-columns: repeat(auto-fit, minmax(min(100%, 31.25rem), 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 31rem), 1fr));
     }
   }
 
@@ -158,11 +157,9 @@
     align-items: center;
     justify-content: center;
     background: linear-gradient(135deg, var(--blue-200), var(--blue-300));
-    border-radius: 1rem;
+    border-radius: var(--radius-lg);
     padding: 2rem;
-    box-shadow:
-      0 0.5rem 1rem hsla(213, 12%, 15%, 0.15),
-      0 0.25rem 0.5rem hsla(213, 12%, 15%, 0.1);
+    box-shadow: var(--shadow-lg);
     color: var(--blue-700);
     text-align: center;
   }
@@ -188,7 +185,7 @@
     padding: 4rem 2rem;
     text-align: center;
     background: var(--background-color-primary);
-    border-radius: 1rem;
+    border-radius: var(--radius-lg);
     border: 2px dashed var(--grey-300);
     min-height: 20rem;
   }
