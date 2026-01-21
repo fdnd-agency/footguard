@@ -1,3 +1,5 @@
+/* src/lib/css/styleguide.css */
+
 *,
 *::before,
 *::after {
@@ -17,16 +19,6 @@
 :root {
     /* Typography */
     --main-font: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-}
-
-html,
-body {
-    font-family: var(--main-font), sans-serif;
-    /* background-color: var(--background-color-primary); */
-}
-
-body {
-    --main-font: 'DM sans';
 
     /* Primary blue colors */
     --blue-700: hsl(203, 90%, 22%);
@@ -81,12 +73,36 @@ body {
 
     /* Text */
     --main-text-color: var(--grey-700);
-  
-  /* Email favorite */
-    --favorite-notification-color:hsl(54, 100%, 60%);
-
-    /* question card text color */
     --font-color-card: hsl(0, 0%, 100%);
+
+    /* Notification */
+    --favorite-notification-color: hsl(54, 100%, 60%);
+
+    /* Box Shadows */
+    --shadow-sm: 0 0.125rem 0.25rem hsla(213, 12%, 15%, 0.08);
+    --shadow-md: 0 0.25rem 0.75rem hsla(213, 12%, 15%, 0.12), 0 0.125rem 0.25rem hsla(213, 12%, 15%, 0.08);
+    --shadow-lg: 0 0.5rem 1rem hsla(213, 12%, 15%, 0.15), 0 0.25rem 0.5rem hsla(213, 12%, 15%, 0.1);
+
+    /* Border Radius */
+    --radius-sm: 0.5rem;
+    --radius-md: 0.75rem;
+    --radius-lg: 1rem;
+    --radius-xl: 1.5rem;
+    --radius-full: 999px;
+
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 0.75rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-2xl: 3rem;
+    --spacing-3xl: 4rem;
+
+    /* Transitions */
+    --transition-fast: 0.15s ease;
+    --transition-base: 0.2s ease;
+    --transition-slow: 0.3s ease;
 }
 
 html {
@@ -94,17 +110,12 @@ html {
     -moz-osx-font-smoothing: grayscale;
 }
 
-
 html,
 body {
     font-family: var(--main-font);
     color: var(--main-text-color);
     background-color: var(--background-color-primary);
     line-height: 1.5;
-}
-
-body {
-    /* background:var(--grey-100) ; */
 }
 
 .h1,
@@ -181,7 +192,6 @@ select {
     font-family: inherit;
 }
 
-/* Skip link */
 .skip-link {
     position: absolute;
     top: -100%;
@@ -189,36 +199,34 @@ select {
     z-index: 9999;
     background: var(--orange-400);
     color: var(--background-color-primary);
-    padding: 0.75rem 1.5rem;
-    border-radius: 0.5rem;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border-radius: var(--radius-sm);
     font-weight: 600;
     font-size: 0.875rem;
     text-decoration: none;
-    box-shadow: 0 0.25rem 0.75rem hsla(213, 12%, 15%, 0.15);
-
-    &:focus {
-        top: 1rem;
-        outline: 3px solid var(--blue-500);
-        outline-offset: 2px;
-    }
-
-    &:hover {
-        background: var(--blue-400);
-    }
-
-    &:active {
-        transform: scale(0.98);
-    }
+    box-shadow: var(--shadow-md);
+    transition: var(--transition-base);
 }
 
+.skip-link:focus {
+    top: 1rem;
+    outline: 3px solid var(--blue-500);
+    outline-offset: 2px;
+}
 
-/* Focus visible styling for keyboard navigation */
+.skip-link:hover {
+    background: var(--blue-400);
+}
+
+.skip-link:active {
+    transform: scale(0.98);
+}
+
 *:focus-visible {
     outline: 2px solid var(--blue-500);
     outline-offset: 2px;
 }
 
-/* Reduce motion for users who prefer it */
 @media (prefers-reduced-motion: reduce) {
 
     *,

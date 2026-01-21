@@ -32,7 +32,7 @@ Het helpt specialisten zoals artsen en onderzoekers bij het beoordelen van weten
 
 Op dit moment gebeurt het beoordelingsproces grotendeels via Excel, wat onoverzichtelijk en inefficiënt is. FootGuard brengt dit proces samen in één digitale omgeving waarin artikelen toegewezen, beoordeeld en opgevolgd kunnen worden binnen workgroups.
 
-**Live versie:** [FootGuard](https://footguard.dev.fdnd.nl/)
+**Live versie:** [FootGuard](https://footguard-dev.netlify.app/)
 
 ## Opdrachtomschrijving
 

@@ -19,7 +19,6 @@
         href="https://iwgdfguidelines.org/"
         target="_blank"
         rel="noopener noreferrer"
-        class="link"
       >
         IWGDF
       </a>
@@ -56,8 +55,9 @@
 
     @media (min-width: 1024px) {
       justify-content: space-between;
-      margin-right: 3rem;
-      max-width: calc(100% - 18rem);
+      margin: 0 auto;
+      padding: 0 3rem;
+      max-width: 80rem;
     }
   }
 

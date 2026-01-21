@@ -4,100 +4,111 @@
   export let variant = "default";
 </script>
 
-<article class="stat-card" class:primary={variant === "primary"}>
+<article
+  class="stat-card"
+  class:primary={variant === "primary"}
+  class:progress={variant === "progress"}
+  class:not-started={variant === "not-started"}
+  class:graded={variant === "graded"}
+  class:finalized={variant === "finalized"}
+>
   <h3 class="stat-title">{title}</h3>
   <p class="stat-value">{value}</p>
 </article>
 
 <style>
-  /* Main stat card container */
+  /* Mobile-first table row */
   .stat-card {
-    flex: 0 0 auto;
-    width: calc(50% - 0.5rem);
-    min-width: 8.5rem;
-    max-width: 10rem;
-    aspect-ratio: 1;
-    /* https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio */
-    background: var(--background-color-primary);
-    border-radius: 1rem;
-    padding: 1.5rem;
-    transition: all 0.2s ease;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 0.75rem;
     box-shadow:
       0 0.25rem 0.75rem hsla(213, 12%, 15%, 0.12),
       0 0.125rem 0.25rem hsla(213, 12%, 15%, 0.08);
-    border: 1px solid hsla(213, 12%, 15%, 0.06);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    position: relative;
-
-    @media (min-width: 640px) {
-      width: auto;
-    }
-
-    @media (min-width: 1024px) {
-      max-width: 11rem;
-    }
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
   }
 
-  /* Primary variant with gradient background */
-  .stat-card.primary {
-    /* https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/linear-gradient */
-    background: linear-gradient(
-      135deg,
-      var(--blue-200) 0%,
-      var(--blue-300) 100%
-    );
-  }
-
-  .stat-card::after {
-    content: "";
-    position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
-    width: 1.5rem;
-    height: 1.5rem;
-    background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='12' cy='12' r='10' stroke='%23003d82' stroke-width='1.5'/%3E%3Cpath d='M9 15L15 9M15 9H11M15 9V13' stroke='%23003d82' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-    background-size: contain;
-    background-repeat: no-repeat;
-    transition:
-      transform 0.4s ease,
-      filter 0.6s ease;
-    pointer-events: auto;
-  }
-
-  @media (min-width: 768px) {
-    .stat-card:hover::after {
-      transform: scale(1.2);
-      filter: brightness(2.1) contrast(1.2);
-      /* https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/filter#try_it */
-    }
-  }
-
-  /* Stat card title */
   .stat-title {
-    font-size: 1rem;
+    font-size: 0.875rem;
     font-weight: 600;
-    color: var(--blue-700);
     margin: 0;
-    padding-right: 2rem;
-    line-height: 1.4;
   }
 
-  /* Stat card value (large number) */
   .stat-value {
-    font-size: 3rem;
+    font-size: 1.25rem;
     font-weight: 700;
-    color: var(--blue-700);
-    line-height: 1;
     margin: 0;
+    font-variant-numeric: tabular-nums;
+  }
 
-    @media (min-width: 768px) {
-      font-size: 3.5rem;
+  /* Tablet+ card layout */
+  @media (min-width: 768px) {
+    .stat-card {
+      width: auto;
+      min-width: 8.5rem;
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      border-radius: 1rem;
+      box-shadow:
+        0 0.25rem 0.75rem hsla(213, 12%, 15%, 0.12),
+        0 0.125rem 0.25rem hsla(213, 12%, 15%, 0.08);
     }
 
-    @media (min-width: 1024px) {
-      font-size: 4rem;
+    .stat-title {
+      font-size: 1rem;
     }
+
+    .stat-value {
+      font-size: 2.25rem;
+    }
+  }
+
+  /* Variants */
+  .stat-card.primary {
+    background: linear-gradient(135deg, var(--blue-200), var(--blue-300));
+    border: none;
+    color: var(--blue-700);
+  }
+
+  .stat-card.progress {
+    background: linear-gradient(135deg, var(--orange-200), var(--orange-300));
+    border: none;
+    color: var(--orange-700);
+  }
+
+  .stat-card.not-started {
+    background: linear-gradient(135deg, var(--grey-100), var(--grey-200));
+    color: var(--grey-600);
+  }
+
+  .stat-card.graded {
+    background: linear-gradient(135deg, var(--green-200), var(--green-300));
+    color: var(--green-800);
+  }
+
+  .stat-card.finalized {
+    background: var(--grey-100);
+    border: 2px solid var(--grey-200);
+    color: var(--grey-600);
+  }
+
+  .stat-card.not-started .stat-title,
+  .stat-card.not-started .stat-value {
+    color: var(--grey-500);
+  }
+
+  .stat-card.graded .stat-title,
+  .stat-card.graded .stat-value {
+    color: var(--green-700);
+  }
+
+  .stat-card.finalized .stat-title,
+  .stat-card.finalized .stat-value {
+    color: var(--grey-500);
   }
 </style>
