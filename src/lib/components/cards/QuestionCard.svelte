@@ -4,13 +4,8 @@
 </script>
 
 <div class="card-container" style="background-color: {color};">
-    <figure>
-        <img src={questionIcon} alt="" height="22" width="22" />
-    </figure>
-
+    <span>{questionNumber}.</span>
     <p class="paragraph">{question}</p>
-
-    <span>{questionNumber}</span>
 </div>
 
 <style>
@@ -22,41 +17,31 @@
         border-radius: 0.6rem;
         padding: 0.5rem;
         transition: transform 0.3s ease;
+        min-height: 4.5rem;
+        background-color: var(--grey-700);
 
-		&:hover {
-			transform: translateY(-2px);
-		}
-    }
-
-    figure {
-        display: flex;
-        flex-direction: column;
-        gap: 0.2rem;
-        justify-content: center;
-        align-items: center;
-        width: fit-content;
-
-        figcaption {
-            justify-self: center;
-            font-size: clamp(9px, 1.9vw, 10px);
+        &:hover {
+            transform: translateY(-0.1rem);
         }
 
-        img {
-            align-self: center;
+        span {
+            color: var(--font-color-card);
+            padding-left: 0.2rem;
         }
-    }
 
-    p {
-        font-size: clamp(11px, 2vw, 12px);
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        color: var(--font-color-card);
-    }
+        p {
+            font-size: clamp(11px, 2vw, 12px);
+            color: var(--font-color-card);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: auto;
 
-    span {
-        margin-left: auto;
-        color: var(--font-color-card);
+            @media (min-width: 920px) {
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: normal;
+                overflow: scroll;
+            }
+        }
     }
 </style>
