@@ -6,12 +6,94 @@
     box-sizing: border-box;
 }
 
+/* 100 Thin */
 @font-face {
-    font-family: 'DM Sans';
-    src: url(/src/lib/assets/fonts/DMSans-VariableFont_opsz\,wght.ttf) format('truetype');
-    font-weight: 100 900;
-    font-display: swap;
-    font-style: normal;
+	font-family: "DM Sans";
+	src: url("src/lib/assets/fonts/dm-sans-v17-latin-100.woff2") format("woff2");
+	font-weight: 100;
+	font-style: normal;
+	font-display: swap;
+}
+
+/* 200 ExtraLight */
+@font-face {
+	font-family: "DM Sans";
+	src: url("src/lib/assets/fonts/dm-sans-v17-latin-200.woff2") format("woff2");
+	font-weight: 200;
+	font-style: normal;
+	font-display: swap;
+}
+
+/* 300 Light */
+@font-face {
+	font-family: "DM Sans";
+	src: url("src/lib/assets/fonts/dm-sans-v17-latin-300.woff2") format("woff2");
+	font-weight: 300;
+	font-style: normal;
+	font-display: swap;
+}
+
+/* 300 Light Italic */
+@font-face {
+	font-family: "DM Sans";
+	src: url("src/lib/assets/fonts/dm-sans-v17-latin-300italic.woff2") format("woff2");
+	font-weight: 300;
+	font-style: italic;
+	font-display: swap;
+}
+
+/* 400 Regular */
+@font-face {
+	font-family: "DM Sans";
+	src: url("src/lib/assets/fonts/dm-sans-v17-latin-regular.woff2") format("woff2");
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+/* 500 Medium */
+@font-face {
+	font-family: "DM Sans";
+	src: url("src/lib/assets/fonts/dm-sans-v17-latin-500.woff2") format("woff2");
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
+
+/* 600 SemiBold */
+@font-face {
+	font-family: "DM Sans";
+	src: url("src/lib/assets/fonts/dm-sans-v17-latin-600.woff2") format("woff2");
+	font-weight: 600;
+	font-style: normal;
+	font-display: swap;
+}
+
+/* 700 Bold */
+@font-face {
+	font-family: "DM Sans";
+	src: url("src/lib/assets/fonts/dm-sans-v17-latin-700.woff2") format("woff2");
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+/* 800 ExtraBold */
+@font-face {
+	font-family: "DM Sans";
+	src: url("src/lib/assets/fonts/dm-sans-v17-latin-800.woff2") format("woff2");
+	font-weight: 800;
+	font-style: normal;
+	font-display: swap;
+}
+
+/* 900 Black */
+@font-face {
+	font-family: "DM Sans";
+	src: url("src/lib/assets/fonts/dm-sans-v17-latin-900.woff2") format("woff2");
+	font-weight: 900;
+	font-style: normal;
+	font-display: swap;
 }
 
 :root {
@@ -101,10 +183,6 @@ body {
     color: var(--main-text-color);
     background-color: var(--background-color-primary);
     line-height: 1.5;
-}
-
-body {
-    /* background:var(--grey-100) ; */
 }
 
 .h1,
