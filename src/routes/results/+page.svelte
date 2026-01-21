@@ -28,6 +28,8 @@
 
 <style>
 	.main-container-compare-grading {
+		max-width: 100rem;
+  		margin: 0 auto;
 		padding: 1rem;
 		width: 100%;
 		display: flex;

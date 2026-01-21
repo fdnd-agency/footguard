@@ -52,6 +52,8 @@
 
 <style>
 	.main-container-research {
+		max-width: 100rem;
+  		margin: 0 auto;
 		padding: 1rem 1rem 1rem 1rem;
 		width: 100%;
 
