@@ -19,6 +19,7 @@ Op dit moment gebeurt dit beoordelingsproces grotendeels via Excel, wat onoverzi
     - Dashboard
     - Grading (vanuit hier ook te navigeren naar de checklist completion page)
     - Results (ook wel de compare grading page)
+    - Admin (alleen voor de hoofdgebruiker bedoeld).
     - Notifications center
     - Settings
   - Navigatie via een sidebar aan de linkerkant, die inklapbaar is op kleinere schermen.
@@ -26,7 +27,7 @@ Op dit moment gebeurt dit beoordelingsproces grotendeels via Excel, wat onoverzi
 - **Ontwerp & gebruikservaring**
 
   - Huisstijl is gebaseerd op het IWGDF-logo.
-  - Vast kleurenpalet en typografie (DM Sans).
+  - Vast kleurenpalet en typografie (DM Sans), je kan het vinden in de [styleguide.css](https://github.com/fdnd-agency/footguard/blob/dev/src/lib/css/styleguide.css).
   - Hi-fi designs, schetsen en UML-diagrammen zijn uitgewerkt in Figma en vormen de leidraad voor de UI.
 
 - **Pagina’s**
@@ -36,8 +37,10 @@ Op dit moment gebeurt dit beoordelingsproces grotendeels via Excel, wat onoverzi
     Overzicht van artikelen die aan de gebruiker zijn toegewezen. Artikelen worden weergegeven in cards met informatie zoals titel, auteur, publicatiejaar en status (Not Started, In Progress, Finished). Filteren op status en thema is mogelijk.
   - **Checklist completion page**  
     Een PDF-bestand van het betreffende researchartikel. Aan de rechterkant is de checklist weergegeven. Deze kan vanuit hier worden doorgelopen naast het research paper en worden verstuurd.
-  - **Results**  
+  - **Results**    
     Overzicht van 2 ingevulde checklist antwoordmodellen. Hier kan er vergeleken worden of de antwoorden overeen komen en de uiteindelijke versie kan hier worden verstuurd.
+  - **Admin**
+  - Functies voor de admin gebruiker, zoals papieren uploaden, final verdict, managen van workgroups 
   - **Notification centre**  
     Een overzichtelijke pagina waar alle meldingen worden weergeven in een lijst. Hier worden meldingen getoond over mensen uit onder andere jouw workgroup die een research paper hebben ingeleverd, waarna je deze kan gaan comparen met jouw eigen. 
   - **Settings**
@@ -50,11 +53,12 @@ Op dit moment gebeurt dit beoordelingsproces grotendeels via Excel, wat onoverzi
   - FDND Agency conventies worden gevolgd.
 
 
-## Wat is nog onaf?
+## Wat is nog niet af?
 
 - **Datamodel**
   - Het datamodel is nog niet volledig uitgewerkt of geïmplementeerd.
   - Relaties tussen users, artikelen, workgroups en beoordelingen zijn nog niet vastgelegd in code.
+  - Dingen zoals berichten zijn ook nog niet gekoppeld
 
 - **Backend & data-opslag**
   - Er is nog geen backend gebouwd voor onder andere het login systeem.
