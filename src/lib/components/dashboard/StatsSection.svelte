@@ -4,7 +4,6 @@
 
   export let articles = [];
 
-  // Bereken alle stats via helper functie
   $: dashboardStats = generateDashboardStats(articles);
 </script>
 
@@ -14,13 +13,7 @@
 
   <div class="stats-grid">
     {#each dashboardStats as stat (stat.id)}
-      <div role="listitem">
-        <StatCard
-          title={stat.title}
-          value={stat.value}
-          variant={stat.variant}
-        />
-      </div>
+      <StatCard title={stat.title} value={stat.value} variant={stat.variant} />
     {/each}
   </div>
 </section>
@@ -28,25 +21,28 @@
 <style>
   .stats-section {
     padding: 0 1rem;
+
     @media (min-width: 768px) {
       padding: 0 2rem;
     }
+
     @media (min-width: 1024px) {
       padding: 0 3rem;
     }
+
     @media (min-width: 1440px) {
       padding: 0 4rem;
     }
   }
 
   .section-title {
-    margin: 0 0 0.5rem 0;
+    margin: 0 0 0.5rem;
     line-height: 1.4;
     color: var(--grey-700);
   }
 
   .section-subtitle {
-    margin: 0 0 1rem 0;
+    margin: 0 0 1rem;
     line-height: 1.6;
     color: var(--grey-600);
   }

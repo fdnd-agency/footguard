@@ -1,6 +1,6 @@
 <script>
-  import ProgressCard from "$lib/components/dashboard/ProgressCard.svelte";
-  import ComparisonCard from "$lib/components/dashboard/ComparisonCard.svelte";
+  import ProgressCard from "$lib/components/cards/ProgressCard.svelte";
+  import ComparisonCard from "$lib/components/cards/ComparisonCard.svelte";
 
   export let articles = [];
 </script>

@@ -1,6 +1,6 @@
 <script>
-  import Button from '$lib/components/buttons/Button.svelte';
-  import { getDaysLeftClass } from '$lib/helpers/dashboardStats.js';
+  import Button from "$lib/components/buttons/Button.svelte";
+  import { getDaysLeftClass } from "$lib/helpers/dashboardStats.js";
 
   export let title;
   export let daysLeft;
@@ -9,20 +9,18 @@
 </script>
 
 <article class="grading-card">
-  <!-- Card header with title and badge -->
   <header class="card-header">
     <h3 class="card-title">{title}</h3>
     <span class="badge {getDaysLeftClass(daysLeft)}">
       {#if Number.isFinite(daysLeft)}
         {daysLeft}
-        {daysLeft === 1 ? 'day' : 'days'} left
+        {daysLeft === 1 ? "day" : "days"} left
       {:else}
         No deadline set
       {/if}
     </span>
   </header>
 
-  <!-- Progress bars section -->
   <section class="progress-section">
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dl -->
     <dl class="progress-row">
@@ -36,13 +34,13 @@
     <dl class="progress-row">
       <dt class="progress-label">Assessor 2</dt>
       <dd class="progress-bar-container green-bg">
-        <span class="progress-bar green" style="width: {assessor2Progress}%"></span>
+        <span class="progress-bar green" style="width: {assessor2Progress}%"
+        ></span>
       </dd>
       <dd class="progress-value">{assessor2Progress}%</dd>
     </dl>
   </section>
 
-  <!-- Card footer with action button -->
   <footer class="card-footer">
     <Button variant="primary" size="medium" type="button">Continue</Button>
   </footer>
@@ -51,11 +49,11 @@
 <style>
   .grading-card {
     background: var(--background-color-primary);
-    border-radius: 1rem;
+    border-radius: var(--radius-lg);
     padding: 1.5rem;
-    box-shadow: 0 0.25rem 0.75rem hsla(213, 12%, 15%, 0.12), 0 0.125rem 0.25rem hsla(213, 12%, 15%, 0.08);
+    box-shadow: var(--shadow-md);
     border: 1px solid hsla(213, 12%, 15%, 0.06);
-    transition: all 0.2s ease;
+    transition: var(--transition-base);
   }
 
   .card-header {
@@ -86,7 +84,7 @@
     font-size: 0.875rem;
     font-weight: 600;
     padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
+    border-radius: var(--radius-sm);
     white-space: nowrap;
   }
 
@@ -116,7 +114,7 @@
 
   .progress-row {
     display: grid;
-    grid-template-columns: 5.5rem 1fr 2.813rem;
+    grid-template-columns: 5.5rem 1fr 3rem;
     align-items: center;
     gap: 0.75rem;
     margin: 0;
@@ -138,7 +136,7 @@
 
   .progress-bar-container {
     height: 0.5rem;
-    border-radius: 9999px;
+    border-radius: var(--radius-full);
     overflow: hidden;
     position: relative;
   }
@@ -154,7 +152,7 @@
   .progress-bar {
     display: block;
     height: 100%;
-    border-radius: 9999px;
+    border-radius: var(--radius-full);
     transition: width 0.3s ease;
   }
 
