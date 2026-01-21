@@ -36,19 +36,17 @@
         border: none;
         padding: 0;
         margin: 0;
-    }
 
-    .form-item {
         display: flex;
         flex-direction: column;
         gap: 1rem;
-		background-color: #ffffff;
+		background-color: var(--grey-100);
         padding: 1rem;
         border-radius: 1rem;
-    }
 
-    h2 .question-id {
-        color: var(--grey-300);
+         h3 .question-id {
+        color: var(--grey-700);
+    }
     }
 
     /* for hiding legend */
