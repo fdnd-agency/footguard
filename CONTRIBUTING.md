@@ -72,6 +72,9 @@ Elke vrijdag houden we weer een standup waarbij we terugkijken naar de week om t
 # Branches
 - De branches die al gemerged of niet meer gebruikt worden verwijderen
 - De branche namen consistent houden aan FDND Agency richtlijnen
+## Je kan ook gebruiken maken van de branch create in je issue
+<img width="528" height="227" alt="afbeelding" src="https://github.com/user-attachments/assets/7b29c6ee-af4c-45b2-a2e1-7fa664452882" />
+
 
 # Taal
 De website en het designs worden in het engels verwerkt.
@@ -161,3 +164,4 @@ Prop	Type	Default	Uitleg
 - **Outline**: lichte of secundaire acties (bijv. Bewerken, Meer info).
 - **Danger**: destructieve acties (bijv. Verwijderen).
 - **Sizes**: small voor compacte UI, large voor belangrijke CTA’s.
+
