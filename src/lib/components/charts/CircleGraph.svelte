@@ -1,35 +1,37 @@
 <script>
   import { onMount } from "svelte";
 
-  // Chart data with order, label, value, and color
-  let sections = [
+  export let articles = [];
+
+  $: sections = [
     {
       key: "notStarted",
       label: "Not started",
-      value: 9,
+      value: articles.filter((a) => a.grading_status === "not_started").length,
       color: "var(--grey-200)",
     },
     {
       key: "inProgress",
       label: "In progress",
-      value: 4,
+      value: articles.filter((a) => a.grading_status === "in_progress").length,
       color: "var(--orange-500)",
     },
-    { key: "graded", label: "Graded", value: 6, color: "var(--green-500)" },
+    {
+      key: "graded",
+      label: "Graded",
+      value: articles.filter((a) => a.grading_status === "completed").length,
+      color: "var(--green-500)",
+    },
     {
       key: "finalized",
       label: "Finalized",
-      value: 3,
+      value: articles.filter((a) => a.grading_status === "finalized").length,
       color: "var(--blue-500)",
     },
-  ];
+  ].filter((s) => s.value > 0);
 
-  // Total value for computing percentages
-  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce
   $: total = sections.reduce((sum, s) => sum + s.value, 0);
 
-  // Radius percent for label positioning based on screen size
-  // https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio
   let radiusPercent = 70;
 
   function updateRadius() {
@@ -42,8 +44,6 @@
     return () => window.removeEventListener("resize", updateRadius);
   });
 
-  // Compute position of labels based on slice degrees
-  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/cos
   function getPosition(startDeg, segmentDeg, radiusPercent = 70) {
     const middleDeg = startDeg + segmentDeg / 2;
     const angleRad = ((middleDeg - 90) * Math.PI) / 180;
@@ -53,13 +53,12 @@
     };
   }
 
-  // Compute percentage, slice degrees, start deg, and positions for each section
   $: sectionsWithCalc = sections.map((s, i) => {
-    const percent = ((s.value / total) * 100).toFixed(1);
-    const deg = (s.value / total) * 360;
+    const percent = total > 0 ? ((s.value / total) * 100).toFixed(1) : 0;
+    const deg = total > 0 ? (s.value / total) * 360 : 0;
     const startDeg = sections
       .slice(0, i)
-      .reduce((sum, x) => sum + (x.value / total) * 360, 0);
+      .reduce((sum, x) => sum + (total > 0 ? (x.value / total) * 360 : 0), 0);
     return {
       ...s,
       percent,
@@ -69,21 +68,16 @@
     };
   });
 
-  // Build conic-gradient CSS string for chart background
-  // https://css-tricks.com/almanac/functions/c/conic-gradient/
-  $: gradientStyle = `
-    conic-gradient(
-      from 0deg,
-      ${sectionsWithCalc
-        .map((s) => `${s.color} ${s.startDeg}deg ${s.startDeg + s.deg}deg`)
-        .join(",")}
-    )
-  `;
+  $: gradientStyle =
+    total > 0
+      ? `conic-gradient(
+        from 0deg,
+        ${sectionsWithCalc.map((s) => `${s.color} ${s.startDeg}deg ${s.startDeg + s.deg}deg`).join(",")}
+      )`
+      : "var(--grey-200)";
 </script>
 
-<!-- Chart container -->
 <section class="chart">
-  <!-- Circle chart visual -->
   <figure class="chart-visual">
     <figcaption class="visually-hidden">Paper progress distribution</figcaption>
     <span class="circle-container">
@@ -91,11 +85,8 @@
         {#each sectionsWithCalc as section}
           <span
             class="percentage"
-            style="
-        left: {section.pos.x};
-        top: {section.pos.y};
-        color: {section.color};
-      "
+            style="left: {section.pos.x}; top: {section.pos
+              .y}; color: {section.color};"
           >
             {section.percent}%
           </span>
@@ -104,7 +95,6 @@
     </span>
   </figure>
 
-  <!-- Chart legend -->
   <ul class="legend">
     {#each sections as section}
       <li class="legend-item">
@@ -116,19 +106,17 @@
 </section>
 
 <style>
-  /* Main chart container */
   .chart {
     width: 100%;
     margin-top: 4rem;
   }
 
-  /* Chart visual container */
   .chart-visual {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 12.5rem;
-    margin: 0 0 1.5rem 0;
+    margin: 0 0 1.5rem;
 
     @media (min-width: 768px) {
       height: 15rem;
@@ -140,13 +128,12 @@
     display: none;
   }
 
-  /* Circle container wrapper with responsive aspect ratio */
   .circle-container {
     width: 100%;
     max-width: 15rem;
     height: auto;
-    aspect-ratio: 1 / 1;
     /* https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio */
+    aspect-ratio: 1 / 1;
 
     @media (min-width: 768px) {
       width: 15rem;
@@ -154,7 +141,6 @@
     }
   }
 
-  /* Circle chart element */
   .circle {
     display: block;
     width: 100%;
@@ -163,7 +149,6 @@
     position: relative;
   }
 
-  /* Percentage labels on circle */
   .percentage {
     position: absolute;
     transform: translate(-50%, -50%);
@@ -178,7 +163,6 @@
     }
   }
 
-  /* Legend list container */
   .legend {
     display: grid;
     grid-template-columns: 1fr;
@@ -189,11 +173,11 @@
     justify-items: center;
 
     @media (min-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
       gap: 1rem;
     }
   }
 
-  /* Individual legend item */
   .legend-item {
     display: flex;
     align-items: center;
@@ -202,7 +186,6 @@
     color: var(--grey-700);
   }
 
-  /* Legend color dot */
   .legend-dot {
     width: 0.75rem;
     height: 0.75rem;
