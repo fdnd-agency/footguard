@@ -1,7 +1,7 @@
 # Technische documentatie
 
 ## Inleiding
-Dit document beschrijft de technische componenten die zijn toegepast binnen de research-, checklist- en compare grading-pagina’s van het systeem.  
+Dit document beschrijft de technische componenten die zijn toegepast binnen hete project.  
 De focus ligt op de opbouw van de interface, de gebruikte componenten en de manier waarop deze met elkaar communiceren.  
 
 ---
@@ -187,3 +187,39 @@ Dit component toont de antwoorden (bijvoorbeeld “Yes” of “No”) in de tab
 <img width="176" height="34" alt="Image" src="https://github.com/user-attachments/assets/cea7cf16-bbab-4c82-8f55-a3e09daae06e" />
 
 
+---
+
+# Button component (usage)
+
+De Button is een herbruikbare component die consistente knoppen binnen Footguard mogelijk maakt. Gebruik dit component voor alle interactieve acties in de interface.
+
+## Props
+
+| Prop       | Type                        | Default    | Uitleg |
+|------------|----------------------------|-----------|--------|
+| `variant`  | "primary" \| "secondary" \| "outline" \| "danger" | "primary" | Bepaalt de visuele stijl van de knop |
+| `size`     | "small" \| "medium" \| "large" | "medium" | Regelt de afmeting van de knop |
+| `disabled` | boolean                     | false     | Maakt de knop niet interactief |
+| `fullWidth`| boolean                     | false     | Laat de knop volledige breedte gebruiken |
+| `type`     | "button" \| "submit" \| "reset" | "button" | HTML button type |
+| `tabindex` | number                      | 0         | Tabbable volgorde |
+| `slot`     | —                           | —         | Inhoud van de knop (tekst, iconen) |
+
+## Voorbeelden
+
+```html
+<Button>Standaard</Button>
+
+<Button variant="secondary">Secundair</Button>
+<Button variant="outline">Outline</Button>
+<Button variant="danger">Danger</Button>
+
+<Button size="small">Klein</Button>
+<Button size="medium">Middel</Button>
+<Button size="large">Groot</Button>
+
+<Button variant="outline" size="small">Klein Outline</Button>
+
+<Button disabled>Niet actief</Button>
+<Button fullWidth>Volledige breedte</Button>
+<Button type="submit">Verzenden</Button>
