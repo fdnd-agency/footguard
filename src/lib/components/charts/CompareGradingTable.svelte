@@ -15,34 +15,39 @@
 </script>
 
 <div class="assessment-table-container">
-    <table class="assessment-table">
-        <thead>
-            <tr>
-                <th class="paragraph">Question</th>
-                <th class="paragraph">Assessor 1</th>
-                <th class="paragraph">Assessor 2</th>
-            </tr>
-        </thead>
-        <tbody>
-            {#each questions as question}
-                <tr>
-                    <td class="question-cell">
-                        <QuestionCard
-                            question={question.question_title}
-                            questionIcon={minus}
-                            questionNumber={question.id}
-                        />
-                    </td>
-                    <td class="assessor-cell paragraph">
-                        <GradingValue value="No" color="var(--red-600)"/>                    
-                    </td>
-                    <td class="assessor-cell paragraph">
-                        <GradingValue value="Yes" color="var(--green-700)"/>                    
-                    </td>
-                </tr>
-            {/each}
-        </tbody>
-    </table>
+<table class="assessment-table">
+
+  <caption class="visually-hidden">
+    Table with the assessment results: each row shows a question, and columns show the answers of assessor 1 and assessor 2
+  </caption>
+
+  <thead>
+    <tr>
+      <th scope="col" class="paragraph">Questions</th>
+      <th scope="col" class="paragraph">Assessor 1</th>
+      <th scope="col" class="paragraph">Assessor 2</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {#each questions as question}
+      <tr>
+        <td class="question-cell">
+          <QuestionCard question={question.question_title} questionIcon={minus} questionNumber={question.id}/>
+        </td>
+
+        <td class="assessor-cell paragraph">
+          <GradingValue value="No" color="var(--red-600)" />
+        </td>
+
+        <td class="assessor-cell paragraph">
+          <GradingValue value="Yes" color="var(--green-700)" />
+        </td>
+      </tr>
+    {/each}
+  </tbody>
+</table>
+
 </div>
 
 <style>
@@ -69,6 +74,16 @@
         td {
             padding: 1rem;
             vertical-align: middle;
+        }
+
+        .visually-hidden {
+            clip: rect(0 0 0 0);
+            clip-path: inset(50%);
+            height: 1px;
+            overflow: hidden;
+            position: absolute;
+            white-space: nowrap;
+            width: 1px;
         }
     }
 
