@@ -125,7 +125,7 @@ Een backlogitem mag worden omgezet naar een issue en in de TODO-lijst geplaatst 
 
 # Taal
 
-- De website en het designs worden in het **Engels** verwerkt.
+- De website en het design worden in het **Engels** verwerkt.
 - De issues, README, projectboard en communicatie worden in het **Nederlands** verwerkt.
 
 ---
