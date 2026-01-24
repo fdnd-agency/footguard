@@ -1,8 +1,10 @@
 <script>
   import { onMount } from "svelte";
 
+  // Input data vanuit parent component
   export let articles = [];
 
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
   $: sections = [
     {
       key: "notStarted",
@@ -30,20 +32,24 @@
     },
   ].filter((s) => s.value > 0);
 
+  // Bereken totaal aantal artikelen voor procenten
   $: total = sections.reduce((sum, s) => sum + s.value, 0);
 
   let radiusPercent = 70;
 
+  // Pas aan naar schermgrootte
   function updateRadius() {
     radiusPercent = window.innerWidth < 768 ? 40 : 70;
   }
 
+  // Zorg dat radius bij resize wordt geüpdatet
   onMount(() => {
     updateRadius();
     window.addEventListener("resize", updateRadius);
     return () => window.removeEventListener("resize", updateRadius);
   });
 
+  // Functie om positie van percentages in de cirkel te berekenen
   function getPosition(startDeg, segmentDeg, radiusPercent = 70) {
     const middleDeg = startDeg + segmentDeg / 2;
     const angleRad = ((middleDeg - 90) * Math.PI) / 180;
@@ -53,6 +59,7 @@
     };
   }
 
+  // Voeg extra berekeningen toe zoals percentage, startDeg, deg en positie
   $: sectionsWithCalc = sections.map((s, i) => {
     const percent = total > 0 ? ((s.value / total) * 100).toFixed(1) : 0;
     const deg = total > 0 ? (s.value / total) * 360 : 0;
@@ -68,6 +75,8 @@
     };
   });
 
+  // Maak conic-gradient voor cirkel graph
+  // CSS conic-gradient https://developer.mozilla.org/en-US/docs/Web/CSS/conic-gradient
   $: gradientStyle =
     total > 0
       ? `conic-gradient(
