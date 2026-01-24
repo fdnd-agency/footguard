@@ -37,7 +37,7 @@ Dit bestand beschrijft de richtlijnen en best practices voor bijdragen aan het p
 - Het maken van issues, branches en pull requests
 - Teamprocessen zoals stand-ups en backlogbeheer
 
-Door deze richtlijnen te volgen, help je het project consistent, overzichtelijk en van hoge kwaliteit te houden, en maak je het toekomstige teamleden makkelijker om aan het project te werken.  
+Door deze richtlijnen te volgen, help je het project consistent, overzichtelijk en van hoge kwaliteit te houden, en maak je het voor toekomstige teamleden makkelijker om aan het project te werken.  
 
 Voor de **rest van de conventions en aanvullende informatie** kun je terecht bij de [FDND Agency conventions](https://docs.fdnd.nl/conventies.html).
 
