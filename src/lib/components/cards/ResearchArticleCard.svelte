@@ -10,8 +10,15 @@
 	import calenderIcon from "$lib/assets/svg/calendar-icon.svg";
 
 	// Dynamic data variables
-	let {name, article_id, Publisher, publishing_year, status, className, theme} = $props()
-
+	let {
+		name,
+		article_id,
+		Publisher,
+		publishing_year,
+		status,
+		className,
+		theme,
+	} = $props();
 </script>
 
 <a class="anchor-container-card" href="/research/{article_id}">
@@ -52,18 +59,23 @@
 </a>
 
 <style>
+	.anchor-container-card:focus .research-card,
+	.anchor-container-card:focus-visible .research-card {
+		outline: 1px solid var(--grey-700);
+	}
+
 	.research-card {
 		padding: 1rem;
 		border-radius: 1rem;
-    	background: var(--background-color-primary);
+		background: var(--background-color-primary);
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;
 
 		box-shadow:
-      0 0.25rem 0.75rem hsla(213, 12%, 15%, 0.12),
-      0 0.125rem 0.25rem hsla(213, 12%, 15%, 0.08);
-    border: 1px solid hsla(213, 12%, 15%, 0.06);
+			0 0.25rem 0.75rem hsla(213, 12%, 15%, 0.12),
+			0 0.125rem 0.25rem hsla(213, 12%, 15%, 0.08);
+		border: 1px solid hsla(213, 12%, 15%, 0.06);
 		transition: transform 0.3s ease;
 
 		&:hover {
@@ -87,7 +99,7 @@
 			color: var(--grey-700);
 
 			display: -webkit-box;
-			-webkit-line-clamp: 2; 
+			-webkit-line-clamp: 2;
 			-webkit-box-orient: vertical;
 			overflow: hidden;
 		}
