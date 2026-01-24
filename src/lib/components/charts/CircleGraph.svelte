@@ -79,7 +79,7 @@
 
 <section class="chart">
   <figure class="chart-visual">
-    <figcaption class="visually-hidden">Paper progress distribution</figcaption>
+    <figcaption class="visually-hidden">Paper progress chart</figcaption>
     <span class="circle-container">
       <span class="circle" style="background: {gradientStyle};">
         {#each sectionsWithCalc as section}
@@ -87,6 +87,7 @@
             class="percentage"
             style="left: {section.pos.x}; top: {section.pos
               .y}; color: {section.color};"
+            aria-hidden="true"
           >
             {section.percent}%
           </span>
@@ -96,9 +97,10 @@
   </figure>
 
   <ul class="legend">
-    {#each sections as section}
+    {#each sections as section, i}
       <li class="legend-item">
         <span class="legend-dot" style="background: {section.color};"></span>
+        <span class="visually-hidden">{sectionsWithCalc[i].percent}%</span>
         <span>{section.label} ({section.value})</span>
       </li>
     {/each}
@@ -125,7 +127,15 @@
   }
 
   .visually-hidden {
-    display: none;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
   }
 
   .circle-container {

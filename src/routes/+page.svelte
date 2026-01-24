@@ -16,15 +16,12 @@
   let cursorActive = false;
 </script>
 
-<!-- Skip to main content link voor keyboard navigation accessibility -->
-<!-- https://webaim.org/techniques/skipnav/ -->
-<a href="#main-content" class="skip-link">Skip to main content</a>
-
 <!-- Main dashboard layout -->
 <div class="dashboard">
   <!-- Main content wrapper met semantic HTML -->
   <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/main -->
-  <main class="content" id="main-content">
+  <!-- ID wordt gebruikt door skip-link in +layout.svelte -->
+  <main class="content">
     <!-- Header component: Welcome message, search, cursor toggle -->
     <DashboardHeader user={data.currentUser} bind:cursorActive />
 
@@ -57,34 +54,6 @@
 </noscript>
 
 <style>
-  /* Skip link - alleen zichtbaar bij keyboard focus voor accessibility */
-  /* https://webaim.org/techniques/skipnav/ */
-  .skip-link {
-    position: absolute;
-    top: -100%;
-    left: 1rem;
-    z-index: 100;
-    background: var(--orange-400);
-    color: var(--background-color-primary);
-    padding: 0.75rem 1.5rem;
-    border-radius: 0.5rem;
-    font-weight: 600;
-    font-size: 0.875rem;
-    text-decoration: none;
-    box-shadow: 0 0.25rem 0.75rem hsla(213, 12%, 15%, 0.15);
-    transition: all 0.2s ease;
-  }
-
-  .skip-link:focus {
-    top: 1rem;
-    outline: 3px solid var(--blue-500);
-    outline-offset: 2px;
-  }
-
-  .skip-link:hover {
-    background: var(--blue-400);
-  }
-
   /* Dashboard layout met subtiele gradient background */
   /* https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/radial-gradient */
   .dashboard {
