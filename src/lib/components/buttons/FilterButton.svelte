@@ -15,8 +15,6 @@
   {/each}
 </select>
 
-
-
 <style>
   select {
     background: none;
