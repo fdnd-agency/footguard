@@ -47,7 +47,7 @@ Op dit moment gebeurt dit beoordelingsproces grotendeels via Excel, wat onoverzi
     Nog niet uitgewerkt. Hier komen uiteindelijk persoonlijke instellingen over bijvoorbeeld preferred color scheme (dark of light mode) maar ook taal voorkeuren etc. 
 
 - **Technische basis**
-  - Lokale ontwikkelomgeving werkt (`npm install`, `npm run dev`).
+  - Lokale ontwikkelomgeving werkt (`npm install` -> `npm install gsap` -> `npm run dev`).
   - Gebruik van een `dev` en `main` branch.
   - `dev` branch werkt met feature branches. Deze worden gemaakt vanaf de dev en ook hiernaartoe gemerched. De `main` branch wordt **niet** zomaar naar gemerched zonder volledige testing.
   - FDND Agency conventies worden gevolgd.
