@@ -1,9 +1,9 @@
 <script>
     // custom variables for reuse
-    const { questionAnswer, question, questionIcon, questionNumber, color } = $props();
+    const { questionAnswer, question, questionIcon, questionNumber } = $props();
 </script>
 
-<div class="card-container" style="background-color: {color};">
+<div class="card-container">
     <span>{questionNumber}.</span>
     <p class="paragraph">{question}</p>
 </div>
