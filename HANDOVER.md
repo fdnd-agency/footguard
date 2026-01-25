@@ -24,6 +24,12 @@ Op dit moment gebeurt dit beoordelingsproces grotendeels via Excel, wat onoverzi
     - Settings
   - Navigatie via een sidebar aan de linkerkant, die inklapbaar is op kleinere schermen.
 
+- **Mappen structuur SvelteKit project**
+    - `src/lib/assets`, hier kunnen jullie alle foto's, svg, fonts, components, css styleguide vinde. Alles rondom content is hier gedocumenteerd
+    - `src/lib/assets/index.js` in dit document zitten de imports van de de componenten die we gebruiken, we raden aan om dit te grbuiken voor een overzichtelijk project en clean code.
+    - `src/routes` hier zitten alle pages van footguard
+    - `static/robot.txt` hebben wij niks niet veel mee gedaan, seo en andere improvents kunnen gedaan worden via dit bestand. zie [bron](https://medium.com/@priyankaharlalka/delving-deeper-into-robots-txt-a-comprehensive-guide-for-seo-optimization-df04972b95c7) voor extra info.
+    - 
 - **Ontwerp & gebruikservaring**
 
   - Huisstijl is gebaseerd op het IWGDF-logo.
