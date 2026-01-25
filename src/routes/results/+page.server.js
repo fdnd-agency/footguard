@@ -1,5 +1,4 @@
 export async function load({ params }) {
-//   const articleId = params.article_id;
 
   const detailsResponse = await fetch('https://fdnd-agency.directus.app/items/footguard_articles/');
   const detailsData = await detailsResponse.json();
