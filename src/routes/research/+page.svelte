@@ -1,71 +1,82 @@
 <script>
-	// Components
-	import Sidebar from "$lib/components/layout/Sidebar.svelte";
-	import GradingArticleCard from "$lib/components/cards/ResearchArticleCard.svelte";
-	import FilterButton from "$lib/components/buttons/FilterButton.svelte";
-	import SearchBar from "$lib/components/form/SearchBar.svelte";
-	import Heading from "$lib/components/textual/Heading.svelte";
-	import FilterForm from "$lib/components/form/FilterForm.svelte";
-	import NoItemsFoundNote from "$lib/components/textual/NoItemsFoundNote.svelte";
+  // Components
+  import Sidebar from "$lib/components/layout/Sidebar.svelte";
+  import GradingArticleCard from "$lib/components/cards/ResearchArticleCard.svelte";
+  import FilterButton from "$lib/components/buttons/FilterButton.svelte";
+  import SearchBar from "$lib/components/form/SearchBar.svelte";
+  import Heading from "$lib/components/textual/Heading.svelte";
+  import FilterForm from "$lib/components/form/FilterForm.svelte";
+  import NoItemsFoundNote from "$lib/components/textual/NoItemsFoundNote.svelte";
 
-	// Sveltekit helpers
-	import { fly } from "svelte/transition";
-	import { goto } from "$app/navigation";
-	import { onMount } from "svelte";
+  // Sveltekit helpers
+  import { fly } from "svelte/transition";
+  import { goto } from "$app/navigation";
+  import { onMount } from "svelte";
 
-	let { data, form } = $props();
-	const gradings = data.cardData;
+  let { data, form } = $props();
+  const gradings = data.cardData;
 
-	function updateFilters(event) {
-		const { status, theme } = event.detail;
+  function updateFilters(event) {
+    const { status, theme } = event.detail;
 
-		// https://svelte.dev/docs/kit/$app-navigation#goto
-		// for changening the url without page refresh
-		goto("?status=" + status + "&theme=" + theme, {noscroll: true,replaceState: true});
-	}
+    // https://svelte.dev/docs/kit/$app-navigation#goto
+    // for changening the url without page refresh
+    goto("?status=" + status + "&theme=" + theme, {
+      noscroll: true,
+      replaceState: true,
+    });
+  }
 </script>
 
-	<section class="main-container-research">
-		<Heading title="Assigned Gradings" subTitle="An overview of all your gradings"/>
-		<FilterForm bind:status={data.status} bind:theme={data.theme} on:change={updateFilters}/>
+<section class="main-container-research">
+  <Heading
+    title="Assigned Gradings"
+    subTitle="An overview of all your gradings"
+  />
+  <FilterForm
+    bind:status={data.status}
+    bind:theme={data.theme}
+    on:change={updateFilters}
+  />
 
-		<!-- https://dev.to/a1guy/svelte-motion-theming-guide-transitions-animations-and-dark-mode-explained-4e3h: svelktekit animations -->
-		{#if data.cardData.length === 0}
-			<NoItemsFoundNote/>
-		{:else}
-			<div class="research-cards-container">
-				{#each data.cardData as cardInfo}
-					<div transition:fly={{ y:600, duration:700 }}>
-						<GradingArticleCard
-							name={cardInfo.title}
-							article_id={cardInfo.id}
-							Publisher={cardInfo.Publisher}
-							publishing_year={new Date(cardInfo.publishing_year,).getFullYear()}
-							status={cardInfo.status}
-							theme={cardInfo.theme}
-						/>
-					</div>
-				{/each}
-			</div>
-		{/if}
-	</section>
+  <!-- https://dev.to/a1guy/svelte-motion-theming-guide-transitions-animations-and-dark-mode-explained-4e3h: svelktekit animations -->
+  {#if data.cardData.length === 0}
+    <NoItemsFoundNote />
+  {:else}
+    <div class="research-cards-container">
+      {#each data.cardData as cardInfo}
+        <div transition:fly={{ y: 600, duration: 700 }}>
+          <GradingArticleCard
+            name={cardInfo.title}
+            article_id={cardInfo.id}
+            Author={cardInfo.Author}
+            Publisher={cardInfo.Publisher}
+            publishing_year={new Date(cardInfo.publishing_year).getFullYear()}
+            status={cardInfo.status}
+            theme={cardInfo.theme}
+          />
+        </div>
+      {/each}
+    </div>
+  {/if}
+</section>
 
 <style>
-	.main-container-research {
-		max-width: 100rem;
-  		margin: 0 auto;
-		padding: 1rem 1rem 1rem 1rem;
-		width: 100%;
+  .main-container-research {
+    max-width: 100rem;
+    margin: 0 auto;
+    padding: 1rem 1rem 1rem 1rem;
+    width: 100%;
 
-		@media (min-width: 720px) {
-			padding: 1rem 2rem 1rem 2rem;
-		}
-	}
+    @media (min-width: 720px) {
+      padding: 1rem 2rem 1rem 2rem;
+    }
+  }
 
-	.research-cards-container {
-		margin-top: 1rem;
-		display: flex;
-		flex-direction: column;
-		gap: 1rem;
-	}
+  .research-cards-container {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
 </style>
