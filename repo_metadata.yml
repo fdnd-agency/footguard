@@ -1,5 +1,7 @@
 title: "Footguard"
-status: "in progress"
+client: "IWGDF Guidlines"
+status: "active"
+years: [2]
 main_link: "https://footguard.agency.fdnd.nl/"
 dev_link: "https://footguard.dev.fdnd.nl/"
 tech_stack: ["SvelteKit", "Directus"]
