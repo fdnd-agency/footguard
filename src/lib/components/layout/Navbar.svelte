@@ -156,20 +156,8 @@
 				}
             }    
         }
-
-		.admin-item{
-
-				a{
-					color:var(--secondary-svg-icon-color);
-
-					&:hover{
-						color:var(--secondary-svg-icon-color);
-						background: var(--secondary-svg-icon-hover-color);
-					}
-				}
-			}
-    }
-
+	}
+	
 	.icon{
 		display: inline-flex;
 	}
