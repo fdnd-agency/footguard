@@ -145,7 +145,6 @@ De prioritering van deze issues is nog niet overal vastgelegd en kan per volgend
 
 ```bash
 git clone https://github.com/fdnd-agency/footguard.git
-cd footguard
 npm install
 npm run dev
 ```
