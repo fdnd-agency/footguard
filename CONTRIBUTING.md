@@ -9,8 +9,8 @@
   - [Standup](#standup)
   - [Projectboard](#projectboard)
     - [Issues](#issues)
-      - [Definition of done (DOR)](#definition-of-done-dor)
-      - [DOD eisen](#dod-eisen)
+  - [Definition of Ready (DOR)](#definition-of-ready-dor)
+  - [Definition of Done (DoD)](#definition-of-done-dod)
 - [Taal](#taal)
 - [Code conventies](#code-conventies)
   - [Naamgevingen](#naamgevingen)
@@ -96,27 +96,46 @@ Elke vrijdag vindt een terugblik-stand-up plaats, waarin wordt geëvalueerd of d
 - Alle issues moeten bij het assignen gelijk worden gelabeld met relevante labels.
 - De issues moeten een korte beschrijving bevatten van de functie.
 
-#### Definition of done (DOR)
+### Definition of Ready (DoR)
 
-Een backlogitem mag worden omgezet naar een issue en in de TODO-lijst geplaatst worden wanneer aan de volgende Definition of Done-eisen is voldaan:
+Een issue is Ready als het duidelijk, uitvoerbaar en afgestemd is. We gebruiken deze criteria:
 
-- De issues zijn gepokerd op waarde
-- Bevat de 'als gebruiker... wil ik... zodat..' format
-- Bevat acceptatiecriteria
-- Alle relevante labels zijn toegevoegd
-- Van alle punten in de acceptatiecriteria maak je een subissue van en vink deze per criterium af
+1. User Story is duidelijk en bruikbaar
+- Geschreven in het format: Als <type gebruiker> wil ik <doel>, zodat <reden>.
+Omschrijft een concrete waarde voor de gebruiker.
+2. Acceptance Criteria aanwezig
+- In begrijpelijke taal, zodat het doel helder is.
+- Bevat wat er minimaal moet gebeuren om dit "done" te noemen.
+3. Technisch voldoende uitgewerkt
+- Info over API’s, inputs/outputs of design specs (indien nodig).
+- Indien relevant: links naar Figma, componenten of data.
+4. Geschat & gepokerd
+- Story is ingeschat (bv. via planning poker of story points).
+- Prioriteit is duidelijk (bv. MoSCoW-methode).
+5. Afgestemd binnen het team
+- Teamleden begrijpen de taak en zijn het eens over aanpak.
 
-#### DOD eisen
 
-- Alle beschreven functionaliteiten zijn uitgevoerd (acceptatiecriteria)
-- De functionaliteit is uitgebreid getest:
-  - A11y, tab, kleur, screenreader
-  - Performance
-  - HTML validator
-  - Responsive en device test
-  - User test  
-- Er is een Merge request aangemaakt:
-  - De template van de Pull request is zoveel mogelijk ingevuld.
+#### Definition of Done (DoD)
+
+Een issue is pas Done als het voldoet aan deze eisen:
+
+1. Functioneel afgerond
+- De functionaliteit werkt zoals beschreven.
+- Alle acceptance criteria zijn behaald.
+2. Codekwaliteit gewaarborgd
+- Code is getest(A11y, screenreader, Performance. etc..
+- Code is gecommit en gepusht in een feature branch.
+- De code is via een Pull Request gemerged naar dev.
+3. Gereviewd
+- Issue is besproken of nagekeken door de ander.
+- Feedback is verwerkt (indien van toepassing).
+4. Design of UX gecontroleerd
+- Aansluitend op het design in Figma of besproken wireframe.
+- Visuele en UX-kwaliteit zijn gecheckt.
+5. Documentatie up-to-date
+- Wiki of readme is aangepast als er iets belangrijks is veranderd.
+- Link naar het werkende onderdeel is beschikbaar (dev-link).
 
 ---
 
@@ -220,6 +239,7 @@ We werken met branches volgens de richtlijnen van de [FDND Docs](https://docs.fd
 - **Hotfix branches** → starten van `main` om urgente bugs te fixen, daarna push naar `main` en `dev`
 
 ![Git Flow](https://github.com/user-attachments/assets/69468298-8604-420d-9a62-d4c7f79ce051)
+
 
 
 
