@@ -154,7 +154,7 @@ npm run dev
 ## Sprint 19, Sprint doel.
 
 ## Wie willen we in Sprint 19 vooral helpen (welke gebruiker / stakeholder)?
-Het specialisten zoals artsen en onderzoekers bij het beoordelen van wetenschappelijke artikelen over diabetische voetproblematiek.
+De specialisten, zoals artsen en onderzoekers, helpen we bij het beoordelen van wetenschappelijke artikelen over diabetische voetproblematiek.
 
 ## Welk probleem lossen we deze sprint op?
 We lossen alle gevonden bugs en problemen op de website op, zoals navigatieproblemen tussen pagina's. Dubbele code en componenten worden verwijderd en behoud alleen de volledig werkende versies.
