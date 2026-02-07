@@ -1,18 +1,17 @@
 export async function load({ params }) {
-
-  const detailsResponse = await fetch('https://fdnd-agency.directus.app/items/footguard_articles/');
-  const detailsData = await detailsResponse.json();
+  const detailsResponse = await fetch('https://fdnd-agency.directus.app/items/footguard_articles/')
+  const detailsData = await detailsResponse.json()
   console.log(detailsData)
 
   let detailsInfo = detailsData.data
 
-
-  const questionResponse = await fetch('https://fdnd-agency.directus.app/items/footguard_checklists');
-  const questionData = await questionResponse.json();
+  const questionResponse = await fetch(
+    'https://fdnd-agency.directus.app/items/footguard_checklists'
+  )
+  const questionData = await questionResponse.json()
   console.log(questionData)
 
   let questionInfo = questionData.data
 
-  return { questionInfo, detailsInfo };
-
+  return { questionInfo, detailsInfo }
 }

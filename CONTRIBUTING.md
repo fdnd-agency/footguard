@@ -1,4 +1,5 @@
 # Inhoudsopgave
+
 - [Inhoudsopgave](#inhoudsopgave)
 - [Inleiding](#inleiding)
 - [Taakverdeling](#taakverdeling)
@@ -34,10 +35,9 @@ Dit bestand beschrijft de richtlijnen en best practices voor bijdragen aan het p
 - Het maken van issues, branches en pull requests
 - Teamprocessen zoals stand-ups en backlogbeheer
 
-Door deze richtlijnen te volgen, help je het project consistent, overzichtelijk en van hoge kwaliteit te houden, en maak je het voor toekomstige teamleden makkelijker om aan het project te werken.  
+Door deze richtlijnen te volgen, help je het project consistent, overzichtelijk en van hoge kwaliteit te houden, en maak je het voor toekomstige teamleden makkelijker om aan het project te werken.
 
 Voor de **rest van de conventions en aanvullende informatie** kun je terecht bij de [FDND Agency conventions](https://docs.fdnd.nl/conventies.html).
-
 
 ---
 
@@ -68,11 +68,13 @@ Om overzicht te houden gebruiken we een duidelijke structuur met **Epics** en **
 **Epic:** `Gebruiker kan inloggen`  
 **Labels:** `Epic`, `Feature`  
 **Acceptatiecriteria:**
+
 - Loginpagina met e-mail en wachtwoord
 - Foutmelding bij verkeerde gegevens
 - Redirect naar dashboard na succesvolle login
 
 **Subissues:**
+
 1. `Loginpagina aanmaken` – pagina, route en styling
 2. `Validatie inloggegevens` – check en foutmelding
 3. `Redirect na login` – naar `/dashboard` en testen
@@ -114,7 +116,7 @@ Een backlogitem mag worden omgezet naar een issue en in de TODO-lijst geplaatst 
   - Performance
   - HTML validator
   - Responsive en device test
-  - User test  
+  - User test
 - Er is een Merge request aangemaakt:
   - De template van de Pull request is zoveel mogelijk ingevuld.
 
@@ -129,7 +131,7 @@ Een backlogitem mag worden omgezet naar een issue en in de TODO-lijst geplaatst 
 
 # Code conventies
 
-## Naamgevingen 
+## Naamgevingen
 
 De code conventions worden toegepast volgens de richtlijnen van de
 [FDND Agency](https://docs.fdnd.nl/conventies.html#code-conventies), met enkele aanvullende conventies:
@@ -167,7 +169,7 @@ Elke commit:
 - Eindigt met het bijbehorende [issuenummer](https://docs.fdnd.nl/conventies.html#reference-issues-in-commits)
 - (OPTIONAL): gitmoji
 
-Voorbeeld:  
+Voorbeeld:
 
 ![Commit voorbeeld](https://github.com/user-attachments/assets/e93d52ad-28c4-4df7-8cc8-9fac2adda285)
 
@@ -200,15 +202,15 @@ We werken met branches volgens de richtlijnen van de [FDND Docs](https://docs.fd
 
 2. Branch naming conventions gelijk aan commits:
 
-- `build/` → Wijzigingen in build-systeem of dependencies → `build/update-webpack-config`  
-- `chore/` → Onderhoud of tooling → `chore/update-dependencies`  
-- `ci/` → CI-configuratie → `ci/update-workflow`  
-- `docs/` → Documentatie → `docs/update-readme`  
-- `feat/` → Nieuwe functionaliteit → `feat/login-form`  
-- `fix/` → Bugfixes of stijl → `fix/header-styles`  
-- `perf/` → Performance verbeteringen → `perf/optimize-images`  
-- `refactor/` → Code-structuur of leesbaarheid → `refactor/code-comments`  
-- `style/` → Format/indenting → `style/fix-indentation`  
+- `build/` → Wijzigingen in build-systeem of dependencies → `build/update-webpack-config`
+- `chore/` → Onderhoud of tooling → `chore/update-dependencies`
+- `ci/` → CI-configuratie → `ci/update-workflow`
+- `docs/` → Documentatie → `docs/update-readme`
+- `feat/` → Nieuwe functionaliteit → `feat/login-form`
+- `fix/` → Bugfixes of stijl → `fix/header-styles`
+- `perf/` → Performance verbeteringen → `perf/optimize-images`
+- `refactor/` → Code-structuur of leesbaarheid → `refactor/code-comments`
+- `style/` → Format/indenting → `style/fix-indentation`
 - `test/` → Toevoegen/aanpassen van tests → `test/add-login-tests`
 
 ### Git flow
@@ -220,6 +222,3 @@ We werken met branches volgens de richtlijnen van de [FDND Docs](https://docs.fd
 - **Hotfix branches** → starten van `main` om urgente bugs te fixen, daarna push naar `main` en `dev`
 
 ![Git Flow](https://github.com/user-attachments/assets/69468298-8604-420d-9a62-d4c7f79ce051)
-
-
-
