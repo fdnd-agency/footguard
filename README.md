@@ -149,6 +149,7 @@ Volg de technische conventies van [FDND Agency](https://docs.fdnd.nl/conventies.
 
 ## Teamleden
 
+- Razan Sagheer - Software Development - [GitHub](https://github.com/RazanSagheer)
 - Kim Nikita Schijf – Frontend Developer – [GitHub](https://github.com/Kimnikitaschijf)
 - Ravi Tjikhoeri – Frontend Developer – [GitHub](https://github.com/Ravirkt)
 - Suleyman Huzeyfe Gokgul – Frontend Developer – [GitHub](https://github.com/SuleymanHG)
@@ -165,3 +166,14 @@ npm run dev
 ## Licentie
 
 This project is licensed under the terms of the [MIT license](./LICENSE).
+
+## CI/CD Comand
+
+```bash
+npm run build       # Build the project for production
+npm run preview     # Preview the built project
+npm run lint        # Run ESLint to check for code quality issues
+npm run format      # Check if code is formatted using Prettier
+npm run format:fix  # Automatically format the code using Prettier
+npm run test        # Run tests (if available)
+```
