@@ -3,7 +3,6 @@ export async function load({ fetch, url }) {
   const status = url.searchParams.get('status') || 'all'
   const theme = url.searchParams.get('theme') || 'all'
 
-
   const gradingsResponse = await fetch('https://fdnd-agency.directus.app/items/footguard_articles')
   const gradingsData = await gradingsResponse.json()
 

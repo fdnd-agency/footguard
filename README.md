@@ -161,6 +161,8 @@ git clone https://github.com/fdnd-agency/footguard.git
 cd footguard
 npm install
 npm run dev
+npm install --save-dev eslint
+npm install --save-dev prettier
 ```
 
 ## Licentie
