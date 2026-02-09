@@ -12,7 +12,9 @@ export default [
       globals: {
         window: 'readonly',
         document: 'readonly',
-        location: 'readonly'
+        location: 'readonly',
+        setTimeout: 'readonly',
+        history: 'readonly'
       }
     }
   }

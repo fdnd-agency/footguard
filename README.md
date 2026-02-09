@@ -155,7 +155,6 @@ Volg de technische conventies van [FDND Agency](https://docs.fdnd.nl/conventies.
 - Ravi Tjikhoeri – Frontend Developer – [GitHub](https://github.com/Ravirkt)
 - Suleyman Huzeyfe Gokgul – Frontend Developer – [GitHub](https://github.com/SuleymanHG)
 
-
 ## Installatie
 
 ```bash
