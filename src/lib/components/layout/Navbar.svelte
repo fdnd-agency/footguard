@@ -11,6 +11,9 @@
 		IwgdfLogoCollapsed
 	} from "$lib";
 
+	import { resolve } from "$app/paths";
+
+
 	import { isCollapsed } from "$lib/stores/sidebar.js";
 
 	const toggleCollapse = () => {
@@ -39,37 +42,37 @@
 
 	<ul>
 		<li>
-			<a href="/">
+			<a href={resolve("/")}>
 				<span class="icon"><DashboardIcon /></span>
 				<span class="label">Dashboard</span>
 			</a>
 		</li>
 		<li>
-			<a href="/research">
+			<a href={resolve("/research")}>
 				<span class="icon"><GradingIcon /></span>
 				<span class="label">Grading</span>
 			</a>
 		</li>
 		<li>
-			<a href="/results">
+			<a href={resolve("/results")}>
 				<span class="icon"><ResultsIcon /></span>
 				<span class="label">Results</span>
 			</a>
 		</li>
 		<li class="admin-item">
-			<a href="/admin">
+			<a href={resolve("/admin")}>
 				<span class="icon"><AdminIcon /></span>
 				<span class="label">Admin</span>
 			</a>
 		</li>
 		<li>
-			<a href="/notifications">
+			<a href={resolve("/notifications")}>
 				<span class="icon"><NotificationIcon /></span>
 				<span class="label">Notifications</span>
 			</a>
 		</li>
 		<li>
-			<a href="/settings">
+			<a href={resolve("/settings")}>
 				<span class="icon"><SettingIcon /></span>
 				<span class="label">Settings</span>
 			</a>
