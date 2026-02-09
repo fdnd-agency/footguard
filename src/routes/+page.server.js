@@ -28,7 +28,7 @@ export async function load({ fetch }) {
       currentUser,
       allUsers: users
     }
-  } catch (error) {
+  } catch {
     return {
       articles: [],
       currentUser: { name: 'Guest', id: null },
