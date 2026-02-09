@@ -1,6 +1,6 @@
 <script>
     // custom variables for reuse
-    const { questionAnswer, question, questionIcon, questionNumber } = $props();
+    const { question, questionNumber } = $props();
 </script>
 
 <div class="card-container">
