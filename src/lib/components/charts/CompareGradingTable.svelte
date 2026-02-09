@@ -1,14 +1,8 @@
 <script>
-    import questionIcon from "$lib/assets/svg/round-question-icon.svg";
-    import question from "$lib/assets/svg/question.svg";
-    import plus from "$lib/assets/svg/plus-icon.svg";
     import minus from "$lib/assets/svg/minus-icon.svg";
 
     // Components
-    import QuestionFieldset from "$lib/components/form/QuestionFieldset.svelte";
-    import Heading from "$lib/components/textual/Heading.svelte";
     import QuestionCard from "$lib/components/cards/QuestionCard.svelte";
-    import QuestionsForm from "$lib/components/form/QuestionsForm.svelte";
     import GradingValue from "../textual/GradingValue.svelte";
 
     let { questions } = $props();
@@ -30,7 +24,7 @@
   </thead>
 
   <tbody>
-    {#each questions as question}
+    {#each questions as question (question.id)}
       <tr>
         <td class="question-cell">
           <QuestionCard question={question.question_title} questionIcon={minus} questionNumber={question.id}/>
