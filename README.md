@@ -150,9 +150,11 @@ Volg de technische conventies van [FDND Agency](https://docs.fdnd.nl/conventies.
 ## Teamleden
 
 - Razan Sagheer - Software Development - [GitHub](https://github.com/RazanSagheer)
+- Yamen alsharabi - Frontend Developer - [Github](https://github.com/yamenAl)
 - Kim Nikita Schijf – Frontend Developer – [GitHub](https://github.com/Kimnikitaschijf)
 - Ravi Tjikhoeri – Frontend Developer – [GitHub](https://github.com/Ravirkt)
 - Suleyman Huzeyfe Gokgul – Frontend Developer – [GitHub](https://github.com/SuleymanHG)
+
 
 ## Installatie
 
