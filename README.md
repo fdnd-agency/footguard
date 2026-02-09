@@ -148,10 +148,11 @@ Volg de technische conventies van [FDND Agency](https://docs.fdnd.nl/conventies.
 - Live versie beschikbaar op [FootGuard](https://footguard.dev.fdnd.nl/).
 
 ## Teamleden
-
+- Yamen alsharabi - Fronted Developer - [Github](https://github.com/yamenAl)
 - Kim Nikita Schijf – Frontend Developer – [GitHub](https://github.com/Kimnikitaschijf)
 - Ravi Tjikhoeri – Frontend Developer – [GitHub](https://github.com/Ravirkt)
 - Suleyman Huzeyfe Gokgul – Frontend Developer – [GitHub](https://github.com/SuleymanHG)
+
 
 ## Installatie
 
