@@ -5,14 +5,17 @@
   // The whole loader container
   // De footguard logo element
   // The svg component element
-  let { mainContainer, logoFootGuard, svgElement } = $props();
+  let { mainContainer, svgElement } = $props();
 
   // Used sources: https://github.com/fdnd-agency/footguard/issues/155#issue-3702085279
 
   onMount(() => {
     // https://gsap.com/community/forums/topic/39201-best-practices-for-autoalpha-progressive-enhancement/
-    if (typeof window.gsap === "undefined") {
-      document.querySelector(".js").classList.toggle("js");
+    const window = globalThis
+    const document = globalThis.document
+
+    if (!window?.gsap) {
+    document?.querySelector('.js')?.classList.toggle('js')
     }
 
     gsap.fromTo(

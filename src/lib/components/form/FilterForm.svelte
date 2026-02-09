@@ -1,6 +1,5 @@
 <script>
     // Components
-    import FilterButton from "$lib/components/buttons/FilterButton.svelte";
 
     // Hiermee kan je custom events naar de parent page sturen in dit geval research
     import { createEventDispatcher } from "svelte";

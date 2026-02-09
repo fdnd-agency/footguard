@@ -1,7 +1,7 @@
 <script>
 
     // dynamic data search input to reuse
-    let { searchBar_ID, labelText, className, form } = $props();
+    let { searchBar_ID, labelText } = $props();
 
 </script>
 

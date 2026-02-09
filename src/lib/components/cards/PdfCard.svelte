@@ -1,10 +1,7 @@
 <script>
     // Components
-    import QuestionFieldset from "$lib/components/form/QuestionFieldset.svelte";
-    import questionIcon from "$lib/assets/svg/round-question-icon.svg";
-    import Heading from "$lib/components/textual/Heading.svelte";
 
-    let { article, questions } = $props();
+    let { article } = $props();
 </script>
 
 <article class="pdf-container">

@@ -1,6 +1,6 @@
 <script>
 
-  let {title, subTitle, className} = $props()
+  let {title, subTitle} = $props()
 
 </script>
 
