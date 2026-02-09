@@ -145,7 +145,30 @@ De prioritering van deze issues is nog niet overal vastgelegd en kan per volgend
 
 ```bash
 git clone https://github.com/fdnd-agency/footguard.git
-cd footguard
 npm install
 npm run dev
 ```
+
+<hr>
+
+## Sprint 19, Sprint doel.
+
+## Wie willen we in Sprint 19 vooral helpen (welke gebruiker / stakeholder)?
+De specialisten, zoals artsen en onderzoekers, helpen we bij het beoordelen van wetenschappelijke artikelen over diabetische voetproblematiek.
+
+## Welk probleem lossen we deze sprint op?
+We lossen alle gevonden bugs en problemen op de website op, zoals navigatieproblemen tussen pagina's. Dubbele code en componenten worden verwijderd en behoud alleen de volledig werkende versies.
+
+## Welke uitkomst willen we aan het einde kunnen laten zien/demonstreren?
+Wij willen een goed functionele website die op alle apparaten werkt en een goed getest eindproduct is. 
+Verwijder alle dubbele code en componenten, en behoud alleen de volledig werkende versies.
+
+## Sprintdoel
+Voor deze sprint willen we als eerste focus de project board en issues aanmaken, testresultaten fixen, en misschien nog aan de backend werken.
+
+
+
+
+
+
+
