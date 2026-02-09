@@ -124,7 +124,7 @@ Een issue is pas Done als het voldoet aan deze eisen:
 - De functionaliteit werkt zoals beschreven.
 - Alle acceptance criteria zijn behaald.
 2. Codekwaliteit gewaarborgd
-- Code is getest(A11y, screenreader, Performance. etc..
+- Code is getest(A11y, screenreader, Performance. etc..)
 - Code is gecommit en gepusht in een feature branch.
 - De code is via een Pull Request gemerged naar dev.
 3. Gereviewd
