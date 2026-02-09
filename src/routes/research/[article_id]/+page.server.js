@@ -1,11 +1,10 @@
-export async function load({ params }) {
+export async function load({ fetch, params }) {
   const articleId = params.article_id
-
+  
   const detailsResponse = await fetch(
     'https://fdnd-agency.directus.app/items/footguard_articles/' + articleId
   )
   const detailsData = await detailsResponse.json()
-  console.log(detailsData)
 
   let detailsInfo = detailsData.data
 
@@ -13,7 +12,6 @@ export async function load({ params }) {
     'https://fdnd-agency.directus.app/items/footguard_checklists'
   )
   const questionData = await questionResponse.json()
-  console.log(questionData)
 
   let questionInfo = questionData.data
 
