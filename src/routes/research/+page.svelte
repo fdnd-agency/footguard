@@ -8,6 +8,7 @@
   // Sveltekit helpers
   import { fly } from "svelte/transition";
   import { goto } from "$app/navigation";
+  import { resolve } from "$app/paths";
 
   let { data } = $props();
 
@@ -15,7 +16,7 @@
     const { status, theme } = event.detail;
 
     // https://svelte.dev/docs/kit/$app-navigation#goto
-    void goto("?status=" + status + "&theme=" + theme, {
+    goto(resolve("?status=" + status + "&theme=" + theme), {
       noscroll: true,
       replaceState: true,
     });
