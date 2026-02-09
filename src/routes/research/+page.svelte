@@ -1,9 +1,6 @@
 <script>
   // Components
-  import Sidebar from "$lib/components/layout/Sidebar.svelte";
   import GradingArticleCard from "$lib/components/cards/ResearchArticleCard.svelte";
-  import FilterButton from "$lib/components/buttons/FilterButton.svelte";
-  import SearchBar from "$lib/components/form/SearchBar.svelte";
   import Heading from "$lib/components/textual/Heading.svelte";
   import FilterForm from "$lib/components/form/FilterForm.svelte";
   import NoItemsFoundNote from "$lib/components/textual/NoItemsFoundNote.svelte";
@@ -11,17 +8,14 @@
   // Sveltekit helpers
   import { fly } from "svelte/transition";
   import { goto } from "$app/navigation";
-  import { onMount } from "svelte";
 
-  let { data, form } = $props();
-  const gradings = data.cardData;
+  let { data } = $props();
 
   function updateFilters(event) {
     const { status, theme } = event.detail;
 
     // https://svelte.dev/docs/kit/$app-navigation#goto
-    // for changening the url without page refresh
-    goto("?status=" + status + "&theme=" + theme, {
+    void goto("?status=" + status + "&theme=" + theme, {
       noscroll: true,
       replaceState: true,
     });
@@ -44,7 +38,7 @@
     <NoItemsFoundNote />
   {:else}
     <div class="research-cards-container">
-      {#each data.cardData as cardInfo}
+      {#each data.cardData as cardInfo (cardInfo.id)}
         <div transition:fly={{ y: 600, duration: 700 }}>
           <GradingArticleCard
             name={cardInfo.title}
