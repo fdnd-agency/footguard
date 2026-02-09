@@ -2,7 +2,6 @@
     // Components
     import QuestionFieldset from "$lib/components/form/QuestionFieldset.svelte";
     import questionIcon from "$lib/assets/svg/round-question-icon.svg";
-    import Heading from "$lib/components/textual/Heading.svelte";
 
     let { article, questions } = $props();
 </script>
@@ -17,7 +16,7 @@
 
 	<form class="questions-form" method="post">
         <div class="questions-scroll-container">
-            {#each questions as question }
+            {#each questions as question (question.id)}
                 <QuestionFieldset questionId={question.id} questionName={'question-' + question.id} questionTitle={question.question_title}/>
             {/each}
         </div>
