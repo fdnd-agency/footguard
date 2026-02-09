@@ -7,6 +7,13 @@ export default [
   ...svelte.configs.recommended,
   prettier,
   {
-    ignores: ['node_modules', 'build', '.svelte-kit']
+    ignores: ['node_modules', 'build', '.svelte-kit'],
+    languageOptions: {
+      globals: {
+        window: 'readonly',
+        document: 'readonly',
+        location: 'readonly'
+      }
+    }
   }
 ]

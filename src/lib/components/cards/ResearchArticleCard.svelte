@@ -5,6 +5,8 @@
   import NotStartedLabel from "$lib/components/textual/NotStartedLabel.svelte";
   import ThemeLabel from "$lib/components/textual/ThemeLabel.svelte";
 
+  import { resolve } from "$app/paths";
+
   // icons
   import authorIcon from "$lib/assets/svg/author-icon.svg";
   import calenderIcon from "$lib/assets/svg/calendar-icon.svg";
@@ -16,13 +18,12 @@
     Publisher,
     publishing_year,
     status,
-    className,
     theme,
     Author,
   } = $props();
 </script>
 
-<a class="anchor-container-card" href="/research/{article_id}">
+<a class="anchor-container-card" href={resolve(`/research/${article_id}`)}>
   <article class="research-card">
     <div class="research-card-data-container">
       <h2 class="research-card-title h4">
