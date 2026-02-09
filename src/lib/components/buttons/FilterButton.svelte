@@ -1,7 +1,7 @@
 <script>
 
   // dynamic data select button to reuse
-  let {labelText, selectValues, filterLabel_ID, className, form} = $props()
+  let {labelText, selectValues, filterLabel_ID} = $props()
 
 </script>
 
@@ -10,7 +10,7 @@
 <label for="{filterLabel_ID}" class="visually-hidden">{labelText}</label>
   <select id="{filterLabel_ID}" class="filter-button" name="filter">
 
-  {#each selectValues as selectValue}
+  {#each selectValues as selectValue (selectValue.value)}
     <option value={selectValue.value}>{selectValue.text}</option>
   {/each}
 </select>
