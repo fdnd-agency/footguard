@@ -91,7 +91,7 @@
     <figcaption class="visually-hidden">Paper progress chart</figcaption>
     <span class="circle-container">
       <span class="circle" style="background: {gradientStyle};">
-        {#each sectionsWithCalc as section}
+        {#each sectionsWithCalc as section (section.key)}
           <span
             class="percentage"
             style="left: {section.pos.x}; top: {section.pos
@@ -106,7 +106,7 @@
   </figure>
 
   <ul class="legend">
-    {#each sections as section, i}
+    {#each sections as section, i (section.key)}
       <li class="legend-item">
         <span class="legend-dot" style="background: {section.color};"></span>
         <span class="visually-hidden">{sectionsWithCalc[i].percent}%</span>

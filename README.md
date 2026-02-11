@@ -148,11 +148,12 @@ Volg de technische conventies van [FDND Agency](https://docs.fdnd.nl/conventies.
 - Live versie beschikbaar op [FootGuard](https://footguard.dev.fdnd.nl/).
 
 ## Teamleden
+
+- Razan Sagheer - Software Development - [GitHub](https://github.com/RazanSagheer)
 - Yamen alsharabi - Frontend Developer - [Github](https://github.com/yamenAl)
 - Kim Nikita Schijf – Frontend Developer – [GitHub](https://github.com/Kimnikitaschijf)
 - Ravi Tjikhoeri – Frontend Developer – [GitHub](https://github.com/Ravirkt)
 - Suleyman Huzeyfe Gokgul – Frontend Developer – [GitHub](https://github.com/SuleymanHG)
-
 
 ## Installatie
 
@@ -161,8 +162,21 @@ git clone https://github.com/fdnd-agency/footguard.git
 cd footguard
 npm install
 npm run dev
+npm install --save-dev eslint
+npm install --save-dev prettier
 ```
 
 ## Licentie
 
 This project is licensed under the terms of the [MIT license](./LICENSE).
+
+## CI/CD Comand
+
+```bash
+npm run build       # Build the project for production
+npm run preview     # Preview the built project
+npm run lint        # Run ESLint to check for code quality issues
+npm run format      # Check if code is formatted using Prettier
+npm run format:fix  # Automatically format the code using Prettier
+npm run test        # Run tests (if available)
+```

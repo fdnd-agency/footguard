@@ -4,7 +4,11 @@
   export let logoSrc;
   export let userName = "User";
   export let userRole = "Lorem Ipsum";
+
+  import { resolve } from "$app/paths";
 </script>
+
+
 
 <!-- Main sidebar navigation -->
 <aside class:open={sidebarOpen} id="sidebar">
@@ -23,7 +27,7 @@
 
   <!-- Navigation menu -->
   <nav class="sidebar-nav">
-    {#each navItems as navItem}
+    {#each navItems as navItem (navItem.key)}
       <details class="nav-item">
         <summary class="nav-summary">
           <span class="nav-content">
@@ -32,9 +36,9 @@
         </summary>
         {#if navItem.subItems && navItem.subItems.length > 0}
           <ul class="nav-sub-list">
-            {#each navItem.subItems as subItem}
+            {#each navItem.subItems as subItem (subItem.key)}
               <li>
-                <a href={subItem.href} tabindex="0" class="nav-sub-link">
+                <a href={resolve(subItem.href)} tabindex="0" class="nav-sub-link">
                   {subItem.name}
                 </a>
               </li>

@@ -14,7 +14,7 @@
 		</div>
 
 		<div class="notifications-scroll">
-			{#each emails as email, i}
+			{#each emails as email, i (email.id)}
 				<NotificationItem
 					index={i}
 					sender={email.sender}
