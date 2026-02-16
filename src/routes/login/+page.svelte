@@ -24,75 +24,83 @@
 
 		// Frontend-only placeholder:
 		// In a later issue, this will send the POST request to /api/magic-link
-		alert('Frontend only: this would send a magic link request.');
+		console.log('Frontend only: this would send a magic link request.');
 	}
 </script>
+<main>
+	<section class="login-page">
+		<div class="card">
+			<!-- Logo -->
+			<div class="logo">
+				<IWGDFLogo />
+			</div>
 
-<section class="login-page">
-	<div class="card">
-		<!-- Logo -->
-		<div class="logo">
-            <IWGDFLogo />
-        </div>
+			<h1 class="title">Sign in via email</h1>
 
-		<h1 class="title">Sign in via email</h1>
-
-		<p class="subtitle">
-			Please enter your email address below to receive a sign-in link in your inbox.
-		</p>
-
-		<!--
-			IMPORTANT:
-			We keep action="/api/magic-link" because that's the final target,
-			but we preventDefault in handleSubmit (frontend-only issue).
-		-->
-		<form method="POST" action="/api/magic-link" on:submit={handleSubmit}>
-			<input
-				class="input"
-				type="email"
-				name="email"
-				placeholder="Enter your email address"
-				bind:value={email}
-				required
-			/>
-
-			<button class="button" type="submit">
-				Send magic link
-			</button>
-
-			<p class="help">
-				We will send you a sign-in link that will be valid for one hour
+			<p class="subtitle">
+				Please enter your email address below to receive a sign-in link in your inbox.
 			</p>
 
-			{#if errorMessage}
-				<p class="error" role="alert">{errorMessage}</p>
-			{/if}
-		</form>
-	</div>
+			<!--
+				IMPORTANT:
+				We keep action="/api/magic-link" because that's the final target,
+				but we preventDefault in handleSubmit (frontend-only issue).
+			-->
+			<form method="POST" action="/api/magic-link" on:submit={handleSubmit}>
+				<input
+					class="input"
+					type="email"
+					name="email"
+					placeholder="Enter your email address"
+					bind:value={email}
+					required
+				/>
 
-	<footer class="footer">© 2026 Footguard. IWGDF</footer>
-</section>
+				<button class="button" type="submit">
+					Send magic link
+				</button>
 
+				<p class="help">
+					We will send you a sign-in link that will be valid for one hour
+				</p>
+
+				{#if errorMessage}
+					<p class="error" role="alert">{errorMessage}</p>
+				{/if}
+			</form>
+		</div>
+
+		<footer class="footer">© 2026 Footguard. IWGDF</footer>
+	</section>
+</main>
 <style>
 	/* =========================
 	   MOBILE FIRST (default)
 	   ========================= */
-
+	
 	.login-page {
 		min-height: 100vh;
+		
+
+		/* Use the provided background image from design */
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
 		padding: 1.5rem;
 		position: relative;
+	
+	}
 
-		/* Use the provided background image from design */
-		background-image: url('/login-bg.png');
+	main {
+		background-image: url('/loginbackground.png');
 		background-size: cover;
 		background-position: center;
 		background-repeat: no-repeat;
+		margin: -1rem;
+		
 	}
+
 
 	.card {
 		width: 100%;
@@ -206,7 +214,7 @@
 		/* Put card on top of right half */
 		.card {
 			position: relative;
-			z-index: 1;
+			z-index: 2;
 			margin-left: auto;
 			margin-right: 10%;
 			align-self: center;
