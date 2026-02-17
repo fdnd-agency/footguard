@@ -77,29 +77,28 @@
 	/* =========================
 	   MOBILE FIRST (default)
 	   ========================= */
+
+	:global(.page-content) {
+  	margin: 0 !important;
+	padding: 0;
+    min-height: 100vh;
+	}
 	
 	.login-page {
 		min-height: 100vh;
-		
-
-		/* Use the provided background image from design */
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		padding: 1.5rem;
-		position: relative;
-	
-	}
-
-	main {
+        height: 100vh;
 		background-image: url('/loginbackground.png');
 		background-size: cover;
 		background-position: center;
 		background-repeat: no-repeat;
-		margin: -1rem;
-		
+
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		position: relative;
 	}
+
 
 
 	.card {
@@ -183,46 +182,67 @@
 	   ========================= */
 
 	@media (min-width: 1024px) {
-		.login-page {
-			/* Desktop design shows image on left + white area on right */
-			background: none;
-			padding: 0;
-			flex-direction: row;
-			align-items: stretch;
-		}
+  .login-page {
+    min-height: 100vh;
 
-		/* Left half background image */
-		.login-page::before {
-			content: '';
-			position: absolute;
-			inset: 0 auto 0 0;
-			width: 50%;
-			background-image: url('/login-bg.png');
-			background-size: cover;
-			background-position: center;
-		}
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 
-		/* Right half white background */
-		.login-page::after {
-			content: '';
-			position: absolute;
-			inset: 0 0 0 auto;
-			width: 50%;
-			background: white;
-		}
+    padding: 0;
+    background: none;
 
-		/* Put card on top of right half */
-		.card {
-			position: relative;
-			z-index: 2;
-			margin-left: auto;
-			margin-right: 10%;
-			align-self: center;
-		}
+    position: relative;
+  }
 
-		/* Footer not visible in desktop design (optional) */
-		.footer {
-			display: none;
-		}
-	}
+  /* LEFT SIDE IMAGE */
+  .login-page::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+
+    background-image: url('/login-bg-desktop.png');
+    background-size: cover;
+    background-position: center 10%;
+    background-repeat: no-repeat;
+
+    z-index: 0;
+  }
+
+  /* RIGHT SIDE WHITE BACKGROUND */
+  .login-page::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+
+    background: white;
+
+    z-index: 0;
+  }
+
+  /* CARD */
+  .card {
+    position: relative;
+    z-index: 1;
+
+    grid-column: 2;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    margin: auto;
+  }
+
+  .footer {
+    display: none;
+  }
+}
+
+
 </style>
