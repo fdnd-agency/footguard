@@ -88,7 +88,7 @@
 	.login-page {
 		min-height: 100vh;
         height: 100vh;
-		background-image: url('/login-background.svg');
+		background-image: url('/./src/lib/assets/svg/login-background.svg');
 		background-size: cover;
 		background-position: center;
 		background-repeat: no-repeat;
@@ -192,7 +192,7 @@
 		grid-template-columns: 1fr 1fr;
 
 		/* full background image without cropping */
-		background-image: url('/login-bg-desktop.svg');
+		background-image: url('/./src/lib/assets/svg/login-bg-desktop.svg');
 		background-repeat: no-repeat;
 		background-position: center;
 
