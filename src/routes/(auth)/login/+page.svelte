@@ -74,6 +74,7 @@
 	</section>
 </main>
 <style>
+
 	/* =========================
 	   MOBILE FIRST (default)
 	   ========================= */
@@ -87,7 +88,7 @@
 	.login-page {
 		min-height: 100vh;
         height: 100vh;
-		background-image: url('/loginbackground.png');
+		background-image: url('/login-background.png');
 		background-size: cover;
 		background-position: center;
 		background-repeat: no-repeat;
@@ -181,68 +182,34 @@
 	   DESKTOP (add-on)
 	   ========================= */
 
+	
 	@media (min-width: 1024px) {
-  .login-page {
-    min-height: 100vh;
+	.login-page {
+		min-height: 100vh;
+		width: 100%;
 
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
 
-    padding: 0;
-    background: none;
+		/* full background image without cropping */
+		background-image: url('/login-bg-desktop.png');
+		background-repeat: no-repeat;
+		background-position: center;
 
-    position: relative;
-  }
+		/* center the card */
+		align-items: center;
+	}
 
-  /* LEFT SIDE IMAGE */
-  .login-page::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 50%;
-    height: 100%;
+	.card {
+		grid-column: 2;
+		justify-self: end;
+		align-self: center;    
+		margin-right: 30%;  
+	}
 
-    background-image: url('/login-bg-desktop.png');
-    background-size: cover;
-    background-position: center 10%;
-    background-repeat: no-repeat;
-
-    z-index: 0;
-  }
-
-  /* RIGHT SIDE WHITE BACKGROUND */
-  .login-page::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 50%;
-    height: 100%;
-
-    background: white;
-
-    z-index: 0;
-  }
-
-  /* CARD */
-  .card {
-    position: relative;
-    z-index: 1;
-
-    grid-column: 2;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    margin: auto;
-  }
-
-  .footer {
-    display: none;
-  }
+	.footer {
+		display: none;
+	}
 }
-
 
 </style>
