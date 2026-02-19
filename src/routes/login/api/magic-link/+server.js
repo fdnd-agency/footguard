@@ -2,7 +2,7 @@ import { json } from '@sveltejs/kit'
 import crypto from 'crypto'
 
 const DIRECTUS_URL = 'https://fdnd-agency.directus.app'
-
+const DIRECTUS_TOKEN = process.env.DIRECTUS_TOKEN
 
 /**
  * In-memory Rate Limiter Store
@@ -85,3 +85,74 @@ export async function POST({ request, getClientAddress }) {
     if (checkRateLimit(`email:${email}`, MAX_REQUESTS_PER_EMAIL)) {
       return json({ error: 'Too many attempts for this email..' }, { status: 429 })
     }
+
+    /**
+     * Check if email exists in Directus
+     *  We do NOT reveal whether email exists (prevents enumeration)
+     */
+    const userResponse = await fetch(`${DIRECTUS_URL}/items/users?filter[email][_eq]=${email}`, {
+      headers: {
+        Authorization: `Bearer ${DIRECTUS_TOKEN}`
+      }
+    })
+
+    const userData = await userResponse.json()
+
+    // If no user found -> return generic success
+    if (!userData.data || userData.data.length === 0) {
+      return json({ success: true })
+    }
+    const user = userData.data[0]
+
+    /**
+     * Generate Secure Random Token
+     * We generate a random 32-byte token
+     */
+    const rawToken = crypto.randomBytes(32).toString('hex')
+
+    /**
+     * Hash the token before storing
+     * Never store raw tokens in the database for security reasons
+     */
+    const tokenHash = crypto.createHash('sha256').update(rawToken).digest('hex')
+
+    /**
+     * Set Expiry (15 minutes)
+     */
+    const expiresAt = new Date(Date.now() + 15 * 60 * 1000).toISOString()
+
+    /**
+     * Store hashed token in Directus
+     */
+
+    await fetch(`${DIRECTUS_URL}/items/footguard_magic_links`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${DIRECTUS_TOKEN}`
+      },
+      body: JSON.stringify({
+        email: user.email,
+        token_hash: tokenHash,
+        expires_at: expiresAt
+      })
+    })
+
+    /**
+     * Create Magic Link URL
+     */
+    const magicLink = `http://localhost:5173/magic-login?token=${rawToken}`
+
+    /**
+     * Send Email
+     *
+     */
+
+    console.log('Magic link:', magicLink)
+
+    return json({ success: true })
+  } catch (error) {
+    console.error(error)
+    return json({ error: 'Internal Server Error' }, { status: 500 })
+  }
+}
