@@ -123,6 +123,7 @@ export async function POST({ request, getClientAddress }) {
 
     /**
      * Store hashed token in Directus
+     *
      */
 
     await fetch(`${DIRECTUS_URL}/items/footguard_magic_links`, {
