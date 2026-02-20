@@ -1,8 +1,9 @@
 import { redirect } from '@sveltejs/kit'
 import crypto from 'crypto'
+import { env } from '$env/dynamic/private'
 
 const DIRECTUS_URL = 'https://fdnd-agency.directus.app'
-const DIRECTUS_TOKEN = process.env.DIRECTUS_TOKEN
+const DIRECTUS_TOKEN = env.DIRECTUS_TOKEN
 
 export async function GET({ url, cookies }) {
   /**
@@ -94,7 +95,7 @@ export async function GET({ url, cookies }) {
    */
   cookies.set('session', JSON.stringify(sessionUser), {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
+    secure: env.NODE_ENV === 'production',
     sameSite: 'strict',
     maxAge: 60 * 60 // 1 hour
   })

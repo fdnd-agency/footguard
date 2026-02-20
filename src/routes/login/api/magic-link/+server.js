@@ -1,8 +1,9 @@
 import { json } from '@sveltejs/kit'
 import crypto from 'crypto'
+import { env } from '$env/dynamic/private'
 
 const DIRECTUS_URL = 'https://fdnd-agency.directus.app'
-const DIRECTUS_TOKEN = process.env.DIRECTUS_TOKEN
+const DIRECTUS_TOKEN = env.DIRECTUS_TOKEN
 
 /**
  * In-memory Rate Limiter Store
