@@ -1,6 +1,7 @@
 import { redirect } from '@sveltejs/kit'
 import crypto from 'crypto'
 import { env } from '$env/dynamic/private'
+import { dev } from '$app/environment'
 
 const DIRECTUS_URL = 'https://fdnd-agency.directus.app'
 const DIRECTUS_TOKEN = env.DIRECTUS_TOKEN
@@ -42,7 +43,12 @@ export async function GET({ url, cookies }) {
   /**
    * Check if token is expired
    */
-  if (magicLink.used) {
+  if (magicLink.used_at) {
+    throw redirect(302, '/login')
+  }
+
+  const expiresAt = new Date(magicLink.expires_at).getTime()
+  if (Date.now() > expiresAt) {
     throw redirect(302, '/login')
   }
 
@@ -95,7 +101,7 @@ export async function GET({ url, cookies }) {
    */
   cookies.set('session', JSON.stringify(sessionUser), {
     httpOnly: true,
-    secure: env.NODE_ENV === 'production',
+    secure: !dev, // Use secure cookies in production
     sameSite: 'strict',
     maxAge: 60 * 60 // 1 hour
   })
