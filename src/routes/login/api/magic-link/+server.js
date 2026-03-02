@@ -7,14 +7,13 @@ const DIRECTUS_TOKEN = env.DIRECTUS_TOKEN
 
 /**
  * In-memory Rate Limiter Store
- * Stores request counts per IP and per email for a fixed time window.
- * NOTE: Resets when the server restarts (fine for local/dev).
+ * Key: "ip:xxx" or "email:xxx"
  */
 const rateLimiterStore = new Map()
 
 const MAX_REQUESTS_PER_IP = 5
 const MAX_REQUESTS_PER_EMAIL = 3
-const TIME_WINDOW_MS = 10 * 60 * 1000 // 10 minutes
+const TIME_WINDOW_MS = 10 * 60 * 1000
 
 function checkRateLimit(key, maxRequests) {
   const now = Date.now()
@@ -38,99 +37,105 @@ function checkRateLimit(key, maxRequests) {
 }
 
 /**
- * POST /login/api/magic-link
- * - Validate email
- * - Rate limit (IP + email)
- * - Check if email exists in Directus (do NOT reveal result)
- * - Generate token, store hashed token in Directus with expiry
- * - "Send" email (currently console.log)
+ * Read email from either JSON or HTML form submit.
+ * - fetch(..., { headers: { 'Content-Type': 'application/json' }}) -> JSON
+ * - <form method="POST"> -> formData
  */
+async function readEmail(request) {
+  const contentType = request.headers.get('content-type') || ''
+
+  if (contentType.includes('application/json')) {
+    const body = await request.json()
+    return body.email
+  }
+
+  // Handles: application/x-www-form-urlencoded and multipart/form-data
+  const form = await request.formData()
+  return form.get('email')
+}
+
 export async function POST({ request, getClientAddress }) {
   try {
-    // 0) Ensure token is present
-    if (!DIRECTUS_TOKEN) {
-      console.error('Missing DIRECTUS_TOKEN. Did you create .env and restart the dev server?')
-      return json({ error: 'Server misconfigured (missing Directus token).' }, { status: 500 })
-    }
-
     const ip = getClientAddress()
-    const body = await request.json()
-    const email = body.email?.toLowerCase().trim()
+
+    const rawEmail = await readEmail(request)
+    const email = String(rawEmail || '')
+      .toLowerCase()
+      .trim()
 
     if (!email) {
       return json({ error: 'Email is required' }, { status: 400 })
     }
 
-    // 1) Rate limiting
+    // Rate limiting
     if (checkRateLimit(`ip:${ip}`, MAX_REQUESTS_PER_IP)) {
       return json({ error: 'Too many requests. Please try again later.' }, { status: 429 })
     }
-
     if (checkRateLimit(`email:${email}`, MAX_REQUESTS_PER_EMAIL)) {
       return json({ error: 'Too many attempts for this email.' }, { status: 429 })
     }
 
-    // 2) Look up user in Directus (we do NOT reveal if it exists)
-    const userUrl = new URL(`${DIRECTUS_URL}/items/footguard_users`)
-    userUrl.searchParams.set('filter[email][_eq]', email)
-    userUrl.searchParams.set('limit', '1')
+    // --- 1) Lookup user in Directus (your collection: footguard_users) ---
+    // NOTE: _eq can be case-sensitive depending on DB/config; we use _icontains
+    // and then verify lowercased equality in code.
+    const userLookupUrl =
+      `${DIRECTUS_URL}/items/footguard_users?` +
+      `filter[email][_icontains]=${encodeURIComponent(email)}&limit=25`
 
-    const userResponse = await fetch(userUrl.toString(), {
+    const userResponse = await fetch(userLookupUrl, {
       headers: { Authorization: `Bearer ${DIRECTUS_TOKEN}` }
     })
 
-    const userJson = await userResponse.json()
+    const userData = await userResponse.json()
 
-    // IMPORTANT: if Directus returns 401/403/etc, you want to see it.
     if (!userResponse.ok) {
-      console.error('Directus user lookup failed:', userResponse.status, userJson)
+      console.error('Directus user lookup failed:', userResponse.status, userData)
       return json({ error: 'Directus user lookup failed' }, { status: 500 })
     }
 
-    // If user does not exist -> return generic success (prevents email enumeration)
-    if (!userJson.data || userJson.data.length === 0) {
+    const users = userData?.data ?? []
+    const user = users.find((u) => String(u.email || '').toLowerCase() === email)
+
+    // IMPORTANT: do not reveal if email exists
+    if (!user) {
       return json({ success: true })
     }
 
-    const user = userJson.data[0]
-
-    // 3) Generate secure token + hash
+    // --- 2) Generate token + hash ---
     const rawToken = crypto.randomBytes(32).toString('hex')
     const tokenHash = crypto.createHash('sha256').update(rawToken).digest('hex')
-    const expiresAtIso = new Date(Date.now() + 15 * 60 * 1000).toISOString() // 15 minutes
+    const expiresAt = new Date(Date.now() + 15 * 60 * 1000).toISOString()
 
-    // 4) Store token hash in Directus
-    const createResponse = await fetch(`${DIRECTUS_URL}/items/footguard_magic_links`, {
+    // --- 3) Store tokenHash in Directus ---
+    const insertResponse = await fetch(`${DIRECTUS_URL}/items/footguard_magic_links`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${DIRECTUS_TOKEN}`
       },
       body: JSON.stringify({
-        email: user.email, // store canonical email
+        email: user.email, // keep original casing from DB
         token_hash: tokenHash,
-        expires_at: expiresAtIso,
+        expires_at: expiresAt,
         used_at: null
       })
     })
 
-    const createJson = await createResponse.json()
+    const insertData = await insertResponse.json()
 
-    // This is the bug you had: if you don't check this, you can silently fail.
-    if (!createResponse.ok) {
-      console.error('Directus token insert failed:', createResponse.status, createJson)
-      return json({ error: 'Directus token insert failed' }, { status: 500 })
+    if (!insertResponse.ok) {
+      console.error('Directus insert failed:', insertResponse.status, insertData)
+      return json({ error: 'Directus insert failed' }, { status: 500 })
     }
 
-    // 5) Build magic link
+    // --- 4) Build magic link ---
     const magicLink = `http://localhost:5173/login/magic-login?token=${rawToken}`
 
     /**
-     * 6) Send email (placeholder)
-     * In production you integrate an email provider (SendGrid/Mailgun/Resend/etc)
+     * Send Email (NOT IMPLEMENTED YET)
+     * For now we log the link in the server console.
      */
-    console.log('Magic link for', email, ':', magicLink)
-    console.log('Created magic link record:', createJson?.data?.id)
+    console.log('Magic link:', magicLink)
 
     return json({ success: true })
   } catch (error) {

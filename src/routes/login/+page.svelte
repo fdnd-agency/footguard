@@ -11,16 +11,14 @@
 	}
 
 	function handleSubmit(event) {
-		// We prevent default because there is no backend yet.
-		// Later (backend issue) you can remove preventDefault so it actually POSTs.
-		event.preventDefault();
+  errorMessage = '';
 
-		errorMessage = '';
-
-		if (!isValidEmail(email)) {
-			errorMessage = 'Please enter a valid email address.';
-			return;
-		}
+  if (!isValidEmail(email)) {
+    event.preventDefault(); // only block if invalid
+    errorMessage = 'Please enter a valid email address.';
+    return;
+  }
+  // allow normal POST to happen
 
 		// Frontend-only placeholder:
 		// In a later issue, this will send the POST request to /api/magic-link
@@ -46,7 +44,7 @@
 				We keep action="/api/magic-link" because that's the final target,
 				but we preventDefault in handleSubmit (frontend-only issue).
 			-->
-			<form method="POST" action="/api/magic-link" on:submit={handleSubmit}>
+			<form method="POST" action="/login/api/magic-link" on:submit={handleSubmit}>
 				<input
 					class="input"
 					type="email"
