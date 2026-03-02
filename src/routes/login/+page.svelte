@@ -105,7 +105,7 @@
 	.card {
 		width: 100%;
 		max-width: 360px;
-		background: rgba(245, 245, 245, 0.95);
+		background: var(--grey-100);
 		border-radius: 28px;
 		padding: 2rem 1.5rem;
 		text-align: center;
@@ -121,12 +121,14 @@
 		margin: 0 0 0.5rem 0;
 		font-size: 1.3rem;
 		font-weight: 600;
+		font-family: var(--main-font);  
+		color: var(--grey-700);
 	}
 
 	.subtitle {
 		margin: 0 0 1.5rem 0;
 		font-size: 0.95rem;
-		color: rgba(0, 0, 0, 0.55);
+		color: var(--grey-500);
 		line-height: 1.35;
 	}
 
@@ -140,7 +142,7 @@
 		padding: 0.9rem 1rem;
 		border-radius: 14px;
 		border: none;
-		background: rgba(230, 230, 230, 1);
+		background: var(--grey-200);
 		font-size: 1rem;
 		text-align: center;
 		box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.08);
@@ -151,7 +153,7 @@
 		padding: 0.9rem 1rem;
 		border-radius: 14px;
 		border: none;
-		background: #4b8ec5;
+		background: var(--blue-500);
 		color: white;
 		font-weight: 600;
 		font-size: 1rem;
@@ -162,12 +164,12 @@
 	.help {
 		margin: 0;
 		font-size: 0.85rem;
-		color: rgba(0, 0, 0, 0.45);
+		color: var(--grey-400);
 	}
 
 	.error {
 		margin: 0.25rem 0 0 0;
-		color: #b00020;
+		color: var(--red-500);
 		font-size: 0.9rem;
 	}
 
@@ -175,7 +177,7 @@
 		position: absolute;
 		bottom: 1rem;
 		font-size: 0.85rem;
-		color: rgba(0, 0, 0, 0.8);
+		color: var(--grey-600);
 	}
 
 	/* =========================
