@@ -4,6 +4,7 @@
   import { isCollapsed } from "$lib/stores/sidebar.js";
   import { PageLoader } from "$lib";
   import { onMount } from "svelte";
+  import { page } from '$app/stores';
 
   let { children } = $props();
 
@@ -32,10 +33,12 @@
 <a href="#main-content" class="skip-link">Skip to main content</a>
 
 <div class="app-layout">
+  {#if $page.url.pathname !== '/login'}
   {#if isMobile}
     <MobileNav />
   {:else}
     <Navbar />
+  {/if}
   {/if}
 
   <!-- tabindex="-1" maakt het element focusbaar voor de skip-link -->
