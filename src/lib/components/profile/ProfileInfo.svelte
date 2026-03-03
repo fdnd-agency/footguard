@@ -1,3 +1,7 @@
+<script>
+  import { resolve } from '$app/paths'
+</script>
+
 <section>
   <h2>General Information</h2>
   <p>
@@ -13,6 +17,6 @@
     <dt>Email</dt><dd>Lorem ipsum</dd>
   </dl>
 
-<a href={resolve('/')}>Groups</a>
+  <a href={resolve('/')}>Groups</a>
 
 </section>
