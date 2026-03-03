@@ -103,11 +103,12 @@ export async function GET({ url, cookies }) {
     httpOnly: true,
     secure: !dev, // Use secure cookies in production
     sameSite: 'strict',
+    path: '/',
     maxAge: 60 * 60 // 1 hour
   })
 
   /**
    *  Redirect to dashboard
    */
-  throw redirect(302, '/dashboard')
+  throw redirect(302, '/')
 }

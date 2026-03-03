@@ -59,7 +59,7 @@
 				</button>
 
 				<p class="help">
-					We will send you a sign-in link that will be valid for one hour
+					We will send you a sign-in link that will be valid for 15 minutes
 				</p>
 
 				{#if errorMessage}

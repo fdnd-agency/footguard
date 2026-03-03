@@ -1,6 +1,7 @@
 import { json } from '@sveltejs/kit'
 import crypto from 'crypto'
 import { env } from '$env/dynamic/private'
+import { sendMagicLinkEmail } from '$lib/server/email'
 
 const DIRECTUS_URL = 'https://fdnd-agency.directus.app'
 const DIRECTUS_TOKEN = env.DIRECTUS_TOKEN
@@ -77,7 +78,6 @@ export async function POST({ request, getClientAddress }) {
 
     // --- 1) Lookup user in Directus (your collection: footguard_users) ---
     // NOTE: _eq can be case-sensitive depending on DB/config; we use _icontains
-    // and then verify lowercased equality in code.
     const userLookupUrl =
       `${DIRECTUS_URL}/items/footguard_users?` +
       `filter[email][_icontains]=${encodeURIComponent(email)}&limit=25`
@@ -96,7 +96,11 @@ export async function POST({ request, getClientAddress }) {
     const users = userData?.data ?? []
     const user = users.find((u) => String(u.email || '').toLowerCase() === email)
 
-    // IMPORTANT: do not reveal if email exists
+    /**
+     * IMPORTANT:
+     * Do not reveal if an email exists in the system.
+     * Always return success to prevent user enumeration.
+     */
     if (!user) {
       return json({ success: true })
     }
@@ -128,14 +132,17 @@ export async function POST({ request, getClientAddress }) {
       return json({ error: 'Directus insert failed' }, { status: 500 })
     }
 
-    // --- 4) Build magic link ---
-    const magicLink = `http://localhost:5173/login/magic-login?token=${rawToken}`
+    // --- 4) Build magic link from env (no hardcoded localhost) ---
+    const appUrl = env.PUBLIC_APP_URL || 'http://localhost:5173'
+    const magicLink = `${appUrl}/login/magic-login?token=${rawToken}`
 
-    /**
-     * Send Email (NOT IMPLEMENTED YET)
-     * For now we log the link in the server console.
-     */
-    console.log('Magic link:', magicLink)
+    // --- 5) Send email (dev fallback logs to console) ---
+    try {
+        await sendMagicLinkEmail({ to: user.email, link:magicLink })
+    } catch (e) {
+        // Do not leak info th the user, just log server-side
+        console.error('Failed to send magic link email:', e)
+    }
 
     return json({ success: true })
   } catch (error) {
