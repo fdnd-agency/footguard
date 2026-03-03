@@ -13,7 +13,6 @@
     <dt>Email</dt><dd>Lorem ipsum</dd>
   </dl>
 
-  <a href="/profile">Groups</a>
-
+<a href={resolve('/')}>Groups</a>
 
 </section>
