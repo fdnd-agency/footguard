@@ -1,6 +1,6 @@
 <section class="profile-hero">
   <img class="profile-avatar" src="..." alt="avatar" />
-    <div class="profile-copy">
+  <div class="profile-info">
     <h2>Dr. Jaap J. van Netten</h2>
     <p>Onderzoekswetenschapper</p>
   </div>
@@ -38,7 +38,7 @@
       transform: translateY(50%);
     }
 
-    .profile-copy {
+    .profile-info {
       margin-top: 3.5rem;
       text-align: center;
       padding-inline: var(--spacing-md);
@@ -56,11 +56,11 @@
 
   @container profile-card (min-width: 42rem) {
     .profile-hero {
-      padding: var(--spacing-md) var(--spacing-md) var(--spacing-xl);
+      padding: 0 0 var(--spacing-xl);
 
       &::before {
         min-height: 10rem;
-        border-radius: var(--radius-md);
+        border-radius: 0;
       }
 
       .profile-avatar {
@@ -68,7 +68,7 @@
         height: 7rem;
       }
 
-      .profile-copy {
+      .profile-info {
         margin-top: 4rem;
         padding-inline: var(--spacing-lg);
       }
