@@ -138,10 +138,10 @@ export async function POST({ request, getClientAddress }) {
 
     // --- 5) Send email (dev fallback logs to console) ---
     try {
-        await sendMagicLinkEmail({ to: user.email, link:magicLink })
+      await sendMagicLinkEmail({ to: user.email, link: magicLink })
     } catch (e) {
-        // Do not leak info th the user, just log server-side
-        console.error('Failed to send magic link email:', e)
+      // Do not leak info th the user, just log server-side
+      console.error('Failed to send magic link email:', e)
     }
 
     return json({ success: true })

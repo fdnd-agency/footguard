@@ -92,7 +92,8 @@ export async function GET({ url, cookies }) {
     id: user.id,
     email: user.email,
     role: user.role,
-    workgroup: user.workgroup
+    workgroup: user.workgroup,
+    lastSeen: Date.now()
   }
 
   /**
@@ -101,7 +102,7 @@ export async function GET({ url, cookies }) {
    */
   cookies.set('session', JSON.stringify(sessionUser), {
     httpOnly: true,
-    secure: !dev, // Use secure cookies in production
+    secure: !dev,
     sameSite: 'strict',
     path: '/',
     maxAge: 60 * 60 // 1 hour
