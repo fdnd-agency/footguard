@@ -1,5 +1,5 @@
 <section class="profile-hero">
-  <img class="profile-avatar" src="..." alt="Dr. Jaap J. van Netten" />
+  <img class="profile-avatar" src="..." alt="avatar" />
     <div class="profile-copy">
     <h2>Dr. Jaap J. van Netten</h2>
     <p>Onderzoekswetenschapper</p>
