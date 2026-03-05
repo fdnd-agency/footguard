@@ -1,8 +1,17 @@
+<script>
+  let { user } = $props();
+  const profileName = user?.name ?? "Unknown user";
+  const profession = user?.profession ?? "Unknown profession";
+  const avatarSrc = user?.photo
+    ? `https://fdnd-agency.directus.app/assets/${user.photo}`
+    : "https://placehold.co/112x112";
+</script>
+
 <section class="profile-hero">
-  <img class="profile-avatar" src="..." alt="avatar" />
+  <img class="profile-avatar" src={avatarSrc} alt={`Avatar of ${profileName}`} />
   <div class="profile-info">
-    <h2>Dr. Jaap J. van Netten</h2>
-    <p>Onderzoekswetenschapper</p>
+    <h2>{profileName}</h2>
+    <p>{profession}</p>
   </div>
 </section>
 
