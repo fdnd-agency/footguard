@@ -1,14 +1,17 @@
 <script>
   import ProfileHero from "$lib/components/profile/ProfileHero.svelte";
   import ProfileInfo from "$lib/components/profile/ProfileInfo.svelte";
+  let { data } = $props();
 </script>
+
+
 
 <section class="profile-page">
   <h1 class="profile-title">Profile</h1>
 
   <article class="profile-card">
-    <ProfileHero />
-    <ProfileInfo />
+    <ProfileHero {user} />
+    <ProfileInfo {user} />
   </article>
 </section>
 
