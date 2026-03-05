@@ -1,5 +1,8 @@
 <script>
   import { resolve } from '$app/paths'
+  let { user } = $props();
+  const role = user?.role;
+  const roleText = Array.isArray(role) ? role.join(", ") : (role ?? "Unknown");
 </script>
 
 <section>
@@ -11,10 +14,10 @@
   </p>
 
   <dl>
-    <dt>Role</dt><dd>Admin</dd>
-    <dt>Institution</dt><dd>Lorem ipsum</dd>
-    <dt>Name</dt><dd>Lorem ipsum</dd>
-    <dt>Email</dt><dd>Lorem ipsum</dd>
+    <dt>Role</dt><dd>{roleText}</dd>
+    <dt>Institution</dt><dd>{user?.institute ?? "Unknown"}</dd>
+    <dt>Profession</dt><dd>{user?.profession ?? "Unknown"}</dd>
+    <dt>Email</dt><dd>{user?.email ?? "Unknown"}</dd>
   </dl>
 
   <a href={resolve('/')}>Groups</a>
