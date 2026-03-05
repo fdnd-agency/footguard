@@ -2,6 +2,7 @@
   import ProfileHero from "$lib/components/profile/ProfileHero.svelte";
   import ProfileInfo from "$lib/components/profile/ProfileInfo.svelte";
   let { data } = $props();
+  const user = data.userInfo?.[0];
 </script>
 
 
