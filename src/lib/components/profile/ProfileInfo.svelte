@@ -13,12 +13,24 @@
     of type and scrambled it to make a type specimen book.
   </p>
 
-  <dl>
-    <dt>Role</dt><dd>{roleText}</dd>
-    <dt>Institution</dt><dd>{user?.institute ?? "Unknown"}</dd>
-    <dt>Profession</dt><dd>{user?.profession ?? "Unknown"}</dd>
-    <dt>Email</dt><dd>{user?.email ?? "Unknown"}</dd>
-  </dl>
+  <form class="info-grid" aria-label="Profile details">
+    <label for="info-role">
+      <span>Role</span>
+      <input id="info-role" type="text" readonly value={roleText} />
+    </label>
+    <label for="info-institution">
+      <span>Institution</span>
+      <input id="info-institution" type="text" readonly value={user?.institute ?? "Unknown"} />
+    </label>
+    <label for="info-profession">
+      <span>Profession</span>
+      <input id="info-profession" type="text" readonly value={user?.profession ?? "Unknown"} />
+    </label>
+    <label for="info-email">
+      <span>Email</span>
+      <input id="info-email" type="text" readonly value={user?.email ?? "Unknown"} />
+    </label>
+  </form>
 
   <a href={resolve('/')}>Groups</a>
 
@@ -39,22 +51,33 @@
       margin-bottom: var(--spacing-lg);
     }
 
-    dl {
+    .info-grid {
       display: grid;
-      grid-template-columns: auto 1fr;
+      grid-template-columns: 1fr;
       row-gap: var(--spacing-md);
-      column-gap: var(--spacing-xl);
-      align-items: baseline;
       margin-bottom: var(--spacing-xl);
-      margin-top:  var(--spacing-xl);
+      margin-top: var(--spacing-xl);
 
-      dt {
+      label {
+        display: grid;
+        gap: var(--spacing-xs);
+      }
+
+      span {
         color: var(--grey-300);
       }
 
-      dd {
+      input {
         color: var(--blue-600);
-        margin: 0;
+        border: 1px solid var(--grey-200);
+        border-radius: var(--radius-sm);
+        background: var(--grey-50);
+        padding: var(--spacing-sm);
+      }
+
+      input:focus-visible {
+        outline: 3px solid var(--blue-500);
+        outline-offset: 2px;
       }
     }
 
@@ -68,15 +91,21 @@
       color: var(--background-color-primary);
       text-align: center;
     }
+
+    a:focus-visible {
+      outline: 3px solid var(--blue-500);
+      outline-offset: 2px;
+      border-radius: var(--radius-sm);
+    }
   }
 
   @container profile-card (min-width: 42rem) {
     section {
       padding: 0 var(--spacing-lg) var(--spacing-2xl);
 
-      dl {
-        grid-template-columns: auto 1fr auto 1fr;
-        column-gap: 4rem;
+      .info-grid {
+        grid-template-columns: 1fr 1fr;
+        column-gap: var(--spacing-lg);
         row-gap: var(--spacing-lg);
       }
     }
