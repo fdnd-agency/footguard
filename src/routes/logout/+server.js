@@ -1,6 +1,6 @@
-import { redirect } from '@sveltejs/kit';
+import { redirect } from '@sveltejs/kit'
 
 export function GET({ cookies }) {
-	cookies.delete('session', { path: '/' });
-	throw redirect(302, '/login');
+  cookies.delete('session', { path: '/' })
+  throw redirect(302, '/login')
 }
