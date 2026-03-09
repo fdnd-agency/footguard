@@ -7,108 +7,92 @@ const DIRECTUS_URL = 'https://fdnd-agency.directus.app'
 const DIRECTUS_TOKEN = env.DIRECTUS_TOKEN
 
 export async function GET({ url, cookies }) {
-  /**
-   * 1. Get token from query paeameter
-   * Example: /magic-login?token=abc123
-   */
-  const rowToken = url.searchParams.get('token')
+  const rawToken = url.searchParams.get('token')
 
-  if (!rowToken) {
+  if (!rawToken) throw redirect(302, '/login')
+
+  const tokenHash = crypto.createHash('sha256').update(rawToken).digest('hex')
+
+  // 1) Find magic link
+  const response = await fetch(
+    `${DIRECTUS_URL}/items/footguard_magic_links?filter[token_hash][_eq]=${encodeURIComponent(tokenHash)}&limit=1`,
+    { headers: { Authorization: `Bearer ${DIRECTUS_TOKEN}` } }
+  )
+
+  const data = await response.json()
+  console.log('MAGIC LOGIN directus status:', response.status, data?.data?.length)
+
+  if (!response.ok) {
+    console.error('MAGIC LOGIN: magic link lookup failed', data)
     throw redirect(302, '/login')
   }
-  /**
-   * 2. Hash the token (beacuse we stored only the hash in DB)
-   */
-  const tokenHash = crypto.createHash('sha256').update(rowToken).digest('hex')
 
-  /**
-   * Check token in Directus
-   */
-  const response = await fetch(
-    `${DIRECTUS_URL}/items/footguard_magic_links?filter[token_hash][_eq]=${tokenHash}`,
-    {
-      headers: {
-        Authorization: `Bearer ${DIRECTUS_TOKEN}`
-      }
-    }
-  )
-  const data = await response.json()
-
-  if (!data.data || data.data.length === 0) {
-    // Token not found
+  if (!data?.data?.length) {
     throw redirect(302, '/login')
   }
 
   const magicLink = data.data[0]
-  /**
-   * Check if token is expired
-   */
+
+  // 2) Validate
   if (magicLink.used_at) {
     throw redirect(302, '/login')
   }
 
-  const expiresAt = new Date(magicLink.expires_at).getTime()
-  if (Date.now() > expiresAt) {
+  const expiresAtMs = new Date(magicLink.expires_at + 'Z').getTime()
+  if (Date.now() > expiresAtMs) {
     throw redirect(302, '/login')
   }
 
-  /**
-   * Mark token as used
-   */
-  await fetch(`${DIRECTUS_URL}/items/footguard_magic_links/${magicLink.id}`, {
+  // 3) Mark used
+  const patchRes = await fetch(`${DIRECTUS_URL}/items/footguard_magic_links/${magicLink.id}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${DIRECTUS_TOKEN}`
     },
-    body: JSON.stringify({
-      used_at: new Date().toISOString()
-    })
+    body: JSON.stringify({ used_at: new Date().toISOString() })
   })
 
-  /**
-   * Fetch the user from Directus
-   */
-  const userRespone = await fetch(
-    `${DIRECTUS_URL}/items/footguard_users?filter[email][_eq]=${magicLink.email}`,
-    {
-      headers: {
-        Authorization: `Bearer ${DIRECTUS_TOKEN}`
-      }
-    }
+  if (!patchRes.ok) {
+    const patchData = await patchRes.json().catch(() => ({}))
+    throw redirect(302, '/login')
+  }
+
+  // 4) Fetch user
+  const email = String(magicLink.email || '')
+  const userResp = await fetch(
+    `${DIRECTUS_URL}/items/footguard_users?filter[email][_eq]=${encodeURIComponent(email)}&limit=1`,
+    { headers: { Authorization: `Bearer ${DIRECTUS_TOKEN}` } }
   )
-  const userData = await userRespone.json()
-  if (!userData.data || userData.data.length === 0) {
+
+  const userData = await userResp.json()
+
+  if (!userResp.ok) {
+    throw redirect(302, '/login')
+  }
+
+  if (!userData?.data?.length) {
     throw redirect(302, '/login')
   }
 
   const user = userData.data[0]
 
-  /**
-   * Create sessie object
-   * Store only necessary data
-   */
+  // 5) Session (force simple types!)
   const sessionUser = {
-    id: user.id,
-    email: user.email,
-    role: user.role,
-    workgroup: user.workgroup
+    id: String(user.id),
+    email: String(user.email),
+    role: user.role == null ? '' : String(user.role),
+    workgroup: user.workgroup == null ? null : String(user.workgroup),
+    lastSeen: Date.now()
   }
 
-  /**
-   * Store session in cookie
-   * HttpOnly prevents JS access
-   */
   cookies.set('session', JSON.stringify(sessionUser), {
     httpOnly: true,
-    secure: !dev, // Use secure cookies in production
-    sameSite: 'strict',
+    secure: !dev,
+    sameSite: 'lax',
     path: '/',
-    maxAge: 60 * 60 // 1 hour
+    maxAge: 60 * 60
   })
 
-  /**
-   *  Redirect to dashboard
-   */
   throw redirect(302, '/')
 }
