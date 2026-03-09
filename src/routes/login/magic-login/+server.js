@@ -8,12 +8,10 @@ const DIRECTUS_TOKEN = env.DIRECTUS_TOKEN
 
 export async function GET({ url, cookies }) {
   const rawToken = url.searchParams.get('token')
-  console.log('MAGIC LOGIN token present?', Boolean(rawToken))
 
   if (!rawToken) throw redirect(302, '/login')
 
   const tokenHash = crypto.createHash('sha256').update(rawToken).digest('hex')
-  console.log('MAGIC LOGIN tokenHash:', tokenHash)
 
   // 1) Find magic link
   const response = await fetch(
@@ -30,7 +28,6 @@ export async function GET({ url, cookies }) {
   }
 
   if (!data?.data?.length) {
-    console.log('MAGIC LOGIN: token not found')
     throw redirect(302, '/login')
   }
 
@@ -38,13 +35,11 @@ export async function GET({ url, cookies }) {
 
   // 2) Validate
   if (magicLink.used_at) {
-    console.log('MAGIC LOGIN: token already used', magicLink.used_at)
     throw redirect(302, '/login')
   }
 
   const expiresAtMs = new Date(magicLink.expires_at + 'Z').getTime()
   if (Date.now() > expiresAtMs) {
-    console.log('MAGIC LOGIN: token expired', magicLink.expires_at)
     throw redirect(302, '/login')
   }
 
@@ -60,7 +55,6 @@ export async function GET({ url, cookies }) {
 
   if (!patchRes.ok) {
     const patchData = await patchRes.json().catch(() => ({}))
-    console.error('MAGIC LOGIN: failed to mark used', patchRes.status, patchData)
     throw redirect(302, '/login')
   }
 
@@ -72,15 +66,12 @@ export async function GET({ url, cookies }) {
   )
 
   const userData = await userResp.json()
-  console.log('MAGIC LOGIN: user fetch status:', userResp.status, 'rows:', userData?.data?.length)
 
   if (!userResp.ok) {
-    console.error('MAGIC LOGIN: user fetch failed', userData)
     throw redirect(302, '/login')
   }
 
   if (!userData?.data?.length) {
-    console.log('MAGIC LOGIN: user not found for email', email)
     throw redirect(302, '/login')
   }
 
@@ -95,8 +86,6 @@ export async function GET({ url, cookies }) {
     lastSeen: Date.now()
   }
 
-  console.log('MAGIC LOGIN: sessionUser to set:', sessionUser)
-
   cookies.set('session', JSON.stringify(sessionUser), {
     httpOnly: true,
     secure: !dev,
@@ -105,6 +94,5 @@ export async function GET({ url, cookies }) {
     maxAge: 60 * 60
   })
 
-  console.log('MAGIC LOGIN: cookie set, redirecting to /')
   throw redirect(302, '/')
 }
