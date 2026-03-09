@@ -65,5 +65,29 @@ export const handle: Handle = async ({ event, resolve }) => {
     throw redirect(302, '/login')
   }
 
+  // Role-based access control
+  const adminOnlyPaths = ['/admin']
+  const assessorPaths = ['/research', '/results']
+
+  const path = event.url.pathname
+
+  // not logged in -> redirect to login
+  if (!event.locals.user) {
+    const protectedPaths = ['/admin', '/research', '/results', '/profile', '/notifications']
+    if (protectedPaths.some((p) => path.startsWith(p))) {
+      throw redirect(302, '/login')
+    }
+  }
+
+  // Logged in but wrong role
+  if (event.locals.user) {
+    const role = event.locals.user.role
+
+    //Only super_admin and admin can access /admin
+    if (path.startsWith('/admin') && role !== 'super_admin' && role !== 'admin') {
+      throw redirect(302, '/')
+    }
+  }
+
   return resolve(event)
 }
