@@ -55,7 +55,7 @@ async function readEmail(request) {
   return form.get('email')
 }
 
-export async function POST({ request, getClientAddress }) {
+export async function POST({ request, getClientAddress, url }) {
   try {
     const ip = getClientAddress()
 
@@ -133,7 +133,7 @@ export async function POST({ request, getClientAddress }) {
     }
 
     // --- 4) Build magic link from env (no hardcoded localhost) ---
-    const appUrl = env.PUBLIC_APP_URL || 'http://localhost:5173'
+    const appUrl = env.PUBLIC_APP_URL || url.origin
     const magicLink = `${appUrl}/login/magic-login?token=${rawToken}`
 
     // --- 5) Send email (dev fallback logs to console) ---
