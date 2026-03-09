@@ -54,7 +54,6 @@ export async function GET({ url, cookies }) {
   })
 
   if (!patchRes.ok) {
-    const patchData = await patchRes.json().catch(() => ({}))
     throw redirect(302, '/login')
   }
 
