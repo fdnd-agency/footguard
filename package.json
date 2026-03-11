@@ -10,23 +10,28 @@
     "prepare": "svelte-kit sync || echo ''",
     "lint": "eslint src",
     "format": "prettier --check .",
-    "format:fix": "prettier --write ."
+    "format:fix": "prettier --write .",
+    "test": "vitest",
+    "test:ui": "vitest --ui"
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "^6.0.0",
     "@sveltejs/kit": "^2.22.0",
     "@sveltejs/vite-plugin-svelte": "^6.0.0",
+    "@vitest/ui": "^4.0.18",
     "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-svelte": "^3.14.0",
     "globals": "^17.3.0",
+    "jsdom": "^28.1.0",
     "postcss": "^8.5.6",
     "postcss-load-config": "^6.0.1",
     "postcss-nesting": "^13.0.2",
     "prettier": "^3.8.1",
     "svelte": "^5.0.0",
     "svelte-preprocess": "^6.0.3",
-    "vite": "^7.0.4"
+    "vite": "^7.0.4",
+    "vitest": "^4.0.18"
   },
   "dependencies": {
     "gsap": "^3.14.2",
