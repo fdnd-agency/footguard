@@ -1,3 +1,4 @@
+/** @author: Razan Sagheer**/
 import { env } from '$env/dynamic/private'
 
 /**
@@ -34,7 +35,7 @@ export async function sendMagicLinkEmail({ to, link }) {
     const { Resend } = await import('resend')
     const resend = new Resend(env.RESEND_API_KEY)
 
-    await resend.emails.send({
+    const response = await resend.emails.send({
       from: env.MAIL_FROM,
       to,
       subject: 'Your Magic Login Link(valid for 15 minutes)',
@@ -46,6 +47,7 @@ export async function sendMagicLinkEmail({ to, link }) {
         `
     })
 
+    console.log('Resend email response:', response)
     return
   }
 
