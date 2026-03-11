@@ -1,7 +1,13 @@
 // src/routes/+page.server.js
+import { redirect } from '@sveltejs/kit'
+
 const BASE_URL = 'https://fdnd-agency.directus.app'
 
-export async function load({ fetch }) {
+export async function load({ fetch, locals }) {
+  // Niet ingelogd -> naar login pagina
+  if (!locals.user) {
+    throw redirect(302, '/login')
+  }
   try {
     const usersRes = await fetch(`${BASE_URL}/items/footguard_users`)
     const usersData = await usersRes.json()

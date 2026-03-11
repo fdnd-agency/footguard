@@ -4,17 +4,16 @@
 	// Frontend-only state for basic validation + UI
 	let email = '';
 	let errorMessage = '';
+	let submitted = false;
+	let loading = false;
 
 	// Basic email check (frontend validation only)
 	function isValidEmail(value) {
 		return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 	}
 
-	function handleSubmit(event) {
-		// We prevent default because there is no backend yet.
-		// Later (backend issue) you can remove preventDefault so it actually POSTs.
+	async function handleSubmit(event) {
 		event.preventDefault();
-
 		errorMessage = '';
 
 		if (!isValidEmail(email)) {
@@ -22,18 +21,58 @@
 			return;
 		}
 
-		// Frontend-only placeholder:
-		// In a later issue, this will send the POST request to /api/magic-link
-		console.log('Frontend only: this would send a magic link request.');
+		loading = true;
+
+		try {
+			const res = await fetch('/login/api/magic-link', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ email })
+			});
+
+			if (res.ok) {
+				submitted = true;
+			} else {
+				errorMessage = 'Something went wrong. Please try again.';
+			}
+		} catch {
+			errorMessage = 'Something went wrong. Please try again.';
+		} finally {
+			loading = false;
+		}
 	}
 </script>
 <main>
 	<section class="login-page">
+
+		{#if submitted}
+			<!-- Success state -->
 		<div class="card">
 			<!-- Logo -->
 			<div class="logo">
 				<IWGDFLogo />
 			</div>
+
+			<h1 class="title">Check your inbox</h1>
+
+				<p class="subtitle">
+					If <strong>{email}</strong> is registered, you will receive a sign-in link shortly.
+					The link is valid for 15 minutes.
+				</p>
+
+				<p class="help">Didn't receive anything? Check your spam folder.</p>
+
+				<button class="button" on:click={() => { submitted = false; email = ''; }}>
+					Try a different email
+				</button>
+			</div>
+
+		{:else}
+			<!-- Login form -->
+			<div class="card">
+				<div class="logo">
+					<IWGDFLogo />
+				</div>
 
 			<h1 class="title">Sign in via email</h1>
 
@@ -46,7 +85,7 @@
 				We keep action="/api/magic-link" because that's the final target,
 				but we preventDefault in handleSubmit (frontend-only issue).
 			-->
-			<form method="POST" action="/api/magic-link" on:submit={handleSubmit}>
+			<form method="POST" action="/login/api/magic-link" on:submit={handleSubmit}>
 				<input
 					class="input"
 					type="email"
@@ -56,12 +95,12 @@
 					required
 				/>
 
-				<button class="button" type="submit">
-					Send magic link
+				<button class="button" type="submit" disabled={loading}>
+  					{loading ? 'Sending...' : 'Send magic link'}
 				</button>
 
 				<p class="help">
-					We will send you a sign-in link that will be valid for one hour
+					We will send you a sign-in link that will be valid for 15 minutes
 				</p>
 
 				{#if errorMessage}
@@ -69,6 +108,7 @@
 				{/if}
 			</form>
 		</div>
+	{/if}
 
 		<footer class="footer">© 2026 Footguard. IWGDF</footer>
 	</section>
@@ -159,6 +199,11 @@
 		font-size: 1rem;
 		cursor: pointer;
 		box-shadow: 0 10px 18px rgba(0, 0, 0, 0.2);
+	}
+
+	.button:disabled {
+  		opacity: 0.6;
+  		cursor: not-allowed;
 	}
 
 	.help {
