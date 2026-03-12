@@ -24,8 +24,6 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    min-height: 12rem;
-
     .header-photo {
       position: absolute;
       inset: 0;
