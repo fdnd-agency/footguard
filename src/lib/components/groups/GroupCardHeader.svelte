@@ -4,7 +4,8 @@
 
 <section>
   <div class="header-photo">
-    <img src={groupHeaderPhoto} alt="Group icon photo" />
+    <!-- TODO: Replace static header image with group avatar from dynamic group data. -->
+    <img src={groupHeaderPhoto} alt="Group icon" />
   </div>
   <h2>Charcot's neuro-osteo-arthropathy</h2>
   <ul>

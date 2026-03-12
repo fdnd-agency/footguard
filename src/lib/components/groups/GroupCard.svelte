@@ -11,7 +11,8 @@
 
   <section>
     <p>Members</p>
-    <ul>
+    <!-- TODO: Replace hardcoded member avatars with dynamic group member data from load/server. -->
+    <ul aria-label="Current members preview">
       <li>
         <img src={avatar} alt="User 1 name" />
       </li>
@@ -24,6 +25,7 @@
 
   <details>
     <summary>
+      <!-- TODO: Compute this count from dynamic member data once API integration is in place. -->
       <span>2 of 2 members</span>
       <span class="chevron">
         <DetailsUpIcon />

@@ -3,7 +3,8 @@
 </script>
 
 <section>
-  <ul>
+  <!-- TODO: Replace this static member list with dynamic data from the group members. -->
+  <ul >
     <li>
       <img src={avatar} alt="User 1 name" />
       <span>User 1 name</span>
@@ -65,7 +66,7 @@
     }
   }
 
-  @container members-dropdown (min-width: 20rem) {
+  @container members-dropdown (min-width: 42rem) {
     section {
       ul {
         li {

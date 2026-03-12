@@ -7,6 +7,8 @@
   <h1>Groups</h1>
 
   <article class="groups-intro">
+      <!-- TODO: Move banner content source to directus data fields and remove fallback text. --> 
+      <!-- TODO: Replace this placeholder banner with dynamic data from the group data. -->       
     <GroupAboutBanner>
       Manage members, invite users by email, and quickly update group access.
     </GroupAboutBanner>

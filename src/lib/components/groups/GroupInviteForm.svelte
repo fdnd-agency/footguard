@@ -1,4 +1,5 @@
 <label for="invite-email">Invite via email</label>
+<!-- TODO: Replace this placeholder invite submit with real backend invite handling and feedback via form data. -->
 <form method="POST" action="?/invite">
   <input id="invite-email" name="email" type="email" placeholder="Enter email address" required />
   <button type="submit">Invite</button>
