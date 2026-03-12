@@ -1,5 +1,5 @@
 <script>
-  import groupHeaderPhoto from "$lib/assets/img/charcot-icon .webp";
+  import groupHeaderPhoto from "$lib/assets/img/charcot-icon.webp";
 </script>
 
 <section>
