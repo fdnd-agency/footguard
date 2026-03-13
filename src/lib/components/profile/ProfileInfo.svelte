@@ -29,7 +29,7 @@
     </label>
   </form>
 
-  <GroupsLinkButton />
+  <GroupsLink />
 
 </section>
 
