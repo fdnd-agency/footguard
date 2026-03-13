@@ -1,8 +1,9 @@
 <script>
-  import { resolve } from '$app/paths'
+  import GroupsLink from '$lib/components/profile/GroupsLink.svelte'
   let { user } = $props();
-  const role = user?.role;
-  const roleText = Array.isArray(role) ? role.join(", ") : (role ?? "Unknown");
+  const roleText = $derived(
+    Array.isArray(user?.role) ? user.role.join(", ") : (user?.role ?? "Unknown")
+  );
 </script>
 
 <section>
@@ -26,9 +27,9 @@
       <span>Email</span>
       <input id="info-email" type="text" readonly value={user?.email ?? "Unknown"} />
     </label>
-  </form>
+  <GroupsLink />
 
-  <a href={resolve('/')}>Groups</a>
+  <GroupsLink />
 
 </section>
 
@@ -39,12 +40,6 @@
     h2 {
       color: var(--blue-700);
       margin-bottom: var(--spacing-md);
-    }
-
-    p {
-      color: var(--grey-400);
-      line-height: 1.7;
-      margin-bottom: var(--spacing-lg);
     }
 
     .info-grid {
@@ -77,22 +72,6 @@
       }
     }
 
-    a {
-      display: block;
-      width: fit-content;
-      margin-inline: auto;
-      padding: var(--spacing-sm) var(--spacing-xl);
-      border-radius: var(--radius-full);
-      background: var(--orange-400);
-      color: var(--background-color-primary);
-      text-align: center;
-    }
-
-    a:focus-visible {
-      outline: 3px solid var(--blue-500);
-      outline-offset: 2px;
-      border-radius: var(--radius-sm);
-    }
   }
 
   @container profile-card (min-width: 42rem) {
