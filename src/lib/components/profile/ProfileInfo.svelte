@@ -29,7 +29,6 @@
     </label>
   <GroupsLink />
 
-  <GroupsLink />
 
 </section>
 
