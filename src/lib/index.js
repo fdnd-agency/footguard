@@ -10,6 +10,7 @@ export { default as GradingIcon } from './components/navbar-icons/grading-icon.s
 export { default as NotificationIcon } from './components/navbar-icons/notification-icon.svelte'
 export { default as ResultsIcon } from './components/navbar-icons/results-icon.svelte'
 export { default as SettingIcon } from './components/navbar-icons/setting-icon.svelte'
+export { default as ProfileIcon } from './components/navbar-icons/profile-icon.svelte'
 export { default as IwgdfLogo } from './components/navbar-icons/IWGDF-Logo.svelte'
 export { default as IwgdfLogoCollapsed } from './components/navbar-icons/IWGDGF-Logo-Collapsed.svelte'
 export { default as IwgdfLogoMobile } from './components/navbar-icons/IWGDF-Logo-Mobile.svelte'

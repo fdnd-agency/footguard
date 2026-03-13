@@ -4,6 +4,7 @@
 		DashboardIcon,
 		GradingIcon,
 		NotificationIcon,
+		ProfileIcon,
 		ResultsIcon,
 		SettingIcon,
 		IwgdfLogo,
@@ -45,6 +46,12 @@
 			<a href={resolve("/")}>
 				<span class="icon"><DashboardIcon /></span>
 				<span class="label">Dashboard</span>
+			</a>
+		</li>
+		<li>
+			<a href={resolve("/profile")}>
+				<span class="icon"><ProfileIcon /></span>
+				<span class="label">Profile</span>
 			</a>
 		</li>
 		<li>
