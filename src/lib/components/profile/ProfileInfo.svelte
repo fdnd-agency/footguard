@@ -27,7 +27,7 @@
       <span>Email</span>
       <input id="info-email" type="text" readonly value={user?.email ?? "Unknown"} />
     </label>
-  </form>
+  <GroupsLink />
 
   <GroupsLink />
 
