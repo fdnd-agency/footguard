@@ -1,5 +1,5 @@
 <script>
-  import GroupsLinkButton from '$lib/components/profile/GroupsLink.svelte'
+  import GroupsLink from '$lib/components/profile/GroupsLink.svelte'
   let { user } = $props();
   const roleText = $derived(
     Array.isArray(user?.role) ? user.role.join(", ") : (user?.role ?? "Unknown")
