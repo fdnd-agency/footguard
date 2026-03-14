@@ -2,6 +2,7 @@
 import { json } from '@sveltejs/kit'
 import crypto from 'crypto'
 import { env } from '$env/dynamic/private'
+import { env as publicEnv } from '$env/dynamic/public'
 import { sendMagicLinkEmail } from '$lib/server/email'
 
 const DIRECTUS_URL = 'https://fdnd-agency.directus.app'
@@ -134,7 +135,7 @@ export async function POST({ request, getClientAddress, url }) {
     }
 
     // --- 4) Build magic link from env (no hardcoded localhost) ---
-    const appUrl = env.PUBLIC_APP_URL || url.origin
+    const appUrl = publicEnv.PUBLIC_APP_URL || url.origin
     const magicLink = `${appUrl}/login/magic-login?token=${rawToken}`
 
     // --- 5) Send email (dev fallback logs to console) ---
