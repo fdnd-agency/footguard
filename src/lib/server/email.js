@@ -40,10 +40,31 @@ export async function sendMagicLinkEmail({ to, link }) {
       to,
       subject: 'Your Magic Login Link(valid for 15 minutes)',
       html: `
-            <p>Hello,</p>
-            <p>Click the link below to log in (valid for 15 minutes):</p>
-            <p><a href="${link}">Sign in</a></p>
-            <p>If you did not request this, you can ignore this email.</p>
+            <div style="font-family: Arial, sans-serif; max-width: 480px; margin: 0 auto; padding: 32px; background-color: #f9f9f9; border-radius: 8px;">
+    
+    <h2 style="color: #1a1a1a; margin-bottom: 8px;">Sign in to IWGDF Guidelines</h2>
+    
+    <p style="color: #444; font-size: 15px; line-height: 1.6;">
+      You requested a sign-in link for your IWGDF account. Click the button below to log in.
+      This link is valid for <strong>15 minutes</strong> and can only be used once.
+    </p>
+       <div style="text-align: center; margin: 32px 0;">
+      <a href="${link}" style="background-color: #1a6fc4; color: #ffffff; padding: 14px 28px; border-radius: 6px; text-decoration: none; font-size: 16px; font-weight: bold;">
+        Sign in to IWGDF
+      </a>
+    </div>
+
+    <p style="color: #888; font-size: 13px; line-height: 1.6;">
+      If you did not request this email, you can safely ignore it. Your account remains secure.
+    </p>
+
+    <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 24px 0;" />
+    
+    <p style="color: #aaa; font-size: 12px; text-align: center;">
+      &copy; IWGDF Guidelines &nbsp;|&nbsp; This is an automated message, please do not reply.
+    </p>
+
+  </div>
         `
     })
 
