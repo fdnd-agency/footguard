@@ -23,8 +23,17 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run tests
-        run: npm run test || echo "No tests yet"
+       # Unit + integration tests
+      - name: Run unit and integration tests
+        run: npm run test:run
+
+      # Install Playwright browsers
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium firefox
+
+      # E2E tests
+      - name: Run E2E tests
+        run: npm run test:e2e
 
       - name: Run ESLint
         run: npm run lint

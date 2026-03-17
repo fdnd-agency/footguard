@@ -12,6 +12,7 @@
     "format": "prettier --check .",
     "format:fix": "prettier --write .",
     "test": "vitest",
+    "test:run": "vitest --run",
     "test:ui": "vitest --ui",
     "test:e2e": "playwright test"
   },
