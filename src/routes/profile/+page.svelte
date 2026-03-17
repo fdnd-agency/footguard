@@ -1,4 +1,6 @@
 <script>
+  import GroupsLink from '$lib/components/profile/GroupsLink.svelte'
+
   import ProfileHero from "$lib/components/profile/ProfileHero.svelte";
   import ProfileInfo from "$lib/components/profile/ProfileInfo.svelte";
   let { data } = $props();
@@ -13,7 +15,11 @@
   <article class="profile-card">
     <ProfileHero {user} />
     <ProfileInfo {user} />
+    <GroupsLink />
   </article>
+
+
+
 </section>
 
 <style>
