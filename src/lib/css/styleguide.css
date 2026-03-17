@@ -266,7 +266,7 @@ a {
   color: var(--grey-500);
   text-transform: uppercase;
   font-size: 1rem;
-  margin:var(--spacing-sm);
+  margin: var(--spacing-sm);
 }
 
 button {
