@@ -65,12 +65,6 @@
       color: var(--red-500);
       justify-self: end;
     }
-    .title {
-      color: var(--grey-500);
-      text-transform: uppercase;
-      font-size: 1rem;
-      margin:var(--spacing-sm);
-    }
 
   }
 
