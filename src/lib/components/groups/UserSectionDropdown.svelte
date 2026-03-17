@@ -3,6 +3,7 @@
 </script>
 
 <section>
+  <h2 class="title">Group members details</h2>
   <!-- TODO: Replace this static member list with dynamic data from the group members. -->
   <ul >
     <li>
@@ -64,6 +65,13 @@
       color: var(--red-500);
       justify-self: end;
     }
+    .title {
+      color: var(--grey-500);
+      text-transform: uppercase;
+      font-size: 1rem;
+      margin:var(--spacing-sm);
+    }
+
   }
 
   @container members-dropdown (min-width: 42rem) {
