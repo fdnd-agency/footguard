@@ -23,7 +23,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-       # Unit + integration tests
+        # Unit + integration tests
       - name: Run unit and integration tests
         run: npm run test:run
 
