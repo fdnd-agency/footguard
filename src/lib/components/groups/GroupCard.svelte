@@ -9,8 +9,8 @@
 <article>
   <GroupCardHeader />
 
-  <section>
-    <p>Members</p>
+  <section class="members-section">
+    <h2 class="title">Members</h2>
     <!-- TODO: Replace hardcoded member avatars with dynamic group member data from load/server. -->
     <ul aria-label="Current members preview">
       <li>
@@ -47,15 +47,8 @@
     container-name: group-card;
   }
 
-  section {
+  .members-section {
     padding: var(--spacing-lg);
-
-    p {
-      color: var(--grey-500);
-      text-transform: uppercase;
-      font-weight: 700;
-      margin: 0 0 var(--spacing-sm);
-    }
 
     ul {
       margin: 0 0 var(--spacing-lg);
@@ -106,7 +99,7 @@
   }
 
   @container group-card (min-width: 42rem) {
-    section {
+    .members-section {
       padding: var(--spacing-xl);
     }
   }
