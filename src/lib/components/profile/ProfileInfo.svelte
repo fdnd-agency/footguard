@@ -1,5 +1,4 @@
 <script>
-  import GroupsLink from '$lib/components/profile/GroupsLink.svelte'
   let { user } = $props();
   const roleText = $derived(
     Array.isArray(user?.role) ? user.role.join(", ") : (user?.role ?? "Unknown")
@@ -27,9 +26,7 @@
       <span>Email</span>
       <input id="info-email" type="text" readonly value={user?.email ?? "Unknown"} />
     </label>
-
-
-
+  </form>
 </section>
 
 <style>
