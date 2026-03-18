@@ -262,6 +262,13 @@ a {
   border: none;
 }
 
+.title {
+  color: var(--grey-500);
+  text-transform: uppercase;
+  font-size: 1rem;
+  margin: var(--spacing-sm);
+}
+
 button {
   font-family: inherit;
   border: none;
