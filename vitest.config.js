@@ -4,6 +4,7 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
   test: {
     environment: 'jsdom', // simulates a browser environment
-    globals: true // so you can use describe/it/expect without importing
+    globals: true, // so you can use describe/it/expect without importing
+    include: ['src/tests/unit/**/*.test.js', 'src/tests/integration/**/*.test.js']
   }
 })
