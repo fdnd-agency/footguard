@@ -1,16 +1,7 @@
-// Use SvelteKit helpers to redirect unauthenticated users and throw HTTP errors.
-import { redirect, error } from '@sveltejs/kit'
+import { error } from '@sveltejs/kit'
 
 // Runs on the server before rendering this dynamic profile page.
-export async function load({ fetch, params, locals }) {
-  // Read the logged-in user from the request locals.
-  const sessionUser = locals.user
-
-  // Protect this page: if there is no logged-in email, send user to login.
-  if (!sessionUser?.email) {
-    throw redirect(302, '/login')
-  }
-
+export async function load({ fetch, params }) {
   // Grab the dynamic route param.
   const userId = params.user_id
   // Request the profile record for the requested user id from Directus.
