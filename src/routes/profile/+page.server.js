@@ -1,9 +1,13 @@
+import { env } from '$env/dynamic/public'
+
+const DIRECTUS_URL = env.PUBLIC_DIRECTUS_URL || 'https://fdnd-agency.directus.app'
+
 export async function load({ fetch, locals }) {
   const sessionUser = locals.user
 
   // Fetch user from Directus by exact email match.
   const usersResponse = await fetch(
-    'https://fdnd-agency.directus.app/items/footguard_users?' +
+    `${DIRECTUS_URL}/items/footguard_users?` +
       `filter[email][_eq]=${encodeURIComponent(sessionUser.email)}&limit=1`
   )
 
