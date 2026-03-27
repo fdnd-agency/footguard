@@ -186,6 +186,9 @@
   --transition-fast: 0.15s ease;
   --transition-base: 0.2s ease;
   --transition-slow: 0.3s ease;
+
+  /* Form input size for mobile devices */
+  --form-mobile-input-size: 16px;
 }
 
 html {
@@ -280,6 +283,7 @@ input,
 textarea,
 select {
   font-family: inherit;
+  font-size: var(--form-mobile-input-size);
 }
 
 .skip-link {
