@@ -14,6 +14,7 @@ type SessionCookie = {
 
 export const handle: Handle = async ({ event, resolve }) => {
   const raw = event.cookies.get(SESSION_COOKIE)
+
   if (raw) {
     try {
       const session = JSON.parse(raw) as SessionCookie
@@ -59,34 +60,37 @@ export const handle: Handle = async ({ event, resolve }) => {
       event.cookies.delete(SESSION_COOKIE, { path: '/' })
     }
   }
-  const protectedPaths = ['/dashboard', '/assessment', '/admin']
-  const isProtected = protectedPaths.some((p) => event.url.pathname.startsWith(p))
-
-  if (isProtected && !event.locals.user) {
-    throw redirect(302, '/login')
-  }
-
-  // Role-based access control
-  const adminOnlyPaths = ['/admin']
-  const assessorPaths = ['/research', '/results']
-
   const path = event.url.pathname
 
+  const protectedPaths = [
+    '/dashboard',
+    '/assessment',
+    '/admin',
+    '/research',
+    '/results',
+    '/profile',
+    '/notifications',
+    '/settings',
+    '/grading'
+  ]
+
   // not logged in -> redirect to login
-  if (!event.locals.user) {
-    const protectedPaths = ['/admin', '/research', '/results', '/profile', '/notifications']
-    if (protectedPaths.some((p) => path.startsWith(p))) {
-      throw redirect(302, '/login')
-    }
-  }
-
-  // Logged in but wrong role
   if (event.locals.user) {
-    const role = event.locals.user.role
+    const role = event.locals.user.role.toLowerCase()
 
-    //Only super_admin and admin can access /admin
+    // Alleen super_admin en admin kunnen naar /admin
     if (path.startsWith('/admin') && role !== 'super_admin' && role !== 'admin') {
       throw redirect(302, '/')
+    }
+
+    // Guest mag ALLEEN naar /research
+    if (role === 'guest') {
+      const guestAllowed = ['/research', '/login', '/logout', '/']
+      const isAllowed = guestAllowed.some((p) => (path === '/' ? path === p : path.startsWith(p)))
+
+      if (!isAllowed) {
+        throw redirect(302, '/research')
+      }
     }
   }
 
