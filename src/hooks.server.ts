@@ -63,18 +63,9 @@ export const handle: Handle = async ({ event, resolve }) => {
   const path = event.url.pathname
 
   if (!event.locals.user) {
-    const protectedPaths = [
-      '/dashboard',
-      '/assessment',
-      '/admin',
-      '/research',
-      '/results',
-      '/profile',
-      '/notifications',
-      '/settings',
-      '/grading'
-    ]
-    if (protectedPaths.some((p) => path.startsWith(p))) {
+    const publicPaths = ['/login']
+    const isPublic = publicPaths.some((p) => path === p || path.startsWith(p + '/'))
+    if (!isPublic) {
       throw redirect(302, '/login')
     }
   }
