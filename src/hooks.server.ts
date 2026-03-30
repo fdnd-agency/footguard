@@ -62,17 +62,22 @@ export const handle: Handle = async ({ event, resolve }) => {
   }
   const path = event.url.pathname
 
-  const protectedPaths = [
-    '/dashboard',
-    '/assessment',
-    '/admin',
-    '/research',
-    '/results',
-    '/profile',
-    '/notifications',
-    '/settings',
-    '/grading'
-  ]
+  if (!event.locals.user) {
+    const protectedPaths = [
+      '/dashboard',
+      '/assessment',
+      '/admin',
+      '/research',
+      '/results',
+      '/profile',
+      '/notifications',
+      '/settings',
+      '/grading'
+    ]
+    if (protectedPaths.some((p) => path.startsWith(p))) {
+      throw redirect(302, '/login')
+    }
+  }
 
   // not logged in -> redirect to login
   if (event.locals.user) {
