@@ -1,3 +1,7 @@
+<script>
+  import DetailsUpIcon from "$lib/assets/svg/DetailsUpIcon.svelte";
+</script>
+
 <form class="select-wrap" method="GET" action="/groups">
       <select
         name="year"
@@ -7,6 +11,9 @@
         <option value="2023">Guidelines 2023</option>
         <option value="2027">Guidelines 2027</option>
       </select>
+      <span class="chevron" aria-hidden="true">
+        <DetailsUpIcon />
+      </span>
 </form>
 
 <style>
@@ -35,19 +42,36 @@
         appearance: base-select;
     }
 
-    /* Select: custom picker arrow icon */
+    /* Select: hide native picker icon (we render shared icon in markup) */
     select::picker-icon {
-        content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='18 15 12 9 6 15'/%3E%3C/svg%3E");
-        width: 1rem;
-        height: 1rem;
-        color: var(--grey-600);
-        transform-origin: center;
-        transition: transform 220ms ease;
+      display: none;
+    }
+
+    .chevron {
+      position: absolute;
+      right: var(--spacing-sm);
+      top: 50%;
+      transform: translateY(-50%);
+      display: inline-flex;
+      color: var(--grey-600);
+      pointer-events: none;
+      transition: transform 220ms ease;
     }
 
     /* Select: rotate arrow when dropdown is open */
-    select:open::picker-icon {
-      transform: rotate(180deg);
+    .select-wrap:has(select:open) .chevron {
+      transform: translateY(-50%) rotate(180deg);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .chevron {
+        transition: none;
+      }
+    }
+
+    /* Keep text clear from custom chevron */
+    select {
+      padding-right: calc(var(--spacing-sm) * 2 + 1rem);
     }
 
     /* Select: dropdown panel styles */
@@ -61,28 +85,29 @@
     }
 
     /* Select: option styles to match field */
-    option {
-      border: none;
-      border-radius: var(--radius-sm);
-      color: var(--grey-700);
-      background: var(--background-color-primary);
-      padding: var(--spacing-xs) var(--spacing-sm);
+  option {
+    border: none;
+    border-radius: var(--radius-sm);
+    color: var(--grey-700);
+    background: var(--background-color-primary);
+    padding: var(--spacing-xs) var(--spacing-sm);
+
+    &:hover,
+    &:focus-visible {
+      background: var(--grey-50);
     }
 
-    option:hover,
-    option:focus-visible {
-        background: var(--grey-50);
-  }
-
-    option:checked {
-        background: var(--green-100);
-        color: var(--green-700);
-        font-weight: var(--font-weight-bold);
-  }
+    &:checked {
+      background: var(--green-100);
+      color: var(--green-700);
+      font-weight: var(--font-weight-bold);
+    }
 
   /* Select: hide default selected checkmark icon */
-    option::checkmark {
-        display: none;
+    &::checkmark {
+      display: none;
     }
+}
+
 
 </style>
