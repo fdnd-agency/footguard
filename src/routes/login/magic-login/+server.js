@@ -80,7 +80,6 @@ export async function GET({ url, cookies }) {
   const rawRole = Array.isArray(user.role) ? user.role[0] : user.role
   const role = rawRole == null ? '' : String(rawRole).toLowerCase()
 
-
   // 5) Session
   const sessionUser = {
     id: String(user.id),
