@@ -21,7 +21,6 @@ export async function GET({ url, cookies }) {
   )
 
   const data = await response.json()
-  console.log('MAGIC LOGIN directus status:', response.status, data?.data?.length)
 
   if (!response.ok) {
     console.error('MAGIC LOGIN: magic link lookup failed', data)
@@ -78,10 +77,14 @@ export async function GET({ url, cookies }) {
   const user = userData.data[0]
 
   // 5) Session (force simple types!)
+  const rawRole = Array.isArray(user.role) ? user.role[0] : user.role
+  const role = rawRole == null ? '' : String(rawRole).toLowerCase()
+
+  // 5) Session
   const sessionUser = {
     id: String(user.id),
     email: String(user.email),
-    role: user.role == null ? '' : String(user.role),
+    role: role,
     workgroup: user.workgroup == null ? null : String(user.workgroup),
     lastSeen: Date.now()
   }
@@ -94,5 +97,9 @@ export async function GET({ url, cookies }) {
     maxAge: 60 * 60
   })
 
-  throw redirect(302, '/')
+  // 6) Redirect based on role
+  if (sessionUser.role === 'guest') {
+    throw redirect(302, '/research')
+  }
+  throw redirect(302, '/dashboard')
 }

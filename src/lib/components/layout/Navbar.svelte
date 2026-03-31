@@ -1,90 +1,98 @@
 <script>
-	import {
-		AdminIcon,
-		CollapseMenuIcon,
-		DashboardIcon,
-		GradingIcon,
-		NotificationIcon,
-		ProfileIcon,
-		ResultsIcon,
-		SettingIcon,
-		IwgdfLogo,
-		IwgdfLogoCollapsed
-	} from "$lib";
+  import {
+    AdminIcon,
+    CollapseMenuIcon,
+    DashboardIcon,
+    GradingIcon,
+    NotificationIcon,
+    ProfileIcon,
+    ResultsIcon,
+    SettingIcon,
+    IwgdfLogo,
+    IwgdfLogoCollapsed
+  } from "$lib";
+  import { resolve } from "$app/paths";
+  import { isCollapsed } from "$lib/stores/sidebar.js";
 
-	import { resolve } from "$app/paths";
+  let { user } = $props()
+  const isGuest = user?.role?.toLowerCase() === 'guest'
 
-
-	import { isCollapsed } from "$lib/stores/sidebar.js";
-
-	const toggleCollapse = () => {
-		isCollapsed.update((value) => !value);
-	};
+  const toggleCollapse = () => {
+    isCollapsed.update((value) => !value);
+  };
 </script>
 
 <nav class:collapsed={$isCollapsed}>
-	<div class="logo">
-		{#if $isCollapsed}
-			<IwgdfLogoCollapsed />
-		{:else}
-			<IwgdfLogo />
-		{/if}
+  <div class="logo">
+    {#if $isCollapsed}
+      <IwgdfLogoCollapsed />
+    {:else}
+      <IwgdfLogo />
+    {/if}
+    <button
+      type="button"
+      class="collapse-btn"
+      onclick={toggleCollapse}
+      aria-label="Toggle sidebar"
+      aria-expanded={!$isCollapsed}
+    >
+      <CollapseMenuIcon />
+    </button>
+  </div>
 
-		<button
-			type="button"
-			class="collapse-btn"
-			on:click={toggleCollapse}
-			aria-label="Toggle sidebar"
-			aria-expanded={!$isCollapsed}
-		>
-			<CollapseMenuIcon />
-		</button>
-	</div>
-
-	<ul>
-		<li>
-			<a href={resolve("/")}>
-				<span class="icon"><DashboardIcon /></span>
-				<span class="label">Dashboard</span>
-			</a>
-		</li>
-		<li>
-			<a href={resolve("/profile")}>
-				<span class="icon"><ProfileIcon /></span>
-				<span class="label">Profile</span>
-			</a>
-		</li>
-		<li>
-			<a href={resolve("/research")}>
-				<span class="icon"><GradingIcon /></span>
-				<span class="label">Grading</span>
-			</a>
-		</li>
-		<li>
-			<a href={resolve("/results")}>
-				<span class="icon"><ResultsIcon /></span>
-				<span class="label">Results</span>
-			</a>
-		</li>
-		<li class="admin-item">
-			<a href={resolve("/admin")}>
-				<span class="icon"><AdminIcon /></span>
-				<span class="label">Admin</span>
-			</a>
-		</li>
-		<li>
-			<a href={resolve("/notifications")}>
-				<span class="icon"><NotificationIcon /></span>
-				<span class="label">Notifications</span>
-			</a>
-		</li>
-		<li>
-			<a href={resolve("/settings")}>
-				<span class="icon"><SettingIcon /></span>
-				<span class="label">Settings</span>
-			</a>
-		</li>
-	</ul>
+  <ul>
+    {#if isGuest}
+      <li>
+         <a href={resolve("/research")}>
+      <span class="icon"><GradingIcon /></span>
+      <span class="label">Grading</span>
+        </a>
+      </li>
+    {:else}
+      <li>
+        <a href={resolve("/")}>
+          <span class="icon"><DashboardIcon /></span>
+          <span class="label">Dashboard</span>
+        </a>
+      </li>
+      <li>
+        <a href={resolve("/profile")}>
+          <span class="icon"><ProfileIcon /></span>
+          <span class="label">Profile</span>
+        </a>
+      </li>
+      <li>
+        <a href={resolve("/research")}>
+          <span class="icon"><GradingIcon /></span>
+          <span class="label">Grading</span>
+        </a>
+      </li>
+      <li>
+        <a href={resolve("/results")}>
+          <span class="icon"><ResultsIcon /></span>
+          <span class="label">Results</span>
+        </a>
+      </li>
+      <li class="admin-item">
+        <a href={resolve("/admin")}>
+          <span class="icon"><AdminIcon /></span>
+          <span class="label">Admin</span>
+        </a>
+      </li>
+      <li>
+        <a href={resolve("/notifications")}>
+          <span class="icon"><NotificationIcon /></span>
+          <span class="label">Notifications</span>
+        </a>
+      </li>
+      <li>
+        <a href={resolve("/settings")}>
+          <span class="icon"><SettingIcon /></span>
+          <span class="label">Settings</span>
+        </a>
+      </li>
+    {/if}
+  </ul>
 </nav>
 
 
