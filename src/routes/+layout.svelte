@@ -33,7 +33,7 @@
 <a href="#main-content" class="skip-link">Skip to main content</a>
 
 <div class="app-layout">
-  {#if $page.url.pathname !== '/login'}
+  {#if !$page.url.pathname.startsWith('/login')}
   {#if isMobile}
     <MobileNav />
   {:else}

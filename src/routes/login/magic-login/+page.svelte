@@ -11,7 +11,11 @@
 
 <style>
   .confirm-page {
-    min-height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -19,13 +23,13 @@
   }
 
   .button {
-    padding: 1rem 2.5rem;
+    padding: 1.2rem 3rem;
     border-radius: 14px;
     border: none;
     background: var(--blue-500);
     color: white;
     font-weight: 600;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     cursor: pointer;
     box-shadow: 0 10px 18px rgba(0, 0, 0, 0.2);
   }
