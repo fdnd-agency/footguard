@@ -17,7 +17,6 @@ export const actions = {
   default: async ({ request, cookies }) => {
     const formData = await request.formData()
     const rawToken = formData.get('token')
-
     if (!rawToken) throw redirect(302, '/login')
 
     const tokenHash = crypto.createHash('sha256').update(rawToken).digest('hex')
@@ -28,7 +27,6 @@ export const actions = {
     )
 
     const data = await response.json()
-
     if (!response.ok || !data?.data?.length) {
       throw redirect(302, '/login')
     }
@@ -43,8 +41,6 @@ export const actions = {
     if (Date.now() > expiresAtMs) {
       throw redirect(302, '/login')
     }
-
-    // rest van de code blijft hetzelfde...
 
     // 3) Mark used
     const patchRes = await fetch(`${DIRECTUS_URL}/items/footguard_magic_links/${magicLink.id}`, {
@@ -68,18 +64,21 @@ export const actions = {
     )
 
     const userData = await userResp.json()
-
     if (!userResp.ok || !userData?.data?.length) {
       throw redirect(302, '/login')
     }
 
     const user = userData.data[0]
 
-    // 5) Set session cookie
+    // 5) Role parsing (handles array or string)
+    const rawRole = Array.isArray(user.role) ? user.role[0] : user.role
+    const role = rawRole == null ? '' : String(rawRole).toLowerCase()
+
+    // 6) Set session cookie
     const sessionUser = {
       id: String(user.id),
       email: String(user.email),
-      role: user.role == null ? '' : String(user.role),
+      role: role,
       workgroup: user.workgroup == null ? null : String(user.workgroup),
       lastSeen: Date.now()
     }
@@ -91,6 +90,11 @@ export const actions = {
       path: '/',
       maxAge: 60 * 60
     })
+
+    // 7) Redirect based on role
+    if (sessionUser.role === 'guest') {
+      throw redirect(302, '/research')
+    }
 
     throw redirect(302, '/dashboard')
   }
