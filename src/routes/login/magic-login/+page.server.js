@@ -96,6 +96,6 @@ export const actions = {
       throw redirect(302, '/research')
     }
 
-    throw redirect(302, '/dashboard')
+    throw redirect(302, '/')
   }
 }
