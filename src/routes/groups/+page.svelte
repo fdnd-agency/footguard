@@ -1,6 +1,7 @@
 <script>
   import GroupAboutBanner from "$lib/components/groups/GroupAboutBanner.svelte";
   import GroupCard from "$lib/components/groups/GroupCard.svelte";
+  import GroupFilter from "$lib/components/groupFilter/GroupFilter.svelte"
 </script>
 
 <section class="groups-page">
@@ -8,10 +9,11 @@
 
   <article class="groups-intro">
       <!-- TODO: Move banner content source to directus data fields and remove fallback text. --> 
-      <!-- TODO: Replace this placeholder banner with dynamic data from the group data. -->       
+      <!-- TODO: Replace this placeholder banner with dynamic data from the group data. -->   
     <GroupAboutBanner>
       Manage members, invite users by email, and quickly update group access.
     </GroupAboutBanner>
+    <GroupFilter />
     <div class="groups-cards">
       <GroupCard />
     </div>

@@ -6,7 +6,7 @@
   import { onMount } from "svelte";
   import { page } from '$app/stores';
 
-  let { children } = $props();
+  let { children, data } = $props();
 
   let isMobile = $state(false);
 
@@ -35,9 +35,11 @@
 <div class="app-layout">
   {#if !$page.url.pathname.startsWith('/login')}
   {#if isMobile}
-    <MobileNav />
-  {:else}
-    <Navbar />
+    <!-- user doorgeven -->
+      <MobileNav user={data.user} />
+    {:else}
+      <!-- user doorgeven -->
+      <Navbar user={data.user} />
   {/if}
   {/if}
 
