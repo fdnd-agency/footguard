@@ -4,6 +4,7 @@
     CollapseMenuIcon,
     DashboardIcon,
     GradingIcon,
+    LogoutIcon,
     NotificationIcon,
     ProfileIcon,
     ResultsIcon,
@@ -93,6 +94,14 @@
       </li>
     {/if}
   </ul>
+    {#if user}
+    <div class="logout">
+      <a href={resolve("/logout")} aria-label="Log out" class="logout-link">
+        <span class="icon"><LogoutIcon /></span>
+        <span class="label">Log out</span>
+      </a>
+    </div>
+  {/if}
 </nav>
 
 
@@ -151,6 +160,7 @@
         display: flex;
         flex-direction: column;
         gap: 10px;
+		flex: 1;
 
         li{
             justify-content: center;
@@ -174,9 +184,29 @@
 				}
             }    
         }
-	}
-	
-	.icon{
+}
+.logout-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--main-svg-icon-color);
+  font-weight: 500;
+  padding: 10px 25px;
+  border-radius: 100px;
+
+  &:hover {
+    background: var(--red-100, #fee2e2);
+    color: var(--red-600, #dc2626);
+  }
+}
+
+.logout {
+  margin-top: auto;
+  padding: 0 0 0.5em 0;
+}
+
+.icon{
 		display: inline-flex;
 	}
 
