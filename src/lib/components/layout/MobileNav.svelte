@@ -8,6 +8,7 @@
 		ResultsIcon,
 		SettingIcon,
 		IwgdfLogo,
+		LogoutIcon,
 	} from "$lib";
 
 	import { resolve } from "$app/paths";
@@ -84,6 +85,12 @@
 				<span class="label">Settings</span>
 			</a>
 		</li>
+		 <li>
+    <a href={resolve("/logout")} aria-label="Log out">
+      <span class="icon"><LogoutIcon /></span>
+      <span class="label">Log out</span>
+    </a>
+  </li>
 	</ul>
 </nav>
 
@@ -164,6 +171,12 @@
 			}
 		}
 	}
+	li:last-child a {
+  &:hover {
+    background: var(--red-100, #fee2e2);
+    color: var(--red-600, #dc2626);
+  }
+}
 	
 	.icon {
 		display: inline-flex;
