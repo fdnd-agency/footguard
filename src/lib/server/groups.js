@@ -2,8 +2,7 @@
 // Service to fetch all available workgroups from the Directus API.
 // Uses the footguard_workgroups collection.
 
-import { PUBLIC_DIRECTUS_URL } from '$env/static/public'
-import { DIRECTUS_TOKEN } from '$env/static/private'
+import { DIRECTUS_URL, DIRECTUS_TOKEN } from '$env/static/private'
 /**
  * Fetches all workgroups from Directus.
  * Member count is 0 for now since footguard_group_members has no data yet.
@@ -12,7 +11,7 @@ import { DIRECTUS_TOKEN } from '$env/static/private'
  * @throws {Error} If the API call fails
  */
 export async function fetchGroups() {
-  const url = `${PUBLIC_DIRECTUS_URL}/items/footguard_workgroups?fields=id,group_name,status,condition_label,created_by_user_id`
+  const url = `${DIRECTUS_URL}/items/footguard_workgroups?fields=id,group_name,status,condition_label,created_by_user_id`
 
   const response = await fetch(url, {
     headers: {
