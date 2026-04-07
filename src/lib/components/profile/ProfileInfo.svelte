@@ -1,30 +1,49 @@
 <script>
-  let { user } = $props();
-  const roleText = $derived(
-    Array.isArray(user?.role) ? user.role.join(", ") : (user?.role ?? "Unknown")
-  );
+  let { isEditing = false, formData, onFieldChange } = $props();
 </script>
 
 <section>
   <h2>General Information</h2>
-  
 
   <form class="info-grid" aria-label="Profile details">
     <label for="info-role">
       <span>Role</span>
-      <input id="info-role" type="text" readonly value={roleText} />
+      <input
+        id="info-role"
+        type="text"
+        readonly
+        value={formData?.role ?? ''}
+      />
     </label>
     <label for="info-institution">
       <span>Institution</span>
-      <input id="info-institution" type="text" readonly value={user?.institute ?? "Unknown"} />
+      <input
+        id="info-institution"
+        type="text"
+        readonly={!isEditing}
+        value={formData?.institute ?? ''}
+        oninput={(event) => onFieldChange?.('institute', event.currentTarget.value)}
+      />
     </label>
     <label for="info-profession">
       <span>Profession</span>
-      <input id="info-profession" type="text" readonly value={user?.profession ?? "Unknown"} />
+      <input
+        id="info-profession"
+        type="text"
+        readonly={!isEditing}
+        value={formData?.profession ?? ''}
+        oninput={(event) => onFieldChange?.('profession', event.currentTarget.value)}
+      />
     </label>
     <label for="info-email">
       <span>Email</span>
-      <input id="info-email" type="text" readonly value={user?.email ?? "Unknown"} />
+      <input
+        id="info-email"
+        type="email"
+        readonly={!isEditing}
+        value={formData?.email ?? ''}
+        oninput={(event) => onFieldChange?.('email', event.currentTarget.value)}
+      />
     </label>
   </form>
 </section>
@@ -60,6 +79,15 @@
         border-radius: var(--radius-sm);
         background: var(--grey-50);
         padding: var(--spacing-sm);
+      }
+
+      input[readonly] {
+        cursor: default;
+      }
+
+      input:not([readonly]) {
+        border: 2px solid var(--blue-500);
+        background: var(--blue-100);
       }
 
       input:focus-visible {
