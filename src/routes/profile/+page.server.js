@@ -80,7 +80,11 @@ export const actions = {
     const warnings = []
     // Email update separated, so if email fail core fields still saved.
     if (String(email).trim()) {
-      const emailResponse = await patchUser({ fetch, userId, payload: { email: String(email).trim() } })
+      const emailResponse = await patchUser({
+        fetch,
+        userId,
+        payload: { email: String(email).trim() }
+      })
       if (!emailResponse.ok) warnings.push('Email could not be updated')
     }
 
