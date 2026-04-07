@@ -12,6 +12,9 @@
   // Uses a fallback empty array to prevent errors when no data is available yet.
   $: groups = data.groups ?? [];
   $: loadError = data.loadError ?? null;
+
+  // Loading state is true until groups or an error value is available
+  $: isLoading = !data?.groups && !data?.loadError;
 </script>
 
 <section class="groups-page">
@@ -24,12 +27,16 @@
       Manage members, invite users by email, and quickly update group access.
     </GroupAboutBanner>
     <GroupFilter />
-    {#if loadError}
+  {#if isLoading}
+  <!-- Loading state -->
+  <p>Loading groups...</p>
+
+{:else if loadError}
   <!-- Error state -->
   <p>Something went wrong while loading groups.</p>
 
 {:else if groups.length === 0}
-  <!-- Empty state (VERY IMPORTANT for your situation) -->
+  <!-- Empty state -->
   <p>No groups found yet. Directus connection works, but there is no data in the database.</p>
 
 {:else}
