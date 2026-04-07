@@ -4,29 +4,56 @@
   import GroupInviteForm from "$lib/components/groups/GroupInviteForm.svelte";
   import UserSectionDropdown from "$lib/components/groups/UserSectionDropdown.svelte";
   import avatar from "$lib/assets/img/profile-avatar.webp";
+
+  // Group data is passed from the groups page
+  export let group;
+
+  // Fallback values keep the component safe while API data is still incomplete
+  $: groupName = group?.name ?? "Unnamed group";
+  $: groupStatus = group?.status ?? "Unknown";
+  $: conditionLabel = group?.conditionlabel ?? "General";
+  $: memberCount = group?.memberCount ?? 0;
+
+
+  // Create temporary preview items with stable ids for rendering
+$: previewMembers =
+  memberCount > 0
+    ? Array.from({ length: Math.min(memberCount, 2) }, (_, index) => ({
+        id: index + 1
+      }))
+    : [];
 </script>
 
 <article>
-  <GroupCardHeader />
+  <GroupCardHeader
+  name={groupName}
+  status={groupStatus}
+  conditionLabel={conditionLabel}
+/>
 
   <section class="members-section">
     <h2 class="title">Members</h2>
-    <!-- TODO: Replace hardcoded member avatars with dynamic group member data from load/server. -->
-    <ul aria-label="Current members preview">
-      <li>
-        <img src={avatar} alt="User 1 name" />
-      </li>
-      <li>
-        <img src={avatar} alt="User 2 name" />
-      </li>
-    </ul>
+
+    <!-- Temporary member preview until real member data is available -->
+    {#if previewMembers.length > 0}
+  <ul aria-label="Current members preview">
+    {#each previewMembers as member (member.id)}
+  <li>
+    <img src={avatar} alt={`Group member ${member.id}`} />
+  </li>
+{/each}
+  </ul>
+{:else}
+  <p class="members-empty">No members available yet.</p>
+{/if}
+
     <GroupInviteForm />
   </section>
 
   <details>
     <summary>
-      <!-- TODO: Compute this count from dynamic member data once API integration is in place. -->
-      <span>2 of 2 members</span>
+       <!-- Member count is currently based on fallback data -->
+      <span>{memberCount} member{memberCount === 1 ? '' : 's'}</span>
       <span class="chevron">
         <DetailsUpIcon />
       </span>

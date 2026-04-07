@@ -8,8 +8,10 @@
   export let data;
 
   // Extract groups safely (fallback to empty array)
-  const groups = data.groups ?? [];
-  const loadError = data.loadError ?? null;
+  // Reactive statement: automatically updates `groups` whenever `data.groups` changes.
+  // Uses a fallback empty array to prevent errors when no data is available yet.
+  $: groups = data.groups ?? [];
+  $: loadError = data.loadError ?? null;
 </script>
 
 <section class="groups-page">
@@ -34,13 +36,7 @@
   <!-- Success state -->
   <div class="groups-cards">
     {#each groups as group (group.id)}
-      <GroupCard
-        groupId={group.id}
-        name={group.name}
-        status={group.status}
-        conditionLabel={group.conditionlabel}
-        memberCount={group.memberCount}
-      />
+      <GroupCard {group} />
     {/each}
   </div>
 {/if}
