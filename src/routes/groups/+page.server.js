@@ -3,24 +3,20 @@
 // The API token stays secure because this code only runs on the server.
 
 import { fetchGroups } from '$lib/server/groups.js'
+import { error } from '@sveltejs/kit'
 
-/**  @type {import('./$types').PageServerLoad}  */
+/** @type {import('./$types').PageServerLoad} */
 export async function load() {
   try {
     const groups = await fetchGroups()
 
-    // Pass groups to +page.svelte via the 'data' prop
+    // Pass groups to +page.svelte via the `data` prop
     return {
       groups,
       loadError: null
     }
-  } catch (err) {
-    console.error('[groups] Failed to load groups from Directus:', err)
-
-    // Return a safe fallback so the page can render an inline error state
-    return {
-      groups: [],
-      loadError: 'Could not load groups. Please try again later.'
-    }
+  } catch {
+    // Throw a proper SvelteKit error with status code
+    throw error(500, 'Could not load groups. Please try again later.')
   }
 }

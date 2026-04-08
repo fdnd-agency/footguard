@@ -33,11 +33,11 @@
 
 {:else if loadError}
   <!-- Error state -->
-  <p>Something went wrong while loading groups.</p>
+  <p class="groups-status groups-status--error">Something went wrong while loading groups.</p>
 
 {:else if groups.length === 0}
-  <!-- Empty state -->
-  <p>No groups found yet. Directus connection works, but there is no data in the database.</p>
+      <!-- Empty state -->
+      <p class="groups-status">No groups available at the moment. Check back later!</p>
 
 {:else}
   <!-- Success state -->
@@ -77,6 +77,15 @@
       flex-wrap: wrap;
       gap: var(--spacing-lg);
       justify-content: flex-start;
+    }
+   .groups-status {
+      color: var(--grey-500);
+      text-align: center;
+      padding: var(--spacing-xl) 0;
+    }
+
+    .groups-status--error {
+      color: var(--color-danger, #dc2626);
     }
   }
 
