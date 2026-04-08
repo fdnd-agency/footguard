@@ -13,13 +13,21 @@ import { DIRECTUS_URL, DIRECTUS_TOKEN } from '$env/static/private'
 export async function fetchGroups() {
   const url = `${DIRECTUS_URL}/items/footguard_workgroups?fields=id,group_name,status,condition_label,created_by_user_id`
 
-  const response = await fetch(url, {
-    headers: {
-      Authorization: `Bearer ${DIRECTUS_TOKEN}`,
-      'Content-Type': 'application/json'
-    }
-  })
+  let response
 
+  try {
+    response = await fetch(url, {
+      headers: {
+        Authorization: `Bearer ${DIRECTUS_TOKEN}`,
+        'Content-Type': 'application/json'
+      }
+    })
+  } catch (networkError) {
+    // Fetch itself failed (e.g. no internet, Directus unreachable)
+    throw new Error(`Network error while connecting to Directus: ${networkError.message}`)
+  }
+
+  // Handle non-2xx HTTP responses from Directus
   if (!response.ok) {
     throw new Error(`Directus API error: ${response.status} ${response.statusText}`)
   }
