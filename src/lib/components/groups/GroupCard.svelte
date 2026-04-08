@@ -15,13 +15,20 @@
   $: memberCount = group?.memberCount ?? 0;
 
 
+ // Max number of member avatars to show in the preview
+  const MAX_PREVIEW_MEMBERS = 2;
+
+  // Reactive plural check to avoid magic numbers in the template
+  $: isPlural = memberCount !== 1;
+
   // Create temporary preview items with stable ids for rendering
-$: previewMembers =
-  memberCount > 0
-    ? Array.from({ length: Math.min(memberCount, 2) }, (_, index) => ({
-        id: index + 1
-      }))
-    : [];
+  $: previewMembers =
+    memberCount > 0
+      ? Array.from({ length: Math.min(memberCount, MAX_PREVIEW_MEMBERS) }, (_, index) => ({
+          id: index + 1,
+          name: null // Name is not available yet until member API data is connected
+        }))
+      : [];
 </script>
 
 <article>
@@ -35,10 +42,10 @@ $: previewMembers =
     <h2 class="title">Members</h2>
 
     <!-- Temporary member preview until real member data is available -->
-    {#if previewMembers.length > 0}
-  <ul aria-label="Current members preview">
-    {#each previewMembers as member (member.id)}
-  <li>
+  {#if previewMembers.length > 0}
+      <ul aria-label="Current members preview">
+        {#each previewMembers as member (member.id)}
+          <li>
     <img src={avatar} alt={`Group member ${member.id}`} />
   </li>
 {/each}
@@ -53,7 +60,7 @@ $: previewMembers =
   <details>
     <summary>
        <!-- Member count is currently based on fallback data -->
-      <span>{memberCount} member{memberCount === 1 ? '' : 's'}</span>
+       <span>{memberCount} member{isPlural ? 's' : ''}</span>
       <span class="chevron">
         <DetailsUpIcon />
       </span>
