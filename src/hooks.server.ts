@@ -6,6 +6,7 @@ const SESSION_COOKIE = 'session'
 const INACTIVITY_LIMIT_MS = 60 * 60 * 1000 // 1 hour
 
 type SessionCookie = {
+  id?: string
   email: string
   role: string
   workgroup: string | null
@@ -37,6 +38,7 @@ export const handle: Handle = async ({ event, resolve }) => {
         } else {
           // Set locals.user
           event.locals.user = {
+            ...(typeof session.id === 'string' && session.id ? { id: session.id } : {}),
             email: session.email,
             role: session.role,
             workgroup: session.workgroup

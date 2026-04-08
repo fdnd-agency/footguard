@@ -1,4 +1,5 @@
 <script>
+  import { deserialize } from '$app/forms'
   import GroupsLink from '$lib/components/profile/GroupsLink.svelte'
   import EditActions from '$lib/components/profile/EditActions.svelte'
   import ProfileHero from "$lib/components/profile/ProfileHero.svelte";
@@ -59,10 +60,11 @@
     }, 2200);
   }
 
-  async function parseServerResult(response) {
-    const payload = await response.json().catch(() => null);
-    if (!payload) return null;
-    return payload?.data && payload?.type ? payload.data : payload;
+  function parseActionResponse(responseText) {
+    const result = deserialize(responseText);
+    if (result.type === 'success') return result.data;
+    if (result.type === 'failure') return result.data;
+    return null;
   }
 
   // Enter edit mode and restore draft from last saved profile.
@@ -84,17 +86,24 @@
     isSaving = true;
 
     try {
-      const response = await fetch('/profile?/saveProfile', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          userId: user?.id,
-          ...formData
-        })
+      const body = new URLSearchParams({
+        name: formData.name ?? '',
+        institute: formData.institute ?? '',
+        profession: formData.profession ?? '',
+        email: formData.email ?? ''
       });
 
-      const result = await parseServerResult(response);
-      if (!response.ok || !result?.ok) {
+      const response = await fetch('/profile?/saveProfile', {
+        method: 'POST',
+        headers: {
+          accept: 'application/json',
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        body
+      });
+
+      const result = parseActionResponse(await response.text());
+      if (!result?.ok) {
         showToast(result?.message || 'Could not save profile');
         return;
       }
@@ -125,11 +134,12 @@
 
       const response = await fetch('/profile?/uploadAvatar', {
         method: 'POST',
+        headers: { accept: 'application/json' },
         body: payload
       });
 
-      const result = await parseServerResult(response);
-      if (!response.ok || !result?.ok || !result?.photo) {
+      const result = parseActionResponse(await response.text());
+      if (!result?.ok || !result?.photo) {
         showToast(result?.message || 'Could not upload profile photo');
         return;
       }
