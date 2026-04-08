@@ -44,6 +44,6 @@ jobs:
 
       - name: Build project
         run: npm run build
-        env: 
-        DIRECTUS_URL: ${{ secrets.DIRECTUS_URL }}          
-        DIRECTUS_TOKEN: ${{ secrets.DIRECTUS_TOKEN }}
+        env:
+          DIRECTUS_URL: ${{ secrets.DIRECTUS_URL }}
+          DIRECTUS_TOKEN: ${{ secrets.DIRECTUS_TOKEN }}
