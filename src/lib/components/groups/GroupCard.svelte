@@ -12,7 +12,14 @@
   $: groupName = group?.name ?? "Unnamed group";
   $: groupStatus = group?.status ?? "Unknown";
   $: conditionLabel = group?.conditionlabel ?? "General";
-  $: memberCount = group?.memberCount ?? 0;
+
+  // Members array from group data, fallback to empty array
+  // TODO: Replace with real member data from Directus when API is connected
+  $: members = group?.members?.length > 0 ? group.members : [
+  { id: 1, name: "Yamen Al", email: "yamen@example.com" },
+  { id: 2, name: "John Doe", email: "john@example.com" }
+];
+  $: memberCount = members.length > 0 ? members.length : (group?.memberCount ?? 0);
 
 
  // Max number of member avatars to show in the preview
@@ -38,25 +45,37 @@
   conditionLabel={conditionLabel}
 />
 
-  <section class="members-section">
+<section class="members-section">
     <h2 class="title">Members</h2>
 
-    <!-- Temporary member preview until real member data is available -->
-  {#if previewMembers.length > 0}
-      <ul aria-label="Current members preview">
-        {#each previewMembers as member (member.id)}
-          <li>
-    <img src={avatar} alt={`Group member ${member.id}`} />
-  </li>
-{/each}
-  </ul>
-{:else}
-  <p class="members-empty">No members available yet.</p>
-{/if}
+    <!-- Member avatar preview row with add button -->
+    <div class="members-preview">
+      {#if previewMembers.length > 0}
+        <ul aria-label="Current members preview">
+          {#each previewMembers as member (member.id)}
+            <li>
+              <!-- Avatar image is managed via Directus, no changes needed here -->
+              <img src={avatar} alt={member.name ?? `Group member ${member.id}`} />
+            </li>
+          {/each}
+        </ul>
+      {/if}
+
+      <!-- Add member button: dashed circle with plus icon next to avatars -->
+      <button class="btn-add" type="button" aria-label="Add team member">
+        +
+      </button>
+    </div>
+
+    {#if previewMembers.length === 0}
+      <!-- Empty state: shown when group has no members yet -->
+      <p class="members-empty">No members available yet.</p>
+    {/if}
 
     <GroupInviteForm />
   </section>
 
+  <!-- Expandable dropdown showing full member list -->
   <details>
     <summary>
        <!-- Member count is currently based on fallback data -->
@@ -65,7 +84,8 @@
         <DetailsUpIcon />
       </span>
     </summary>
-    <UserSectionDropdown />
+    <!-- Pass members array down to the dropdown component -->
+<UserSectionDropdown {members} />
   </details>
 </article>
 
@@ -81,11 +101,14 @@
     container-name: group-card;
   }
 
-  .members-section {
-    padding: var(--spacing-lg);
+    .members-preview {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-lg);
 
     ul {
-      margin: 0 0 var(--spacing-lg);
+      margin: 0;
       padding: 0;
       list-style: none;
       display: flex;
@@ -104,6 +127,32 @@
         box-shadow: var(--shadow-sm);
       }
     }
+  }
+
+    /* Dashed circle add button next to avatars */
+  .btn-add {
+    width: 3rem;
+    height: 3rem;
+    border-radius: var(--radius-full);
+    border: 2px dashed var(--grey-300);
+    background: transparent;
+    color: var(--grey-400);
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: border-color var(--transition-fast), color var(--transition-fast);
+    flex-shrink: 0;
+
+    &:hover {
+      border-color: var(--grey-500);
+      color: var(--grey-600);
+    }
+  }
+
+  .members-section {
+    padding: var(--spacing-lg);
   }
 
   summary {
