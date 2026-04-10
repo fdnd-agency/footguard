@@ -2,6 +2,19 @@
   import GroupAboutBanner from "$lib/components/groups/GroupAboutBanner.svelte";
   import GroupCard from "$lib/components/groups/GroupCard.svelte";
   import GroupFilter from "$lib/components/groupFilter/GroupFilter.svelte"
+
+  // `data` is injected by SvelteKit from +page.server.js
+  // It contains the groups array fetched from Directus
+  export let data;
+
+  // Extract groups safely (fallback to empty array)
+  // Reactive statement: automatically updates `groups` whenever `data.groups` changes.
+  // Uses a fallback empty array to prevent errors when no data is available yet.
+  $: groups = data.groups ?? [];
+  $: loadError = data.loadError ?? null;
+
+  // Loading state is true until groups or an error value is available
+  $: isLoading = !data?.groups && !data?.loadError;
 </script>
 
 <section class="groups-page">
@@ -14,9 +27,26 @@
       Manage members, invite users by email, and quickly update group access.
     </GroupAboutBanner>
     <GroupFilter />
-    <div class="groups-cards">
-      <GroupCard />
-    </div>
+  {#if isLoading}
+  <!-- Loading state -->
+  <p>Loading groups...</p>
+
+{:else if loadError}
+  <!-- Error state -->
+  <p class="groups-status groups-status--error">Something went wrong while loading groups.</p>
+
+{:else if groups.length === 0}
+      <!-- Empty state -->
+      <p class="groups-status">No groups available at the moment. Check back later!</p>
+
+{:else}
+  <!-- Success state -->
+  <div class="groups-cards">
+    {#each groups as group (group.id)}
+      <GroupCard {group} />
+    {/each}
+  </div>
+{/if}
   </article>
 </section>
 
@@ -47,6 +77,15 @@
       flex-wrap: wrap;
       gap: var(--spacing-lg);
       justify-content: flex-start;
+    }
+   .groups-status {
+      color: var(--grey-500);
+      text-align: center;
+      padding: var(--spacing-xl) 0;
+    }
+
+    .groups-status--error {
+      color: var(--color-danger, #dc2626);
     }
   }
 

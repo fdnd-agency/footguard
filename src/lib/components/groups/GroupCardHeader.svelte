@@ -1,5 +1,15 @@
 <script>
   import groupHeaderPhoto from "$lib/assets/img/charcot-icon.webp";
+
+  // Dynamic group data passed from GroupCard.svelte
+  export let name;
+  export let status;
+  export let conditionLabel;
+
+  // Fallback values keep the header safe while API data is still incomplete
+  $: groupName = name ?? "Unnamed group";
+  $: groupStatus = status ?? "Unknown";
+  $: groupConditionLabel = conditionLabel ?? "General";
 </script>
 
 <section>
@@ -7,10 +17,10 @@
     <!-- TODO: Replace static header image with group avatar from dynamic group data. -->
     <img src={groupHeaderPhoto} alt="Group icon" />
   </div>
-  <h2>Charcot's neuro-osteo-arthropathy</h2>
+  <h2>{groupName}</h2>
   <ul>
-    <li>CHARCOT</li>
-    <li>ACTIVE</li>
+    <li>{groupConditionLabel}</li>
+    <li>{groupStatus}</li>
   </ul>
 </section>
 

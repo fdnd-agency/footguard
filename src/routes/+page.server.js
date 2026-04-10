@@ -8,9 +8,14 @@ export async function load({ fetch, locals }) {
   if (!locals.user) {
     throw redirect(302, '/login')
   }
+
+  const currentUserId = locals.user.id
   try {
-    const usersRes = await fetch(`${BASE_URL}/items/footguard_users`)
+    const usersRes = await fetch(
+      `${BASE_URL}/items/footguard_users?filter[id][_eq]=${encodeURIComponent(currentUserId)}&limit=1`
+    )
     const usersData = await usersRes.json()
+
     const users = usersData.data || []
 
     const currentUser = users[0] || { name: 'Guest', id: null }

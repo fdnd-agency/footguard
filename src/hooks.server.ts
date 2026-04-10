@@ -6,7 +6,7 @@ const SESSION_COOKIE = 'session'
 const INACTIVITY_LIMIT_MS = 60 * 60 * 1000 // 1 hour
 
 type SessionCookie = {
-  id?: string
+  id: string
   email: string
   role: string
   workgroup: string | null
@@ -15,11 +15,13 @@ type SessionCookie = {
 
 export const handle: Handle = async ({ event, resolve }) => {
   const raw = event.cookies.get(SESSION_COOKIE)
+
   if (raw) {
     try {
       const session = JSON.parse(raw) as SessionCookie
 
       const hasRequired =
+        typeof session.id === 'string' &&
         typeof session.email === 'string' &&
         typeof session.role === 'string' &&
         typeof session.lastSeen === 'number' &&
@@ -38,7 +40,7 @@ export const handle: Handle = async ({ event, resolve }) => {
         } else {
           // Set locals.user
           event.locals.user = {
-            ...(typeof session.id === 'string' && session.id ? { id: session.id } : {}),
+            id: session.id,
             email: session.email,
             role: session.role,
             workgroup: session.workgroup
@@ -61,34 +63,33 @@ export const handle: Handle = async ({ event, resolve }) => {
       event.cookies.delete(SESSION_COOKIE, { path: '/' })
     }
   }
-  const protectedPaths = ['/dashboard', '/assessment', '/admin']
-  const isProtected = protectedPaths.some((p) => event.url.pathname.startsWith(p))
-
-  if (isProtected && !event.locals.user) {
-    throw redirect(302, '/login')
-  }
-
-  // Role-based access control
-  const adminOnlyPaths = ['/admin']
-  const assessorPaths = ['/research', '/results']
-
   const path = event.url.pathname
 
-  // not logged in -> redirect to login
   if (!event.locals.user) {
-    const protectedPaths = ['/admin', '/research', '/results', '/profile', '/notifications']
-    if (protectedPaths.some((p) => path.startsWith(p))) {
+    const publicPaths = ['/login']
+    const isPublic = publicPaths.some((p) => path === p || path.startsWith(p + '/'))
+    if (!isPublic) {
       throw redirect(302, '/login')
     }
   }
 
-  // Logged in but wrong role
+  // not logged in -> redirect to login
   if (event.locals.user) {
-    const role = event.locals.user.role
+    const role = event.locals.user.role.toLowerCase()
 
-    //Only super_admin and admin can access /admin
+    // Alleen super_admin en admin kunnen naar /admin
     if (path.startsWith('/admin') && role !== 'super_admin' && role !== 'admin') {
       throw redirect(302, '/')
+    }
+
+    // Guest mag ALLEEN naar /research
+    if (role === 'guest') {
+      const guestAllowed = ['/research', '/login', '/logout', '/']
+      const isAllowed = guestAllowed.some((p) => (path === '/' ? path === p : path.startsWith(p)))
+
+      if (!isAllowed) {
+        throw redirect(302, '/research')
+      }
     }
   }
 
