@@ -53,15 +53,18 @@ export const actions = {
     if (!DIRECTUS_TOKEN) return { ok: false, message: 'Server config missing' }
 
     // Read JSON body from frontend.
-    const body = await request.json().catch(() => null)
-    if (!body) return { ok: false, message: 'Invalid request body' }
+    const form = await request.formData().catch(() => null)
+    if (!form) return { ok: false, message: 'Invalid request body' }
 
     // I use session user id for secure update.
     const userId = sessionUser.id
     if (!userId) return { ok: false, message: 'Could not resolve user id for update' }
 
     // Fields that can be edited in profile form.
-    const { name = '', institute = '', profession = '', email = '' } = body
+    const name = String(form.get('name') ?? '')
+    const institute = String(form.get('institute') ?? '')
+    const profession = String(form.get('profession') ?? '')
+    const email = String(form.get('email') ?? '')
     // Main fields save first.
     const corePayload = {
       name: String(name).trim(),
