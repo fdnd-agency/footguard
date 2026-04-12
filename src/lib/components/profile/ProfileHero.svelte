@@ -1,9 +1,9 @@
 <script>
-  let { user, isEditing = false, formData, onFieldChange, avatarId, onAvatarUpload } = $props();
+  let { user, isEditMode = false, formData, draft = null, onFieldChange, avatarId, onAvatarUpload } = $props();
 
-  // Show live edited values, and fallback to saved user data when needed.
-  const profileName = $derived(formData?.name ?? user?.name ?? 'Unknown user');
-  const profession = $derived(formData?.profession ?? user?.profession ?? 'Unknown profession');
+  // Use `||` so empty formData (SSR / no-JS before $effect) still shows user.* ; `??` would keep "".
+  const profileName = $derived(formData?.name || user?.name || 'Unknown user');
+  const profession = $derived(formData?.profession || user?.profession || 'Unknown profession');
 
   // Build avatar URL from uploaded preview id or existing user photo id.
   const avatarSrc = $derived(
@@ -32,7 +32,7 @@
 <section class="profile-hero">
   <div class="avatar-wrap">
     <img class="profile-avatar" src={avatarSrc} alt={`Avatar of ${profileName}`} />
-    {#if isEditing}
+    {#if isEditMode}
       <button class="avatar-upload" type="button" onclick={openFilePicker}>Change photo</button>
       <input
         bind:this={fileInput}
@@ -44,23 +44,20 @@
     {/if}
   </div>
   <div class="profile-info">
-    {#if isEditing}
+    {#if isEditMode}
       <label class="sr-only" for="profile-name-input">Name</label>
       <input
         id="profile-name-input"
         class="name-input"
         type="text"
-        value={formData?.name ?? ''}
+        name="name"
+        value={formData?.name || draft?.name || user?.name || ''}
         oninput={(event) => onFieldChange?.('name', event.currentTarget.value)}
       />
-      <label class="sr-only" for="profile-profession-input">Profession</label>
-      <input
-        id="profile-profession-input"
-        class="profession-input"
-        type="text"
-        value={formData?.profession ?? ''}
-        oninput={(event) => onFieldChange?.('profession', event.currentTarget.value)}
-      />
+      <p class="profession-hero-note">
+        {formData?.profession || draft?.profession || user?.profession || '—'}
+      </p>
+      <span class="profession-hero-hint">Profession is edited under General information.</span>
     {:else}
       <h2>{profileName}</h2>
       <p>{profession}</p>
@@ -71,6 +68,8 @@
 <style>
   .profile-hero {
     display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
     justify-items: center;
     padding: 0 0 var(--spacing-lg);
 
@@ -134,9 +133,13 @@
     }
 
     .profile-info {
+      grid-column: 1;
+      grid-row: 2;
       margin-top: 3.5rem;
       text-align: center;
       padding-inline: var(--spacing-md);
+      position: relative;
+      z-index: 1;
 
       h2 {
         color: var(--blue-700);
@@ -147,8 +150,7 @@
         color: var(--grey-400);
       }
 
-      .name-input,
-      .profession-input {
+      .name-input {
         width: min(16rem, 90vw);
         margin: 0 auto;
         border: 2px solid var(--blue-500);
@@ -156,16 +158,22 @@
         padding: var(--spacing-xs) var(--spacing-sm);
         background: var(--blue-100);
         text-align: center;
-      }
-
-      .name-input {
         font-weight: 700;
         color: var(--blue-700);
       }
 
-      .profession-input {
+      .profession-hero-note {
         margin-top: var(--spacing-xs);
         color: var(--grey-500);
+        font-size: 1rem;
+      }
+
+      .profession-hero-hint {
+        display: block;
+        margin-top: 0.25rem;
+        font-size: 0.75rem;
+        color: var(--grey-400);
+        max-width: 18rem;
       }
     }
   }
