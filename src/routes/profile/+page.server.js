@@ -1,5 +1,16 @@
+import { fail, redirect } from '@sveltejs/kit'
 import { env } from '$env/dynamic/public'
 import { env as privateEnv } from '$env/dynamic/private'
+
+function formFieldsFromUser(sourceUser = {}) {
+  return {
+    name: sourceUser?.name ?? '',
+    role: Array.isArray(sourceUser?.role) ? sourceUser.role.join(', ') : (sourceUser?.role ?? ''),
+    institute: sourceUser?.institute ?? '',
+    profession: sourceUser?.profession ?? '',
+    email: sourceUser?.email ?? ''
+  }
+}
 
 // This is my Directus base url.
 const DIRECTUS_URL = env.PUBLIC_DIRECTUS_URL || 'https://fdnd-agency.directus.app'
@@ -9,8 +20,11 @@ const DIRECTUS_TOKEN = privateEnv.DIRECTUS_TOKEN
 // This load run when profile page open.
 // Here i get current user data from Directus by email,
 // so page show real latest profile info.
-export async function load({ fetch, locals }) {
+export async function load({ fetch, locals, url }) {
   const sessionUser = locals.user
+  const isEditMode = url.searchParams.has('edit')
+  const saved = url.searchParams.get('saved') === '1'
+  const saveWarning = url.searchParams.get('warning') ?? ''
 
   // Get user by exact email from session.
   const usersResponse = await fetch(
@@ -20,15 +34,29 @@ export async function load({ fetch, locals }) {
 
   // If request fail, i fallback to session user.
   if (!usersResponse.ok) {
-    return { user: sessionUser }
+    const user = sessionUser
+    return {
+      user,
+      isEditMode,
+      saved,
+      saveWarning,
+      ...(isEditMode ? { editForm: formFieldsFromUser(user) } : {})
+    }
   }
 
   // Directus return user list in data array.
   const usersResult = await usersResponse.json()
   const [user] = usersResult?.data ?? []
+  const resolvedUser = user ?? sessionUser
 
   // If user found use it, else use session user.
-  return { user: user ?? sessionUser }
+  return {
+    user: resolvedUser,
+    isEditMode,
+    saved,
+    saveWarning,
+    ...(isEditMode ? { editForm: formFieldsFromUser(resolvedUser) } : {})
+  }
 }
 
 // Small helper so i can PATCH user fields without repeating same code.
@@ -48,17 +76,17 @@ export const actions = {
   saveProfile: async ({ request, fetch, locals }) => {
     const sessionUser = locals.user
     // Must be logged in.
-    if (!sessionUser) return { ok: false, message: 'Unauthorized' }
+    if (!sessionUser) return fail(401, { message: 'Unauthorized' })
     // Token must exist on server.
-    if (!DIRECTUS_TOKEN) return { ok: false, message: 'Server config missing' }
+    if (!DIRECTUS_TOKEN) return fail(500, { message: 'Server config missing' })
 
     // Read JSON body from frontend.
     const form = await request.formData().catch(() => null)
-    if (!form) return { ok: false, message: 'Invalid request body' }
+    if (!form) return fail(400, { message: 'Invalid request body' })
 
     // I use session user id for secure update.
     const userId = sessionUser.id
-    if (!userId) return { ok: false, message: 'Could not resolve user id for update' }
+    if (!userId) return fail(400, { message: 'Could not resolve user id for update' })
 
     // Fields that can be edited in profile form.
     const name = String(form.get('name') ?? '')
@@ -76,7 +104,7 @@ export const actions = {
     const updateResponse = await patchUser({ fetch, userId, payload: corePayload })
     if (!updateResponse.ok) {
       const details = await updateResponse.text().catch(() => '')
-      return { ok: false, message: 'Failed to save core profile fields', details }
+      return fail(400, { message: 'Failed to save core profile fields', details })
     }
 
     // Optional warnings list (for non blocking fields).
@@ -91,9 +119,13 @@ export const actions = {
       if (!emailResponse.ok) warnings.push('Email could not be updated')
     }
 
-    // Return success response to frontend.
-    const result = await updateResponse.json().catch(() => ({}))
-    return { ok: true, data: result?.data ?? corePayload, warnings }
+    await updateResponse.json().catch(() => ({}))
+
+    const warn = warnings[0]
+    if (warn) {
+      throw redirect(303, `/profile?saved=1&warning=${encodeURIComponent(warn)}`)
+    }
+    throw redirect(303, '/profile?saved=1')
   },
 
   // This action upload avatar photo file.
