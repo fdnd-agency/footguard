@@ -1,19 +1,21 @@
 <script>
-  let { isEditing = false, disabled = false, onStartEdit, onSave, onCancel } = $props();
+  import { resolve } from '$app/paths'
+
+  let { isEditMode = false, disabled = false, formId = '' } = $props()
 </script>
 
 <div class="top-actions">
-  {#if !isEditing}
-    <button class="btn btn-edit" type="button" onclick={onStartEdit} {disabled}>
+  {#if !isEditMode}
+    <a class="btn btn-edit" href={resolve('/profile?edit=1')} aria-disabled={disabled || undefined}>
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
         <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
         <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
       </svg>
       Edit Profile
-    </button>
+    </a>
   {:else}
-    <button class="btn btn-cancel" type="button" onclick={onCancel} {disabled}>Cancel</button>
-    <button class="btn btn-save" type="button" onclick={onSave} {disabled}>
+    <a class="btn btn-cancel" href={resolve('/profile')} aria-disabled={disabled || undefined}>Cancel</a>
+    <button class="btn btn-save" type="submit" form={formId} {disabled}>
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
         <polyline points="20 6 9 17 4 12" />
       </svg>
@@ -42,10 +44,13 @@
       align-items: center;
       gap: var(--spacing-xs);
       transition: background var(--transition-base);
+      text-decoration: none;
 
-      &:disabled {
+      &:disabled,
+      &[aria-disabled='true'] {
         opacity: 0.75;
         cursor: not-allowed;
+        pointer-events: none;
       }
 
       &:focus-visible {
@@ -58,7 +63,7 @@
       background: rgb(255 255 255 / 25%);
       color: var(--background-color-primary);
 
-      &:hover:not(:disabled) {
+      &:hover:not(:disabled):not([aria-disabled='true']) {
         background: rgb(255 255 255 / 40%);
       }
     }
@@ -79,7 +84,7 @@
       border: 1.5px solid rgb(255 255 255 / 50%);
       color: var(--background-color-primary);
 
-      &:hover:not(:disabled) {
+      &:hover:not(:disabled):not([aria-disabled='true']) {
         background: rgb(255 255 255 / 28%);
       }
     }
