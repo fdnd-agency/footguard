@@ -20,7 +20,7 @@
         id="info-role"
         type="text"
         readonly
-        value={formData?.role || roleDisplay(user)}
+        value={formData?.role ?? roleDisplay(user)}
       />
     </label>
     <label for="info-institution">
@@ -31,8 +31,8 @@
         name={isEditMode ? 'institute' : undefined}
         readonly={!isEditMode}
         value={isEditMode
-          ? (formData?.institute || draft?.institute || user?.institute || '')
-          : (formData?.institute || user?.institute || '')}
+          ? (formData?.institute ?? draft?.institute ?? user?.institute ?? '')
+          : (formData?.institute ?? user?.institute ?? '')}
         oninput={(event) => onFieldChange?.('institute', event.currentTarget.value)}
       />
     </label>
@@ -44,8 +44,8 @@
         name={isEditMode ? 'profession' : undefined}
         readonly={!isEditMode}
         value={isEditMode
-          ? (formData?.profession || draft?.profession || user?.profession || '')
-          : (formData?.profession || user?.profession || '')}
+          ? (formData?.profession ?? draft?.profession ?? user?.profession ?? '')
+          : (formData?.profession ?? user?.profession ?? '')}
         oninput={(event) => onFieldChange?.('profession', event.currentTarget.value)}
       />
     </label>
@@ -57,8 +57,8 @@
         name={isEditMode ? 'email' : undefined}
         readonly={!isEditMode}
         value={isEditMode
-          ? (formData?.email || draft?.email || user?.email || '')
-          : (formData?.email || user?.email || '')}
+          ? (formData?.email ?? draft?.email ?? user?.email ?? '')
+          : (formData?.email ?? user?.email ?? '')}
         oninput={(event) => onFieldChange?.('email', event.currentTarget.value)}
       />
     </label>

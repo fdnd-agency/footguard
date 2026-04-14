@@ -51,11 +51,11 @@
         class="name-input"
         type="text"
         name="name"
-        value={formData?.name || draft?.name || user?.name || ''}
+        value={formData?.name ?? draft?.name ?? user?.name ?? ''}
         oninput={(event) => onFieldChange?.('name', event.currentTarget.value)}
       />
       <p class="profession-hero-note">
-        {formData?.profession || draft?.profession || user?.profession || '—'}
+        {formData?.profession ?? draft?.profession ?? user?.profession ?? '—'}
       </p>
       <span class="profession-hero-hint">Profession is edited under General information.</span>
     {:else}
