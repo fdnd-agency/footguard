@@ -15,10 +15,11 @@
 
   // Members array from group data, fallback to empty array
   // TODO: Replace with real member data from Directus when API is connected
-  $: members = group?.members?.length > 0 ? group.members : [
-  { id: 1, name: "Yamen Al", email: "yamen@example.com" },
-  { id: 2, name: "John Doe", email: "john@example.com" }
-];
+//   $: members = group?.members?.length > 0 ? group.members : [
+//   { id: 1, name: "Yamen Al", email: "yamen@example.com" },
+//   { id: 2, name: "John Doe", email: "john@example.com" }
+// ];
+  $: members = group?.members ?? [];
   $: memberCount = members.length > 0 ? members.length : (group?.memberCount ?? 0);
 
 
@@ -61,10 +62,13 @@
         </ul>
       {/if}
 
-      <!-- Add member button: dashed circle with plus icon next to avatars -->
-      <button class="btn-add" type="button" aria-label="Add team member">
-        +
-      </button>
+      <!-- Add member button: dashed circle with SVG plus icon next to avatars -->
+<!-- Using SVG instead of + text for sharper rendering and better scaling -->
+<button class="btn-add" type="button" aria-label="Add team member">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+  </svg>
+</button>
     </div>
 
     {#if previewMembers.length === 0}
@@ -137,7 +141,6 @@
     border: 2px dashed var(--grey-300);
     background: transparent;
     color: var(--grey-400);
-    font-size: 1.25rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -145,9 +148,10 @@
     transition: border-color var(--transition-fast), color var(--transition-fast);
     flex-shrink: 0;
 
-    &:hover {
-      border-color: var(--grey-500);
-      color: var(--grey-600);
+    svg {
+    width: 1.25rem;
+    height: 1.25rem;
+
     }
   }
 
