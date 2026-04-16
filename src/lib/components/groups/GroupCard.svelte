@@ -7,8 +7,10 @@
 
   // Group data is passed from the groups page
   export let group;
+  export let form; // Form action result passed down from +page.svelte for invite form feedback
 
   // Fallback values keep the component safe while API data is still incomplete
+  $: groupId = group?.id;
   $: groupName = group?.name ?? "Unnamed group";
   $: groupStatus = group?.status ?? "Unknown";
   $: conditionLabel = group?.conditionlabel ?? "General";
@@ -20,6 +22,7 @@
 //   { id: 2, name: "John Doe", email: "john@example.com" }
 // ];
   $: members = group?.members ?? [];
+  $: pendingInvites = group?.pendingInvites ?? [];
   $: memberCount = members.length > 0 ? members.length : (group?.memberCount ?? 0);
 
 
@@ -76,7 +79,11 @@
       <p class="members-empty">No members available yet.</p>
     {/if}
 
-    <GroupInviteForm />
+    <GroupInviteForm
+     groupId={groupId}
+     pendingInvites={pendingInvites}
+      {form}
+    />
   </section>
 
   <!-- Expandable dropdown showing full member list -->

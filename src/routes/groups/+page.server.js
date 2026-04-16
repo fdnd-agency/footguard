@@ -3,6 +3,7 @@
 // The API token stays secure because this code only runs on the server.
 
 import { fetchGroups, inviteUserToGroup, getPendingInvites } from '$lib/server/groups.js'
+import { sendGroupInviteEmail } from '$lib/server/email.js'
 import { error, fail } from '@sveltejs/kit'
 
 /** @type {import('./$types').PageServerLoad} */
@@ -43,7 +44,7 @@ export const actions = {
    *
    * @type {import('./$types').Actions}
    */
-  inviteUser: async ({ request, locals }) => {
+  inviteUser: async ({ request, locals, url }) => {
     const data = await request.formData()
     const email = data.get('email')?.toString().trim()
     const groupId = data.get('groupId')?.toString()
@@ -72,6 +73,17 @@ export const actions = {
     try {
       // Call the server function to create the invite in Directus
       await inviteUserToGroup(groupId, email, invitedByUserId)
+
+      const invitedGroup = (await fetchGroups()).find((group) => group.id === groupId)
+      const groupName = invitedGroup?.name ?? 'your group'
+
+      const inviteLink = `${url.origin}/groups/invite?groupId=${groupId}&email=${encodeURIComponent(email)}`
+
+      await sendGroupInviteEmail({
+        to: email,
+        inviteLink,
+        groupName
+      })
 
       // Return success data so the UI can update without a full page reload
       return {
