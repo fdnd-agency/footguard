@@ -96,7 +96,7 @@ export async function getGroupMembers(groupId) {
  */
 export async function findUserByEmail(email) {
   // Search in footguard_users — fields are id, name, email (no first/last name split)
-  const url = `${DIRECTUS_URL}/items/footguard_users?filter[email][_eq]=${encodeURIComponent(email)}&fields=id,email,name&limit=1`
+  const url = `${DIRECTUS_URL}/items/footguard_users?filter[email][_eq]=${encodeURIComponent(email)}&fields=id,email,name,role&limit=1`
 
   let response
   try {
@@ -132,9 +132,7 @@ export async function findUserByEmail(email) {
  * @returns {Promise<object>} The created member record
  * @throws {Error} If the user is already a member or the API call fails
  */
-export async function addUserToGroup(groupId, userId, addedByUserId) {
-  // Directly create the member record in footguard_group_members.
-  // Directus will return an error if a unique constraint is violated.
+export async function addUserToGroup(groupId, userId, addedByUserId, userRole) {
   const createUrl = `${DIRECTUS_URL}/items/footguard_group_members`
 
   let createResponse
@@ -146,8 +144,10 @@ export async function addUserToGroup(groupId, userId, addedByUserId) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        workgroup_id: Number(groupId), // Directus expects an integer for this field
-        user_id: userId, // UUID string for the Directus user
+        workgroup_id: Number(groupId),
+        user_id: userId,
+        // Use the user's role from footguard_users, fall back to 'Viewer'
+        member_role: userRole ?? 'Viewer',
         membership_status: 'active',
         joined_at: new Date().toISOString(),
         updated_by_user_id: addedByUserId ? Number(addedByUserId) : null
@@ -159,12 +159,9 @@ export async function addUserToGroup(groupId, userId, addedByUserId) {
 
   if (!createResponse.ok) {
     const errorBody = await createResponse.text()
-
-    // Give a friendly message if the user is already a member
     if (errorBody.includes('unique') || errorBody.includes('duplicate')) {
       throw new Error('This user is already a member of this group.')
     }
-
     throw new Error(
       `Directus API error while adding member: ${createResponse.status} - ${errorBody}`
     )

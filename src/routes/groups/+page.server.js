@@ -89,8 +89,23 @@ export const actions = {
       }
 
       // Step 2: Add the user directly to the group using their Directus user ID
-      await addUserToGroup(groupId, user.id, addedByUserId)
+      // Extract the first role from the array e.g. ["Super Admin"] -> "Super Admin"
+      const rawRole = Array.isArray(user.role) ? user.role[0] : user.role
 
+      // Map footguard_users role values to footguard_group_members member_role values
+      // footguard_users uses: Super Admin, Admin, Assessor, Guest
+      // footguard_group_members uses: Super Admin, Admin, Assessor, Viewer
+      const roleMap = {
+        'super admin': 'Super Admin',
+        admin: 'Admin',
+        assessor: 'Assessor',
+        guest: 'Viewer' // Guest maps to Viewer as closest equivalent
+      }
+
+      // Fall back to 'Viewer' if the role is not recognized
+      const userRole = roleMap[rawRole?.toLowerCase()] ?? 'Viewer'
+
+      await addUserToGroup(groupId, user.id, addedByUserId, userRole)
       // footguard_users has a single 'name' field, not first_name + last_name
       const userName = user.name || email
 
