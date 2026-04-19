@@ -15,14 +15,8 @@
   $: groupStatus = group?.status ?? "Unknown";
   $: conditionLabel = group?.conditionlabel ?? "General";
 
-  // Members array from group data, fallback to empty array
-  // TODO: Replace with real member data from Directus when API is connected
-//   $: members = group?.members?.length > 0 ? group.members : [
-//   { id: 1, name: "Yamen Al", email: "yamen@example.com" },
-//   { id: 2, name: "John Doe", email: "john@example.com" }
-// ];
+// Members array from group data — now populated from footguard_group_members
   $: members = group?.members ?? [];
-  $: pendingInvites = group?.pendingInvites ?? [];
   $: memberCount = members.length > 0 ? members.length : (group?.memberCount ?? 0);
 
 
@@ -34,10 +28,11 @@
 
   // Create temporary preview items with stable ids for rendering
   $: previewMembers =
-    memberCount > 0
+     memberCount > 0
       ? Array.from({ length: Math.min(memberCount, MAX_PREVIEW_MEMBERS) }, (_, index) => ({
           id: index + 1,
-          name: null // Name is not available yet until member API data is connected
+          // Use the real member name if available
+          name: members[index]?.name ?? null
         }))
       : [];
 </script>
@@ -65,8 +60,7 @@
         </ul>
       {/if}
 
-      <!-- Add member button: dashed circle with SVG plus icon next to avatars -->
-<!-- Using SVG instead of + text for sharper rendering and better scaling -->
+  <!-- Dashed circle add button next to avatars -->
 <button class="btn-add" type="button" aria-label="Add team member">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
     <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
@@ -79,18 +73,22 @@
       <p class="members-empty">No members available yet.</p>
     {/if}
 
+    <!--
+      GroupInviteForm handles adding existing Directus users by email.
+      Passes members so the form can show the current member list locally.
+      Passes form for server action result feedback per group.
+    -->
     <GroupInviteForm
-     groupId={groupId}
-     pendingInvites={pendingInvites}
+      groupId={groupId}
+      members={members}
       {form}
     />
   </section>
 
-  <!-- Expandable dropdown showing full member list -->
+  <!-- Expandable dropdown showing the full member list with details -->
   <details>
     <summary>
-       <!-- Member count is currently based on fallback data -->
-       <span>{memberCount} member{isPlural ? 's' : ''}</span>
+      <span>{memberCount} member{isPlural ? 's' : ''}</span>
       <span class="chevron">
         <DetailsUpIcon />
       </span>

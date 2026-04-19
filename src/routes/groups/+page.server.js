@@ -2,8 +2,12 @@
 // Fetches workgroup data from Directus before the page renders.
 // The API token stays secure because this code only runs on the server.
 
-import { fetchGroups, inviteUserToGroup, getPendingInvites } from '$lib/server/groups.js'
-import { sendGroupInviteEmail } from '$lib/server/email.js'
+import {
+  fetchGroups,
+  findUserByEmail,
+  addUserToGroup,
+  getGroupMembers
+} from '$lib/server/groups.js'
 import { error, fail } from '@sveltejs/kit'
 
 /** @type {import('./$types').PageServerLoad} */
@@ -12,22 +16,22 @@ export async function load() {
     const groups = await fetchGroups()
 
     // Fetch pending invites for each group in parallel
-    // so the UI can show pending badges on page load
-    const groupsWithInvites = await Promise.all(
+    // can show member names and avatars on page load
+    const groupsWithMembers = await Promise.all(
       groups.map(async (group) => {
         try {
-          const pendingInvites = await getPendingInvites(group.id)
-          return { ...group, pendingInvites }
+          const members = await getGroupMembers(group.id)
+          return { ...group, members, memberCount: members.length }
         } catch {
           // If fetching invites fails for one group, don't crash the whole page
           // just return the group with an empty pending list
-          return { ...group, pendingInvites: [] }
+          return { ...group, members: [], memberCount: 0 }
         }
       })
     )
-    // Pass groups to +page.svelte via the `data` prop
+    // Pass groups (with their members) to +page.svelte via the data prop
     return {
-      groups: groupsWithInvites,
+      groups: groupsWithMembers,
       loadError: null
     }
   } catch {
@@ -38,20 +42,22 @@ export async function load() {
 
 export const actions = {
   /**
-   * Handles the invite form submission from GroupInviteForm.svelte.
-   * Validates the email, then calls inviteUserToGroup() to create
-   * a pending invite record in Directus footguard_group_invites.
+   * Handles adding an existing Directus user to a group by email.
+   * The admin types an email → we find the user → we add them directly.
+   * No email is sent, no pending step — the user is immediately a member.
+   *
+   * Steps:
+   * 1. Validate email and groupId
+   * 2. Look up the user in Directus by email via findUserByEmail()
+   * 3. Add their user_id to footguard_group_members via addUserToGroup()
    *
    * @type {import('./$types').Actions}
    */
-  inviteUser: async ({ request, locals, url }) => {
+  addMember: async ({ request, locals }) => {
     const data = await request.formData()
     const email = data.get('email')?.toString().trim()
     const groupId = data.get('groupId')?.toString()
-
-    // Get the current logged-in user ID from SvelteKit locals
-    // so we can store who sent the invite in invited_by_user_id
-    const invitedByUserId = locals.user?.id ?? null
+    const addedByUserId = locals.user?.id ?? null
 
     // --- Validation: check that both fields are present ---
     if (!email || !groupId) {
@@ -71,32 +77,36 @@ export const actions = {
     }
 
     try {
-      // Call the server function to create the invite in Directus
-      await inviteUserToGroup(groupId, email, invitedByUserId)
+      // Step 1: Find the user in Directus by their email address
+      const user = await findUserByEmail(email)
 
-      const invitedGroup = (await fetchGroups()).find((group) => group.id === groupId)
-      const groupName = invitedGroup?.name ?? 'your group'
+      // If no user found, the admin cannot add someone who doesn't have an account
+      if (!user) {
+        return fail(404, {
+          groupId,
+          error: 'No user found with this email address. The user must have an account first.'
+        })
+      }
 
-      const inviteLink = `${url.origin}/groups/invite?groupId=${groupId}&email=${encodeURIComponent(email)}`
+      // Step 2: Add the user directly to the group using their Directus user ID
+      await addUserToGroup(groupId, user.id, addedByUserId)
 
-      await sendGroupInviteEmail({
-        to: email,
-        inviteLink,
-        groupName
-      })
+      // footguard_users has a single 'name' field, not first_name + last_name
+      const userName = user.name || email
 
-      // Return success data so the UI can update without a full page reload
+      // Return success so the UI updates without a full page reload
       return {
         success: true,
         groupId,
-        email
+        email,
+        userName
       }
     } catch (err) {
-      // Return a 500 failure with the error message from the server function
-      // e.g. duplicate invite error or Directus API error
+      // Return the error message from the server function
+      // e.g. "This user is already a member of this group."
       return fail(500, {
         groupId,
-        error: err.message || 'Failed to send invite. Please try again.'
+        error: err.message || 'Failed to add member. Please try again.'
       })
     }
   }

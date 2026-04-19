@@ -1,19 +1,17 @@
 <script>
   /**
    * GroupInviteForm component
-   * Handles email input, form submission via SvelteKit enhance,
-   * and displays success/error feedback and pending invites.
+   * Allows an admin to add an existing Directus user to a group by email.
+   * No invite email is sent — the user is directly added as an active member.
    */
   import { enhance } from '$app/forms'
 
    /** @type {string} - The ID of the group this form belongs to */
   export let groupId
 
-  /** @type {Array} - List of pending invites loaded from the server */
-  export let pendingInvites = []
+  /** @type {Array} - Current active members of this group */
+  export let members = []
 
-  /** @type {object|null} - Form action result passed down from +page.svelte */
-  export let form = null
 
   // Local state for the email input
   let email = ''
@@ -23,7 +21,7 @@
 
   // Local copy of pending invites so we can update the UI instantly
   // without waiting for a full page reload
-  let localPendingInvites = [...pendingInvites]
+  let localMembers = [...members]
 
    /**
    * Client-side email validation before the form is submitted.
@@ -39,10 +37,10 @@
     return ''
   }
 
-   /**
-   * Progressive enhancement handler for the invite form.
-   * Runs client-side validation first, then handles the server response
-   * to update the UI without a full page reload.
+  /**
+   * Progressive enhancement handler for the add member form.
+   * Validates on the client first, then handles the server response
+   * to update the member list instantly without a page reload.
    */
   function handleSubmit() {
     // Reset feedback state on every new submission
@@ -65,12 +63,12 @@
       if (result.type === 'success' && result.data?.groupId === groupId) {
         // Add the newly invited email to the local pending list immediately
         // so the user sees the update without waiting for a page reload
-        localPendingInvites = [
-          ...localPendingInvites,
+         localMembers = [
+          ...localMembers,
           {
             id: Date.now(), // temporary ID until the page reloads
-            email: result.data.email,
-            invite_status: 'pending'
+            name: result.data.userName,
+            email: result.data.email
           }
         ]
         localSuccess = true
@@ -92,13 +90,15 @@
   </script>
 
 
-<label for="invite-email">Invite via email</label>
-<form method="POST" action="?/inviteUser" use:enhance={handleSubmit}>
-  <!-- Hidden field to tell the server action which group this invite belongs to -->
+<label for="add-member-email">Add member by email</label>
+
+<!-- Form uses addMember action — no email is sent, user is directly added -->
+<form method="POST" action="?/addMember" use:enhance={handleSubmit}>
+  <!-- Hidden field so the server knows which group to add the member to -->
   <input type="hidden" name="groupId" value={groupId} />
 
-    <input
-    id="invite-email"
+   <input
+    id="add-member-email"
     name="email"
     type="email"
     placeholder="Enter email address"
@@ -106,8 +106,8 @@
     disabled={isSubmitting}
     required
   />
-    <button type="submit" disabled={isSubmitting}>
-    {isSubmitting ? 'Sending...' : 'Invite'}
+  <button type="submit" disabled={isSubmitting}>
+    {isSubmitting ? 'Adding...' : 'Add'}
   </button>
 </form>
 
@@ -116,18 +116,19 @@
   <p class="feedback error" role="alert">{localError}</p>
 {/if}
 
-<!-- Success feedback: shown briefly after a successful invite -->
+<!-- Success feedback: shown briefly after a member is successfully added -->
 {#if localSuccess}
-  <p class="feedback success" role="status">✓ Invite sent successfully!</p>
+  <p class="feedback success" role="status">✓ Member added successfully!</p>
 {/if}
 
-<!-- Pending invites list: shows all invites that are still waiting to be accepted -->
-{#if localPendingInvites.length > 0}
-  <ul class="pending-list">
-    {#each localPendingInvites as invite (invite.id)}
-      <li class="pending-item">
-        <span class="pending-email">{invite.email}</span>
-        <span class="pending-badge">Pending</span>
+<!-- Member list: shows all members that were added in this session -->
+{#if localMembers.length > 0}
+  <ul class="members-list">
+    {#each localMembers as member (member.id)}
+      <li class="member-item">
+        <!-- Show the member's full name, fall back to email if name is missing -->
+        <span class="member-name">{member.name || member.email}</span>
+        <span class="member-email">{member.email}</span>
       </li>
     {/each}
   </ul>
@@ -185,8 +186,8 @@
     background: var(--green-50, #f0fdf4);
   }
 
-   /* Pending invites list below the form */
-  .pending-list {
+  /* Member list shown below the form after adding */
+  .members-list {
     list-style: none;
     padding: 0;
     margin: var(--spacing-sm) 0 0;
@@ -195,7 +196,7 @@
     gap: var(--spacing-xs);
   }
 
-  .pending-item {
+   .member-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -204,17 +205,14 @@
     background: var(--grey-50, #f9fafb);
     border-radius: var(--radius-sm);
   }
-  .pending-email {
-    color: var(--grey-700);
+
+  .member-name {
+    color: var(--grey-800);
+    font-weight: 500;
   }
-  .pending-badge {
-    font-size: 0.7rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    color: var(--orange-700, #c2410c);
-    background: var(--orange-50, #fff7ed);
-    padding: 2px var(--spacing-xs);
-    border-radius: var(--radius-full, 9999px);
+
+  .member-email {
+    color: var(--grey-500);
   }
 
   @container invite-form (min-width: 42rem) {
