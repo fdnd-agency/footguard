@@ -5,12 +5,13 @@
   const profileName = $derived(formData?.name || user?.name || 'Unknown user');
   const profession = $derived(formData?.profession || user?.profession || 'Unknown profession');
 
-  // Build avatar URL from uploaded preview id or existing user photo id.
-  const avatarSrc = $derived(
-    (avatarId ?? user?.photo)
-      ? `https://fdnd-agency.directus.app/assets/${avatarId ?? user?.photo}`
-      : 'https://placehold.co/112x112'
-  );
+  const avatarSrc = $derived.by(() => {
+    const pending = avatarId
+    if (typeof pending === 'string' && pending.startsWith('data:image/')) return pending
+    const id = pending ?? user?.photo
+    if (id) return `https://fdnd-agency.directus.app/assets/${id}`
+    return 'https://placehold.co/112x112'
+  })
 
   // Reference to hidden file input used by "Change photo" button.
   let fileInput = $state();
@@ -91,15 +92,12 @@
       position: relative;
 
       .profile-avatar {
+        display: block;
         width: 6rem;
         height: 6rem;
         border-radius: var(--radius-full);
-        border: 3px solid var(--background-color-primary);
-        background: linear-gradient(145deg, var(--green-200), var(--blue-300));
-        color: var(--background-color-primary);
-        display: grid;
-        place-items: center;
-        box-shadow: var(--shadow-sm);
+        object-fit: cover;
+        object-position: center;
       }
 
       .avatar-upload {
@@ -117,7 +115,7 @@
         cursor: pointer;
 
         &:hover {
-          background: var(--blue-700);
+          background: var(--blue-400);
         }
 
         &:focus-visible {
