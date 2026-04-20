@@ -78,10 +78,12 @@
         setTimeout(() => (localSuccess = false), 3000)
       }
 
-      if (result.type === 'failure' && result.data?.groupId === groupId) {
-        // Show the error message returned from the server action
-        localError = result.data?.error || 'Something went wrong. Please try again.'
-      }
+      // Show error for this specific group OR any general error without groupId
+      if (result.type === 'failure') {
+    if (!result.data?.groupId || String(result.data?.groupId) === String(groupId)) {
+      localError = result.data?.error || 'Something went wrong. Please try again.'
+    }
+  }
 
       // Update the form store but keep the input values (don't reset the whole page)
       await update({ reset: false })

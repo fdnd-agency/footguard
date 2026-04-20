@@ -133,6 +133,36 @@ export async function findUserByEmail(email) {
  * @throws {Error} If the user is already a member or the API call fails
  */
 export async function addUserToGroup(groupId, userId, addedByUserId, userRole) {
+  // Step 1: Check if this user is already an active member of this group
+  const checkUrl = `${DIRECTUS_URL}/items/footguard_group_members?filter[workgroup_id][_eq]=${Number(groupId)}&filter[user_id][_eq]=${Number(userId)}&limit=1`
+
+  let checkResponse
+  try {
+    checkResponse = await fetch(checkUrl, {
+      headers: {
+        Authorization: `Bearer ${DIRECTUS_TOKEN}`,
+        'Content-Type': 'application/json'
+      }
+    })
+  } catch (networkError) {
+    throw new Error(`Network error while checking existing members: ${networkError.message}`)
+  }
+
+  if (!checkResponse.ok) {
+    const errorBody = await checkResponse.text()
+    throw new Error(
+      `Directus API error while checking members: ${checkResponse.status} - ${errorBody}`
+    )
+  }
+
+  const checkJson = await checkResponse.json()
+
+  // Block adding a user who is already a member of this group
+  if (checkJson.data.length > 0) {
+    throw new Error('This user is already a member of this group.')
+  }
+
+  // Step 2: Create the member record
   const createUrl = `${DIRECTUS_URL}/items/footguard_group_members`
 
   let createResponse
@@ -145,8 +175,7 @@ export async function addUserToGroup(groupId, userId, addedByUserId, userRole) {
       },
       body: JSON.stringify({
         workgroup_id: Number(groupId),
-        user_id: userId,
-        // Use the user's role from footguard_users, fall back to 'Viewer'
+        user_id: Number(userId),
         member_role: userRole ?? 'Viewer',
         membership_status: 'active',
         joined_at: new Date().toISOString(),
@@ -159,9 +188,6 @@ export async function addUserToGroup(groupId, userId, addedByUserId, userRole) {
 
   if (!createResponse.ok) {
     const errorBody = await createResponse.text()
-    if (errorBody.includes('unique') || errorBody.includes('duplicate')) {
-      throw new Error('This user is already a member of this group.')
-    }
     throw new Error(
       `Directus API error while adding member: ${createResponse.status} - ${errorBody}`
     )
