@@ -1,7 +1,7 @@
 <script>
   import { browser } from '$app/environment'
-  import { deserialize, enhance } from '$app/forms'
-  import { goto, invalidateAll } from '$app/navigation'
+  import { enhance } from '$app/forms'
+  import { goto } from '$app/navigation'
   import { resolve } from '$app/paths'
   import GroupsLink from '$lib/components/profile/GroupsLink.svelte'
   import EditActions from '$lib/components/profile/EditActions.svelte'
@@ -15,6 +15,28 @@
       institute: sourceUser?.institute ?? '',
       profession: sourceUser?.profession ?? '',
       email: sourceUser?.email ?? ''
+    }
+  }
+
+  const AVATAR_MAX_EDGE = 800
+  const AVATAR_JPEG_QUALITY = 0.82
+
+  async function resizeImageFileToDataUrl(file) {
+    const bitmap = await createImageBitmap(file)
+    try {
+      const { width, height } = bitmap
+      const scale = Math.min(1, AVATAR_MAX_EDGE / Math.max(width, height))
+      const w = Math.max(1, Math.round(width * scale))
+      const h = Math.max(1, Math.round(height * scale))
+      const canvas = document.createElement('canvas')
+      canvas.width = w
+      canvas.height = h
+      const ctx = canvas.getContext('2d')
+      if (!ctx) throw new Error('Canvas not available')
+      ctx.drawImage(bitmap, 0, 0, w, h)
+      return canvas.toDataURL('image/jpeg', AVATAR_JPEG_QUALITY)
+    } finally {
+      bitmap.close()
     }
   }
 
@@ -48,11 +70,12 @@
 
     if (isEditMode && data.editForm) {
       formData = { ...data.editForm }
+      currentAvatarId = null
       return
     }
 
     syncFormDataFromProfile(profileUser)
-    if (profileUser.photo) currentAvatarId = profileUser.photo
+    currentAvatarId = null
   })
 
   /** Hide save banner after 10s by dropping `saved` / `warning` from the URL (client only). */
@@ -70,37 +93,13 @@
     formData = { ...formData, [field]: value }
   }
 
-  function parseAvatarActionResponse(responseBodyText) {
-    const actionResult = deserialize(responseBodyText)
-    if (actionResult.type === 'success') return actionResult.data
-    if (actionResult.type === 'failure') return actionResult.data
-    return null
-  }
-
   async function uploadAvatar(imageFile) {
-    if (isUploadingAvatar || !imageFile) return
+    if (!browser || isUploadingAvatar || !imageFile) return
     isUploadingAvatar = true
-
     try {
-      const multipartBody = new FormData()
-      multipartBody.append('avatar', imageFile)
-
-      const uploadResponse = await fetch('/profile?/uploadAvatar', {
-        method: 'POST',
-        headers: { accept: 'application/json' },
-        body: multipartBody
-      })
-
-      const uploadResult = parseAvatarActionResponse(await uploadResponse.text())
-      if (!uploadResult?.ok || !uploadResult?.photo) {
-        showTransientToast(uploadResult?.message || 'Could not upload profile photo')
-        return
-      }
-
-      currentAvatarId = uploadResult.photo
-      if (!isEditMode) await invalidateAll()
+      currentAvatarId = await resizeImageFileToDataUrl(imageFile)
     } catch {
-      showTransientToast('Could not upload profile photo')
+      showTransientToast('Could not process profile photo')
     } finally {
       isUploadingAvatar = false
     }
@@ -139,6 +138,7 @@
         }}
       >
         <EditActions isEditMode={true} formId="profile-edit-form" disabled={savePending} />
+        <input type="hidden" name="photo" value={currentAvatarId ?? ''} />
         <div class="profile-body">
           <ProfileHero
             user={profileUser}
@@ -167,7 +167,7 @@
           {formData}
           draft={null}
           {onFieldChange}
-          avatarId={currentAvatarId}
+          avatarId={null}
           onAvatarUpload={uploadAvatar}
         />
         <ProfileInfo user={profileUser} isEditMode={false} {formData} draft={null} {onFieldChange} />
