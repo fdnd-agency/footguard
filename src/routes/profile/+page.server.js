@@ -101,12 +101,8 @@ export const actions = {
     }
 
     const photoRaw = form.get('photo')
-    if (typeof photoRaw === 'string' && photoRaw.startsWith('data:image/')) {
-      const photoId = await uploadDataUrlToDirectusFile(photoRaw, fetch)
-      if (!photoId) {
-        return fail(400, { message: 'Could not save profile photo' })
-      }
-      corePayload.photo = photoId
+    if (typeof photoRaw === 'string' && photoRaw.trim()) {
+      corePayload.photo = photoRaw.trim()
     }
 
     // Update the input fields in Directus.
@@ -135,5 +131,34 @@ export const actions = {
       throw redirect(303, `/profile?saved=1&warning=${encodeURIComponent(warn)}`)
     }
     throw redirect(303, '/profile?saved=1')
+  },
+
+  uploadAvatar: async ({ request, fetch, locals }) => {
+    const sessionUser = locals.user
+    if (!sessionUser) return { ok: false, message: 'Unauthorized' }
+    if (!DIRECTUS_TOKEN) return { ok: false, message: 'Server config missing' }
+
+    const form = await request.formData().catch(() => null)
+    const avatar = form?.get('avatar')
+    if (!(avatar instanceof File)) return { ok: false, message: 'No avatar file uploaded' }
+
+    const uploadBody = new FormData()
+    uploadBody.append('file', avatar)
+    const uploadResponse = await fetch(`${DIRECTUS_URL}/files`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${DIRECTUS_TOKEN}` },
+      body: uploadBody
+    })
+
+    if (!uploadResponse.ok) {
+      const details = await uploadResponse.text().catch(() => '')
+      return { ok: false, message: 'Avatar upload failed', details }
+    }
+
+    const uploadData = await uploadResponse.json().catch(() => null)
+    const photoId = uploadData?.data?.id
+    if (!photoId) return { ok: false, message: 'Upload succeeded but file id missing' }
+
+    return { ok: true, photo: photoId }
   }
 }
