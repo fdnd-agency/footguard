@@ -170,23 +170,24 @@
     }
   }
 }
- /* Feedback messages for success and error states */
-  .feedback {
-    font-size: 0.8rem;
-    margin: var(--spacing-xs) 0 0;
-    padding: var(--spacing-xs) var(--spacing-sm);
-    border-radius: var(--radius-sm);
-  }
+/* Feedback messages for error and success states */
+.feedback {
+  font-size: 0.8rem;
+  margin: var(--spacing-xs) 0 0;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
 
-  .feedback.error {
+  /* Nested CSS instead of repeating .feedback every time */
+  &.error {
     color: var(--red-700, #b91c1c);
     background: var(--red-50, #fef2f2);
   }
 
-   .feedback.success {
+  &.success {
     color: var(--green-700, #15803d);
     background: var(--green-50, #f0fdf4);
   }
+}
 
   /* Member list shown below the form after adding */
   .members-list {
