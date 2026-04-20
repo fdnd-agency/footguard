@@ -100,7 +100,16 @@ export const actions = {
       profession: String(profession).trim()
     }
 
-    // Update main fields in Directus.
+    const photoRaw = form.get('photo')
+    if (typeof photoRaw === 'string' && photoRaw.startsWith('data:image/')) {
+      const photoId = await uploadDataUrlToDirectusFile(photoRaw, fetch)
+      if (!photoId) {
+        return fail(400, { message: 'Could not save profile photo' })
+      }
+      corePayload.photo = photoId
+    }
+
+    // Update the input fields in Directus.
     const updateResponse = await patchUser({ fetch, userId, payload: corePayload })
     if (!updateResponse.ok) {
       const details = await updateResponse.text().catch(() => '')
@@ -126,52 +135,5 @@ export const actions = {
       throw redirect(303, `/profile?saved=1&warning=${encodeURIComponent(warn)}`)
     }
     throw redirect(303, '/profile?saved=1')
-  },
-
-  // This action upload avatar photo file.
-  // Called from: /profile?/uploadAvatar
-  uploadAvatar: async ({ request, fetch, locals }) => {
-    const sessionUser = locals.user
-    // Must be logged in.
-    if (!sessionUser) return { ok: false, message: 'Unauthorized' }
-    // Token must exist on server.
-    if (!DIRECTUS_TOKEN) return { ok: false, message: 'Server config missing' }
-
-    // I use session user id for secure update.
-    const userId = sessionUser.id
-    if (!userId) return { ok: false, message: 'Could not resolve user id for update' }
-
-    // Read form-data and get uploaded avatar file.
-    const form = await request.formData().catch(() => null)
-    const avatar = form?.get('avatar')
-    if (!(avatar instanceof File)) return { ok: false, message: 'No avatar file uploaded' }
-
-    // Upload file first to Directus files endpoint.
-    const uploadBody = new FormData()
-    uploadBody.append('file', avatar)
-    const uploadResponse = await fetch(`${DIRECTUS_URL}/files`, {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${DIRECTUS_TOKEN}` },
-      body: uploadBody
-    })
-
-    if (!uploadResponse.ok) {
-      const details = await uploadResponse.text().catch(() => '')
-      return { ok: false, message: 'Avatar upload failed', details }
-    }
-
-    const uploadData = await uploadResponse.json().catch(() => null)
-    const photoId = uploadData?.data?.id
-    if (!photoId) return { ok: false, message: 'Upload succeeded but file id missing' }
-
-    // Then save returned file id into user photo field.
-    const photoResponse = await patchUser({ fetch, userId, payload: { photo: photoId } })
-    if (!photoResponse.ok) {
-      const details = await photoResponse.text().catch(() => '')
-      return { ok: false, message: 'Avatar uploaded but profile photo update failed', details }
-    }
-
-    // Return photo id so frontend can show new image directly.
-    return { ok: true, photo: photoId }
   }
 }
