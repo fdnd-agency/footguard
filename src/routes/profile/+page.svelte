@@ -1,6 +1,6 @@
 <script>
   import { browser } from '$app/environment'
-  import { enhance } from '$app/forms'
+  import { deserialize, enhance } from '$app/forms'
   import { goto } from '$app/navigation'
   import { resolve } from '$app/paths'
   import GroupsLink from '$lib/components/profile/GroupsLink.svelte'
@@ -15,28 +15,6 @@
       institute: sourceUser?.institute ?? '',
       profession: sourceUser?.profession ?? '',
       email: sourceUser?.email ?? ''
-    }
-  }
-
-  const AVATAR_MAX_EDGE = 800
-  const AVATAR_JPEG_QUALITY = 0.82
-
-  async function resizeImageFileToDataUrl(file) {
-    const bitmap = await createImageBitmap(file)
-    try {
-      const { width, height } = bitmap
-      const scale = Math.min(1, AVATAR_MAX_EDGE / Math.max(width, height))
-      const w = Math.max(1, Math.round(width * scale))
-      const h = Math.max(1, Math.round(height * scale))
-      const canvas = document.createElement('canvas')
-      canvas.width = w
-      canvas.height = h
-      const ctx = canvas.getContext('2d')
-      if (!ctx) throw new Error('Canvas not available')
-      ctx.drawImage(bitmap, 0, 0, w, h)
-      return canvas.toDataURL('image/jpeg', AVATAR_JPEG_QUALITY)
-    } finally {
-      bitmap.close()
     }
   }
 
@@ -93,13 +71,35 @@
     formData = { ...formData, [field]: value }
   }
 
+  function parseAvatarActionResponse(responseBodyText) {
+    const actionResult = deserialize(responseBodyText)
+    if (actionResult.type === 'success') return actionResult.data
+    if (actionResult.type === 'failure') return actionResult.data
+    return null
+  }
+
   async function uploadAvatar(imageFile) {
     if (!browser || isUploadingAvatar || !imageFile) return
     isUploadingAvatar = true
     try {
-      currentAvatarId = await resizeImageFileToDataUrl(imageFile)
+      const multipartBody = new FormData()
+      multipartBody.append('avatar', imageFile)
+
+      const uploadResponse = await fetch('/profile?/uploadAvatar', {
+        method: 'POST',
+        headers: { accept: 'application/json' },
+        body: multipartBody
+      })
+
+      const uploadResult = parseAvatarActionResponse(await uploadResponse.text())
+      if (!uploadResult?.ok || !uploadResult?.photo) {
+        showTransientToast(uploadResult?.message || 'Could not upload profile photo')
+        return
+      }
+
+      currentAvatarId = uploadResult.photo
     } catch {
-      showTransientToast('Could not process profile photo')
+      showTransientToast('Could not upload profile photo')
     } finally {
       isUploadingAvatar = false
     }
