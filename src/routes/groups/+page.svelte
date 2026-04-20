@@ -75,6 +75,7 @@
     .groups-cards {
       display: flex;
       flex-wrap: wrap;
+      align-items: flex-start;
       gap: var(--spacing-lg);
       justify-content: flex-start;
     }
