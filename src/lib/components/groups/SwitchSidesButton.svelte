@@ -1,19 +1,25 @@
 <script>
   import SwitchSidesIcon from "$lib/assets/svg/SwitchSidesIcon.svelte";
 
-  /** Same-document hash (e.g. `#group-12-members`) so the card flips without JS via `:target` CSS. */
-  let { label = "Members", disabled = false, href } = $props();
+  /** Use `onclick` to flip without changing the URL, or `href` for a normal link (optional). */
+  let { label = "Members", disabled = false, href, onclick } = $props();
 </script>
 
-{#if disabled || !href}
+{#if disabled || (!href && !onclick)}
   <span class="switch-sides-btn" aria-disabled="true">
     <span class="switch-sides-btn__icon" aria-hidden="true">
       <SwitchSidesIcon width={19} height={19} />
     </span>
     <span class="switch-sides-btn__text">{label}</span>
   </span>
+{:else if onclick}
+  <button type="button" class="switch-sides-btn" {onclick}>
+    <span class="switch-sides-btn__icon" aria-hidden="true">
+      <SwitchSidesIcon width={19} height={19} />
+    </span>
+    <span class="switch-sides-btn__text">{label}</span>
+  </button>
 {:else}
-  <!-- Caller builds `href` with `resolve()` (fragment navigation for progressive enhancement). -->
   <!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
   <a class="switch-sides-btn" {href}>
     <span class="switch-sides-btn__icon" aria-hidden="true">
@@ -29,6 +35,7 @@
     align-items: center;
     gap: var(--spacing-xs);
     margin: 0;
+    appearance: none;
     padding: var(--spacing-sm) var(--spacing-md);
     border: none;
     border-radius: 10px 0 0 10px;
@@ -55,7 +62,8 @@
       outline-offset: 2px;
     }
 
-    &[aria-disabled="true"] {
+    &[aria-disabled="true"],
+    &:disabled {
       opacity: 0.5;
       cursor: not-allowed;
       box-shadow: none;

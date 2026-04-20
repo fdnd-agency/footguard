@@ -17,12 +17,15 @@
     { id: 703, name: 'Sam ', role: 'Member', avatarUrl: PLACEHOLDER_AVATAR }
   ]
 
-  // Only input from the parent: which card we belong to, so “Back” can open the front face (`#group-7`, etc.).
-  let { groupId = '' } = $props()
+  // With `onBack` from GroupCard, “Back” is a button (no URL change). Without it, `groupId` builds an optional hash link.
+  let { groupId = '', onBack } = $props()
 
-  // Recomputes whenever `groupId` changes. Empty string → no link (button only).
   const backHref = $derived(
-    groupId !== '' && groupId != null ? `${resolve('/groups')}#group-${groupId}` : ''
+    onBack
+      ? ''
+      : groupId !== '' && groupId != null
+        ? `${resolve('/groups')}#group-${groupId}`
+        : ''
   )
 </script>
 
@@ -30,12 +33,12 @@
 <div class="card">
   <header class="header">
     <span class="group-name">{groupName}</span>
-    {#if backHref}
-      <!-- Real URL: eslint rule skipped because href is already built with `resolve()` above -->
+    {#if onBack}
+      <button type="button" class="back" onclick={onBack}>Back</button>
+    {:else if backHref}
       <!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
       <a class="back" href={backHref}>Back</a>
     {:else}
-      <!-- No `groupId`: still show Back visually, but it cannot navigate -->
       <button type="button" class="back">Back</button>
     {/if}
   </header>
@@ -107,8 +110,8 @@
       cursor: pointer;
       text-decoration: none;
 
-      /* Visible keyboard focus only on the real link (not the button fallback) */
-      &:is(a):focus-visible {
+      &:is(a):focus-visible,
+      &:focus-visible {
         outline: 2px solid var(--background-color-primary);
         outline-offset: 2px;
       }
