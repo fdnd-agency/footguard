@@ -1,166 +1,178 @@
 <script>
+  import { browser } from '$app/environment'
+  import { deserialize, enhance } from '$app/forms'
+  import { goto } from '$app/navigation'
+  import { resolve } from '$app/paths'
   import GroupsLink from '$lib/components/profile/GroupsLink.svelte'
   import EditActions from '$lib/components/profile/EditActions.svelte'
-  import ProfileHero from "$lib/components/profile/ProfileHero.svelte";
-  import ProfileInfo from "$lib/components/profile/ProfileInfo.svelte";
-  let { data } = $props();
-  const user = $derived(data.user);
+  import ProfileHero from '$lib/components/profile/ProfileHero.svelte'
+  import ProfileInfo from '$lib/components/profile/ProfileInfo.svelte'
 
-  // Build a safe UI model from the user object (prevents undefined values in inputs).
-  const createFormData = (sourceUser = {}) => ({
-    name: sourceUser?.name ?? '',
-    role: Array.isArray(sourceUser?.role) ? sourceUser.role.join(', ') : (sourceUser?.role ?? ''),
-    institute: sourceUser?.institute ?? '',
-    profession: sourceUser?.profession ?? '',
-    email: sourceUser?.email ?? ''
-  });
-
-  // UI mode flags for edit/save/avatar-upload actions.
-  let isEditing = $state(false);
-  let isSaving = $state(false);
-  let isUploadingAvatar = $state(false);
-  // Last saved values and currently edited values.
-  let savedProfile = $state(createFormData());
-  let formData = $state(createFormData());
-  // Local avatar id so uploaded photo appears immediately.
-  let currentAvatarId = $state(null);
-  // Toast state and timer for temporary feedback messages.
-  let toastMessage = $state('');
-  let toastTimer;
-
-  // Sync local editable state from a user source.
-  function resetFromUser(sourceUser) {
-    const nextData = createFormData(sourceUser);
-    savedProfile = { ...nextData };
-    formData = { ...nextData };
+  function formFieldsFromUser(sourceUser = {}) {
+    return {
+      name: sourceUser?.name ?? '',
+      role: Array.isArray(sourceUser?.role) ? sourceUser.role.join(', ') : (sourceUser?.role ?? ''),
+      institute: sourceUser?.institute ?? '',
+      profession: sourceUser?.profession ?? '',
+      email: sourceUser?.email ?? ''
+    }
   }
 
-  // Initialize profile state once user data is available.
-  $effect(() => {
-    if (!savedProfile.email && user) {
-      resetFromUser(user);
-    }
-    if (!currentAvatarId && user?.photo) {
-      currentAvatarId = user.photo;
-    }
-  });
+  let { data, form } = $props()
 
-  // Update one field in the editable form state.
-  function onFieldChange(field, value) {
-    formData = { ...formData, [field]: value };
-  }
+  const profileUser = $derived(data.user)
+  const isEditMode = $derived(data.isEditMode)
+  const editFormDefaults = $derived(data.editForm ?? null)
 
-  // Show temporary feedback at the bottom of the page.
-  function showToast(message) {
-    toastMessage = message;
-    clearTimeout(toastTimer);
+  let savePending = $state(false)
+  let isUploadingAvatar = $state(false)
+  let formData = $state(formFieldsFromUser())
+  let currentAvatarId = $state(null)
+  let toastMessage = $state('')
+  let toastTimer
+
+  function showTransientToast(text) {
+    toastMessage = text
+    clearTimeout(toastTimer)
     toastTimer = setTimeout(() => {
-      toastMessage = '';
-    }, 2200);
+      toastMessage = ''
+    }, 2200)
   }
 
-  async function parseServerResult(response) {
-    const payload = await response.json().catch(() => null);
-    if (!payload) return null;
-    return payload?.data && payload?.type ? payload.data : payload;
+  function syncFormDataFromProfile(profileUserRecord) {
+    formData = { ...formFieldsFromUser(profileUserRecord) }
   }
 
-  // Enter edit mode and restore draft from last saved profile.
-  function startEdit() {
-    formData = { ...savedProfile };
-    isEditing = true;
+  $effect(() => {
+    if (!profileUser) return
+
+    if (isEditMode && data.editForm) {
+      formData = { ...data.editForm }
+      currentAvatarId = null
+      return
+    }
+
+    syncFormDataFromProfile(profileUser)
+    currentAvatarId = null
+  })
+
+  /** Hide save banner after 10s by dropping `saved` / `warning` from the URL (client only). */
+  $effect(() => {
+    if (!browser || !data.saved) return
+
+    const hideBannerTimer = setTimeout(() => {
+      goto(resolve('/profile'), { replaceState: true, noScroll: true })
+    }, 10_000)
+
+    return () => clearTimeout(hideBannerTimer)
+  })
+
+  function onFieldChange(field, value) {
+    formData = { ...formData, [field]: value }
   }
 
-  // Exit edit mode without persisting changes.
-  function cancelEdit() {
-    formData = { ...savedProfile };
-    isEditing = false;
-    showToast('Editing cancelled');
+  function parseAvatarActionResponse(responseBodyText) {
+    const actionResult = deserialize(responseBodyText)
+    if (actionResult.type === 'success') return actionResult.data
+    if (actionResult.type === 'failure') return actionResult.data
+    return null
   }
 
-  // Persist profile fields to server and keep local state in sync.
-  async function saveEdit() {
-    if (isSaving) return;
-    isSaving = true;
-
+  async function uploadAvatar(imageFile) {
+    if (!browser || isUploadingAvatar || !imageFile) return
+    isUploadingAvatar = true
     try {
-      const response = await fetch('/profile?/saveProfile', {
+      const multipartBody = new FormData()
+      multipartBody.append('avatar', imageFile)
+
+      const uploadResponse = await fetch('/profile?/uploadAvatar', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          userId: user?.id,
-          ...formData
-        })
-      });
+        headers: { accept: 'application/json' },
+        body: multipartBody
+      })
 
-      const result = await parseServerResult(response);
-      if (!response.ok || !result?.ok) {
-        showToast(result?.message || 'Could not save profile');
-        return;
+      const uploadResult = parseAvatarActionResponse(await uploadResponse.text())
+      if (!uploadResult?.ok || !uploadResult?.photo) {
+        showTransientToast(uploadResult?.message || 'Could not upload profile photo')
+        return
       }
 
-      savedProfile = { ...formData };
-      isEditing = false;
-      if (result?.warnings?.length) {
-        showToast(`Saved with warning: ${result.warnings[0]}`);
-        return;
-      }
-
-      showToast('Profile changes saved');
+      currentAvatarId = uploadResult.photo
     } catch {
-      showToast('Could not save profile');
+      showTransientToast('Could not upload profile photo')
     } finally {
-      isSaving = false;
+      isUploadingAvatar = false
     }
   }
-
-  // Upload avatar through the same /profile endpoint.
-  async function uploadAvatar(file) {
-    if (isUploadingAvatar || !file) return;
-    isUploadingAvatar = true;
-
-    try {
-      const payload = new FormData();
-      payload.append('avatar', file);
-
-      const response = await fetch('/profile?/uploadAvatar', {
-        method: 'POST',
-        body: payload
-      });
-
-      const result = await parseServerResult(response);
-      if (!response.ok || !result?.ok || !result?.photo) {
-        showToast(result?.message || 'Could not upload profile photo');
-        return;
-      }
-
-      currentAvatarId = result.photo;
-      showToast('Profile photo updated');
-    } catch {
-      showToast('Could not upload profile photo');
-    } finally {
-      isUploadingAvatar = false;
-    }
-  }
-
 </script>
-
-
 
 <section class="profile-page">
   <h1 class="profile-title">Profile</h1>
 
+  {#if form?.message}
+    <p class="form-error" role="alert">{form.message}</p>
+  {/if}
+
+  {#if data.saved}
+    <p class="save-banner" role="status">
+      Profile changes saved.
+      {#if data.saveWarning}
+        {data.saveWarning}
+      {/if}
+    </p>
+  {/if}
+
   <article class="profile-card">
-    <EditActions {isEditing} disabled={isSaving} onStartEdit={startEdit} onSave={saveEdit} onCancel={cancelEdit} />
-    <ProfileHero
-      {user}
-      {isEditing}
-      {formData}
-      {onFieldChange}
-      avatarId={currentAvatarId}
-      onAvatarUpload={uploadAvatar}
-    />
-    <ProfileInfo {isEditing} {formData} {onFieldChange} />
+    {#if isEditMode}
+      <form
+        id="profile-edit-form"
+        class="profile-edit-form"
+        method="POST"
+        action="?/saveProfile"
+        use:enhance={() => {
+          savePending = true
+          return async ({ update }) => {
+            await update()
+            savePending = false
+          }
+        }}
+      >
+        <EditActions isEditMode={true} formId="profile-edit-form" disabled={savePending} />
+        <input type="hidden" name="photo" value={currentAvatarId ?? ''} />
+        <div class="profile-body">
+          <ProfileHero
+            user={profileUser}
+            isEditMode={true}
+            {formData}
+            draft={editFormDefaults}
+            {onFieldChange}
+            avatarId={currentAvatarId}
+            onAvatarUpload={uploadAvatar}
+          />
+          <ProfileInfo
+            user={profileUser}
+            isEditMode={true}
+            {formData}
+            draft={editFormDefaults}
+            {onFieldChange}
+          />
+        </div>
+      </form>
+    {:else}
+      <EditActions isEditMode={false} />
+      <div class="profile-body">
+        <ProfileHero
+          user={profileUser}
+          isEditMode={false}
+          {formData}
+          draft={null}
+          {onFieldChange}
+          avatarId={null}
+          onAvatarUpload={uploadAvatar}
+        />
+        <ProfileInfo user={profileUser} isEditMode={false} {formData} draft={null} {onFieldChange} />
+      </div>
+    {/if}
     <GroupsLink />
   </article>
 
@@ -180,14 +192,43 @@
       margin-bottom: var(--spacing-md);
     }
 
+    .form-error {
+      max-width: 42rem;
+      margin: 0 auto var(--spacing-md);
+      padding: var(--spacing-sm) var(--spacing-md);
+      border-radius: var(--radius-sm);
+      background: var(--red-100);
+      color: var(--red-700);
+    }
+
+    .save-banner {
+      max-width: 42rem;
+      margin: 0 auto var(--spacing-md);
+      padding: var(--spacing-sm) var(--spacing-md);
+      border-radius: var(--radius-sm);
+      background: var(--blue-100);
+      color: var(--blue-700);
+    }
+
     .profile-card {
       position: relative;
       background: var(--background-color-primary);
       border-radius: var(--radius-lg);
       box-shadow: var(--shadow-sm);
-      overflow: hidden;
+      overflow: visible;
       container-type: inline-size;
       container-name: profile-card;
+    }
+
+    .profile-edit-form {
+      margin: 0;
+      padding: 0;
+      border: none;
+    }
+
+    .profile-body {
+      display: flow-root;
+      min-width: 0;
     }
 
     .toast {
