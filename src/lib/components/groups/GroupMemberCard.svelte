@@ -7,18 +7,18 @@
   // Builds correct app URLs when the site uses a base path (SvelteKit `resolve`).
   import { resolve } from '$app/paths'
 
-  // TODO(groups): Swap the constants below for real `groupName` and `members` from props when the API is ready.
-  const PLACEHOLDER_AVATAR = 'https://placehold.co/96x96/e2e8f0/64748b?text=%20'
-
-  const groupName = 'Prevention'
-  const members = [
-    { id: 701, name: 'Yamen Al Sharabi', role: 'Super Admin', avatarUrl: PLACEHOLDER_AVATAR },
-    { id: 702, name: 'Alex ', role: 'Member', avatarUrl: PLACEHOLDER_AVATAR },
-    { id: 703, name: 'Sam ', role: 'Member', avatarUrl: PLACEHOLDER_AVATAR }
-  ]
+  /**
+   * @typedef {{ id: number | string; name: string; role?: string; avatarUrl?: string }} MemberRow
+   */
 
   // With `onBack` from GroupCard, “Back” is a button (no URL change). Without it, `groupId` builds an optional hash link.
-  let { groupId = '', onBack } = $props()
+  let {
+    groupId = '',
+    onBack,
+    groupName = '',
+    /** @type {MemberRow[]} */
+    members = []
+  } = $props()
 
   const backHref = $derived(
     onBack
@@ -32,7 +32,7 @@
 <!-- Root: full-height column; header fixed style, list grows and scrolls -->
 <div class="card">
   <header class="header">
-    <span class="group-name">{groupName}</span>
+    <span class="group-name">{groupName || 'Unnamed group'}</span>
     {#if onBack}
       <button type="button" class="back" onclick={onBack}>Back</button>
     {:else if backHref}
