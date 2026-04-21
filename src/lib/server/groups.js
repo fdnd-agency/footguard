@@ -16,7 +16,7 @@ function buildDirectusAssetUrl(fileId) {
  */
 export async function fetchGroups() {
   const groupsUrl = `${DIRECTUS_URL}/items/footguard_workgroups?fields=id,group_name,status,condition_label,created_by_user_id`
-  const membersUrl = `${DIRECTUS_URL}/items/footguard_group_members?fields=id,workgroup_id,membership_status,user_id.id,user_id.name,user_id.email,user_id.photo&filter[membership_status][_eq]=active&limit=-1`
+  const membersUrl = `${DIRECTUS_URL}/items/footguard_group_members?fields=id,workgroup_id,member_role,membership_status,user_id.id,user_id.name,user_id.email,user_id.photo&filter[membership_status][_eq]=active&limit=-1`
 
   let groupsResponse
   let membersResponse
@@ -61,6 +61,7 @@ export async function fetchGroups() {
     const mappedMember = {
       id: user.id ?? member.id,
       name: user.name ?? 'Unknown',
+      role: member?.member_role ?? null,
       email: user.email ?? null,
       avatarUrl: buildDirectusAssetUrl(user.photo)
     }
