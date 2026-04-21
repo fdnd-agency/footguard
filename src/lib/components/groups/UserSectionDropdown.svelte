@@ -1,5 +1,5 @@
 <script>
-  import avatar from '$lib/assets/img/profile-avatar.webp';
+  import fallbackAvatar from '$lib/assets/img/profile-avatar.webp';
 
   // Members are passed from GroupCard.svelte
   // Each member can have: id, name, email, isEmpty (open slot)
@@ -12,8 +12,7 @@
    <ul>
     {#each members as member (member.id)}
        <li>
-        <!-- Member avatar image (managed via Directus, no changes needed here) -->
-        <img src={avatar} alt={member.name ?? 'Team member'} />
+        <img src={member.avatarUrl ?? fallbackAvatar} alt={member.name ?? 'Team member'} />
 
         <!-- Member name -->
         <span class="member-name">{member.name ?? 'Unknown'}</span>

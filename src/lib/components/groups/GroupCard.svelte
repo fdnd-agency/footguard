@@ -3,7 +3,7 @@
   import GroupCardHeader from "$lib/components/groups/GroupCardHeader.svelte";
   import GroupInviteForm from "$lib/components/groups/GroupInviteForm.svelte";
   import UserSectionDropdown from "$lib/components/groups/UserSectionDropdown.svelte";
-  import avatar from "$lib/assets/img/profile-avatar.webp";
+  import fallbackAvatar from "$lib/assets/img/profile-avatar.webp";
 
   // Group data is passed from the groups page
   export let group;
@@ -13,14 +13,9 @@
   $: groupStatus = group?.status ?? "Unknown";
   $: conditionLabel = group?.conditionlabel ?? "General";
 
-  // Members array from group data, fallback to empty array
-  // TODO: Replace with real member data from Directus when API is connected
-//   $: members = group?.members?.length > 0 ? group.members : [
-//   { id: 1, name: "Yamen Al", email: "yamen@example.com" },
-//   { id: 2, name: "John Doe", email: "john@example.com" }
-// ];
-  $: members = group?.members ?? [];
-  $: memberCount = members.length > 0 ? members.length : (group?.memberCount ?? 0);
+  // Members are fetched on the server and attached to each group
+  $: members = Array.isArray(group?.members) ? group.members : [];
+  $: memberCount = group?.memberCount ?? members.length;
 
 
  // Max number of member avatars to show in the preview
@@ -29,14 +24,8 @@
   // Reactive plural check to avoid magic numbers in the template
   $: isPlural = memberCount !== 1;
 
-  // Create temporary preview items with stable ids for rendering
-  $: previewMembers =
-    memberCount > 0
-      ? Array.from({ length: Math.min(memberCount, MAX_PREVIEW_MEMBERS) }, (_, index) => ({
-          id: index + 1,
-          name: null // Name is not available yet until member API data is connected
-        }))
-      : [];
+  // Show only first members in card preview row
+  $: previewMembers = members.slice(0, MAX_PREVIEW_MEMBERS);
 </script>
 
 <article>
@@ -55,8 +44,7 @@
         <ul aria-label="Current members preview">
           {#each previewMembers as member (member.id)}
             <li>
-              <!-- Avatar image is managed via Directus, no changes needed here -->
-              <img src={avatar} alt={member.name ?? `Group member ${member.id}`} />
+              <img src={member.avatarUrl ?? fallbackAvatar} alt={member.name ?? `Group member ${member.id}`} />
             </li>
           {/each}
         </ul>
