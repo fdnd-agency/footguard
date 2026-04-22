@@ -1,21 +1,27 @@
 <script>
   import groupHeaderPhoto from "$lib/assets/img/charcot-icon.webp";
+  import { PUBLIC_DIRECTUS_URL } from '$env/static/public'
+
 
   // Dynamic group data passed from GroupCard.svelte
   export let name;
   export let status;
   export let conditionLabel;
+  export let image;
 
   // Fallback values keep the header safe while API data is still incomplete
   $: groupName = name ?? "Unnamed group";
   $: groupStatus = status ?? "Unknown";
   $: groupConditionLabel = conditionLabel ?? "General";
+  $: groupImage = image 
+  ? `${PUBLIC_DIRECTUS_URL}/assets/${image}` 
+  : groupHeaderPhoto;
 </script>
 
 <section>
   <div class="header-photo">
     <!-- TODO: Replace static header image with group avatar from dynamic group data. -->
-    <img src={groupHeaderPhoto} alt="Group icon" />
+    <img src={groupImage} alt="Group icon" />
   </div>
   <h2>{groupName}</h2>
   <ul>

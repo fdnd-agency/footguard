@@ -36,6 +36,7 @@
   const faceIdSuffix = $derived(String(group?.id ?? "unknown"));
   const frontFaceId = $derived(`group-${faceIdSuffix}`);
   const membersFaceId = $derived(`group-${faceIdSuffix}-members`);
+  const groupImage = $derived(group?.image ?? null);
 
   const membersForBackFace = $derived(
     members.map((m) => ({
@@ -61,6 +62,7 @@
             name={groupName}
             status={groupStatus}
             conditionLabel={conditionLabel}
+            image={groupImage}
           />
           <SwitchSidesButton label="Members" onclick={flipToMembers} />
         </div>

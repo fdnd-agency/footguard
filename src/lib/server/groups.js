@@ -14,7 +14,7 @@ function buildDirectusAssetUrl(fileId) {
  * @throws {Error} If the API call fails
  */
 export async function fetchGroups() {
-  const groupsUrl = `${DIRECTUS_URL}/items/footguard_workgroups?fields=id,group_name,status,condition_label,created_by_user_id`
+  const groupsUrl = `${DIRECTUS_URL}/items/footguard_workgroups?fields=id,group_name,status,condition_label,created_by_user_id,image`
   const membersUrl = `${DIRECTUS_URL}/items/footguard_group_members?fields=id,workgroup_id,member_role,membership_status,user_id.id,user_id.name,user_id.email,user_id.photo&filter[membership_status][_eq]=active&limit=-1`
 
   let groupsResponse
@@ -79,7 +79,8 @@ export async function fetchGroups() {
       status: group.status,
       conditionlabel: group.condition_label ?? 'General', // fallback if null
       members,
-      memberCount: members.length
+      memberCount: members.length,
+      image: group.image ?? null
     }
   })
 }
