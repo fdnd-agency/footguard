@@ -129,6 +129,8 @@
         <GroupMemberCard
           {groupId}
           {groupName}
+          {memberCount}
+          memberLimit={group?.maxMembers ?? null}
           members={membersForBackFace}
           onBack={flipToFront}
         />

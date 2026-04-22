@@ -82,7 +82,7 @@ export async function getGroupMembers(groupId) {
     userId: member.user_id?.id,
     email: member.user_id?.email ?? '',
     name: member.user_id?.name || member.user_id?.email || 'Unknown',
-    role: member.member_role ?? 'vistar',
+    role: member.member_role ?? 'Vistar',
     joinedAt: member.joined_at
   }))
 }
