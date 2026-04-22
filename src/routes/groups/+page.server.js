@@ -2,11 +2,7 @@
 // Fetches workgroup data from Directus before the page renders.
 // The API token stays secure because this code only runs on the server.
 
-import {
-  fetchGroups,
-  findUserByEmail,
-  addUserToGroup
-} from '$lib/server/groups.js'
+import { fetchGroups, findUserByEmail, addUserToGroup } from '$lib/server/groups.js'
 import { error, fail } from '@sveltejs/kit'
 
 /** @type {import('./$types').PageServerLoad} */
