@@ -1,5 +1,5 @@
 <script>
-  import avatar from '$lib/assets/img/profile-avatar.webp';
+  import fallbackAvatar from '$lib/assets/img/profile-avatar.webp';
 
   // Members are passed from GroupCard.svelte
   // Each member can have: id, name, email, isEmpty (open slot)
@@ -12,11 +12,12 @@
    <ul>
     {#each members as member (member.id)}
        <li>
-        <!-- Member avatar image (managed via Directus, no changes needed here) -->
-        <img src={avatar} alt={member.name ?? 'Team member'} />
+        <img src={member.avatarUrl ?? fallbackAvatar} alt={member.name ?? 'Team member'} />
 
-        <!-- Member name -->
-        <span class="member-name">{member.name ?? 'Unknown'}</span>
+        <div class="member-meta">
+          <span class="member-name">{member.name ?? 'Unknown'}</span>
+          <span class="member-role">{member.role ?? 'No role assigned'}</span>
+        </div>
 
         <!-- Remove button: grey circle with minus icon only — no text, no red -->
         <form method="POST" action="?/remove">
@@ -78,6 +79,18 @@ li {
     color: var(--grey-700);
     font-weight: 500;    
     font-size: var(--font-size-sm);
+    text-align: left;
+  }
+
+  .member-meta {
+    display: grid;
+    gap: 0.125rem;
+  }
+
+  .member-role {
+    color: var(--grey-500);
+    font-size: var(--font-size-xs, 0.75rem);
+    line-height: 1.2;
     text-align: left;
   }
 

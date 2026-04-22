@@ -30,10 +30,8 @@
   const conditionLabel = $derived(group?.conditionlabel ?? "General");
 
   // Members array from group data — now populated from footguard_group_members
-  const members = $derived(group?.members ?? []);
-  const memberCount = $derived(
-    members.length > 0 ? members.length : (group?.memberCount ?? 0)
-  );
+  const members = $derived(Array.isArray(group?.members) ? group.members : []);
+  const memberCount = $derived(group?.memberCount ?? members.length);
 
   const faceIdSuffix = $derived(String(group?.id ?? "unknown"));
   const frontFaceId = $derived(`group-${faceIdSuffix}`);
@@ -50,14 +48,7 @@
 
   const isPlural = $derived(memberCount !== 1);
 
-  const previewMembers = $derived(
-    memberCount > 0
-      ? Array.from({ length: Math.min(memberCount, MAX_PREVIEW_MEMBERS) }, (_, index) => ({
-          id: index + 1,
-          name: members[index]?.name ?? null
-        }))
-      : []
-  );
+  const previewMembers = $derived(members.slice(0, MAX_PREVIEW_MEMBERS));
 </script>
 
 <article class="group-card-root">
@@ -85,7 +76,7 @@
                   <li>
                     <img
                       class="members-preview-av"
-                      src={previewAvatarFallback}
+                      src={member.avatarUrl ?? previewAvatarFallback}
                       alt={member.name ?? `Group member ${member.id}`}
                     />
                   </li>
