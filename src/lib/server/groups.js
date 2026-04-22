@@ -43,3 +43,26 @@ export async function fetchGroups() {
     memberCount: 0 // footguard_group_members is empty for now
   }))
 }
+
+/**
+ * Removes a group member record in Directus.
+ * Uses server-side service credentials only; caller must enforce user authz.
+ *
+ * @param {string} memberId
+ */
+export async function removeGroupMember(memberId) {
+  const response = await fetch(
+    `${DIRECTUS_URL}/items/footguard_group_members/${encodeURIComponent(memberId)}`,
+    {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${DIRECTUS_TOKEN}`
+      }
+    }
+  )
+
+  if (!response.ok) {
+    const details = await response.text().catch(() => '')
+    throw new Error(details || 'Could not remove member from Directus.')
+  }
+}
