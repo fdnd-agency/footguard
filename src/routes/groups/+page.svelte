@@ -6,6 +6,7 @@
   // `data` is injected by SvelteKit from +page.server.js
   // It contains the groups array fetched from Directus
   export let data;
+  export let form;
 
   // Extract groups safely (fallback to empty array)
   // Reactive statement: automatically updates `groups` whenever `data.groups` changes.
@@ -43,7 +44,7 @@
   <!-- Success state -->
   <div class="groups-cards">
     {#each groups as group (group.id)}
-      <GroupCard {group} />
+      <GroupCard {group} {form} />
     {/each}
   </div>
 {/if}
