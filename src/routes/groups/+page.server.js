@@ -5,8 +5,7 @@
 import {
   fetchGroups,
   findUserByEmail,
-  addUserToGroup,
-  getGroupMembers
+  addUserToGroup
 } from '$lib/server/groups.js'
 import { error, fail } from '@sveltejs/kit'
 
@@ -15,23 +14,9 @@ export async function load() {
   try {
     const groups = await fetchGroups()
 
-    // Fetch pending invites for each group in parallel
-    // can show member names and avatars on page load
-    const groupsWithMembers = await Promise.all(
-      groups.map(async (group) => {
-        try {
-          const members = await getGroupMembers(group.id)
-          return { ...group, members, memberCount: members.length }
-        } catch {
-          // If fetching invites fails for one group, don't crash the whole page
-          // just return the group with an empty pending list
-          return { ...group, members: [], memberCount: 0 }
-        }
-      })
-    )
     // Pass groups (with their members) to +page.svelte via the data prop
     return {
-      groups: groupsWithMembers,
+      groups,
       loadError: null
     }
   } catch {
