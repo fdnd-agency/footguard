@@ -65,7 +65,6 @@ Op dit moment gebeurt dit beoordelingsproces grotendeels via Excel, wat onoverzi
   Dit zorgt ervoor dat fouten vroegtijdig worden ontdekt en dat de codebase consistent blijft tussen verschillende developers.
   De pipeline draait automatisch en geeft feedback (pass/fail), zodat alleen werkende code gemerged wordt.
 
-
 ## Wat is nog niet af?
 
 - **Datamodel**
