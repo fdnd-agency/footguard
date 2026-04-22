@@ -197,6 +197,9 @@
     margin-bottom: var(--spacing-lg);
 
     ul {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-xs);
       margin: 0;
       padding: 0;
       list-style: none;
