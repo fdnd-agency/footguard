@@ -15,6 +15,7 @@
   let {
     groupId = '',
     onBack,
+    groupName = '',
     memberCount = 0,
     memberLimit = null,
     /** @type {MemberRow[]} */
@@ -35,7 +36,7 @@
   )
 </script>
 
-<!-- Main layout: header stays at the top, member list fills the remaining space and scrolls -->
+<!-- Root: full-height column; header fixed style, list grows and scrolls -->
 <div class="card">
   <header class="header">
     <span class="group-name">{headerCountLabel}</span>
@@ -95,8 +96,8 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: var(--spacing-md);
-      padding: 1rem 1.5rem;
+      gap: 0.875rem;
+      padding: 1rem 1.25rem;
       background: hsl(292.04deg 45.75% 51.57%);
       color: var(--grey-600);
     }
@@ -107,12 +108,15 @@
       align-items: center;
       justify-content: center;
       min-height: 3rem;
-      padding: 0.35rem 1.15rem;
-      border-radius: var(--radius-xl);
+      padding: 0 1.4rem;
+      border-radius: 1.1rem;
       background: var(--background-color-primary);
-      font-size: 1rem;
+      font-size: 1.2rem;
       font-weight: 700;
       line-height: 1.1;
+      color: #3b404c;
+      letter-spacing: 0.01em;
+      white-space: nowrap;
     }
 
     /* Same look for `<a>` and `<button>`; keyboard users get a clear focus ring on the link */
@@ -123,16 +127,17 @@
       justify-content: center;
       gap: 0.5rem;
       border: none;
-      border-radius: var(--radius-xl);
+      border-radius: 1.1rem;
       min-height: 3rem;
-      padding: 0.35rem 1rem;
+      padding: 0 1rem;
       background: var(--background-color-primary);
-      color: var(--grey-500);
+      color: #6f7684;
       font: inherit;
-      font-size: 1rem;
+      font-size: 1.2rem;
       font-weight: 700;
       cursor: pointer;
       text-decoration: none;
+      white-space: nowrap;
 
       &::before {
         content: '';
