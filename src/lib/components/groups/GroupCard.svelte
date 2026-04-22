@@ -120,7 +120,9 @@
               <DetailsUpIcon />
             </span>
           </summary>
-          <UserSectionDropdown {members} />
+          <div class="members-dropdown-panel">
+            <UserSectionDropdown {members} />
+          </div>
         </details>
       </div>
 
@@ -141,10 +143,18 @@
 
 <style>
   .group-card-root {
-    width: min(100%, 24rem);
+    position: relative;
+    width: 100%;
+    max-width: 24rem;
+    justify-self: start;
     container-type: inline-size;
     container-name: group-card;
     perspective: 1000px;
+  }
+
+  .group-card-root:has(.face--front details[open]) {
+    z-index: 30;
+    margin-bottom: 10rem;
   }
 
   .scene {
@@ -180,9 +190,16 @@
     transform: rotateY(180deg);
   }
 
+  .face--front {
+    overflow: visible;
+    border-radius: var(--radius-xl);
+  }
+
   .group-card-header {
     position: relative;
     flex-shrink: 0;
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    overflow: hidden;
 
     & :global(.switch-sides-btn) {
       position: absolute;
@@ -255,7 +272,36 @@
   }
 
   details {
+    position: relative;
     flex-shrink: 0;
+    overflow: visible;
+
+    & > .members-dropdown-panel {
+      display: none;
+    }
+
+    &[open] > .members-dropdown-panel {
+      display: block;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      z-index: 40;
+      max-height: 10rem;
+      overflow-y: auto;
+      background: var(--background-color-primary);
+      border-top: 1px solid var(--grey-100);
+      border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+      box-shadow: none;
+    }
+
+    &[open] summary .chevron {
+      transform: rotate(180deg);
+    }
+
+    &[open] summary {
+      border-radius: 0;
+    }
 
     summary {
       display: flex;
@@ -268,6 +314,7 @@
       color: var(--grey-600);
       list-style: none;
       cursor: pointer;
+      border-radius: 0 0 var(--radius-xl) var(--radius-xl);
 
       &::-webkit-details-marker {
         display: none;

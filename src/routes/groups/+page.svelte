@@ -74,10 +74,10 @@
     }
 
     .groups-cards {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: 1fr;
       gap: var(--spacing-lg);
-      justify-content: flex-start;
+      align-items: start;
     }
    .groups-status {
       color: var(--grey-500);
@@ -90,10 +90,22 @@
     }
   }
 
-  @container groups-page (min-width: 48rem) {
+  @container groups-page (min-width: 60rem) {
     .groups-page {
       padding-top: var(--spacing-2xl);
       padding-inline: var(--spacing-xl);
+    }
+  }
+
+  @media (min-width: 48rem) {
+    .groups-page .groups-cards {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 75rem) {
+    .groups-page .groups-cards {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
 </style>
