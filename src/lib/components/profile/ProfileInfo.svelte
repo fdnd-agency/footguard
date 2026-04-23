@@ -117,13 +117,27 @@
 
   }
 
-  @container profile-card (min-width: 42rem) {
+  /* tablet layout */
+  @container profile-card (min-width: 42rem) and (max-width: 63.99rem) {
     .profile-general-info {
       padding: 0 var(--spacing-lg) var(--spacing-2xl);
 
       .info-grid {
         grid-template-columns: 1fr 1fr;
         column-gap: var(--spacing-lg);
+        row-gap: var(--spacing-lg);
+      }
+    }
+  }
+
+  /* desktop layout */
+  @container profile-card (min-width: 64rem) {
+    .profile-general-info {
+      padding: 0 var(--spacing-xl) var(--spacing-2xl);
+
+      .info-grid {
+        grid-template-columns: 1fr 1fr;
+        column-gap: var(--spacing-xl);
         row-gap: var(--spacing-lg);
       }
     }
