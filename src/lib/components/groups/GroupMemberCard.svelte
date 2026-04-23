@@ -16,7 +16,6 @@
   let {
     groupId = '',
     onBack,
-    groupName = '',
     memberCount = 0,
     memberLimit = null,
     /** @type {MemberRow[]} */
