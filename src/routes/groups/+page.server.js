@@ -2,7 +2,13 @@
 // Fetches workgroup data from Directus before the page renders.
 // The API token stays secure because this code only runs on the server.
 
-import { fetchGroups, findUserByEmail, addUserToGroup } from '$lib/server/groups.js'
+import {
+  fetchGroups,
+  findUserByEmail,
+  addUserToGroup,
+  getGroupMembers,
+  removeMemberFromGroup
+} from '$lib/server/groups.js'
 import { error, fail } from '@sveltejs/kit'
 
 /** @type {import('./$types').PageServerLoad} */
@@ -10,9 +16,22 @@ export async function load() {
   try {
     const groups = await fetchGroups()
 
+    // Fetch members for each group in parallel.
+    const groupsWithMembers = await Promise.all(
+      groups.map(async (group) => {
+        try {
+          const members = await getGroupMembers(group.id)
+          return { ...group, members, memberCount: members.length }
+        } catch {
+          // If members fail for one group, keep page functional for others.
+          return { ...group, members: [], memberCount: 0 }
+        }
+      })
+    )
+
     // Pass groups (with their members) to +page.svelte via the data prop
     return {
-      groups,
+      groups: groupsWithMembers,
       loadError: null
     }
   } catch {
@@ -24,21 +43,16 @@ export async function load() {
 export const actions = {
   /**
    * Handles adding an existing Directus user to a group by email.
-   * The admin types an email → we find the user → we add them directly.
-   * No email is sent, no pending step — the user is immediately a member.
-   *
-   * Steps:
-   * 1. Validate email and groupId
-   * 2. Look up the user in Directus by email via findUserByEmail()
-   * 3. Add their user_id to footguard_group_members via addUserToGroup()
+   * The user is added directly as an active member (no invite email step).
    *
    * @type {import('./$types').Actions}
    */
   addMember: async ({ request, locals }) => {
     const data = await request.formData()
+    const currentUserId = locals.user?.id ?? null
     const email = data.get('email')?.toString().trim()
     const groupId = data.get('groupId')?.toString()
-    const addedByUserId = locals.user?.id ?? null
+    const addedByUserId = currentUserId
 
     // --- Validation: check that both fields are present ---
     if (!email || !groupId) {
@@ -103,6 +117,31 @@ export const actions = {
       return fail(500, {
         groupId,
         error: err.message || 'Failed to add member. Please try again.'
+      })
+    }
+  },
+
+  /**
+   * Handles removing a member from a group.
+   * This performs a soft remove by setting membership_status to "inactive".
+   *
+   * @type {import('./$types').Actions}
+   */
+  remove: async ({ request, locals }) => {
+    const data = await request.formData()
+    const memberId = data.get('memberId')?.toString()
+    const updatedByUserId = locals.user?.id ?? null
+
+    if (!memberId) {
+      return fail(400, { error: 'Member ID is required.' })
+    }
+
+    try {
+      await removeMemberFromGroup(memberId, updatedByUserId)
+      return { success: true, removedMemberId: memberId }
+    } catch (err) {
+      return fail(500, {
+        error: err.message || 'Failed to remove member. Please try again.'
       })
     }
   }
