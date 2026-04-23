@@ -176,8 +176,9 @@ export async function findUserByEmail(email) {
  * @throws {Error} If the user is already a member or the API call fails
  */
 export async function addUserToGroup(groupId, userId, addedByUserId, userRole) {
-  // Step 1: Check if this user is already an active member of this group
-  const checkUrl = `${DIRECTUS_URL}/items/footguard_group_members?filter[workgroup_id][_eq]=${Number(groupId)}&filter[user_id][_eq]=${Number(userId)}&limit=1`
+  // Step 1: Check all existing membership records for this group + user pair.
+  // We include membership_status so we can distinguish active vs inactive records.
+  const checkUrl = `${DIRECTUS_URL}/items/footguard_group_members?filter[workgroup_id][_eq]=${Number(groupId)}&filter[user_id][_eq]=${Number(userId)}&fields=id,membership_status&limit=-1`
 
   let checkResponse
   try {
@@ -200,12 +201,59 @@ export async function addUserToGroup(groupId, userId, addedByUserId, userRole) {
 
   const checkJson = await checkResponse.json()
 
-  // Block adding a user who is already a member of this group
-  if (checkJson.data.length > 0) {
+  // Normalize API response to a safe array.
+  const existingRecords = checkJson.data ?? []
+  const activeRecord = existingRecords.find(
+    (record) => record?.membership_status?.toLowerCase?.() === 'active'
+  )
+
+  // If there is already an active membership row, block duplicate adds.
+  if (activeRecord) {
     throw new Error('This user is already a member of this group.')
   }
 
-  // Step 2: Create the member record
+  // Step 2: If an inactive membership row exists, reactivate it
+  // instead of creating a second row for the same user/group.
+  const inactiveRecord = existingRecords.find(
+    (record) => record?.membership_status?.toLowerCase?.() !== 'active'
+  )
+
+  if (inactiveRecord?.id) {
+    // Reactivate the existing row and refresh key fields.
+    const reactivateUrl = `${DIRECTUS_URL}/items/footguard_group_members/${Number(inactiveRecord.id)}`
+
+    let reactivateResponse
+    try {
+      reactivateResponse = await fetch(reactivateUrl, {
+        method: 'PATCH',
+        headers: {
+          Authorization: `Bearer ${DIRECTUS_TOKEN}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          membership_status: 'active',
+          member_role: userRole ?? 'Viewer',
+          joined_at: new Date().toISOString(),
+          updated_by_user_id: addedByUserId ? Number(addedByUserId) : null
+        })
+      })
+    } catch (networkError) {
+      throw new Error(`Network error while reactivating member: ${networkError.message}`)
+    }
+
+    if (!reactivateResponse.ok) {
+      const errorBody = await reactivateResponse.text()
+      throw new Error(
+        `Directus API error while reactivating member: ${reactivateResponse.status} - ${errorBody}`
+      )
+    }
+
+    // Return the reactivated member row.
+    const reactivateJson = await reactivateResponse.json()
+    return reactivateJson.data
+  }
+
+  // Step 3: No prior row exists, so create a brand new active membership row.
   const createUrl = `${DIRECTUS_URL}/items/footguard_group_members`
 
   let createResponse
@@ -238,4 +286,42 @@ export async function addUserToGroup(groupId, userId, addedByUserId, userRole) {
 
   const createJson = await createResponse.json()
   return createJson.data
+}
+
+/**
+ * Soft-removes a member from a workgroup by setting membership_status to inactive.
+ *
+ * @param {string|number} memberId - The footguard_group_members record ID
+ * @param {string|number|null} updatedByUserId - The admin performing the action
+ * @returns {Promise<object>} The updated member record
+ * @throws {Error} If the API call fails
+ */
+export async function removeMemberFromGroup(memberId, updatedByUserId = null) {
+  // Soft remove: keep the row for audit/history and set status to inactive.
+  const url = `${DIRECTUS_URL}/items/footguard_group_members/${Number(memberId)}`
+
+  let response
+  try {
+    response = await fetch(url, {
+      method: 'PATCH',
+      headers: {
+        Authorization: `Bearer ${DIRECTUS_TOKEN}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        membership_status: 'inactive',
+        updated_by_user_id: updatedByUserId ? Number(updatedByUserId) : null
+      })
+    })
+  } catch (networkError) {
+    throw new Error(`Network error while removing member: ${networkError.message}`)
+  }
+
+  if (!response.ok) {
+    const errorBody = await response.text()
+    throw new Error(`Directus API error while removing member: ${response.status} - ${errorBody}`)
+  }
+
+  const json = await response.json()
+  return json.data
 }
