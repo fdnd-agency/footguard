@@ -139,6 +139,15 @@
   --green-200: hsl(150, 55%, 72%);
   --green-100: hsl(150, 45%, 85%);
 
+  /* Group theme colors */
+  --theme-charcot: #ae4bbd;
+  --theme-classification: #e8b809;
+  --theme-infection: #8db331;
+  --theme-prevention: #e6762c;
+  --theme-pad: #028d8f;
+  --theme-offloading: #009bcb;
+  --theme-wound-healing: #6a77dd;
+
   /* Neutral / grey */
   --grey-700: hsl(210, 12%, 15%);
   --grey-600: hsl(210, 10%, 25%);
@@ -272,6 +281,39 @@ a {
   margin: var(--spacing-sm);
 }
 
+
+
+.theme-charcot {
+  background-color: var(--theme-charcot);
+}
+
+.theme-classification {
+  background-color: var(--theme-classification);
+}
+
+.theme-infection {
+  background-color: var(--theme-infection);
+}
+
+.theme-prevention {
+  background-color: var(--theme-prevention);
+}
+
+.theme-pad {
+  background-color: var(--theme-pad);
+}
+
+.theme-offloading {
+  background-color: var(--theme-offloading);
+}
+
+.theme-wound-healing {
+  background-color: var(--theme-wound-healing);
+}
+
+
+
+
 button {
   font-family: inherit;
   border: none;
@@ -333,6 +375,9 @@ select {
   outline: 2px solid var(--blue-500);
   outline-offset: 2px;
 }
+
+
+
 
 @media (prefers-reduced-motion: reduce) {
   *,
