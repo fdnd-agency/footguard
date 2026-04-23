@@ -6,7 +6,7 @@
   export let members = [];
 </script>
 
-<section>
+<section class="members-dropdown-panel">
   <h2 class="title">Group members details</h2>
   <!-- TODO: Replace this static member list with dynamic data from the group members. -->
    <ul>

@@ -16,6 +16,8 @@
     groupId = '',
     onBack,
     groupName = '',
+    memberCount = 0,
+    memberLimit = null,
     /** @type {MemberRow[]} */
     members = []
   } = $props()
@@ -27,12 +29,17 @@
         ? `${resolve('/groups')}#group-${groupId}`
         : ''
   )
+
+  const currentMembers = $derived(memberCount || members.length)
+  const headerCountLabel = $derived(
+    memberLimit != null ? `${currentMembers} of ${memberLimit} members` : `${currentMembers} members`
+  )
 </script>
 
 <!-- Root: full-height column; header fixed style, list grows and scrolls -->
 <div class="card">
   <header class="header">
-    <span class="group-name">{groupName || 'Unnamed group'}</span>
+    <span class="group-name">{headerCountLabel}</span>
     {#if onBack}
       <button type="button" class="back" onclick={onBack}>Back</button>
     {:else if backHref}
@@ -47,18 +54,27 @@
   <ul class="members" aria-label="Group members">
     {#each members as member (member.id)}
       <li class="row">
-        <img
-          class="avatar"
-          src={member.avatarUrl}
-          alt={`Avatar of ${member.name}`}
-          width="32"
-          height="32"
-          decoding="async"
-        />
-        <div class="meta">
-          <span class="name">{member.name}</span>
-          <span class="role">{member.role}</span>
+        <div class="member-main">
+          <img
+            class="avatar"
+            src={member.avatarUrl}
+            alt={`Avatar of ${member.name}`}
+            width="32"
+            height="32"
+            decoding="async"
+          />
+          <div class="meta">
+            <span class="name">{member.name}</span>
+            {#if member.role}
+              <span class="role">{member.role}</span>
+            {/if}
+          </div>
         </div>
+        {#if member.role !== 'Super Admin'}
+          <button type="button" class="remove-member" aria-label={`Remove ${member.name} from group`}>
+            <span aria-hidden="true"></span>
+          </button>
+        {/if}
       </li>
     {:else}
       <li class="row empty">No members in this group yet.</li>
@@ -80,17 +96,27 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: var(--spacing-sm);
-      padding: var(--spacing-md) var(--spacing-lg);
+      gap: 0.875rem;
+      padding: 1rem 1.25rem;
       background: hsl(292.04deg 45.75% 51.57%);
-      color: var(--font-color-card);
+      color: var(--grey-600);
     }
 
-    /* Group title in the purple bar */
+    /* Count badge in the purple bar */
     & .group-name {
-      font-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 3rem;
+      padding: 0 1.4rem;
+      border-radius: 1.1rem;
+      background: var(--background-color-primary);
+      font-size: 1.2rem;
       font-weight: 700;
-      line-height: 1.25;
+      line-height: 1.1;
+      color: #3b404c;
+      letter-spacing: 0.01em;
+      white-space: nowrap;
     }
 
     /* Same look for `<a>` and `<button>`; keyboard users get a clear focus ring on the link */
@@ -99,16 +125,28 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      gap: 0.5rem;
       border: none;
-      border-radius: var(--radius-md);
-      padding: 0.5rem 0.75rem;
+      border-radius: 1.1rem;
+      min-height: 3rem;
+      padding: 0 1rem;
       background: var(--background-color-primary);
-      color: hsl(263, 70%, 50%);
+      color: #6f7684;
       font: inherit;
-      font-size: 0.75rem;
+      font-size: 1.2rem;
       font-weight: 700;
       cursor: pointer;
       text-decoration: none;
+      white-space: nowrap;
+
+      &::before {
+        content: '';
+        width: 0.5rem;
+        height: 0.5rem;
+        border-left: 0.15rem solid currentColor;
+        border-bottom: 0.15rem solid currentColor;
+        transform: rotate(45deg);
+      }
 
       &:is(a):focus-visible,
       &:focus-visible {
@@ -131,7 +169,8 @@
     & .row {
       display: flex;
       align-items: center;
-      gap: var(--spacing-sm);
+      justify-content: space-between;
+      gap: var(--spacing-md);
       padding: var(--spacing-sm) var(--spacing-lg);
       border-bottom: 1px solid var(--grey-100);
 
@@ -149,11 +188,19 @@
       }
     }
 
+    & .member-main {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-md);
+      min-width: 0;
+      flex: 1;
+    }
+
     /* Square image cropped to a circle; grey background shows while the image loads */
     & .avatar {
       flex-shrink: 0;
-      width: 2rem;
-      height: 2rem;
+      width: 3rem;
+      height: 3rem;
       border-radius: var(--radius-full);
       object-fit: cover;
       object-position: center;
@@ -170,15 +217,34 @@
 
     /* Member display name */
     & .name {
-      font-size: 1rem;
-      font-weight: 500;
-      color: var(--grey-700);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--grey-600);
     }
 
     /* Role / status line, slightly smaller and muted */
     & .role {
-      font-size: 0.75rem;
-      color: var(--grey-400);
+      font-size: 1rem;
+      color: var(--grey-500);
+    }
+
+    & .remove-member {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+      height: 2rem;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+
+      span {
+        display: inline-block;
+        width: 1.5rem;
+        height: 0.5rem;
+        border-radius: var(--radius-full);
+        background: hsl(358, 84%, 56%);
+      }
     }
   }
 </style>

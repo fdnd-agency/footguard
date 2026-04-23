@@ -95,7 +95,7 @@ export async function fetchGroups() {
  */
 export async function getGroupMembers(groupId) {
   // Dot notation fetches nested fields from the user_id M2O relation
-  const url = `${DIRECTUS_URL}/items/footguard_group_members?filter[workgroup_id][_eq]=${groupId}&filter[membership_status][_eq]=active&fields=id,user_id.id,user_id.email,user_id.name,joined_at`
+  const url = `${DIRECTUS_URL}/items/footguard_group_members?filter[workgroup_id][_eq]=${groupId}&filter[membership_status][_eq]=active&fields=id,user_id.id,user_id.email,user_id.name,member_role,joined_at`
   let response
   try {
     response = await fetch(url, {
@@ -123,6 +123,7 @@ export async function getGroupMembers(groupId) {
     userId: member.user_id?.id,
     email: member.user_id?.email ?? '',
     name: member.user_id?.name || member.user_id?.email || 'Unknown',
+    role: member.member_role ?? 'Vistar',
     joinedAt: member.joined_at
   }))
 }
