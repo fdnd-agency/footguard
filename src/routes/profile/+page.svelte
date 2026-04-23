@@ -245,12 +245,25 @@
     }
   }
 
-  @media (min-width: 42rem) {
+  /* tablet layout */
+  @media (min-width: 42rem) and (max-width: 63.99rem) {
     .profile-page {
       padding: var(--spacing-xl);
 
       .profile-card {
         max-width: 100%;
+        margin-inline: auto;
+      }
+    }
+  }
+
+  /* desktop layout */
+  @media (min-width: 64rem) {
+    .profile-page {
+      padding: var(--spacing-2xl) var(--spacing-xl);
+
+      .profile-card {
+        max-width: 72rem;
         margin-inline: auto;
       }
     }
