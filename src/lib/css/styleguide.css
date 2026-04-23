@@ -281,8 +281,6 @@ a {
   margin: var(--spacing-sm);
 }
 
-
-
 .theme-charcot {
   background-color: var(--theme-charcot);
 }
@@ -310,9 +308,6 @@ a {
 .theme-wound-healing {
   background-color: var(--theme-wound-healing);
 }
-
-
-
 
 button {
   font-family: inherit;
@@ -375,9 +370,6 @@ select {
   outline: 2px solid var(--blue-500);
   outline-offset: 2px;
 }
-
-
-
 
 @media (prefers-reduced-motion: reduce) {
   *,
