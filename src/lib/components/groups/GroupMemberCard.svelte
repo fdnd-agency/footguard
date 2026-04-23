@@ -15,12 +15,21 @@
   // With `onBack` from GroupCard, “Back” is a button (no URL change). Without it, `groupId` builds an optional hash link.
   let {
     groupId = '',
+    groupName = '',
     onBack,
     memberCount = 0,
     memberLimit = null,
     /** @type {MemberRow[]} */
     members = []
   } = $props()
+
+  const groupHeaderColor = $derived(
+    `var(--theme-${String(groupName ?? '')
+      .trim()
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '')}, var(--theme-charcot))`
+  )
 
   const backHref = $derived(
     onBack
@@ -38,7 +47,7 @@
 
 <!-- Root: full-height column; header fixed style, list grows and scrolls -->
 <div class="card">
-  <header class="header">
+  <header class="header" style={`--group-header-color: ${groupHeaderColor};`}>
     <span class="group-name">{headerCountLabel}</span>
     {#if onBack}
       <button type="button" class="back" onclick={onBack}>Back</button>
@@ -96,7 +105,7 @@
       justify-content: space-between;
       gap: 0.875rem;
       padding: 1rem 1.25rem;
-      background: hsl(292.04deg 45.75% 51.57%);
+      background: var(--group-header-color);
       color: var(--grey-600);
     }
 
