@@ -42,8 +42,8 @@
     }
 
     &:hover {
-      background: var(--grey-200);
-      color: var(--grey-700);
+      background: var(--red-500, #ef4444);
+      color: var(--grey-50, #ffffff);
     }
   }
 </style>
