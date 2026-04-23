@@ -74,7 +74,7 @@
   </script>
 
 
-<label for="add-member-email">Add member by email</label>
+<label for="add-member-email">Add assessor by email</label>
 
 <!-- Form uses addMember action — no email is sent, user is directly added -->
 <form method="POST" action="?/addMember" use:enhance={handleSubmit}>

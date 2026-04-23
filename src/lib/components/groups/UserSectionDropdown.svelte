@@ -8,7 +8,7 @@
 </script>
 
 <section class="members-dropdown-panel">
-  <h2 class="title">Group members details</h2>
+  <h2 class="title">Assessor list</h2>
   <!-- TODO: Replace this static member list with dynamic data from the group members. -->
    <ul>
     {#each members as member (member.id)}
