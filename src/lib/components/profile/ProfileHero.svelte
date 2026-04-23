@@ -174,7 +174,8 @@
     }
   }
 
-  @container profile-card (min-width: 42rem) {
+  /* tablet layout */
+  @container profile-card (min-width: 42rem) and (max-width: 63.99rem) {
     .profile-hero {
       padding: 0 0 var(--spacing-xl);
 
@@ -193,6 +194,30 @@
       .profile-info {
         margin-top: 4rem;
         padding-inline: var(--spacing-lg);
+      }
+    }
+  }
+
+  /* desktop layout */
+  @container profile-card (min-width: 64rem) {
+    .profile-hero {
+      padding: 0 0 var(--spacing-2xl);
+
+      &::before {
+        min-height: 11rem;
+        border-radius: 0;
+      }
+
+      .avatar-wrap {
+        .profile-avatar {
+          width: 7.5rem;
+          height: 7.5rem;
+        }
+      }
+
+      .profile-info {
+        margin-top: 4.25rem;
+        padding-inline: var(--spacing-xl);
       }
     }
   }
