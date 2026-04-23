@@ -5,6 +5,7 @@
    */
 
   // Builds correct app URLs when the site uses a base path (SvelteKit `resolve`).
+  import RemoveMemberButton from './RemoveMemberButton.svelte'
   import { resolve } from '$app/paths'
 
   /**
@@ -71,9 +72,7 @@
           </div>
         </div>
         {#if member.role !== 'Super Admin'}
-          <button type="button" class="remove-member" aria-label={`Remove ${member.name} from group`}>
-            <span aria-hidden="true"></span>
-          </button>
+          <RemoveMemberButton memberId={member.id} />
         {/if}
       </li>
     {:else}
@@ -228,23 +227,5 @@
       color: var(--grey-500);
     }
 
-    & .remove-member {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 2rem;
-      height: 2rem;
-      border: none;
-      background: transparent;
-      cursor: pointer;
-
-      span {
-        display: inline-block;
-        width: 1.5rem;
-        height: 0.5rem;
-        border-radius: var(--radius-full);
-        background: hsl(358, 84%, 56%);
-      }
-    }
   }
 </style>
