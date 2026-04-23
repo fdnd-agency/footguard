@@ -38,13 +38,32 @@
   const membersFaceId = $derived(`group-${faceIdSuffix}-members`);
   const groupImage = $derived(group?.image ?? null);
 
+  // make clear order for roles in back face list
+  // first super admin, then admin, then assessor, then viewer
+  const rolePriority = {
+    'super admin': 0,
+    admin: 1,
+    assessor: 2,
+    viewer: 3,
+    vister: 3
+  };
+
+  // if role not known keep it in the end
+  function getRolePriority(role) {
+    const normalizedRole = String(role ?? "").trim().toLowerCase();
+    return rolePriority[normalizedRole] ?? 99;
+  }
+
   const membersForBackFace = $derived(
-    members.map((m) => ({
-      id: m.id,
-      name: m.name,
-      role: m.role,
-      avatarUrl: m.avatarUrl ?? previewAvatarFallback
-    }))
+    [...members]
+      // sort members by role order we need in design
+      .sort((a, b) => getRolePriority(a?.role) - getRolePriority(b?.role))
+      .map((m) => ({
+        id: m.id,
+        name: m.name,
+        role: m.role,
+        avatarUrl: m.avatarUrl ?? previewAvatarFallback
+      }))
   );
 
   const isPlural = $derived(memberCount !== 1);
