@@ -87,7 +87,7 @@
         </div>
 
         <section class="members-section">
-          <h2 class="title">Members</h2>
+          <h2 class="title">Assessors</h2>
 
           <!-- Member avatar preview row with add button -->
           <div class="members-preview">
@@ -127,7 +127,7 @@
 
         <details>
           <summary>
-            <span>{memberCount} member{isPlural ? "s" : ""}</span>
+            <span>{memberCount} Assessor{isPlural ? "s" : ""}</span>
             <span class="chevron">
               <DetailsUpIcon />
             </span>
@@ -166,7 +166,6 @@
 
   .group-card-root:has(.face--front details[open]) {
     z-index: 30;
-    margin-bottom: 10rem;
   }
 
   .scene {
@@ -295,15 +294,15 @@
     &[open] > .members-dropdown-panel {
       display: block;
       position: absolute;
-      top: 100%;
+      bottom: 100%;
       left: 0;
       right: 0;
       z-index: 40;
-      max-height: 10rem;
+      max-height: 16rem;
       overflow-y: auto;
       background: var(--background-color-primary);
-      border-top: 1px solid var(--grey-100);
-      border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+      border-bottom: 1px solid var(--grey-100);
+      border-radius: var(--radius-xl) var(--radius-xl) 0 0;
       box-shadow: none;
     }
 
