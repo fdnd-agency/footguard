@@ -80,7 +80,7 @@ export async function fetchGroups() {
       conditionlabel: group.condition_label ?? 'General', // fallback if null
       members,
       memberCount: members.length,
-      image: group.image ?? null
+      image: buildDirectusAssetUrl(group.image)
     }
   })
 }

@@ -1,6 +1,5 @@
 <script>
   import groupHeaderPhoto from "$lib/assets/img/charcot-icon.webp";
-  import { PUBLIC_DIRECTUS_URL } from '$env/static/public'
 
 
   // Dynamic group data passed from GroupCard.svelte
@@ -13,9 +12,7 @@
   $: groupName = name ?? "Unnamed group";
   $: groupStatus = status ?? "Unknown";
   $: groupConditionLabel = conditionLabel ?? "General";
-  $: groupImage = image 
-  ? `${PUBLIC_DIRECTUS_URL}/assets/${image}` 
-  : groupHeaderPhoto;
+  $: groupImage = image ?? groupHeaderPhoto;
 </script>
 
 <section>
