@@ -1,4 +1,5 @@
 <script>
+  // Header fallback image used when no group image is provided.
   import groupHeaderPhoto from "$lib/assets/img/charcot-icon.webp";
 
   // Dynamic group data passed from GroupCard.svelte
