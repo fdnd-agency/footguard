@@ -57,8 +57,7 @@ export async function fetchGroups() {
     }
 
     const mappedMember = {
-      id: member.id,
-      userId: user.id ?? null,
+      id: user.id ?? member.id,
       name: user.name ?? 'Unknown',
       role: member?.member_role ?? null,
       email: user.email ?? null,
@@ -81,7 +80,7 @@ export async function fetchGroups() {
       conditionlabel: group.condition_label ?? 'General', // fallback if null
       members,
       memberCount: members.length,
-      image: buildDirectusAssetUrl(group.image)
+      image: group.image ?? null
     }
   })
 }
