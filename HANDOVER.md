@@ -56,6 +56,15 @@ Op dit moment gebeurt dit beoordelingsproces grotendeels via Excel, wat onoverzi
   - `dev` branch werkt met feature branches. Deze worden gemaakt vanaf de dev en ook hiernaartoe gemerched. De `main` branch wordt **niet** zomaar naar gemerched zonder volledige testing.
   - FDND Agency conventies worden gevolgd.
 
+- **CI/CD & Kwaliteitscontrole**
+  Binnen dit project wordt gebruik gemaakt van een CI/CD pipeline om de codekwaliteit te waarborgen.
+  De pipeline voert automatisch controles uit bij elke push en pull request, waaronder:
+- Linting (ESLint) -> controle op codekwaliteit en consistentie
+- Formatting (Prettier) -> automatische code-opmaak
+- Automated tests -> uitvoeren van unit en integration tests
+  Dit zorgt ervoor dat fouten vroegtijdig worden ontdekt en dat de codebase consistent blijft tussen verschillende developers.
+  De pipeline draait automatisch en geeft feedback (pass/fail), zodat alleen werkende code gemerged wordt.
+
 ## Wat is nog niet af?
 
 - **Datamodel**

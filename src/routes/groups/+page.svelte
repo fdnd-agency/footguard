@@ -6,6 +6,7 @@
   // `data` is injected by SvelteKit from +page.server.js
   // It contains the groups array fetched from Directus
   export let data;
+  export let form;
 
   // Extract groups safely (fallback to empty array)
   // Reactive statement: automatically updates `groups` whenever `data.groups` changes.
@@ -43,7 +44,7 @@
   <!-- Success state -->
   <div class="groups-cards">
     {#each groups as group (group.id)}
-      <GroupCard {group} />
+      <GroupCard {group} {form} />
     {/each}
   </div>
 {/if}
@@ -73,11 +74,10 @@
     }
 
     .groups-cards {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: flex-start;
+      display: grid;
+      grid-template-columns: 1fr;
       gap: var(--spacing-lg);
-      justify-content: flex-start;
+      align-items: start;
     }
    .groups-status {
       color: var(--grey-500);
@@ -90,10 +90,22 @@
     }
   }
 
-  @container groups-page (min-width: 48rem) {
+  @container groups-page (min-width: 60rem) {
     .groups-page {
       padding-top: var(--spacing-2xl);
       padding-inline: var(--spacing-xl);
+    }
+  }
+
+  @media (min-width: 48rem) {
+    .groups-page .groups-cards {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 75rem) {
+    .groups-page .groups-cards {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
 </style>

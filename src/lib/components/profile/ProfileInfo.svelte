@@ -1,18 +1,26 @@
 <script>
-  let { isEditing = false, formData, onFieldChange } = $props();
+  /** Server snapshot for ?edit (SSR + first paint before client state syncs). */
+  let { user = null, isEditMode = false, formData, draft = null, onFieldChange } = $props();
+
+  function roleDisplay(profileUserRecord) {
+    if (!profileUserRecord?.role) return '';
+    return Array.isArray(profileUserRecord.role)
+      ? profileUserRecord.role.join(', ')
+      : String(profileUserRecord.role);
+  }
 </script>
 
-<section>
+<section class="profile-general-info">
   <h2>General Information</h2>
 
-  <form class="info-grid" aria-label="Profile details">
+  <div class="info-grid" role="group" aria-label="Profile details">
     <label for="info-role">
       <span>Role</span>
       <input
         id="info-role"
         type="text"
         readonly
-        value={formData?.role ?? ''}
+        value={formData?.role ?? roleDisplay(user)}
       />
     </label>
     <label for="info-institution">
@@ -20,8 +28,11 @@
       <input
         id="info-institution"
         type="text"
-        readonly={!isEditing}
-        value={formData?.institute ?? ''}
+        name={isEditMode ? 'institute' : undefined}
+        readonly={!isEditMode}
+        value={isEditMode
+          ? (formData?.institute ?? draft?.institute ?? user?.institute ?? '')
+          : (formData?.institute ?? user?.institute ?? '')}
         oninput={(event) => onFieldChange?.('institute', event.currentTarget.value)}
       />
     </label>
@@ -30,8 +41,11 @@
       <input
         id="info-profession"
         type="text"
-        readonly={!isEditing}
-        value={formData?.profession ?? ''}
+        name={isEditMode ? 'profession' : undefined}
+        readonly={!isEditMode}
+        value={isEditMode
+          ? (formData?.profession ?? draft?.profession ?? user?.profession ?? '')
+          : (formData?.profession ?? user?.profession ?? '')}
         oninput={(event) => onFieldChange?.('profession', event.currentTarget.value)}
       />
     </label>
@@ -40,16 +54,21 @@
       <input
         id="info-email"
         type="email"
-        readonly={!isEditing}
-        value={formData?.email ?? ''}
+        name={isEditMode ? 'email' : undefined}
+        readonly={!isEditMode}
+        value={isEditMode
+          ? (formData?.email ?? draft?.email ?? user?.email ?? '')
+          : (formData?.email ?? user?.email ?? '')}
         oninput={(event) => onFieldChange?.('email', event.currentTarget.value)}
       />
     </label>
-  </form>
+  </div>
 </section>
 
 <style>
-  section {
+  .profile-general-info {
+    position: relative;
+    z-index: 1;
     padding: 0 var(--spacing-md) var(--spacing-xl);
 
     h2 {
@@ -98,13 +117,27 @@
 
   }
 
-  @container profile-card (min-width: 42rem) {
-    section {
+  /* tablet layout */
+  @container profile-card (min-width: 42rem) and (max-width: 63.99rem) {
+    .profile-general-info {
       padding: 0 var(--spacing-lg) var(--spacing-2xl);
 
       .info-grid {
         grid-template-columns: 1fr 1fr;
         column-gap: var(--spacing-lg);
+        row-gap: var(--spacing-lg);
+      }
+    }
+  }
+
+  /* desktop layout */
+  @container profile-card (min-width: 64rem) {
+    .profile-general-info {
+      padding: 0 var(--spacing-xl) var(--spacing-2xl);
+
+      .info-grid {
+        grid-template-columns: 1fr 1fr;
+        column-gap: var(--spacing-xl);
         row-gap: var(--spacing-lg);
       }
     }
