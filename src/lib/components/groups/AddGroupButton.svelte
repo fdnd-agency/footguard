@@ -1,4 +1,6 @@
 <script>
+  import PulsIconNoBackground from "$lib/assets/svg/puls-icon-no-background.svelte";
+
   /**
    * Simple props:
    * - label: text inside the button
@@ -12,14 +14,18 @@
 {#if disabled || !href}
   <span class="add-group-btn" aria-disabled="true">
     <span class="add-group-btn__text">{label}</span>
-    <span class="add-group-btn__icon" aria-hidden="true">+</span>
+    <span class="add-group-btn__icon">
+      <PulsIconNoBackground width={22} height={22} />
+    </span>
   </span>
 {:else}
   <!-- Link-first for progressive enhancement -->
   <!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
   <a class="add-group-btn" {href}>
     <span class="add-group-btn__text">{label}</span>
-    <span class="add-group-btn__icon" aria-hidden="true">+</span>
+    <span class="add-group-btn__icon">
+      <PulsIconNoBackground width={22} height={22} />
+    </span>
   </a>
 {/if}
 
@@ -30,7 +36,7 @@
     align-items: center;
     justify-content: space-between;
     gap: var(--spacing-lg);
-    min-width: min(100%, 20rem);
+    min-width: min(90%, 10rem);
     margin: 0;
     appearance: none;
     padding: var(--spacing-sm) var(--spacing-lg);
@@ -80,9 +86,7 @@
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      font-size: clamp(24px, 5vw, 32px);
-      line-height: 1;
-      font-weight: 400;
+      color: inherit;
     }
   }
 
