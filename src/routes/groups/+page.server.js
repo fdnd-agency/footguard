@@ -6,7 +6,6 @@ import {
   fetchGroups,
   findUserByEmail,
   addUserToGroup,
-  getGroupMembers,
   removeMemberFromGroup,
   getGroupArticles
 } from '$lib/server/groups.js'
@@ -17,24 +16,19 @@ export async function load() {
   try {
     const groups = await fetchGroups()
 
-    // Fetch members AND articles for each group in parallel
+    // Fetch only articles per group — members are already included in fetchGroups()
     const groupsWithData = await Promise.all(
       groups.map(async (group) => {
         try {
-          // Fetch members and articles at the same time for performance
-          const [members, articles] = await Promise.all([
-            getGroupMembers(group.id),
-            getGroupArticles(group.id) // ← nieuw
-          ])
+          // Members already fetched inside fetchGroups(), only articles need separate fetch
+          const articles = await getGroupArticles(group.id)
           return {
             ...group,
-            members,
-            memberCount: members.length,
-            articles // ← nieuw
+            articles
           }
         } catch {
-          // If data fails for one group, keep page functional for others
-          return { ...group, members: [], memberCount: 0, articles: [] }
+          // If articles fail for one group, keep page functional for others
+          return { ...group, articles: [] }
         }
       })
     )

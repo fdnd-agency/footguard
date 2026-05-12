@@ -1,10 +1,11 @@
+<!-- GroupCard.svelte -->
+<!-- Front face shows assigned articles + invite form. Back face shows full member list. -->
 <script>
   import DetailsUpIcon from "$lib/assets/svg/DetailsUpIcon.svelte";
   import GroupCardHeader from "$lib/components/groups/GroupCardHeader.svelte";
   import GroupInviteForm from "$lib/components/groups/GroupInviteForm.svelte";
   import GroupMemberCard from "$lib/components/groups/GroupMemberCard.svelte";
   import SwitchSidesButton from "$lib/components/groups/SwitchSidesButton.svelte";
-  import UserSectionDropdown from "$lib/components/groups/UserSectionDropdown.svelte";
   import previewAvatarFallback from "$lib/assets/img/profile-avatar.webp";
 
   // Group data is passed from the groups page; `form` is invite action feedback from +page.svelte
@@ -20,25 +21,25 @@
     flipped = false;
   }
 
-  // Max number of member avatars to show in the preview
-  const MAX_PREVIEW_MEMBERS = 2;
-
   // Fallback values keep the component safe while API data is still incomplete
   const groupId = $derived(group?.id ?? "");
   const groupName = $derived(group?.name ?? "Unnamed group");
   const groupStatus = $derived(group?.status ?? "Unknown");
   const conditionLabel = $derived(group?.conditionlabel ?? "General");
-
-  // Members array from group data — now populated from footguard_group_members
-  const members = $derived(Array.isArray(group?.members) ? group.members : []);
-  const memberCount = $derived(group?.memberCount ?? members.length);
+  const groupImage = $derived(group?.image ?? null);
 
   const faceIdSuffix = $derived(String(group?.id ?? "unknown"));
   const frontFaceId = $derived(`group-${faceIdSuffix}`);
   const membersFaceId = $derived(`group-${faceIdSuffix}-members`);
-  const groupImage = $derived(group?.image ?? null);
 
-  // make clear order for roles in back face list
+  // Members array from group data — populated from footguard_group_members
+  const members = $derived(Array.isArray(group?.members) ? group.members : []);
+  const memberCount = $derived(group?.memberCount ?? members.length);
+
+  // Articles array from group data — populated from footguard_articles
+  const articles = $derived(Array.isArray(group?.articles) ? group.articles : []);
+
+  // Sort order for roles on the back face
   // first super admin, then admin, then assessor, then viewer
   const rolePriority = {
     'super admin': 0,
@@ -48,7 +49,7 @@
     vister: 3
   };
 
-  // if role not known keep it in the end
+  // Returns sort priority for a given role — unknown roles go to the end
   function getRolePriority(role) {
     const normalizedRole = String(role ?? "").trim().toLowerCase();
     return rolePriority[normalizedRole] ?? 99;
@@ -56,7 +57,7 @@
 
   const membersForBackFace = $derived(
     [...members]
-      // sort members by role order we need in design
+      // Sort members by role priority for consistent display order
       .sort((a, b) => getRolePriority(a?.role) - getRolePriority(b?.role))
       .map((m) => ({
         id: m.id,
@@ -65,16 +66,13 @@
         avatarUrl: m.avatarUrl ?? previewAvatarFallback
       }))
   );
-
-  const isPlural = $derived(memberCount !== 1);
-
-  const previewMembers = $derived(members.slice(0, MAX_PREVIEW_MEMBERS));
 </script>
 
 <article class="group-card-root">
   <div class="scene">
     <div class="flipper" class:flipped={flipped}>
-      <!-- Front: summary + invite + details -->
+
+      <!-- Front face: group header + articles list + invite form + articles dropdown -->
       <div class="face face--front" id={frontFaceId}>
         <div class="group-card-header">
           <GroupCardHeader
@@ -83,62 +81,57 @@
             conditionLabel={conditionLabel}
             image={groupImage}
           />
+          <!-- Button to flip card to the members back face -->
           <SwitchSidesButton label="Members" onclick={flipToMembers} />
         </div>
 
         <section class="members-section">
-          <h2 class="title">Assessors</h2>
+          <h2 class="title">Articles</h2>
 
-          <!-- Member avatar preview row with add button -->
-          <div class="members-preview">
-            {#if previewMembers.length > 0}
-              <ul aria-label="Current members preview">
-                {#each previewMembers as member (member.id)}
-                  <li>
-                    <img
-                      class="members-preview-av"
-                      src={member.avatarUrl ?? previewAvatarFallback}
-                      alt={member.name ?? `Group member ${member.id}`}
-                    />
-                  </li>
-                {/each}
-              </ul>
-            {/if}
-
-            <!-- Dashed circle add button next to avatars -->
-            <button class="btn-add" type="button" aria-label="Add team member">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                aria-hidden="true"
-              >
-                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
-              </svg>
-            </button>
-          </div>
-
-          {#if previewMembers.length === 0}
-            <p class="members-empty">No members available yet.</p>
+          {#if articles.length > 0}
+            <!-- Article list: shows title of each article assigned to this group -->
+            <ul class="articles-list">
+              {#each articles as article (article.id)}
+                <li class="article-item">
+                  <span class="article-title">{article.title}</span>
+                </li>
+              {/each}
+            </ul>
+          {:else}
+            <!-- Empty state: shown when no articles are assigned to this group -->
+            <p class="members-empty">No articles assigned yet.</p>
           {/if}
 
+          <!-- Invite form: label changed from assessor to member per new design -->
           <GroupInviteForm {groupId} {members} {form} />
         </section>
 
+        <!-- Dropdown: shows article count and list of article titles -->
         <details>
           <summary>
-            <span>{memberCount} Assessor{isPlural ? "s" : ""}</span>
+            <span>{articles.length} Article{articles.length !== 1 ? "s" : ""}</span>
             <span class="chevron">
               <DetailsUpIcon />
             </span>
           </summary>
           <div class="members-dropdown-panel">
-            <UserSectionDropdown {members} />
+            <!-- Show assigned articles in dropdown instead of assessors -->
+            {#if articles.length > 0}
+              <ul class="articles-list">
+                {#each articles as article (article.id)}
+                  <li class="article-item">
+                    <span class="article-title">{article.title}</span>
+                  </li>
+                {/each}
+              </ul>
+            {:else}
+              <p class="articles-empty">No articles assigned yet.</p>
+            {/if}
           </div>
         </details>
       </div>
 
-      <!-- Back: full member list -->
+      <!-- Back face: full member list — unchanged -->
       <div class="face face--back" id={membersFaceId}>
         <GroupMemberCard
           {groupId}
@@ -149,6 +142,7 @@
           onBack={flipToFront}
         />
       </div>
+
     </div>
   </div>
 </article>
@@ -220,55 +214,6 @@
     }
   }
 
-  .members-preview {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-xs);
-    margin-bottom: var(--spacing-lg);
-
-    ul {
-      display: flex;
-      align-items: center;
-      gap: var(--spacing-xs);
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    .btn-add {
-      width: 3rem;
-      height: 3rem;
-      border-radius: var(--radius-full);
-      border: 2px dashed var(--grey-300);
-      background: transparent;
-      color: var(--grey-400);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition:
-        border-color var(--transition-fast),
-        color var(--transition-fast);
-      flex-shrink: 0;
-
-      svg {
-        width: 1.25rem;
-        height: 1.25rem;
-      }
-    }
-  }
-
-  .members-preview-av {
-    width: 3rem;
-    height: 3rem;
-    border-radius: var(--radius-full);
-    border: 2px solid var(--background-color-primary);
-    object-fit: cover;
-    object-position: center;
-    background: var(--grey-100);
-    box-shadow: var(--shadow-sm);
-  }
-
   .title {
     margin: 0 0 var(--spacing-sm);
     font-size: 1rem;
@@ -276,10 +221,48 @@
     color: var(--grey-700);
   }
 
+  /* Empty state for members section */
   .members-empty {
     margin: 0 0 var(--spacing-lg);
     font-size: 0.875rem;
     color: var(--grey-500);
+  }
+
+  /* Article list shown in main section and in dropdown */
+  .articles-list {
+    margin: 0 0 var(--spacing-lg);
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0;
+  }
+
+  .article-item {
+    padding: var(--spacing-sm) 0;
+    border-bottom: 1px solid var(--grey-100);
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  /* Truncate long article titles to max 2 lines */
+  .article-title {
+    color: var(--grey-700);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Empty state inside the dropdown panel */
+  .articles-empty {
+    padding: var(--spacing-md) var(--spacing-lg);
+    margin: 0;
+    color: var(--grey-500);
+    font-size: var(--font-size-sm);
   }
 
   details {
