@@ -211,7 +211,7 @@ De Button is een herbruikbare component die consistente knoppen binnen Footguard
 
 | Prop        | Type                                              | Default   | Uitleg                                   |
 | ----------- | ------------------------------------------------- | --------- | ---------------------------------------- |
-| `variant`   | "primary" \| "secondary" \| "outline" \| "danger" | "primary" | Bepaalt de visuele stijl van de knop     |
+| `variant`   | "primary" \| "secondary" \| "outline" | "primary" | Bepaalt de visuele stijl van de knop     |
 | `size`      | "small" \| "medium" \| "large"                    | "medium"  | Regelt de afmeting van de knop           |
 | `disabled`  | boolean                                           | false     | Maakt de knop niet interactief           |
 | `fullWidth` | boolean                                           | false     | Laat de knop volledige breedte gebruiken |
@@ -226,7 +226,6 @@ De Button is een herbruikbare component die consistente knoppen binnen Footguard
 
 <button variant="secondary">Secundair</button>
 <button variant="outline">Outline</button>
-<button variant="danger">Danger</button>
 
 <button size="small">Klein</button>
 <button size="medium">Middel</button>
