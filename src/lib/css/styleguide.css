@@ -334,7 +334,6 @@ button {
   font-family: var(--main-font);
   font-weight: var(--font-weight-500);
   line-height: var(--line-height-tight);
-  white-space: nowrap;
   text-decoration: none;
   cursor: pointer;
   transition:
@@ -393,6 +392,7 @@ button {
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   & .button-icon {
