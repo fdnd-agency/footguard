@@ -1,7 +1,8 @@
 <script>
   import GroupAboutBanner from "$lib/components/groups/GroupAboutBanner.svelte";
   import GroupCard from "$lib/components/groups/GroupCard.svelte";
-  import GroupFilter from "$lib/components/groupFilter/GroupFilter.svelte"
+  import GroupFilter from "$lib/components/groupFilter/GroupFilter.svelte";
+  import AddGroupButton from "$lib/components/groups/AddGroupButton.svelte";
 
   // `data` is injected by SvelteKit from +page.server.js
   // It contains the groups array fetched from Directus
@@ -27,7 +28,10 @@
     <GroupAboutBanner>
       Manage members, invite users by email, and quickly update group access.
     </GroupAboutBanner>
-    <GroupFilter />
+    <div class="groups-controls">
+      <GroupFilter />
+      <AddGroupButton href="/groups/new" />
+    </div>
   {#if isLoading}
   <!-- Loading state -->
   <p>Loading groups...</p>
@@ -79,7 +83,15 @@
       gap: var(--spacing-lg);
       align-items: start;
     }
-   .groups-status {
+
+    .groups-controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--spacing-sm);
+    }
+
+    .groups-status {
       color: var(--grey-500);
       text-align: center;
       padding: var(--spacing-xl) 0;
