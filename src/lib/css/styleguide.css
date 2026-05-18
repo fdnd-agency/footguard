@@ -379,7 +379,6 @@ button {
 
     & > .button-text {
       flex: 1;
-      min-width: 0;
     }
 
     & > .button-icon {
@@ -387,14 +386,14 @@ button {
     }
   }
 
-  & .button-text {
+  & > .button-text {
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
 
-  & .button-icon {
+  & > .button-icon {
     display: flex;
     flex-shrink: 0;
     align-items: center;
@@ -403,7 +402,7 @@ button {
     line-height: 0;
     color: inherit;
 
-    & svg {
+    & > svg {
       display: block;
       flex-shrink: 0;
       align-self: center;
