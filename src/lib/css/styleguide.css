@@ -350,17 +350,20 @@ button {
   }
 
   &.button-small {
-    padding: 0.5rem 1rem;
+    padding-block: 0.5rem;
+    padding-inline: 1rem;
     font-size: clamp(10px, 1.5vw, 12px);
   }
 
   &.button-medium {
-    padding: 0.75rem 1.25rem;
+    padding-block: 0.75rem;
+    padding-inline: 1.25rem;
     font-size: clamp(12px, 2vw, 14px);
   }
 
   &.button-large {
-    padding: var(--spacing-sm) var(--spacing-lg);
+    padding-block: var(--spacing-sm);
+    padding-inline: var(--spacing-lg);
     font-size: clamp(14px, 2vw, 16px);
   }
 
