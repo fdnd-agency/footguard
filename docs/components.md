@@ -259,7 +259,7 @@ Gebruik op `<button>` of `<a>` wanneer je geen Svelte-component nodig hebt (bijv
 
 **Uitgeschakeld:** native `disabled` op `<button>`, of `aria-disabled="true"` op `<span>` / `<a>` voor niet-klikbare weergave.
 
-**Focus:** focusring via `--btn-focus` (standaard blauw); bij `.button-danger` wordt die rood voor `:focus-visible`.
+**Focus:** focusring via scoped `--_btn-focus` op `.button` (standaard blauw); `.button-danger` overschrijft die naar rood voor `:focus-visible`.
 
 ### HTML-voorbeelden
 

@@ -321,7 +321,7 @@ button {
 /* Shared .button system — usage: Button.svelte, docs/components.md */
 
 .button {
-  --btn-focus: var(--blue-500);
+  --_btn-focus: var(--blue-500);
 
   display: inline-flex;
   align-items: center;
@@ -475,7 +475,7 @@ button {
   }
 
   &.button-danger {
-    --btn-focus: var(--red-500);
+    --_btn-focus: var(--red-500);
 
     border: 1.5px solid var(--red-500);
     background: var(--red-500);
@@ -496,7 +496,7 @@ button {
   &.button-secondary:focus-visible,
   &.button-outline:focus-visible,
   &.button-danger:focus-visible {
-    outline: 3px solid var(--btn-focus);
+    outline: 3px solid var(--_btn-focus);
     outline-offset: 2px;
   }
 
