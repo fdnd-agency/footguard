@@ -426,14 +426,13 @@ button {
       transform: translateY(0);
       box-shadow: var(--shadow-sm);
     }
+  }
 
-    &.button-spread {
-      border-radius: var(--radius-md);
-      min-width: min(100%, 22rem);
-      padding-block: var(--spacing-sm);
-      padding-inline-start: var(--spacing-xl);
-      padding-inline-end: var(--spacing-sm);
-    }
+  &.button-primary.button-spread {
+    border-radius: var(--radius-md);
+    padding-block: var(--spacing-sm);
+    padding-inline-start: var(--spacing-xl);
+    padding-inline-end: var(--spacing-sm);
   }
 
   &.button-secondary {
