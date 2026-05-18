@@ -318,25 +318,7 @@ button {
   cursor: pointer;
 }
 
-/*
- * Shared button styles (global)
- * ---------------------------
- * Use on <button> or <a>. Combine: .button + one variant + one size + optional extras.
- *
- * Variants (pick one):  .button-primary | .button-secondary | .button-outline | .button-danger
- * Sizes / layout on the same node use the same pattern: .button + .button-small etc.
- * (Source uses &.button-small under .button so output is always .button.button-small, not a
- * separate .button-small-only rule — keeps nesting consistent with &.button-primary.)
- * Layout extras:        .button-full-width  — full row width
- *                        .button-spread      — label left, trailing content right; sensible min-width
- * Inner slots:          .button-text  — truncates long label with ellipsis
- *                        .button-icon  — wraps SVG/icon; keeps flex alignment
- *
- * Disabled: use native disabled on <button>, or aria-disabled="true" on <span>/<a> for non-interactive UI.
- * Focus ring: --btn-focus (blue by default); danger sets it to red for :focus-visible.
- *
- * Component wrapper: src/lib/components/buttons/Button.svelte (same class names).
- */
+/* Shared .button system — usage: Button.svelte, docs/components.md */
 
 .button {
   --btn-focus: var(--blue-500);

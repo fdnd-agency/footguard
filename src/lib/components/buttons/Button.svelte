@@ -1,9 +1,14 @@
 <script>
   /**
-   * Renders a real <button> with shared global classes.
-   * All visual styles live in src/lib/css/styleguide.css (search for ".button {").
-   * variant → button-primary | button-secondary | button-outline | button-danger
-   * size    → button-small | button-medium | button-large
+   * Shared button component. Styles live in src/lib/css/styleguide.css (`.button`).
+   *
+   * Applies: `.button` + `.button-{variant}` + `.button-{size}` (+ optional `.button-full-width`).
+   * Prefer this component in Svelte; for raw HTML use the same class names on `<button>` or `<a>`.
+   *
+   * variant: primary | secondary | outline | danger
+   * size: small | medium | large
+   *
+   * Full API, global classes, and examples: docs/components.md (Button component).
    */
   export let variant = "primary";
   export let size = "medium";
