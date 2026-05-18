@@ -331,7 +331,6 @@ button {
   appearance: none;
   border: none;
   border-radius: var(--radius-sm);
-  box-sizing: border-box;
   font-family: var(--main-font);
   font-weight: var(--font-weight-500);
   line-height: var(--line-height-tight);
