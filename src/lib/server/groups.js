@@ -326,3 +326,46 @@ export async function removeMemberFromGroup(memberId, updatedByUserId = null) {
   const json = await response.json()
   return json.data
 }
+
+/**
+ * Fetches all articles assigned to a specific workgroup from footguard_articles.
+ * Uses the assigned_workgroup field to filter by group ID.
+ *
+ * @param {string|number} groupId - The ID of the workgroup
+ * @returns {Promise<Array>} List of article objects with title, publisher and theme
+ * @throws {Error} If the API call fails
+ */
+export async function getGroupArticles(groupId) {
+  // Filter articles where assigned_workgroup matches the group ID
+  const url = `${DIRECTUS_URL}/items/footguard_articles?filter[assigned_workgroup][_eq]=${groupId}&fields=id,title,publisher,publishing_year,theme,status&limit=-1`
+
+  let response
+  try {
+    response = await fetch(url, {
+      headers: {
+        Authorization: `Bearer ${DIRECTUS_TOKEN}`,
+        'Content-Type': 'application/json'
+      }
+    })
+  } catch (networkError) {
+    throw new Error(`Network error while fetching group articles: ${networkError.message}`)
+  }
+
+  if (!response.ok) {
+    throw new Error(
+      `Directus API error while fetching group articles: ${response.status} ${response.statusText}`
+    )
+  }
+
+  const json = await response.json()
+
+  // Map to a clean UI-friendly format
+  return (json.data ?? []).map((article) => ({
+    id: article.id,
+    title: article.title ?? 'Untitled',
+    publisher: article.publisher ?? null,
+    publishingYear: article.publishing_year ?? null,
+    theme: article.theme ?? null,
+    status: article.status ?? null
+  }))
+}

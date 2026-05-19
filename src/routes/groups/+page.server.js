@@ -6,8 +6,8 @@ import {
   fetchGroups,
   findUserByEmail,
   addUserToGroup,
-  getGroupMembers,
-  removeMemberFromGroup
+  removeMemberFromGroup,
+  getGroupArticles
 } from '$lib/server/groups.js'
 import { error, fail } from '@sveltejs/kit'
 
@@ -16,22 +16,26 @@ export async function load() {
   try {
     const groups = await fetchGroups()
 
-    // Fetch members for each group in parallel.
-    const groupsWithMembers = await Promise.all(
+    // Fetch only articles per group — members are already included in fetchGroups()
+    const groupsWithData = await Promise.all(
       groups.map(async (group) => {
         try {
-          const members = await getGroupMembers(group.id)
-          return { ...group, members, memberCount: members.length }
+          // Members already fetched inside fetchGroups(), only articles need separate fetch
+          const articles = await getGroupArticles(group.id)
+          return {
+            ...group,
+            articles
+          }
         } catch {
-          // If members fail for one group, keep page functional for others.
-          return { ...group, members: [], memberCount: 0 }
+          // If articles fail for one group, keep page functional for others
+          return { ...group, articles: [] }
         }
       })
     )
 
     // Pass groups (with their members) to +page.svelte via the data prop
     return {
-      groups: groupsWithMembers,
+      groups: groupsWithData,
       loadError: null
     }
   } catch {
