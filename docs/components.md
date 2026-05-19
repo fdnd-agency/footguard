@@ -253,7 +253,7 @@ Gebruik op `<button>` of `<a>` wanneer je geen Svelte-component nodig hebt (bijv
 | Variant  | `.button-primary` · `.button-secondary` · `.button-outline` · `.button-danger` |
 | Grootte  | `.button-small` · `.button-medium` · `.button-large` |
 | Layout   | `.button-full-width` · `.button-spread` |
-| Binnenin | `.button-text` (ellipsis) · `.button-icon` (icoon/SVG) |
+| Binnenin | `.button__text` (ellipsis) · `.button__icon` (icoon/SVG) |
 
 **Waarom nested CSS?** In `styleguide.css` staan sizes/varianten als `&.button-small` onder `.button`. De output is dus `.button.button-small`, niet een losse `.button-small`-regel — hetzelfde patroon als bij varianten.
 
@@ -273,7 +273,7 @@ Gebruik op `<button>` of `<a>` wanneer je geen Svelte-component nodig hebt (bijv
 </button>
 
 <button type="button" class="button button-primary button-medium button-spread">
-  <span class="button-text">Lange groepsnaam die afkapt met ellipsis</span>
-  <span class="button-icon"><!-- SVG --></span>
+  <span class="button__text">Lange groepsnaam die afkapt met ellipsis</span>
+  <span class="button__icon"><!-- SVG --></span>
 </button>
 ```

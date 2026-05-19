@@ -377,23 +377,23 @@ button {
     gap: var(--spacing-md);
     min-width: min(100%, 22rem);
 
-    & > .button-text {
+    & > .button__text {
       flex: 1;
     }
 
-    & > .button-icon {
+    & > .button__icon {
       margin-inline-start: auto;
     }
   }
 
-  & > .button-text {
+  & > .button__text {
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
 
-  & > .button-icon {
+    & > .button__icon {
     display: flex;
     flex-shrink: 0;
     align-items: center;
