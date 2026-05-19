@@ -8,15 +8,35 @@
   // It contains the groups array fetched from Directus
   export let data;
   export let form;
-
-  // Extract groups safely (fallback to empty array)
-  // Reactive statement: automatically updates `groups` whenever `data.groups` changes.
-  // Uses a fallback empty array to prevent errors when no data is available yet.
-  $: groups = data.groups ?? [];
+ 
+  // Holds groups created during this session (not yet in server data).
+  // Kept separate so server data changes don't wipe newly added groups.
+  let extraGroups = [];
+ 
+  // Merge server groups + locally added groups, deduplicate by id.
+  // Deduplication prevents doubles if the server data refreshes and already
+  // includes a group that was added via the createGroup action.
+  $: groups = [...(data.groups ?? []), ...extraGroups].filter(
+    (g, i, arr) => arr.findIndex((x) => x.id === g.id) === i
+  );
+ 
   $: loadError = data.loadError ?? null;
-
+ 
   // Loading state is true until groups or an error value is available
   $: isLoading = !data?.groups && !data?.loadError;
+ 
+  // When createGroup succeeds, append the new group to extraGroups so it
+  // appears in the list immediately without a full page reload.
+  $: if (form?.action === 'createGroup' && form?.success && form?.group) {
+    const alreadyExists =
+      (data.groups ?? []).some((g) => g.id === form.group.id) ||
+      extraGroups.some((g) => g.id === form.group.id);
+ 
+    if (!alreadyExists) {
+      extraGroups = [form.group, ...extraGroups];
+    }
+  }
+
 </script>
 
 <section class="groups-page">
