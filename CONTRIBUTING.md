@@ -175,6 +175,11 @@ De code conventions worden toegepast volgens de richtlijnen van de
 - Animaties: `animation-(actie)-(richting)` → `animation-fade-in-up`
 - Gebruik van **kebab-case**
 - Naamgeving van classes, id's etc. in het **Engels**
+- Gebruik voor CSS classes het **BEM-patroon** voor duidelijke structuur:
+  - Block: `.button`
+  - Element: `.button__text`, `.button__icon`
+  - Modifier: `.button--primary`, `.button--large`
+  - Voor bestaande utility/pattern classes (zoals `.button-primary`) mag de huidige stijl blijven bestaan, maar nieuwe component-classes volgen BEM.
 - Duidelijke omschrijving bij PR
 
 ## Assets

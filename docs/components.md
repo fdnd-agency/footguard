@@ -207,7 +207,9 @@ Dit component toont de antwoorden (bijvoorbeeld “Yes” of “No”) in de tab
 
 De Button is een herbruikbare component die consistente knoppen binnen Footguard mogelijk maakt. Gebruik dit component voor alle interactieve acties in de interface.
 
-## Props
+**Bestanden:** `src/lib/components/buttons/Button.svelte` (Svelte) · `src/lib/css/styleguide.css` (globale classes onder `.button`)
+
+## Props (`Button.svelte`)
 
 | Prop        | Type                                              | Default   | Uitleg                                   |
 | ----------- | ------------------------------------------------- | --------- | ---------------------------------------- |
@@ -217,24 +219,61 @@ De Button is een herbruikbare component die consistente knoppen binnen Footguard
 | `fullWidth` | boolean                                           | false     | Laat de knop volledige breedte gebruiken |
 | `type`      | "button" \| "submit" \| "reset"                   | "button"  | HTML button type                         |
 | `tabindex`  | number                                            | 0         | Tabbable volgorde                        |
+| `class`     | string                                            | `""`      | Extra CSS-classes op het element         |
 | `slot`      | —                                                 | —         | Inhoud van de knop (tekst, iconen)       |
 
-## Voorbeelden
+## Svelte-voorbeelden
+
+```svelte
+<script>
+  import Button from '$lib/components/buttons/Button.svelte'
+</script>
+
+<Button>Standaard (primary, medium)</Button>
+<Button variant="secondary">Secundair</Button>
+<Button variant="outline">Outline</Button>
+<Button variant="danger">Danger</Button>
+
+<Button size="small">Klein</Button>
+<Button size="large">Groot</Button>
+<Button variant="outline" size="small">Klein outline</Button>
+
+<Button disabled>Niet actief</Button>
+<Button fullWidth>Volledige breedte</Button>
+<Button type="submit">Verzenden</Button>
+```
+
+## Globale CSS-classes (`styleguide.css`)
+
+Gebruik op `<button>` of `<a>` wanneer je geen Svelte-component nodig hebt (bijv. login-formulieren). Combineer altijd **`.button` + één variant + één size** (+ optionele extras op hetzelfde element).
+
+| Soort    | Classes (kies één variant + één size) |
+| -------- | ------------------------------------- |
+| Basis    | `.button`                             |
+| Variant  | `.button-primary` · `.button-secondary` · `.button-outline` · `.button-danger` |
+| Grootte  | `.button-small` · `.button-medium` · `.button-large` |
+| Layout   | `.button-full-width` · `.button-spread` |
+| Binnenin | `.button__text` (ellipsis) · `.button__icon` (icoon/SVG) |
+
+**Waarom nested CSS?** In `styleguide.css` staan sizes/varianten als `&.button-small` onder `.button`. De output is dus `.button.button-small`, niet een losse `.button-small`-regel — hetzelfde patroon als bij varianten.
+
+**Uitgeschakeld:** native `disabled` op `<button>`, of `aria-disabled="true"` op `<span>` / `<a>` voor niet-klikbare weergave.
+
+**Focus:** focusring via scoped `--_btn-focus` op `.button` (standaard blauw); `.button-danger` overschrijft die naar rood voor `:focus-visible`.
+
+### HTML-voorbeelden
 
 ```html
-<button>Standaard</button>
+<button type="button" class="button button-primary button-medium">Opslaan</button>
 
-<button variant="secondary">Secundair</button>
-<button variant="outline">Outline</button>
-<button variant="danger">Danger</button>
+<a href="/groups" class="button button-outline button-small">Terug</a>
 
-<button size="small">Klein</button>
-<button size="medium">Middel</button>
-<button size="large">Groot</button>
+<button type="submit" class="button button-primary button-large button-full-width" disabled>
+  Bezig…
+</button>
 
-<button variant="outline" size="small">Klein Outline</button>
-
-<button disabled>Niet actief</button>
-<button fullWidth>Volledige breedte</button>
-<button type="submit">Verzenden</button>
+<button type="button" class="button button-primary button-medium button-spread">
+  <span class="button__text">Lange groepsnaam die afkapt met ellipsis</span>
+  <span class="button__icon"><!-- SVG --></span>
+</button>
 ```
