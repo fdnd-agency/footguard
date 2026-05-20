@@ -7,7 +7,8 @@ import {
   findUserByEmail,
   addUserToGroup,
   removeMemberFromGroup,
-  getGroupArticles
+  getGroupArticles,
+  createGroup
 } from '$lib/server/groups.js'
 import { error, fail } from '@sveltejs/kit'
 
@@ -146,6 +147,64 @@ export const actions = {
     } catch (err) {
       return fail(500, {
         error: err.message || 'Failed to remove member. Please try again.'
+      })
+    }
+  },
+  /**
+   * Handles creating a new workgroup.
+   * Only group_name is required; condition_label, status, and image are optional.
+   * Image upload (multipart/file) is handled separately — for now only text fields.
+   *
+   * @type {import('./$types').Actions}
+   */
+  createGroup: async ({ request, locals }) => {
+    const data = await request.formData()
+    const currentUserId = locals.user?.id ?? null
+
+    const groupName = data.get('groupName')?.toString().trim()
+    const conditionLabel = data.get('conditionLabel')?.toString().trim() || null
+    const status = data.get('status')?.toString().trim() || null
+    // imageId comes later when the frontend modal with file upload is built
+    const imageId = data.get('imageId')?.toString().trim() || null
+
+    // --- Validation: group name is the only required field ---
+    if (!groupName) {
+      return fail(400, {
+        error: 'Group name is required.',
+        field: 'groupName',
+        action: 'createGroup'
+      })
+    }
+
+    try {
+      const newGroup = await createGroup({
+        groupName,
+        conditionLabel,
+        status,
+        createdByUserId: currentUserId,
+        imageId
+      })
+
+      // Return the new group so the frontend can append it to the list
+      // without a full page reload.
+      return {
+        success: true,
+        action: 'createGroup',
+        group: {
+          id: newGroup.id,
+          name: newGroup.group_name,
+          status: newGroup.status ?? null,
+          conditionlabel: newGroup.condition_label ?? 'General',
+          members: [],
+          memberCount: 0,
+          articles: [],
+          image: null // image upload handled later
+        }
+      }
+    } catch (err) {
+      return fail(500, {
+        error: err.message || 'Failed to create group. Please try again.',
+        action: 'createGroup'
       })
     }
   }

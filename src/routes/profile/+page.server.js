@@ -12,50 +12,103 @@ function formFieldsFromUser(sourceUser = {}) {
   }
 }
 
+function formatNameFromEmail(email) {
+  if (!email) return 'Unknown user'
+
+  const firstPart = email.split('@')[0]
+  const firstName = firstPart.split('.')[0]
+
+  return firstName.charAt(0).toUpperCase() + firstName.slice(1)
+}
+
+function normalizeSessionUser(sessionUser = {}) {
+  return {
+    id: sessionUser.id,
+    name: sessionUser.name ?? formatNameFromEmail(sessionUser.email),
+    role: sessionUser.role ?? '',
+    institute: sessionUser.institute ?? '',
+    profession: sessionUser.profession ?? '',
+    email: sessionUser.email ?? ''
+  }
+}
+
 // This is my Directus base url.
 const DIRECTUS_URL = env.PUBLIC_DIRECTUS_URL || 'https://fdnd-agency.directus.app'
+
 // This token i use on server to update Directus data.
 const DIRECTUS_TOKEN = privateEnv.DIRECTUS_TOKEN
+
+function directusHeaders() {
+  const headers = {}
+
+  if (DIRECTUS_TOKEN) {
+    headers.Authorization = `Bearer ${DIRECTUS_TOKEN}`
+  }
+
+  return headers
+}
 
 // This load run when profile page open.
 // Here i get current user data from Directus by email,
 // so page show real latest profile info.
 export async function load({ fetch, locals, url }) {
   const sessionUser = locals.user
+
+  if (!sessionUser) {
+    throw redirect(302, '/login')
+  }
+
   const isEditMode = url.searchParams.has('edit')
   const saved = url.searchParams.get('saved') === '1'
   const saveWarning = url.searchParams.get('warning') ?? ''
 
-  // Get user by exact email from session.
-  const usersResponse = await fetch(
-    `${DIRECTUS_URL}/items/footguard_users?` +
-      `filter[email][_eq]=${encodeURIComponent(sessionUser.email)}&limit=1`
-  )
+  const fallbackUser = normalizeSessionUser(sessionUser)
 
-  // If request fail, i fallback to session user.
-  if (!usersResponse.ok) {
-    const user = sessionUser
+  try {
+    // Get user by exact email from session.
+    const usersResponse = await fetch(
+      `${DIRECTUS_URL}/items/footguard_users?` +
+        `filter[email][_eq]=${encodeURIComponent(sessionUser.email)}&limit=1`,
+      {
+        headers: directusHeaders()
+      }
+    )
+
+    // If request fail, i fallback to session user.
+    if (!usersResponse.ok) {
+      return {
+        user: fallbackUser,
+        isEditMode,
+        saved,
+        saveWarning,
+        ...(isEditMode ? { editForm: formFieldsFromUser(fallbackUser) } : {})
+      }
+    }
+
+    // Directus return user list in data array.
+    const usersResult = await usersResponse.json()
+    const [user] = usersResult?.data ?? []
+
+    const resolvedUser = user ?? fallbackUser
+
+    // If user found use it, else use session user.
     return {
-      user,
+      user: resolvedUser,
       isEditMode,
       saved,
       saveWarning,
-      ...(isEditMode ? { editForm: formFieldsFromUser(user) } : {})
+      ...(isEditMode ? { editForm: formFieldsFromUser(resolvedUser) } : {})
     }
-  }
+  } catch (error) {
+    console.error('Profile load error:', error)
 
-  // Directus return user list in data array.
-  const usersResult = await usersResponse.json()
-  const [user] = usersResult?.data ?? []
-  const resolvedUser = user ?? sessionUser
-
-  // If user found use it, else use session user.
-  return {
-    user: resolvedUser,
-    isEditMode,
-    saved,
-    saveWarning,
-    ...(isEditMode ? { editForm: formFieldsFromUser(resolvedUser) } : {})
+    return {
+      user: fallbackUser,
+      isEditMode,
+      saved,
+      saveWarning,
+      ...(isEditMode ? { editForm: formFieldsFromUser(fallbackUser) } : {})
+    }
   }
 }
 
@@ -75,90 +128,137 @@ export const actions = {
   // Called from: /profile?/saveProfile
   saveProfile: async ({ request, fetch, locals }) => {
     const sessionUser = locals.user
+
     // Must be logged in.
     if (!sessionUser) return fail(401, { message: 'Unauthorized' })
+
     // Token must exist on server.
     if (!DIRECTUS_TOKEN) return fail(500, { message: 'Server config missing' })
 
     // Read JSON body from frontend.
     const form = await request.formData().catch(() => null)
+
     if (!form) return fail(400, { message: 'Invalid request body' })
 
     // I use session user id for secure update.
     const userId = sessionUser.id
-    if (!userId) return fail(400, { message: 'Could not resolve user id for update' })
+
+    if (!userId) {
+      return fail(400, { message: 'Could not resolve user id for update' })
+    }
 
     // Fields that can be edited in profile form.
-    const name = String(form.get('name') ?? '')
-    const institute = String(form.get('institute') ?? '')
-    const profession = String(form.get('profession') ?? '')
-    const email = String(form.get('email') ?? '')
+    const name = String(form.get('name') ?? '').trim()
+    const institute = String(form.get('institute') ?? '').trim()
+    const profession = String(form.get('profession') ?? '').trim()
+    const email = String(form.get('email') ?? '').trim()
+
     // Main fields save first.
     const corePayload = {
-      name: String(name).trim(),
-      institute: String(institute).trim(),
-      profession: String(profession).trim()
+      name,
+      institute,
+      profession
     }
 
     const photoRaw = form.get('photo')
+
     if (typeof photoRaw === 'string' && photoRaw.trim()) {
       corePayload.photo = photoRaw.trim()
     }
 
     // Update the input fields in Directus.
-    const updateResponse = await patchUser({ fetch, userId, payload: corePayload })
+    const updateResponse = await patchUser({
+      fetch,
+      userId,
+      payload: corePayload
+    })
+
     if (!updateResponse.ok) {
       const details = await updateResponse.text().catch(() => '')
-      return fail(400, { message: 'Failed to save core profile fields', details })
+
+      return fail(400, {
+        message: 'Failed to save core profile fields',
+        details
+      })
     }
 
     // Optional warnings list (for non blocking fields).
     const warnings = []
+
     // Email update separated, so if email fail core fields still saved.
-    if (String(email).trim()) {
+    if (email) {
       const emailResponse = await patchUser({
         fetch,
         userId,
-        payload: { email: String(email).trim() }
+        payload: { email }
       })
-      if (!emailResponse.ok) warnings.push('Email could not be updated')
+
+      if (!emailResponse.ok) {
+        warnings.push('Email could not be updated')
+      }
     }
 
-    await updateResponse.json().catch(() => ({}))
-
     const warn = warnings[0]
+
     if (warn) {
       throw redirect(303, `/profile?saved=1&warning=${encodeURIComponent(warn)}`)
     }
+
     throw redirect(303, '/profile?saved=1')
   },
 
   uploadAvatar: async ({ request, fetch, locals }) => {
     const sessionUser = locals.user
-    if (!sessionUser) return { ok: false, message: 'Unauthorized' }
-    if (!DIRECTUS_TOKEN) return { ok: false, message: 'Server config missing' }
+
+    if (!sessionUser) {
+      return { ok: false, message: 'Unauthorized' }
+    }
+
+    if (!DIRECTUS_TOKEN) {
+      return { ok: false, message: 'Server config missing' }
+    }
 
     const form = await request.formData().catch(() => null)
     const avatar = form?.get('avatar')
-    if (!(avatar instanceof File)) return { ok: false, message: 'No avatar file uploaded' }
+
+    if (!(avatar instanceof File)) {
+      return { ok: false, message: 'No avatar file uploaded' }
+    }
 
     const uploadBody = new FormData()
     uploadBody.append('file', avatar)
+
     const uploadResponse = await fetch(`${DIRECTUS_URL}/files`, {
       method: 'POST',
-      headers: { Authorization: `Bearer ${DIRECTUS_TOKEN}` },
+      headers: {
+        Authorization: `Bearer ${DIRECTUS_TOKEN}`
+      },
       body: uploadBody
     })
 
     if (!uploadResponse.ok) {
       const details = await uploadResponse.text().catch(() => '')
-      return { ok: false, message: 'Avatar upload failed', details }
+
+      return {
+        ok: false,
+        message: 'Avatar upload failed',
+        details
+      }
     }
 
     const uploadData = await uploadResponse.json().catch(() => null)
     const photoId = uploadData?.data?.id
-    if (!photoId) return { ok: false, message: 'Upload succeeded but file id missing' }
 
-    return { ok: true, photo: photoId }
+    if (!photoId) {
+      return {
+        ok: false,
+        message: 'Upload succeeded but file id missing'
+      }
+    }
+
+    return {
+      ok: true,
+      photo: photoId
+    }
   }
 }

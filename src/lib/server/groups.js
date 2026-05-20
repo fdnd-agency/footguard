@@ -369,3 +369,62 @@ export async function getGroupArticles(groupId) {
     status: article.status ?? null
   }))
 }
+
+/**
+ * Creates a new workgroup in Directus.
+ * Only group_name is required; all other fields are optional.
+ *
+ * @param {object} groupData - The group fields to create
+ * @param {string} groupData.groupName - Required: the name of the group
+ * @param {string|null} groupData.conditionLabel - Optional: label for the condition
+ * @param {string|null} groupData.status - Optional: e.g. 'active', 'draft'
+ * @param {number|null} groupData.createdByUserId - Optional: ID of the creating user
+ * @param {string|null} groupData.imageId - Optional: Directus file ID for thumbnail
+ * @returns {Promise<object>} The created workgroup record
+ * @throws {Error} If the API call fails
+ */
+export async function createGroup({
+  groupName,
+  conditionLabel = null,
+  status = null,
+  createdByUserId = null,
+  imageId = null
+}) {
+  if (!groupName?.trim()) {
+    throw new Error('Group name is required.')
+  }
+
+  const url = `${DIRECTUS_URL}/items/footguard_workgroups`
+
+  // Only include fields that have a value — Directus handles nulls fine,
+  // but this keeps the payload clean and explicit.
+  const body = {
+    group_name: groupName.trim(),
+    ...(conditionLabel ? { condition_label: conditionLabel.trim() } : {}),
+    ...(status ? { status } : {}),
+    ...(createdByUserId ? { created_by_user_id: Number(createdByUserId) } : {}),
+    ...(imageId ? { image: imageId } : {})
+  }
+
+  let response
+  try {
+    response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${DIRECTUS_TOKEN}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    })
+  } catch (networkError) {
+    throw new Error(`Network error while creating group: ${networkError.message}`)
+  }
+
+  if (!response.ok) {
+    const errorBody = await response.text()
+    throw new Error(`Directus API error while creating group: ${response.status} - ${errorBody}`)
+  }
+
+  const json = await response.json()
+  return json.data
+}
