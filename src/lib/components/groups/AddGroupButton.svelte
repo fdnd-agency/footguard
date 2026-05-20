@@ -22,9 +22,13 @@
   );
 </script>
 
-<svelte:element this={rootTag} class="add-group-btn" {...rootAttrs}>
-  <span class="add-group-btn__text">{label}</span>
-  <span class="add-group-btn__icon">
+<svelte:element
+  this={rootTag}
+  class="button button-primary button-large button-spread"
+  {...rootAttrs}
+>
+  <span class="button__text">{label}</span>
+  <span class="button__icon">
     <PulsIconNoBackground width={22} height={22} />
   </span>
 </svelte:element>
