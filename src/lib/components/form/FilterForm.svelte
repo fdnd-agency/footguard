@@ -18,7 +18,7 @@
 
 <form method="get" class="filter-form-container">
 	<label for="status" class="visually-hidden">filter status</label>
-	<select id="status" name="status" class="filter-button" bind:value={status} on:change={handleChange}>
+	<select id="status" name="status" class="filter-button" bind:value={status} onchange={handleChange}>
 		<option value="all">Status</option>
 		<option value="Not started">Not started</option>
 		<option value="Finished">Finished</option>
@@ -26,7 +26,7 @@
 	</select>
 
 	<label for="theme" class="visually-hidden">filter theme</label>
-	<select id="theme" name="theme" class="filter-button" bind:value={theme} on:change={handleChange}>
+	<select id="theme" name="theme" class="filter-button" bind:value={theme} onchange={handleChange}>
 		<option value="all">Themes</option>
 		<option value="Temperature">Temperature</option>
 		<option value="Ulcers">Ulcers</option>

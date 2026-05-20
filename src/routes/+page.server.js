@@ -4,46 +4,100 @@ import { redirect } from '@sveltejs/kit'
 const BASE_URL = 'https://fdnd-agency.directus.app'
 
 export async function load({ fetch, locals }) {
-  // Niet ingelogd -> naar login pagina
   if (!locals.user) {
     throw redirect(302, '/login')
   }
 
-  const currentUserId = locals.user.id
+  const headers = {}
+
+  const token =
+    locals.accessToken ||
+    locals.token ||
+    locals.session?.access_token ||
+    locals.session?.accessToken
+
+  if (token) {
+    headers.Authorization = `Bearer ${token}`
+  }
+
   try {
-    const usersRes = await fetch(
-      `${BASE_URL}/items/footguard_users?filter[id][_eq]=${encodeURIComponent(currentUserId)}&limit=1`
-    )
-    const usersData = await usersRes.json()
+    const userId = locals.user.id
+    const email = locals.user.email
 
-    const users = usersData.data || []
+    let currentUser = null
 
-    const currentUser = users[0] || { name: 'Guest', id: null }
+    if (email) {
+      const userByEmailRes = await fetch(
+        `${BASE_URL}/items/footguard_users?filter[email][_eq]=${encodeURIComponent(email)}&limit=1`,
+        { headers }
+      )
 
-    if (!currentUser.id) {
-      return {
-        articles: [],
-        currentUser,
-        allUsers: users
+      const userByEmailData = await userByEmailRes.json()
+
+      currentUser = userByEmailData.data?.[0] ?? null
+    }
+
+    if (!currentUser && userId) {
+      const userByIdRes = await fetch(
+        `${BASE_URL}/items/footguard_users?filter[id][_eq]=${encodeURIComponent(userId)}&limit=1`,
+        { headers }
+      )
+
+      const userByIdData = await userByIdRes.json()
+
+      currentUser = userByIdData.data?.[0] ?? null
+    }
+
+    if (!currentUser) {
+      currentUser = {
+        id: userId,
+        name: formatNameFromEmail(email),
+        email,
+        role: locals.user.role ?? '',
+        profession: ''
       }
     }
 
-    const articlesRes = await fetch(
-      `${BASE_URL}/items/footguard_articles?fields=*,assigned_to.*,assessor_2.*&filter[assigned_to][_eq]=${currentUser.id}`
-    )
-    const articlesData = await articlesRes.json()
-    const articles = articlesData.data || []
+    let articles = []
+
+    if (currentUser.id) {
+      const articlesRes = await fetch(
+        `${BASE_URL}/items/footguard_articles?fields=*,assigned_to.*,assessor_2.*&filter[assigned_to][_eq]=${encodeURIComponent(currentUser.id)}`,
+        { headers }
+      )
+
+      const articlesData = await articlesRes.json()
+
+      articles = articlesData.data ?? []
+    }
 
     return {
       articles,
       currentUser,
-      allUsers: users
+      allUsers: currentUser.id ? [currentUser] : []
     }
-  } catch {
+  } catch (error) {
+    console.error('Dashboard load error:', error)
+
     return {
       articles: [],
-      currentUser: { name: 'Guest', id: null },
+      currentUser: {
+        id: locals.user.id,
+        name: formatNameFromEmail(locals.user.email),
+        email: locals.user.email ?? '',
+        role: locals.user.role ?? '',
+        profession: ''
+      },
       allUsers: []
     }
   }
+}
+
+function formatNameFromEmail(email) {
+  if (!email) return 'Guest'
+
+  const firstPart = email.split('@')[0]
+  const firstName = firstPart.split('.')[0]
+
+  return firstName.charAt(0).toUpperCase() + firstName.slice(1)
 }
