@@ -247,13 +247,13 @@ De Button is een herbruikbare component die consistente knoppen binnen Footguard
 
 Gebruik op `<button>` of `<a>` wanneer je geen Svelte-component nodig hebt (bijv. login-formulieren). Combineer altijd **`.button` + één variant + één size** (+ optionele extras op hetzelfde element).
 
-| Soort    | Classes (kies één variant + één size) |
-| -------- | ------------------------------------- |
-| Basis    | `.button`                             |
+| Soort    | Classes (kies één variant + één size)                                          |
+| -------- | ------------------------------------------------------------------------------ |
+| Basis    | `.button`                                                                      |
 | Variant  | `.button-primary` · `.button-secondary` · `.button-outline` · `.button-danger` |
-| Grootte  | `.button-small` · `.button-medium` · `.button-large` |
-| Layout   | `.button-full-width` · `.button-spread` |
-| Binnenin | `.button__text` (ellipsis) · `.button__icon` (icoon/SVG) |
+| Grootte  | `.button-small` · `.button-medium` · `.button-large`                           |
+| Layout   | `.button-full-width` · `.button-spread`                                        |
+| Binnenin | `.button__text` (ellipsis) · `.button__icon` (icoon/SVG)                       |
 
 **Waarom nested CSS?** In `styleguide.css` staan sizes/varianten als `&.button-small` onder `.button`. De output is dus `.button.button-small`, niet een losse `.button-small`-regel — hetzelfde patroon als bij varianten.
 
