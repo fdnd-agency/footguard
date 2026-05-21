@@ -62,5 +62,28 @@
       </form>
       <h2 id="create-group-modal-title" class="create-group-modal__title">Create New Group</h2>
     </header>
+
+    <form method="POST" action="?/createGroup" class="create-group-modal__form">
+      <label for="create-group-modal-group-name" class="create-group-modal__form-label">
+        Group Name
+        <span class="create-group-modal__form-required" aria-hidden="true">*</span>
+        <span class="sr-only">(required)</span>
+      </label>
+      <input
+        id="create-group-modal-group-name"
+        name="groupName"
+        type="text"
+        class="create-group-modal__form-input"
+        placeholder="Name the group"
+        required
+        autocomplete="off"
+      />
+      <button
+        type="submit"
+        class="button button-primary button-medium button-full-width create-group-modal__submit"
+      >
+        Create Group
+      </button>
+    </form>
   </section>
 </dialog>
