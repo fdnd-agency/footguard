@@ -59,7 +59,7 @@ export const actions = {
    */
   uploadarticle: async ({ request, locals }) => {
     // --- 1. Role guard: only super_admin may upload articles ---
-    if (locals.user?.role?.toLowerCase() !== 'super_admin') {
+    if (locals.user?.role?.toLowerCase() !== 'super admin') {
       return fail(403, { error: 'You do not have permission to upload articles.' })
     }
 
