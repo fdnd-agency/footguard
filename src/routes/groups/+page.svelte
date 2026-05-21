@@ -1,78 +1,92 @@
 <script>
-  import GroupAboutBanner from "$lib/components/groups/GroupAboutBanner.svelte";
-  import GroupCard from "$lib/components/groups/GroupCard.svelte";
-  import GroupFilter from "$lib/components/groupFilter/GroupFilter.svelte";
-  import AddGroupButton from "$lib/components/groups/AddGroupButton.svelte";
+  import { goto } from '$app/navigation'
+  import GroupAboutBanner from '$lib/components/groups/GroupAboutBanner.svelte'
+  import GroupCard from '$lib/components/groups/GroupCard.svelte'
+  import GroupFilter from '$lib/components/groupFilter/GroupFilter.svelte'
+  import AddGroupButton from '$lib/components/groups/AddGroupButton.svelte'
+  import CreateGroupModal from '$lib/components/groups/CreateGroupModal.svelte'
 
-  // `data` is injected by SvelteKit from +page.server.js
-  // It contains the groups array fetched from Directus
-  export let data;
-  export let form;
- 
+  /** @type {import('./$types').PageData} */
+  let { data, form } = $props()
+
   // Holds groups created during this session (not yet in server data).
-  // Kept separate so server data changes don't wipe newly added groups.
-  let extraGroups = [];
- 
-  // Merge server groups + locally added groups, deduplicate by id.
-  // Deduplication prevents doubles if the server data refreshes and already
-  // includes a group that was added via the createGroup action.
-  $: groups = [...(data.groups ?? []), ...extraGroups].filter(
-    (g, i, arr) => arr.findIndex((x) => x.id === g.id) === i
-  );
- 
-  $: loadError = data.loadError ?? null;
- 
-  // Loading state is true until groups or an error value is available
-  $: isLoading = !data?.groups && !data?.loadError;
- 
-  // When createGroup succeeds, append the new group to extraGroups so it
-  // appears in the list immediately without a full page reload.
-  $: if (form?.action === 'createGroup' && form?.success && form?.group) {
-    const alreadyExists =
-      (data.groups ?? []).some((g) => g.id === form.group.id) ||
-      extraGroups.some((g) => g.id === form.group.id);
- 
-    if (!alreadyExists) {
-      extraGroups = [form.group, ...extraGroups];
-    }
+  let extraGroups = $state([])
+
+  let showCreateGroupModal = $state(false)
+
+  const createModalOpen = $derived(showCreateGroupModal || data.showCreateModal)
+
+  function openCreateModal(event) {
+    event?.preventDefault?.()
+    showCreateGroupModal = true
+    goto('/groups?create-new-group', {
+      replaceState: true,
+      keepFocus: true,
+      noScroll: true
+    })
   }
 
+  function closeCreateModal() {
+    showCreateGroupModal = false
+    goto('/groups', { replaceState: true, keepFocus: true, noScroll: true })
+  }
+
+  const groups = $derived(
+    [...data.groups, ...extraGroups].filter(
+      (g, i, arr) => arr.findIndex((x) => x.id === g.id) === i
+    )
+  )
+
+  const isLoading = $derived(!data.groups && !data.loadError)
+
+  $effect(() => {
+    if (form?.action !== 'createGroup' || !form?.success || !form?.group) return
+
+    const alreadyExists =
+      data.groups.some((g) => g.id === form.group.id) ||
+      extraGroups.some((g) => g.id === form.group.id)
+
+    if (!alreadyExists) {
+      extraGroups = [form.group, ...extraGroups]
+    }
+  })
 </script>
 
 <section class="groups-page">
   <h1>Groups</h1>
 
   <article class="groups-intro">
-      <!-- TODO: Move banner content source to directus data fields and remove fallback text. --> 
-      <!-- TODO: Replace this placeholder banner with dynamic data from the group data. -->   
+    <!-- TODO: Move banner content source to directus data fields and remove fallback text. -->
+    <!-- TODO: Replace this placeholder banner with dynamic data from the group data. -->
     <GroupAboutBanner>
       Manage members, invite users by email, and quickly update group access.
     </GroupAboutBanner>
-    <div class="groups-controls">
+    <section class="groups-controls" aria-label="Group filters and actions">
       <GroupFilter />
-      <AddGroupButton href="/groups/new" />
-    </div>
-  {#if isLoading}
-  <!-- Loading state -->
-  <p>Loading groups...</p>
-
-{:else if loadError}
-  <!-- Error state -->
-  <p class="groups-status groups-status--error">Something went wrong while loading groups.</p>
-
-{:else if groups.length === 0}
-      <!-- Empty state -->
+      {#if data.isAdmin}
+        <AddGroupButton onclick={openCreateModal} />
+      {/if}
+    </section>
+    {#if isLoading}
+      <p>Loading groups...</p>
+    {:else if data.loadError}
+      <p class="groups-status groups-status--error">
+        Something went wrong while loading groups.
+      </p>
+    {:else if groups.length === 0}
       <p class="groups-status">No groups available at the moment. Check back later!</p>
-
-{:else}
-  <!-- Success state -->
-  <div class="groups-cards">
-    {#each groups as group (group.id)}
-      <GroupCard {group} {form} />
-    {/each}
-  </div>
-{/if}
+    {:else}
+      <div class="groups-cards">
+        {#each groups as group (group.id)}
+          <GroupCard {group} {form} />
+        {/each}
+      </div>
+    {/if}
   </article>
+
+  {#if data.isAdmin}
+    <CreateGroupModal open={createModalOpen} onClose={closeCreateModal} />
+  {/if}
 </section>
 
 <style>
@@ -109,6 +123,7 @@
       flex-wrap: wrap;
       align-items: center;
       gap: var(--spacing-sm);
+      width: 100%;
     }
 
     .groups-status {
@@ -118,7 +133,7 @@
     }
 
     .groups-status--error {
-      color: var(--color-danger, #dc2626);
+      color: var(--red-500);
     }
   }
 
