@@ -1,35 +1,71 @@
 <script>
-  import { resolve } from "$app/paths";
-  import PulsIconNoBackground from "$lib/assets/svg/puls-icon-no-background.svelte";
+  import { resolve } from '$app/paths'
+  import PulsIconNoBackground from '$lib/assets/svg/puls-icon-no-background.svelte'
 
   /**
-   * Create-new-group control for the groups page.
+   * Opens the create-group flow. Uses a real link for no-JS; optional onclick for SPA behaviour.
    *
-   * Props:
-   * - label — visible text (default: “Create New Group”).
-   * - href — app path (default: /groups/new); passed through resolve() when the control is a link.
-   * - disabled — with no href, shows an inactive control (not a fake link).
-   *
-   * Renders `<span aria-disabled>` when there is no real link, otherwise `<a href={resolve(href)}>`.
-   * Label + icon are written once using `<svelte:element>` (DRY).
+   * @type {{
+   *   label?: string,
+   *   disabled?: boolean,
+   *   href?: string,
+   *   onclick?: (event: MouseEvent) => void
+   * }}
    */
-  let { label = "Create New Group", disabled = false, href = "/groups/new" } = $props();
+  let {
+    label = 'Create New Group',
+    disabled = false,
+    href = '/groups?create-new-group',
+    onclick = null
+  } = $props()
 
-  let inactive = $derived(disabled || !href);
-  let rootTag = $derived(inactive ? "span" : "a");
-  let rootAttrs = $derived(
-    inactive ? { "aria-disabled": "true" } : { href: resolve(href) }
-  );
+  let inactive = $derived(disabled || !href)
+
+  function handleClick(event) {
+    if (!onclick) return
+    event.preventDefault()
+    onclick(event)
+  }
+
+  /** resolve() only accepts pathnames — query strings are appended after. */
+  function toAppHref(path) {
+    const queryIndex = path.indexOf('?')
+    let pathname = queryIndex === -1 ? path : path.slice(0, queryIndex)
+    const search = queryIndex === -1 ? '' : path.slice(queryIndex)
+
+    if (pathname.startsWith('.')) {
+      pathname = pathname.replace(/^\.\//, '/')
+    }
+
+    if (!pathname.startsWith('/')) {
+      pathname = `/${pathname}`
+    }
+
+    return `${resolve(pathname)}${search}`
+  }
+
+  const linkHref = $derived(toAppHref(href))
 </script>
 
-<svelte:element
-  this={rootTag}
-  class="button button-primary button-large button-spread"
-  {...rootAttrs}
->
-  <span class="button__text">{label}</span>
-  <span class="button__icon">
-    <PulsIconNoBackground width={22} height={22} />
+{#if inactive}
+  <span
+    class="button button-primary button-medium button-spread button--add-group"
+    aria-disabled="true"
+  >
+    <span class="button__text">{label}</span>
+    <span class="button__icon">
+      <PulsIconNoBackground width={22} height={22} />
+    </span>
   </span>
-</svelte:element>
-
+{:else}
+  <a
+    class="button button-primary button-medium button-spread button--add-group"
+    href={linkHref}
+    onclick={handleClick}
+  >
+    <span class="button__text">{label}</span>
+    <span class="button__icon">
+      <PulsIconNoBackground width={22} height={22} />
+    </span>
+  </a>
+{/if}
