@@ -12,8 +12,23 @@ import {
 } from '$lib/server/groups.js'
 import { error, fail } from '@sveltejs/kit'
 
+function normalizeRole(role) {
+  return String(role ?? '')
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, '_')
+}
+
+function isAdminUser(user) {
+  const role = normalizeRole(user?.role)
+  return role === 'admin' || role === 'super_admin'
+}
+
+/** Query param that opens the create-group drawer (see +page.svelte, AddGroupButton). */
+const CREATE_GROUP_QUERY = 'create-new-group'
+
 /** @type {import('./$types').PageServerLoad} */
-export async function load() {
+export async function load({ locals, url }) {
   try {
     const groups = await fetchGroups()
 
@@ -34,10 +49,15 @@ export async function load() {
       })
     )
 
-    // Pass groups (with their members) to +page.svelte via the data prop
+    const isAdmin = isAdminUser(locals.user)
+    const openCreateGroupFromUrl = url.searchParams.has(CREATE_GROUP_QUERY)
+
     return {
       groups: groupsWithData,
-      loadError: null
+      loadError: null,
+      isAdmin,
+      // Open create-group drawer when URL has ?create-new-group (admins only).
+      showCreateModal: isAdmin && openCreateGroupFromUrl
     }
   } catch {
     // Throw a proper SvelteKit error with status code
