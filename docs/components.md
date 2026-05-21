@@ -215,10 +215,10 @@ Right-side drawer to create a new group. Uses native `<dialog>` with semantic ma
 
 **Bestanden:** `src/lib/components/groups/CreateGroupModal.svelte` · `src/lib/css/styleguide.css` (classes onder `.create-group-modal`)
 
-| Prop     | Type       | Default | Uitleg                                              |
-| -------- | ---------- | ------- | --------------------------------------------------- |
-| `open`   | boolean    | false   | Panel open (SSR: `?create-new-group` via `+page.server.js`) |
-| `onClose`| `() => void` | —     | Optional callback after dialog closes (JS)          |
+| Prop      | Type         | Default | Uitleg                                                      |
+| --------- | ------------ | ------- | ----------------------------------------------------------- |
+| `open`    | boolean      | false   | Panel open (SSR: `?create-new-group` via `+page.server.js`) |
+| `onClose` | `() => void` | —       | Optional callback after dialog closes (JS)                  |
 
 **No-JS:** panel uses native `open` on SSR only; close is a GET form to `/groups`. With JS, `showModal()` / `close()` handle the drawer (no `open` attribute in the browser).
 
@@ -238,12 +238,12 @@ Primary control to open the create-group drawer. Built on the shared `.button` s
 
 **Bestanden:** `src/lib/components/groups/AddGroupButton.svelte` · `styleguide.css` (modifier `.button--add-group`)
 
-| Prop       | Type                      | Default              | Uitleg                                        |
-| ---------- | ------------------------- | -------------------- | --------------------------------------------- |
-| `label`    | string                    | `Create New Group`   | Visible label                                 |
-| `href`     | string                    | `/groups?create-new-group` | Link target without JS                  |
-| `onclick`  | `(event) => void`         | —                    | Optional; `preventDefault` when JS is enabled |
-| `disabled` | boolean                   | false                | Renders inactive `<span>`                     |
+| Prop       | Type              | Default                    | Uitleg                                        |
+| ---------- | ----------------- | -------------------------- | --------------------------------------------- |
+| `label`    | string            | `Create New Group`         | Visible label                                 |
+| `href`     | string            | `/groups?create-new-group` | Link target without JS                        |
+| `onclick`  | `(event) => void` | —                          | Optional; `preventDefault` when JS is enabled |
+| `disabled` | boolean           | false                      | Renders inactive `<span>`                     |
 
 Combine **`.button` + `.button-primary` + `.button-medium` + `.button-spread` + `.button--add-group`**. Label text uses **`.button__text`**.
 
