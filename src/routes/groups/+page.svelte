@@ -1,5 +1,6 @@
 <script>
   import { goto } from '$app/navigation'
+  import { resolve } from '$app/paths'
   import GroupAboutBanner from '$lib/components/groups/GroupAboutBanner.svelte'
   import GroupCard from '$lib/components/groups/GroupCard.svelte'
   import GroupFilter from '$lib/components/groupFilter/GroupFilter.svelte'
@@ -19,7 +20,7 @@
   function openCreateModal(event) {
     event?.preventDefault?.()
     showCreateGroupModal = true
-    goto('/groups?create-new-group', {
+    goto(resolve('/groups?create-new-group'), {
       replaceState: true,
       keepFocus: true,
       noScroll: true
@@ -28,7 +29,7 @@
 
   function closeCreateModal() {
     showCreateGroupModal = false
-    goto('/groups', { replaceState: true, keepFocus: true, noScroll: true })
+    goto(resolve('/groups'), { replaceState: true, keepFocus: true, noScroll: true })
   }
 
   const groups = $derived(

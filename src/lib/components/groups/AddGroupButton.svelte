@@ -26,25 +26,6 @@
     event.preventDefault()
     onclick(event)
   }
-
-  /** resolve() only accepts pathnames — query strings are appended after. */
-  function toAppHref(path) {
-    const queryIndex = path.indexOf('?')
-    let pathname = queryIndex === -1 ? path : path.slice(0, queryIndex)
-    const search = queryIndex === -1 ? '' : path.slice(queryIndex)
-
-    if (pathname.startsWith('.')) {
-      pathname = pathname.replace(/^\.\//, '/')
-    }
-
-    if (!pathname.startsWith('/')) {
-      pathname = `/${pathname}`
-    }
-
-    return `${resolve(pathname)}${search}`
-  }
-
-  const linkHref = $derived(toAppHref(href))
 </script>
 
 {#if inactive}
@@ -60,7 +41,7 @@
 {:else}
   <a
     class="button button-primary button-medium button-spread button--add-group"
-    href={linkHref}
+    href={resolve(href)}
     onclick={handleClick}
   >
     <span class="button__text">{label}</span>
