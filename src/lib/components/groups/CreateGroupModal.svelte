@@ -78,6 +78,20 @@
         required
         autocomplete="off"
       />
+      <label for="create-group-modal-condition-label" class="create-group-modal__form-label">
+        Condition Label
+        <span class="create-group-modal__form-required" aria-hidden="true">*</span>
+        <span class="sr-only">(required)</span>
+      </label>
+      <input
+        id="create-group-modal-condition-label"
+        name="conditionLabel"
+        type="text"
+        class="create-group-modal__form-input"
+        placeholder="Give The Group A Label"
+        required
+        autocomplete="off"
+      />
       <button
         type="submit"
         class="button button-primary button-medium button-full-width create-group-modal__submit"
