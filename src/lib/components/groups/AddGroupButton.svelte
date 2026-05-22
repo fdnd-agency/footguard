@@ -1,35 +1,52 @@
 <script>
-  import { resolve } from "$app/paths";
-  import PulsIconNoBackground from "$lib/assets/svg/puls-icon-no-background.svelte";
+  import { resolve } from '$app/paths'
+  import PulsIconNoBackground from '$lib/assets/svg/puls-icon-no-background.svelte'
 
   /**
-   * Create-new-group control for the groups page.
+   * Opens the create-group flow. Uses a real link for no-JS; optional onclick for SPA behaviour.
    *
-   * Props:
-   * - label — visible text (default: “Create New Group”).
-   * - href — app path (default: /groups/new); passed through resolve() when the control is a link.
-   * - disabled — with no href, shows an inactive control (not a fake link).
-   *
-   * Renders `<span aria-disabled>` when there is no real link, otherwise `<a href={resolve(href)}>`.
-   * Label + icon are written once using `<svelte:element>` (DRY).
+   * @type {{
+   *   label?: string,
+   *   disabled?: boolean,
+   *   href?: string,
+   *   onclick?: (event: MouseEvent) => void
+   * }}
    */
-  let { label = "Create New Group", disabled = false, href = "/groups/new" } = $props();
+  let {
+    label = 'Create New Group',
+    disabled = false,
+    href = '/groups?create-new-group',
+    onclick = null
+  } = $props()
 
-  let inactive = $derived(disabled || !href);
-  let rootTag = $derived(inactive ? "span" : "a");
-  let rootAttrs = $derived(
-    inactive ? { "aria-disabled": "true" } : { href: resolve(href) }
-  );
+  let inactive = $derived(disabled || !href)
+
+  function handleClick(event) {
+    if (!onclick) return
+    event.preventDefault()
+    onclick(event)
+  }
 </script>
 
-<svelte:element
-  this={rootTag}
-  class="button button-primary button-large button-spread"
-  {...rootAttrs}
->
-  <span class="button__text">{label}</span>
-  <span class="button__icon">
-    <PulsIconNoBackground width={22} height={22} />
+{#if inactive}
+  <span
+    class="button button-primary button-medium button-spread button--add-group"
+    aria-disabled="true"
+  >
+    <span class="button__text">{label}</span>
+    <span class="button__icon">
+      <PulsIconNoBackground width={22} height={22} />
+    </span>
   </span>
-</svelte:element>
-
+{:else}
+  <a
+    class="button button-primary button-medium button-spread button--add-group"
+    href={resolve(href)}
+    onclick={handleClick}
+  >
+    <span class="button__text">{label}</span>
+    <span class="button__icon">
+      <PulsIconNoBackground width={22} height={22} />
+    </span>
+  </a>
+{/if}

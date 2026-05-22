@@ -63,6 +63,10 @@ Elke map bevat componenten die een vergelijkbare functie of stijl delen.
    3.2 QuestionCard  
    3.3 GradingValue
 
+4. Groups pagina  
+   4.1 CreateGroupModal  
+   4.2 AddGroupButton
+
 ---
 
 ## 1. Componenten in de Researchpagina
@@ -200,6 +204,52 @@ De kaart waarin de vragen worden weergegeven.
 Dit component toont de antwoorden (bijvoorbeeld “Yes” of “No”) in de tabel.
 
 <img width="176" height="34" alt="Image" src="https://github.com/user-attachments/assets/cea7cf16-bbab-4c82-8f55-a3e09daae06e" />
+
+---
+
+## 4. Groups pagina
+
+### 4.1 CreateGroupModal
+
+Right-side drawer to create a new group. Uses native `<dialog>` with semantic markup (`section`, `header`, `h2`).
+
+**Bestanden:** `src/lib/components/groups/CreateGroupModal.svelte` · `src/lib/css/styleguide.css` (classes onder `.create-group-modal`)
+
+| Prop      | Type         | Default | Uitleg                                                      |
+| --------- | ------------ | ------- | ----------------------------------------------------------- |
+| `open`    | boolean      | false   | Panel open (SSR: `?create-new-group` via `+page.server.js`) |
+| `onClose` | `() => void` | —       | Optional callback after dialog closes (JS)                  |
+
+**No-JS:** panel uses native `open` on SSR only; close is a GET form to `/groups`. With JS, `showModal()` / `close()` handle the drawer (no `open` attribute in the browser).
+
+**Escape:** closes via native `<dialog>` behaviour; no unsaved-changes guard yet.
+
+**BEM classes:** `.create-group-modal`, `.create-group-modal__panel`, `.create-group-modal__header`, `.create-group-modal__close`, `.create-group-modal__title`
+
+```svelte
+<CreateGroupModal open={createModalOpen} onClose={closeCreateModal} />
+```
+
+---
+
+### 4.2 AddGroupButton
+
+Primary control to open the create-group drawer. Built on the shared `.button` system from `styleguide.css`.
+
+**Bestanden:** `src/lib/components/groups/AddGroupButton.svelte` · `styleguide.css` (modifier `.button--add-group`)
+
+| Prop       | Type              | Default                    | Uitleg                                        |
+| ---------- | ----------------- | -------------------------- | --------------------------------------------- |
+| `label`    | string            | `Create New Group`         | Visible label                                 |
+| `href`     | string            | `/groups?create-new-group` | Link target without JS                        |
+| `onclick`  | `(event) => void` | —                          | Optional; `preventDefault` when JS is enabled |
+| `disabled` | boolean           | false                      | Renders inactive `<span>`                     |
+
+Combine **`.button` + `.button-primary` + `.button-medium` + `.button-spread` + `.button--add-group`**. Label text uses **`.button__text`**.
+
+```svelte
+<AddGroupButton onclick={openCreateModal} />
+```
 
 ---
 

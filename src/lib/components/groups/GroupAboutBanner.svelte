@@ -27,7 +27,6 @@
   p {
     margin: 0;
     order: 1;
-    font-size: 1rem;
     font-weight: 300;
     line-height: 1.6;
   }
@@ -55,8 +54,6 @@
 
   @container group-about-banner (min-width: 48rem) {
     p {
-      /* large-copy values from styleguide.css */
-      font-size: 1.5rem;
       line-height: 1.5;
     }
   }
