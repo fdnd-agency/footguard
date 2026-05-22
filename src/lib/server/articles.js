@@ -1,19 +1,16 @@
 /** @author: Razan Sagheer**/
 /**
  * Uploads a PDF file to Directus file storage.
- * Uses the server-side DIRECTUS_TOKEN for authorization.
  *
  * @param {FormData} fileFormData - FormData with a 'file' field containing the PDF
- * @param {string} directusUrl - Base URL of the Directus instance (from env)
- * @param {string} directusToken - Server-side Directus token (from env)
+ * @param {string} directusUrl - Base URL of the Directus instance
+ * @param {string} directusToken - Server-side Directus token
  * @returns {Promise<Object>} The uploaded file object from Directus (includes .id)
  */
-
 export async function uploadPdfToDirectus(fileFormData, directusUrl, directusToken) {
   const response = await fetch(`${directusUrl}/files`, {
     method: 'POST',
     headers: {
-      // Use the server token — no Content-Type header; fetch sets it for FormData
       Authorization: `Bearer ${directusToken}`
     },
     body: fileFormData
@@ -29,6 +26,7 @@ export async function uploadPdfToDirectus(fileFormData, directusUrl, directusTok
   const { data } = await response.json()
   return data
 }
+
 /**
  * Creates an article record in the Directus 'iwgdf_articles' collection,
  * linking it to an already-uploaded file via its UUID.
@@ -41,24 +39,25 @@ export async function uploadPdfToDirectus(fileFormData, directusUrl, directusTok
  */
 
 export async function createArticleRecord(meta, fileId, directusUrl, directusToken) {
-  const response = await fetch(`${directusUrl}/items/iwgdf_articles`, {
+  const response = await fetch(`${directusUrl}/items/footguard_articles`, {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${directusToken}`,
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      title: meta.title,
-      status: meta.status ?? 'published',
-      pdf_file: fileId // Relation field pointing to directus_files
+      Title: meta.title, // exact field names from Directus
+      Author: meta.author,
+      Publisher: meta.publisher,
+      theme: meta.theme,
+      status: meta.status ?? 'Not started',
+      paper_file: fileId // relation to directus_files
     })
   })
 
   if (!response.ok) {
     const error = await response.json().catch(() => ({}))
-    throw new Error(
-      error?.errors?.[0]?.message ?? `Failed to create article record (${response.status})`
-    )
+    throw new Error(error?.errors?.[0]?.message ?? `Failed to create article (${response.status})`)
   }
 
   const { data } = await response.json()
