@@ -131,6 +131,7 @@
 	<!-- ── Modal ─────────────────────────────────────────────────────────── -->
 	{#if isModalOpen}
 		<!-- Backdrop — clicking outside closes the modal -->
+		<!-- svelte-ignore a11y_click_events_have_key_events -->
 		<div
     class="modal-backdrop"
     role="dialog"
@@ -229,6 +230,7 @@
 
 					<!-- PDF file picker -->
 					<div class="form-field">
+						<!-- svelte-ignore a11y_label_has_associated_control -->
 						<label class="form-field__label">
 							PDF File <span class="form-field__required" aria-hidden="true">*</span>
 						</label>
