@@ -72,7 +72,7 @@
     padding: 0 var(--spacing-md) var(--spacing-xl);
 
     h2 {
-      color: var(--blue-700);
+      color: var(--grey-700);
       margin-bottom: var(--spacing-md);
     }
 
@@ -93,10 +93,10 @@
       }
 
       input {
-        color: var(--blue-600);
+        color: var(--blue-500);
         border: 1px solid var(--grey-200);
         border-radius: var(--radius-sm);
-        background: var(--grey-50);
+        background: var(--background-color-secondary);
         padding: var(--spacing-sm);
       }
 
@@ -104,13 +104,19 @@
         cursor: default;
       }
 
+      input[readonly]:focus-visible {
+        outline: 2px solid var(--grey-200);
+        outline-offset: 2px;
+      }
+
       input:not([readonly]) {
-        border: 2px solid var(--blue-500);
-        background: var(--blue-100);
+        background-color: var(--background-color-primary);
+        box-shadow: var(--shadow-sm) inset;
       }
 
       input:focus-visible {
-        outline: 3px solid var(--blue-500);
+        transition: var(--transition-fast);
+        outline: 2px solid var(--blue-500);
         outline-offset: 2px;
       }
     }

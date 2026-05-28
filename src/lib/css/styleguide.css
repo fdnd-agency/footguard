@@ -176,7 +176,7 @@
   /* Box Shadows */
   --shadow-sm: 0 0.125rem 0.25rem hsla(213, 12%, 15%, 0.08);
   --shadow-md:
-    0 0.25rem 0.75rem hsla(213, 12%, 15%, 0.12), 0 0.125rem 0.25rem hsla(213, 12%, 15%, 0.08);
+    0 0.25rem 0.75rem hsla(0, 12%, 15%, 0.12), 0 0.125rem 0.25rem hsla(213, 12%, 15%, 0.08);
   --shadow-lg: 0 0.5rem 1rem hsla(213, 12%, 15%, 0.15), 0 0.25rem 0.5rem hsla(213, 12%, 15%, 0.1);
 
   /* Border Radius */

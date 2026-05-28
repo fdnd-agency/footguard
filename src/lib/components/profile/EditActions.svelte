@@ -54,7 +54,7 @@
       }
 
       &:focus-visible {
-        outline: 3px solid var(--blue-100);
+        outline: 2px solid var(--blue-100);
         outline-offset: 2px;
       }
     }
@@ -80,12 +80,11 @@
     }
 
     .btn-cancel {
-      background: rgb(255 255 255 / 15%);
-      border: 1.5px solid rgb(255 255 255 / 50%);
+      background: var(--red-500);
       color: var(--background-color-primary);
 
       &:hover:not(:disabled):not([aria-disabled='true']) {
-        background: rgb(255 255 255 / 28%);
+        background: var(--red-600);
       }
     }
   }

@@ -184,11 +184,16 @@
 <style>
   .profile-page {
     min-height: 100vh;
-    background: var(--grey-100);
+    background: radial-gradient(
+      circle at 100% 0%,
+      hsla(208, 100%, 32%, 0.12) 0%,
+      hsla(217, 100%, 79%, 0.06) 25%,
+      hsl(0, 0%, 100%) 35%
+    );
     padding: var(--spacing-lg) var(--spacing-md) var(--spacing-2xl);
 
     .profile-title {
-      color: var(--blue-700);
+      color: var(--grey-700);
       margin-bottom: var(--spacing-md);
     }
 
@@ -214,8 +219,8 @@
       position: relative;
       background: var(--background-color-primary);
       border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-sm);
-      overflow: visible;
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
       container-type: inline-size;
       container-name: profile-card;
     }
