@@ -7,9 +7,24 @@ export async function load({ fetch, url, locals }) {
   const status = url.searchParams.get('status') || 'all'
   const theme = url.searchParams.get('theme') || 'all'
 
-  const gradingsResponse = await fetch('https://fdnd-agency.directus.app/items/footguard_articles')
+  // Fetch articles and unique themes in parallel for better performance
+  const [gradingsResponse, themesResponse] = await Promise.all([
+    fetch('https://fdnd-agency.directus.app/items/footguard_articles'),
+    // Group by theme to get all unique themes dynamically from Directus
+    // This way themes stay in sync without hardcoding them in the component
+    fetch('https://fdnd-agency.directus.app/items/footguard_articles?fields=theme&groupBy[]=theme')
+  ])
+
   const gradingsData = await gradingsResponse.json()
+  const themesData = await themesResponse.json()
+
   let cardData = gradingsData.data
+
+  // Extract unique theme values, filter out empty ones, and sort alphabetically
+  const themes = themesData.data
+    .map((item) => item.theme)
+    .filter(Boolean)
+    .sort()
 
   if (status === 'Not started') {
     cardData = cardData.filter((item) => item.status === 'Not started')
@@ -33,6 +48,7 @@ export async function load({ fetch, url, locals }) {
     cardData,
     status,
     theme,
+    themes,
     userRole: locals.user?.role ?? null
   }
 }

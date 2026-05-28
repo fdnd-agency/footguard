@@ -33,7 +33,7 @@
       Upload button — only renders when userRole === 'super_admin'.
       userRole comes from load() in +page.server.js via data.
     -->
-    <UploadArticleButton userRole={data.userRole} />
+    <UploadArticleButton userRole={data.userRole} themes={data.themes} />
   </div>
 
   <FilterForm

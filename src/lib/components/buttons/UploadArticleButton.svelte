@@ -27,8 +27,8 @@
 	/** Bound to the hidden <input type="file"> */
 	let fileInput;
 
-	// ── Theme options matching the Directus dropdown ──────────────────────────
-	const THEMES = ['Temperature', 'High risk', 'Ulcers', 'Age'];
+	 /** @type {string[]} — themes fetched dynamically from Directus via load() */
+  export let themes = [];
 
 	// ── Helpers ───────────────────────────────────────────────────────────────
 
@@ -222,9 +222,9 @@
 						</label>
 						<select id="article-theme" name="theme" class="form-field__select" required>
 							<option value="" disabled selected>Select a theme</option>
-							{#each THEMES as theme (theme)}
-								<option value={theme}>{theme}</option>
-							{/each}
+							{#each themes as theme (theme)}
+  <option value={theme}>{theme}</option>
+{/each}
 						</select>
 					</div>
 
