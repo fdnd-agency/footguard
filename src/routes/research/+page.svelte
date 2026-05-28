@@ -4,18 +4,17 @@
   import Heading from "$lib/components/textual/Heading.svelte";
   import FilterForm from "$lib/components/form/FilterForm.svelte";
   import NoItemsFoundNote from "$lib/components/textual/NoItemsFoundNote.svelte";
+  // Upload button — only visible for super_admin users
+  import UploadArticleButton from "$lib/components/buttons/UploadArticleButton.svelte";
 
   // Sveltekit helpers
   import { fly } from "svelte/transition";
   import { goto } from "$app/navigation";
   import { resolve } from "$app/paths";
-
-  let { data } = $props();
+   let { data } = $props();
 
   function updateFilters(event) {
     const { status, theme } = event.detail;
-
-    // https://svelte.dev/docs/kit/$app-navigation#goto
     goto(resolve("?status=" + status + "&theme=" + theme), {
       noscroll: true,
       replaceState: true,
@@ -24,10 +23,19 @@
 </script>
 
 <section class="main-container-research">
-  <Heading
-    title="Assigned Gradings"
-    subTitle="An overview of all your gradings"
-  />
+  <div class="research-header">
+    <Heading
+      title="Assigned Gradings"
+      subTitle="An overview of all your gradings"
+    />
+
+    <!--
+      Upload button — only renders when userRole === 'super_admin'.
+      userRole comes from load() in +page.server.js via data.
+    -->
+    <UploadArticleButton userRole={data.userRole} themes={data.themes} />
+  </div>
+
   <FilterForm
     bind:status={data.status}
     bind:theme={data.theme}
@@ -65,6 +73,22 @@
 
     @media (min-width: 720px) {
       padding: 1rem 2rem 1rem 2rem;
+    }
+  }
+  /* Mobile-first: title and button stack vertically */
+  .research-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+  }
+
+   /* Desktop: title left, button right */
+  @media (min-width: 720px) {
+    .research-header {
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: space-between;
     }
   }
 
