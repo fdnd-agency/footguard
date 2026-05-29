@@ -1,6 +1,5 @@
 <script>
   import {
-    AdminIcon,
     CollapseMenuIcon,
     DashboardIcon,
     GradingIcon,
@@ -8,7 +7,6 @@
     NotificationIcon,
     ProfileIcon,
     ResultsIcon,
-    SettingIcon,
     IwgdfLogo,
     IwgdfLogoCollapsed
   } from "$lib";
@@ -74,22 +72,10 @@
           <span class="label">Results</span>
         </a>
       </li>
-      <li class="admin-item">
-        <a href={resolve("/admin")}>
-          <span class="icon"><AdminIcon /></span>
-          <span class="label">Admin</span>
-        </a>
-      </li>
       <li>
         <a href={resolve("/notifications")}>
           <span class="icon"><NotificationIcon /></span>
           <span class="label">Notifications</span>
-        </a>
-      </li>
-      <li>
-        <a href={resolve("/settings")}>
-          <span class="icon"><SettingIcon /></span>
-          <span class="label">Settings</span>
         </a>
       </li>
     {/if}
