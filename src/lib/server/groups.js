@@ -459,7 +459,7 @@ export async function fetchUserOptions() {
     id: user.id,
     name: user.name || user.email || 'Unknown',
     email: user.email ?? null,
-    role: Array.isArray(user.role) ? user.role[0] : user.role ?? null
+    role: Array.isArray(user.role) ? user.role[0] : (user.role ?? null)
   }))
 }
 
@@ -471,9 +471,7 @@ export async function fetchUserOptions() {
  * @returns {Promise<object[]>}
  */
 export async function findUsersByIds(userIds) {
-  const ids = (userIds ?? [])
-    .map((id) => Number(id))
-    .filter((id) => Number.isFinite(id) && id > 0)
+  const ids = (userIds ?? []).map((id) => Number(id)).filter((id) => Number.isFinite(id) && id > 0)
 
   if (ids.length === 0) return []
 
