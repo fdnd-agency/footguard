@@ -15,7 +15,9 @@
 
   let showCreateGroupModal = $state(false)
 
-  const createModalOpen = $derived(showCreateGroupModal || data.showCreateModal)
+  const createModalOpen = $derived(
+    data.isAdmin && (showCreateGroupModal || data.showCreateModal)
+  )
 
   function openCreateModal(event) {
     event?.preventDefault?.()
@@ -29,7 +31,11 @@
 
   function closeCreateModal() {
     showCreateGroupModal = false
-    goto(resolve('/groups'), { replaceState: true, keepFocus: true, noScroll: true })
+    goto(resolve('/groups'), {
+      replaceState: true,
+      keepFocus: true,
+      noScroll: true
+    })
   }
 
   const groups = $derived(
@@ -50,6 +56,9 @@
     if (!alreadyExists) {
       extraGroups = [form.group, ...extraGroups]
     }
+
+    showCreateGroupModal = false
+    goto(resolve('/groups'), { replaceState: true, keepFocus: true, noScroll: true })
   })
 </script>
 
@@ -65,7 +74,7 @@
     <section class="groups-controls" aria-label="Group filters and actions">
       <GroupFilter />
       {#if data.isAdmin}
-        <AddGroupButton onclick={openCreateModal} />
+        <AddGroupButton onOpen={openCreateModal} />
       {/if}
     </section>
     {#if isLoading}
@@ -86,7 +95,12 @@
   </article>
 
   {#if data.isAdmin}
-    <CreateGroupModal open={createModalOpen} onClose={closeCreateModal} />
+    <CreateGroupModal
+      open={createModalOpen}
+      onClose={closeCreateModal}
+      {form}
+      memberOptions={data.memberOptions}
+    />
   {/if}
 </section>
 
