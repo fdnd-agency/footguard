@@ -368,19 +368,11 @@
 
         <div class="create-group-modal__actions">
           <button
-            type="button"
-            class="button button-outline button-medium"
-            disabled={isSubmitting}
-            onclick={requestClose}
-          >
-            Cancel
-          </button>
-          <button
             type="submit"
             class="button button-primary button-medium"
             disabled={isSubmitting}
           >
-            {isSubmitting ? 'Creating…' : 'Create Group'}
+            {isSubmitting ? 'Submitting…' : 'Submit'}
           </button>
         </div>
       </form>
