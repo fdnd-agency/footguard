@@ -49,7 +49,7 @@ export async function createArticleRecord(meta, fileId, directusUrl, directusTok
       Title: meta.title, // exact field names from Directus
       Author: meta.author,
       Publisher: meta.publisher,
-      theme: meta.theme,
+      theme: meta.theme ?? '',
       status: meta.status ?? 'Not started',
       paper_file: fileId // relation to directus_files
     })

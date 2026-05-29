@@ -8,24 +8,14 @@ export async function load({ fetch, url, locals }) {
   const theme = url.searchParams.get('theme') || 'all'
 
   // Fetch articles and unique themes in parallel for better performance
-  const [gradingsResponse, themesResponse] = await Promise.all([
-    fetch('https://fdnd-agency.directus.app/items/footguard_articles'),
-    // Group by theme to get all unique themes dynamically from Directus
-    // This way themes stay in sync without hardcoding them in the component
-    fetch('https://fdnd-agency.directus.app/items/footguard_articles?fields=theme&groupBy[]=theme')
-  ])
+  // now uses a free-text input instead of a dropdown populated from Directus
+  const gradingsResponse = await fetch('https://fdnd-agency.directus.app/items/footguard_articles')
 
   const gradingsData = await gradingsResponse.json()
-  const themesData = await themesResponse.json()
 
   let cardData = gradingsData.data
 
-  // Extract unique theme values, filter out empty ones, and sort alphabetically
-  const themes = themesData.data
-    .map((item) => item.theme)
-    .filter(Boolean)
-    .sort()
-
+  // Filter by status if a specific status is selected
   if (status === 'Not started') {
     cardData = cardData.filter((item) => item.status === 'Not started')
   } else if (status === 'Finished') {
@@ -34,21 +24,18 @@ export async function load({ fetch, url, locals }) {
     cardData = cardData.filter((item) => item.status === 'In progress')
   }
 
-  if (theme === 'Temperature') {
-    cardData = cardData.filter((item) => item.theme === 'Temperature')
-  } else if (theme === 'Ulcers') {
-    cardData = cardData.filter((item) => item.theme === 'Ulcers')
-  } else if (theme === 'High risk') {
-    cardData = cardData.filter((item) => item.theme.trim() === 'High risk')
-  } else if (theme === 'Age') {
-    cardData = cardData.filter((item) => item.theme === 'Age')
+  // Filter by theme if a specific theme is selected.
+  // Existing hardcoded theme values (Temperature, Ulcers, High risk, Age)
+  // still work correctly — custom themes typed by Super Admins also filter
+  // correctly because we now do a generic string match instead of hardcoded checks
+  if (theme !== 'all') {
+    cardData = cardData.filter((item) => item.theme?.trim() === theme.trim())
   }
 
   return {
     cardData,
     status,
     theme,
-    themes,
     userRole: locals.user?.role ?? null
   }
 }
@@ -76,11 +63,12 @@ export const actions = {
     const title = formData.get('title')?.toString().trim()
     const author = formData.get('author')?.toString().trim()
     const publisher = formData.get('publisher')?.toString().trim()
-    const theme = formData.get('theme')?.toString().trim()
+    // Theme is optional — Super Admin can leave it blank or type any custom value
+    const theme = formData.get('theme')?.toString().trim() ?? ''
 
     // --- 2. Validate required fields ---
-    if (!title || !author || !publisher || !theme) {
-      return fail(400, { error: 'All fields are required.' })
+    if (!title || !author || !publisher) {
+      return fail(400, { error: 'Title, author and publisher are required.' })
     }
 
     if (!file || file.size === 0) {
