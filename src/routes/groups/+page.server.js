@@ -8,8 +8,12 @@ import {
   addUserToGroup,
   removeMemberFromGroup,
   getGroupArticles,
-  createGroup
+  createGroup,
+  fetchUserOptions,
+  findUsersByIds,
+  uploadImageToDirectus
 } from '$lib/server/groups.js'
+import { DIRECTUS_URL } from '$env/static/private'
 import { error, fail } from '@sveltejs/kit'
 
 function normalizeRole(role) {
@@ -26,6 +30,20 @@ function isAdminUser(user) {
 
 /** Query param that opens the create-group drawer (see +page.svelte, AddGroupButton). */
 const CREATE_GROUP_QUERY = 'create-new-group'
+
+const MEMBER_ROLE_MAP = {
+  'super admin': 'Super Admin',
+  admin: 'Admin',
+  assessor: 'Assessor',
+  guest: 'Viewer'
+}
+
+function mapUserToMemberRole(rawRole) {
+  const key = String(rawRole ?? '')
+    .trim()
+    .toLowerCase()
+  return MEMBER_ROLE_MAP[key] ?? 'Viewer'
+}
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ locals, url }) {
@@ -51,11 +69,13 @@ export async function load({ locals, url }) {
 
     const isAdmin = isAdminUser(locals.user)
     const openCreateGroupFromUrl = url.searchParams.has(CREATE_GROUP_QUERY)
+    const memberOptions = isAdmin ? await fetchUserOptions() : []
 
     return {
       groups: groupsWithData,
       loadError: null,
       isAdmin,
+      memberOptions,
       // Open create-group drawer when URL has ?create-new-group (admins only).
       showCreateModal: isAdmin && openCreateGroupFromUrl
     }
@@ -178,22 +198,54 @@ export const actions = {
    * @type {import('./$types').Actions}
    */
   createGroup: async ({ request, locals }) => {
+    if (!isAdminUser(locals.user)) {
+      return fail(403, {
+        error: 'Only admins can create groups.',
+        action: 'createGroup'
+      })
+    }
+
     const data = await request.formData()
     const currentUserId = locals.user?.id ?? null
 
     const groupName = data.get('groupName')?.toString().trim()
     const conditionLabel = data.get('conditionLabel')?.toString().trim() || null
     const status = data.get('status')?.toString().trim() || null
-    // imageId comes later when the frontend modal with file upload is built
-    const imageId = data.get('imageId')?.toString().trim() || null
+    const memberIds = data
+      .getAll('memberIds')
+      .map((id) => Number(id))
+      .filter((id) => Number.isFinite(id) && id > 0)
 
-    // --- Validation: group name is the only required field ---
+    const thumbnail = data.get('thumbnail')
+
+    // Validate required fields before any upload, so a failed validation
+    // never leaves an orphaned file in Directus.
     if (!groupName) {
       return fail(400, {
         error: 'Group name is required.',
         field: 'groupName',
         action: 'createGroup'
       })
+    }
+
+    let imageId = null
+
+    if (thumbnail instanceof File && thumbnail.size > 0) {
+      if (!thumbnail.type.startsWith('image/')) {
+        return fail(400, {
+          error: 'Please choose an image file for the thumbnail.',
+          action: 'createGroup'
+        })
+      }
+
+      try {
+        imageId = await uploadImageToDirectus(thumbnail)
+      } catch (err) {
+        return fail(500, {
+          error: err.message || 'Failed to upload thumbnail.',
+          action: 'createGroup'
+        })
+      }
     }
 
     try {
@@ -205,8 +257,35 @@ export const actions = {
         imageId
       })
 
-      // Return the new group so the frontend can append it to the list
-      // without a full page reload.
+      const addedMembers = []
+
+      // The group is already created at this point, so member-adding failures
+      // must not fail the whole request — log and continue instead.
+      try {
+        // Single bulk lookup for all selected members (avoids N+1 per-user fetches).
+        const users = await findUsersByIds(memberIds)
+
+        for (const user of users) {
+          try {
+            const rawRole = Array.isArray(user.role) ? user.role[0] : user.role
+            const role = mapUserToMemberRole(rawRole)
+            await addUserToGroup(newGroup.id, user.id, currentUserId, role)
+
+            addedMembers.push({
+              id: user.id,
+              name: user.name || user.email || 'Unknown',
+              role,
+              email: user.email ?? null,
+              avatarUrl: null
+            })
+          } catch (memberErr) {
+            console.error('[createGroup] add member failed:', memberErr)
+          }
+        }
+      } catch (lookupErr) {
+        console.error('[createGroup] member lookup failed:', lookupErr)
+      }
+
       return {
         success: true,
         action: 'createGroup',
@@ -215,10 +294,10 @@ export const actions = {
           name: newGroup.group_name,
           status: newGroup.status ?? null,
           conditionlabel: newGroup.condition_label ?? 'General',
-          members: [],
-          memberCount: 0,
+          members: addedMembers,
+          memberCount: addedMembers.length,
           articles: [],
-          image: null // image upload handled later
+          image: imageId ? `${DIRECTUS_URL}/assets/${imageId}` : null
         }
       }
     } catch (err) {
