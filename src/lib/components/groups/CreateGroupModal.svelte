@@ -253,7 +253,6 @@
             <button
               type="button"
               class="create-group-modal__member-toggle"
-              class:create-group-modal__member-toggle--open={membersOpen}
               aria-label={membersOpen ? 'Close members list' : 'Open members list'}
               aria-expanded={membersOpen}
               aria-controls="create-group-members-list"
@@ -411,10 +410,6 @@
     background: var(--background-color-primary);
     box-shadow: 0 0 16px rgb(0 0 0 / 0.1);
     pointer-events: all;
-  }
-
-  .create-group-modal__member-toggle--open :global(svg) {
-    transform: rotate(180deg);
   }
 
   /* Desktop: right-side drawer */
