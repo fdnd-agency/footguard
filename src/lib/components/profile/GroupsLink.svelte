@@ -17,7 +17,7 @@
     text-decoration: none;
   
     &:focus-visible {
-      outline: 3px solid var(--blue-500);
+      outline: 2px solid var(--blue-500);
       outline-offset: 2px;
       border-radius: var(--radius-sm);
     }

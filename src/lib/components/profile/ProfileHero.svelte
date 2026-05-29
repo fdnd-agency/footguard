@@ -77,9 +77,9 @@
       width: 100%;
       min-height: 8.5rem;
       background: var(--blue-500);
-      border-radius: 0;
       grid-column: 1;
       grid-row: 1;
+      border-radius: var(--radius-lg);
     }
 
     .avatar-wrap {
@@ -117,7 +117,7 @@
         }
 
         &:focus-visible {
-          outline: 3px solid var(--blue-100);
+          outline: 2px solid var(--blue-100);
           outline-offset: 2px;
         }
       }
@@ -138,7 +138,7 @@
       z-index: 1;
 
       h2 {
-        color: var(--blue-700);
+        color: var(--grey-700);
       }
 
       p {
@@ -149,13 +149,19 @@
       .name-input {
         width: min(16rem, 90vw);
         margin: 0 auto;
-        border: 2px solid var(--blue-500);
         border-radius: var(--radius-sm);
-        padding: var(--spacing-xs) var(--spacing-sm);
-        background: var(--blue-100);
+        border: 1px solid var(--grey-200);
+        padding: var(--spacing-sm) var(--spacing-sm);
+        background: var(--background-color-primary);
         text-align: center;
-        font-weight: 700;
-        color: var(--blue-700);
+        color: var(--blue-500);
+        box-shadow: var(--shadow-sm) inset;
+      }
+
+      .name-input:focus-visible {
+        outline: 2px solid var(--blue-500);
+        outline-offset: 2px;
+        transition: var(--transition-fast);
       }
 
       .profession-hero-note {
