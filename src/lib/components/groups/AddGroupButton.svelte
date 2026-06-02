@@ -9,22 +9,22 @@
    *   label?: string,
    *   disabled?: boolean,
    *   href?: string,
-   *   onclick?: (event: MouseEvent) => void
+   *   onOpen?: ((event: MouseEvent) => void) | null
    * }}
    */
   let {
     label = 'Create New Group',
     disabled = false,
     href = '/groups?create-new-group',
-    onclick = null
+    onOpen = null
   } = $props()
 
   let inactive = $derived(disabled || !href)
 
   function handleClick(event) {
-    if (!onclick) return
+    if (!onOpen) return
     event.preventDefault()
-    onclick(event)
+    onOpen(event)
   }
 </script>
 

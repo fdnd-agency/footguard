@@ -1,5 +1,5 @@
 <script>
-  import DetailsUpIcon from "$lib/assets/svg/DetailsUpIcon.svelte";
+  import DropdownIcon from "$lib/assets/svg/DropdownIcon.svelte";
 </script>
 
 <form class="select-wrap" method="GET" action="/groups">
@@ -12,7 +12,7 @@
         <option value="2027">Guidelines 2027</option>
       </select>
       <span class="chevron" aria-hidden="true">
-        <DetailsUpIcon />
+        <DropdownIcon />
       </span>
 </form>
 

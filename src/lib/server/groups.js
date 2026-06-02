@@ -428,3 +428,135 @@ export async function createGroup({
   const json = await response.json()
   return json.data
 }
+
+/**
+ * Fetches users for the create-group member picker.
+ *
+ * @returns {Promise<Array<{ id: number, name: string, email: string | null, role: string | null }>>}
+ */
+export async function fetchUserOptions() {
+  const url = `${DIRECTUS_URL}/items/footguard_users?fields=id,name,email,role&limit=-1&sort=name`
+
+  let response
+  try {
+    response = await fetch(url, {
+      headers: {
+        Authorization: `Bearer ${DIRECTUS_TOKEN}`,
+        'Content-Type': 'application/json'
+      }
+    })
+  } catch (networkError) {
+    throw new Error(`Network error while fetching users: ${networkError.message}`)
+  }
+
+  if (!response.ok) {
+    throw new Error(`Directus API error while fetching users: ${response.status}`)
+  }
+
+  const json = await response.json()
+
+  return (json.data ?? []).map((user) => ({
+    id: user.id,
+    name: user.name || user.email || 'Unknown',
+    email: user.email ?? null,
+    role: Array.isArray(user.role) ? user.role[0] : (user.role ?? null)
+  }))
+}
+
+/**
+ * Bulk-fetches users from footguard_users by their IDs in a single request.
+ * Avoids the N+1 pattern of calling findUserById once per selected member.
+ *
+ * @param {Array<number | string>} userIds
+ * @returns {Promise<object[]>}
+ */
+export async function findUsersByIds(userIds) {
+  const ids = (userIds ?? []).map((id) => Number(id)).filter((id) => Number.isFinite(id) && id > 0)
+
+  if (ids.length === 0) return []
+
+  const url = `${DIRECTUS_URL}/items/footguard_users?filter[id][_in]=${ids.join(',')}&fields=id,name,email,role&limit=-1`
+
+  let response
+  try {
+    response = await fetch(url, {
+      headers: {
+        Authorization: `Bearer ${DIRECTUS_TOKEN}`,
+        'Content-Type': 'application/json'
+      }
+    })
+  } catch (networkError) {
+    throw new Error(`Network error while looking up users: ${networkError.message}`)
+  }
+
+  if (!response.ok) {
+    throw new Error(`Directus API error while looking up users: ${response.status}`)
+  }
+
+  const json = await response.json()
+  return json.data ?? []
+}
+
+/**
+ * @param {number | string} userId
+ * @returns {Promise<object | null>}
+ */
+export async function findUserById(userId) {
+  const url = `${DIRECTUS_URL}/items/footguard_users?filter[id][_eq]=${Number(userId)}&fields=id,name,email,role&limit=1`
+
+  let response
+  try {
+    response = await fetch(url, {
+      headers: {
+        Authorization: `Bearer ${DIRECTUS_TOKEN}`,
+        'Content-Type': 'application/json'
+      }
+    })
+  } catch (networkError) {
+    throw new Error(`Network error while looking up user: ${networkError.message}`)
+  }
+
+  if (!response.ok) {
+    throw new Error(`Directus API error while looking up user: ${response.status}`)
+  }
+
+  const json = await response.json()
+  return json.data?.[0] ?? null
+}
+
+/**
+ * Uploads an image file to Directus and returns the file id.
+ *
+ * @param {File} file
+ * @returns {Promise<string>}
+ */
+export async function uploadImageToDirectus(file) {
+  const body = new FormData()
+  body.append('file', file)
+
+  let response
+  try {
+    response = await fetch(`${DIRECTUS_URL}/files`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${DIRECTUS_TOKEN}`
+      },
+      body
+    })
+  } catch (networkError) {
+    throw new Error(`Network error while uploading image: ${networkError.message}`)
+  }
+
+  if (!response.ok) {
+    const details = await response.text().catch(() => '')
+    throw new Error(`Directus file upload failed (${response.status}): ${details}`)
+  }
+
+  const json = await response.json()
+  const fileId = json?.data?.id
+  if (!fileId) {
+    throw new Error('Directus file upload did not return a file id.')
+  }
+
+  return String(fileId)
+}
