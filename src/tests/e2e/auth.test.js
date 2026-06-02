@@ -22,6 +22,7 @@ test.describe('Route protection', () => {
 
   // -------------------------------------------------
   // TEST 4 — Main test: protected route without session
+  // This is a Black box test (test only what the user see)
   // -------------------------------------------------
 
   test('user without a session is redirected to /login when visiting /dashboard', async ({
@@ -42,6 +43,7 @@ test.describe('Route protection', () => {
 
   // -------------------------------------------------
   // Extra test: login page is accessible without session
+  // this is a black-box test
   // -------------------------------------------------
   test('login page is visible and accessible without a session', async ({ page }) => {
     await page.goto('/login')
