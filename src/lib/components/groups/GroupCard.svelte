@@ -6,10 +6,12 @@
   import GroupInviteForm from "$lib/components/groups/GroupInviteForm.svelte";
   import GroupMemberCard from "$lib/components/groups/GroupMemberCard.svelte";
   import SwitchSidesButton from "$lib/components/groups/SwitchSidesButton.svelte";
+  import GroupCardMenu from "$lib/components/groups/GroupCardMenu.svelte";
   import previewAvatarFallback from "$lib/assets/img/profile-avatar.webp";
 
   // Group data is passed from the groups page; `form` is invite action feedback from +page.svelte
-  let { group, form } = $props();
+  // `isAdmin` gates admin-only actions (delete); `onDeleted` lets the page drop the card live.
+  let { group, form, isAdmin = false, onDeleted = null } = $props();
 
   let flipped = $state(false);
 
@@ -86,7 +88,13 @@
         </div>
 
         <section class="members-section">
-          <h2 class="title">Articles</h2>
+          <header class="section-title-row">
+            <h2 class="title">Articles</h2>
+            <!-- Three-dot menu with Edit/Delete: admins/super admins only -->
+            {#if isAdmin}
+              <GroupCardMenu {groupId} {groupName} {onDeleted} />
+            {/if}
+          </header>
 
           {#if articles.length > 0}
             <!-- Article list: shows title of each article assigned to this group -->
@@ -214,8 +222,16 @@
     }
   }
 
+  .section-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+  }
+
   .title {
-    margin: 0 0 var(--spacing-sm);
+    margin: 0;
     font-size: 1rem;
     font-weight: 600;
     color: var(--grey-700);
