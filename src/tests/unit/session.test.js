@@ -7,6 +7,7 @@ const INACTIVITY_LIMIT_MS = 60 * 60 * 1000 // 1 hour
 /**
  * Helper function that checks if a session has expired.
  * This is the same logic as in hooks.server.ts.
+ * White-box test
  */
 function isSessionExpired(lastSeen) {
   return Date.now() - lastSeen > INACTIVITY_LIMIT_MS
@@ -25,6 +26,7 @@ describe('Session expiration', () => {
     expect(isSessionExpired(twoHoursAgo)).toBe(true)
   })
 
+  // White-box test
   it('session EXPIRED after exactly 1 hour + 1 millisecond', () => {
     // Edge case: right over the border
     const justOver = Date.now() - INACTIVITY_LIMIT_MS - 1

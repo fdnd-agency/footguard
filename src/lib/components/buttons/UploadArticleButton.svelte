@@ -27,9 +27,6 @@
 	/** Bound to the hidden <input type="file"> */
 	let fileInput;
 
-	 /** @type {string[]} — themes fetched dynamically from Directus via load() */
-  export let themes = [];
-
 	// ── Helpers ───────────────────────────────────────────────────────────────
 
 	/** Opens the modal and resets all state */
@@ -218,14 +215,20 @@
 					<!-- Theme dropdown -->
 					<div class="form-field">
 						<label for="article-theme" class="form-field__label">
-							Theme <span class="form-field__required" aria-hidden="true">*</span>
+							<!-- Theme is optional — no required indicator -->
+Theme <span class="form-field__optional">(optional)</span>
 						</label>
-						<select id="article-theme" name="theme" class="form-field__select" required>
-							<option value="" disabled selected>Select a theme</option>
-							{#each themes as theme (theme)}
-  <option value={theme}>{theme}</option>
-{/each}
-						</select>
+						<!--
+  Theme is a free-text input so Super Admins can type any custom theme.
+  The field is optional — leaving it blank saves an empty theme value.
+-->
+<input
+  id="article-theme"
+  type="text"
+  name="theme"
+  class="form-field__input"
+  placeholder="e.g. Circulation, Neuropathy (optional)"
+/>
 					</div>
 
 					<!-- PDF file picker -->
