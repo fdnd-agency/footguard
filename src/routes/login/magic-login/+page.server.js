@@ -74,7 +74,7 @@ export const actions = {
     const rawRole = Array.isArray(user.role) ? user.role[0] : user.role
     const role = rawRole == null ? '' : String(rawRole).toLowerCase()
 
-    // 6) Set session cookie
+    // 6) Create session object and store a signed token (HMAC) in the cookie.
     const sessionUser = {
       id: String(user.id),
       email: String(user.email),
@@ -83,7 +83,27 @@ export const actions = {
       lastSeen: Date.now()
     }
 
-    cookies.set('session', JSON.stringify(sessionUser), {
+    // Build a simple JWT-like token (base64url header.payload.signature) using HMAC-SHA256
+    const SECRET = env.SESSION_SECRET || DIRECTUS_TOKEN
+    const header = { alg: 'HS256', typ: 'JWT' }
+    const payload = { ...sessionUser }
+
+    const base64url = (input) =>
+      Buffer.from(typeof input === 'string' ? input : JSON.stringify(input))
+        .toString('base64')
+        .replace(/=/g, '')
+        .replace(/\+/g, '-')
+        .replace(/\//g, '_')
+
+    const signingInput = `${base64url(header)}.${base64url(payload)}`
+    const signature = crypto.createHmac('sha256', SECRET).update(signingInput).digest('base64')
+      .replace(/=/g, '')
+      .replace(/\+/g, '-')
+      .replace(/\//g, '_')
+
+    const token = `${signingInput}.${signature}`
+
+    cookies.set('session', token, {
       httpOnly: true,
       secure: !dev,
       sameSite: 'lax',

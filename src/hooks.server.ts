@@ -1,6 +1,8 @@
 /** @author:Razan Sagheer **/
 import { redirect, type Handle } from '@sveltejs/kit'
 import { dev } from '$app/environment'
+import { env } from '$env/dynamic/private'
+import crypto from 'crypto'
 
 const SESSION_COOKIE = 'session'
 const INACTIVITY_LIMIT_MS = 60 * 60 * 1000 // 1 hour
@@ -18,48 +20,101 @@ export const handle: Handle = async ({ event, resolve }) => {
 
   if (raw) {
     try {
-      const session = JSON.parse(raw) as SessionCookie
+      // Verify JWT-like token signed with HMAC-SHA256
+      const SECRET = env.SESSION_SECRET || env.DIRECTUS_TOKEN
 
-      const hasRequired =
-        typeof session.id === 'string' &&
-        typeof session.email === 'string' &&
-        typeof session.role === 'string' &&
-        typeof session.lastSeen === 'number' &&
-        'workgroup' in session
+      const base64urlDecode = (str: string) =>
+        Buffer.from(str.replace(/-/g, '+').replace(/_/g, '/'), 'base64').toString()
 
-      // If cookie is invalid => delete it
-      if (!hasRequired) {
-        event.cookies.delete(SESSION_COOKIE, { path: '/' }) // Clear old cookie to reset maxAge
+      const parts = raw.split('.')
+      if (parts.length !== 3) {
+        throw new Error('invalid token format')
+      }
+
+      const [encodedHeader, encodedPayload, signature] = parts
+      const signingInput = `${encodedHeader}.${encodedPayload}`
+      const expectedSig = crypto.createHmac('sha256', SECRET).update(signingInput).digest('base64')
+        .replace(/=/g, '')
+        .replace(/\+/g, '-')
+        .replace(/\//g, '_')
+
+      let session: SessionCookie | null = null
+
+      if (signature !== expectedSig) {
+        // invalid signature — try legacy JSON cookie parse
+        try {
+          session = JSON.parse(raw) as SessionCookie
+        } catch {
+          session = null
+        }
       } else {
-        const now = Date.now()
-        const inactiveTooLong = now - session.lastSeen > INACTIVITY_LIMIT_MS
-
-        if (inactiveTooLong) {
-          // Session expired due to inactivity
-          event.cookies.delete(SESSION_COOKIE, { path: '/' })
-        } else {
-          // Set locals.user
-          event.locals.user = {
-            id: session.id,
-            email: session.email,
-            role: session.role,
-            workgroup: session.workgroup
-          }
-
-          // Sliding expiration: refresh lastSeen + renew cookie maxAge
-          const refrehed: SessionCookie = { ...session, lastSeen: now }
-
-          event.cookies.set(SESSION_COOKIE, JSON.stringify(refrehed), {
-            httpOnly: true,
-            secure: !dev,
-            sameSite: 'lax',
-            path: '/',
-            maxAge: 60 * 60
-          })
+        // signature valid — parse payload
+        try {
+          const payloadJson = base64urlDecode(encodedPayload)
+          const parsed = JSON.parse(payloadJson) as SessionCookie
+          session = parsed
+        } catch {
+          session = null
         }
       }
-    } catch {
-      // Invalid JSON => wipe cookie
+
+      if (!session) {
+        event.cookies.delete(SESSION_COOKIE, { path: '/' })
+      } else {
+        const hasRequired =
+          typeof session.id === 'string' &&
+          typeof session.email === 'string' &&
+          typeof session.role === 'string' &&
+          typeof session.lastSeen === 'number' &&
+          'workgroup' in session
+
+        if (!hasRequired) {
+          event.cookies.delete(SESSION_COOKIE, { path: '/' })
+        } else {
+          const now = Date.now()
+          const inactiveTooLong = now - session.lastSeen > INACTIVITY_LIMIT_MS
+
+          if (inactiveTooLong) {
+            event.cookies.delete(SESSION_COOKIE, { path: '/' })
+          } else {
+            event.locals.user = {
+              id: session.id,
+              email: session.email,
+              role: session.role,
+              workgroup: session.workgroup
+            }
+
+            // Sliding expiration: refresh lastSeen + renew cookie maxAge
+            const refreshed: SessionCookie = { ...session, lastSeen: now }
+
+            // Re-sign token with refreshed payload
+            const base64url = (input: any) =>
+              Buffer.from(typeof input === 'string' ? input : JSON.stringify(input))
+                .toString('base64')
+                .replace(/=/g, '')
+                .replace(/\+/g, '-')
+                .replace(/\//g, '_')
+
+            const newSigningInput = `${base64url({ alg: 'HS256', typ: 'JWT' })}.${base64url(refreshed)}`
+            const newSignature = crypto.createHmac('sha256', SECRET).update(newSigningInput).digest('base64')
+              .replace(/=/g, '')
+              .replace(/\+/g, '-')
+              .replace(/\//g, '_')
+
+            const newToken = `${newSigningInput}.${newSignature}`
+
+            event.cookies.set(SESSION_COOKIE, newToken, {
+              httpOnly: true,
+              secure: !dev,
+              sameSite: 'lax',
+              path: '/',
+              maxAge: 60 * 60
+            })
+          }
+        }
+      }
+    } catch (err) {
+      // Any unexpected error => wipe cookie
       event.cookies.delete(SESSION_COOKIE, { path: '/' })
     }
   }
