@@ -243,11 +243,6 @@
     padding: var(--spacing-lg);
   }
 
-  /* Dim the page only for the destructive confirm dialog, to signal it's blocking. */
-  .group-menu__backdrop:has(.group-menu__panel--confirm) {
-    background: rgb(0 0 0 / 0.3);
-  }
-
   .group-menu__panel {
     width: min(100%, 20rem);
     background: var(--background-color-primary);
