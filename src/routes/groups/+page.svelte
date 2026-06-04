@@ -13,6 +13,16 @@
   // Holds groups created during this session (not yet in server data).
   let extraGroups = $state([])
 
+  // Tracks groups deleted during this session so they disappear without a reload.
+  let deletedGroupIds = $state([])
+
+  function handleGroupDeleted(groupId) {
+    if (!deletedGroupIds.includes(groupId)) {
+      deletedGroupIds = [...deletedGroupIds, groupId]
+    }
+    extraGroups = extraGroups.filter((g) => g.id !== groupId)
+  }
+
   let showCreateGroupModal = $state(false)
 
   const createModalOpen = $derived(
@@ -39,9 +49,9 @@
   }
 
   const groups = $derived(
-    [...data.groups, ...extraGroups].filter(
-      (g, i, arr) => arr.findIndex((x) => x.id === g.id) === i
-    )
+    [...data.groups, ...extraGroups]
+      .filter((g, i, arr) => arr.findIndex((x) => x.id === g.id) === i)
+      .filter((g) => !deletedGroupIds.includes(g.id))
   )
 
   const isLoading = $derived(!data.groups && !data.loadError)
@@ -88,7 +98,7 @@
     {:else}
       <div class="groups-cards">
         {#each groups as group (group.id)}
-          <GroupCard {group} {form} />
+          <GroupCard {group} {form} isAdmin={data.isAdmin} onDeleted={handleGroupDeleted} />
         {/each}
       </div>
     {/if}

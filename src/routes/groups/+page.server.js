@@ -9,6 +9,7 @@ import {
   removeMemberFromGroup,
   getGroupArticles,
   createGroup,
+  deleteGroup,
   fetchUserOptions,
   findUsersByIds,
   uploadImageToDirectus
@@ -304,6 +305,46 @@ export const actions = {
       return fail(500, {
         error: err.message || 'Failed to create group. Please try again.',
         action: 'createGroup'
+      })
+    }
+  },
+
+  /**
+   * Permanently deletes a workgroup. Restricted to admin and super admin users.
+   *
+   * @type {import('./$types').Actions}
+   */
+  deleteGroup: async ({ request, locals }) => {
+    if (!isAdminUser(locals.user)) {
+      return fail(403, {
+        action: 'deleteGroup',
+        error: 'Only admins can delete groups.'
+      })
+    }
+
+    const data = await request.formData()
+    const groupId = data.get('groupId')?.toString()
+
+    if (!groupId) {
+      return fail(400, {
+        action: 'deleteGroup',
+        error: 'Group ID is required.'
+      })
+    }
+
+    try {
+      await deleteGroup(groupId)
+      return {
+        success: true,
+        action: 'deleteGroup',
+        deletedGroupId: groupId
+      }
+    } catch (err) {
+      console.error('[deleteGroup action] failed:', err)
+      return fail(500, {
+        action: 'deleteGroup',
+        groupId,
+        error: err.message || 'Failed to delete group. Please try again.'
       })
     }
   }

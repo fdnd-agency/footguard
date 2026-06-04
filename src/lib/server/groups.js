@@ -430,6 +430,36 @@ export async function createGroup({
 }
 
 /**
+ * Deletes a workgroup from Directus.
+ *
+ * @param {string|number} groupId - The footguard_workgroups record ID
+ * @returns {Promise<void>}
+ * @throws {Error} If validation or the delete fails
+ */
+export async function deleteGroup(groupId) {
+  const id = Number(groupId)
+  if (!Number.isFinite(id) || id <= 0) {
+    throw new Error('A valid group ID is required.')
+  }
+
+  let response
+  try {
+    response = await fetch(`${DIRECTUS_URL}/items/footguard_workgroups/${id}`, {
+      method: 'DELETE',
+      headers: { Authorization: `Bearer ${DIRECTUS_TOKEN}` }
+    })
+  } catch (networkError) {
+    throw new Error(`Network error while deleting group: ${networkError.message}`)
+  }
+
+  if (!response.ok) {
+    const errorBody = await response.text()
+    console.error(`[deleteGroup] Directus DELETE failed: ${response.status} - ${errorBody}`)
+    throw new Error(`Directus API error while deleting group: ${response.status} - ${errorBody}`)
+  }
+}
+
+/**
  * Fetches users for the create-group member picker.
  *
  * @returns {Promise<Array<{ id: number, name: string, email: string | null, role: string | null }>>}
@@ -465,7 +495,7 @@ export async function fetchUserOptions() {
 
 /**
  * Bulk-fetches users from footguard_users by their IDs in a single request.
- * Avoids the N+1 pattern of calling findUserById once per selected member.
+ * Avoids the N+1 pattern of one lookup per selected member.
  *
  * @param {Array<number | string>} userIds
  * @returns {Promise<object[]>}
@@ -495,33 +525,6 @@ export async function findUsersByIds(userIds) {
 
   const json = await response.json()
   return json.data ?? []
-}
-
-/**
- * @param {number | string} userId
- * @returns {Promise<object | null>}
- */
-export async function findUserById(userId) {
-  const url = `${DIRECTUS_URL}/items/footguard_users?filter[id][_eq]=${Number(userId)}&fields=id,name,email,role&limit=1`
-
-  let response
-  try {
-    response = await fetch(url, {
-      headers: {
-        Authorization: `Bearer ${DIRECTUS_TOKEN}`,
-        'Content-Type': 'application/json'
-      }
-    })
-  } catch (networkError) {
-    throw new Error(`Network error while looking up user: ${networkError.message}`)
-  }
-
-  if (!response.ok) {
-    throw new Error(`Directus API error while looking up user: ${response.status}`)
-  }
-
-  const json = await response.json()
-  return json.data?.[0] ?? null
 }
 
 /**
