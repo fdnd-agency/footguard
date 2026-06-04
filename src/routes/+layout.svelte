@@ -2,7 +2,6 @@
   import "$lib/css/styleguide.css";
   import { Navbar, MobileNav } from "$lib/";
   import { isCollapsed } from "$lib/stores/sidebar.js";
-  import { PageLoader } from "$lib";
   import { onMount } from "svelte";
   import { page } from '$app/stores';
 
@@ -26,8 +25,6 @@
     }
   });
 </script>
-
-<PageLoader />
 
 <!-- Skip-link als allereerste element -->
 <a href="#main-content" class="skip-link">Skip to main content</a>
