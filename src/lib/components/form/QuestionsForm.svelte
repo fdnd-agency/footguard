@@ -30,8 +30,6 @@
 
 <style>
   .questions-container {
-    /* Fix: use min-height with a cap so Firefox cannot grow this element
-       beyond the visible viewport and cause whitespace below the page. */
     height: min(75vh, 800px);
     display: flex;
     flex-direction: column;
@@ -44,7 +42,6 @@
       0 0.125rem 0.25rem hsla(213, 12%, 15%, 0.08);
     border: 1px solid hsla(213, 12%, 15%, 0.06);
     transition: transform 0.3s ease;
-    /* Fix: prevent Firefox from letting children escape this container */
     overflow: hidden;
   }
 
@@ -67,8 +64,6 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    /* Fix: remove overflow: scroll from the form itself — scroll only
-       happens in .questions-scroll-container to avoid double scrollbars */
     overflow: hidden;
     flex: 1;
     min-height: 0;
@@ -79,8 +74,6 @@
       gap: 1rem;
       display: flex;
       flex-direction: column;
-      /* Fix: min-height: 0 is required in Firefox for flex children
-         with overflow-y: auto to actually scroll instead of expanding */
       min-height: 0;
     }
   }

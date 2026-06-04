@@ -15,8 +15,6 @@
   .pdf-container {
     background: var(--background-color-primary);
     border-radius: 1rem;
-    /* Fix: use min-height instead of fixed height so Firefox does not
-       push the element outside the parent container bounds. */
     height: min(75vh, 800px);
     padding: 1rem;
     box-shadow:
@@ -24,7 +22,6 @@
       0 0.125rem 0.25rem hsla(213, 12%, 15%, 0.08);
     border: 1px solid hsla(213, 12%, 15%, 0.06);
     transition: transform 0.3s ease;
-    /* Fix: clip any content that overflows this card in Firefox */
     overflow: hidden;
 
     .pdf-file,
