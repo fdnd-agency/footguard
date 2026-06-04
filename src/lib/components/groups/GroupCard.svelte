@@ -186,26 +186,46 @@
     transform: rotateY(180deg);
   }
 
+  /* Firefox: hide the non-visible face; backface-visibility alone can leak children */
+  .flipper.flipped .face--front {
+    visibility: hidden;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .flipper:not(.flipped) .face--back {
+    visibility: hidden;
+    pointer-events: none;
+  }
+
   .face {
     position: absolute;
     inset: 0;
     border-radius: var(--radius-xl);
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
     overflow: hidden;
     background: var(--background-color-primary);
     box-shadow: var(--shadow-lg);
     display: flex;
     flex-direction: column;
+    transform-style: preserve-3d;
   }
 
   .face--back {
-    transform: rotateY(180deg);
+    transform: rotateY(180deg) translateZ(0.1px);
   }
 
   .face--front {
-    overflow: visible;
+    transform: rotateY(0deg) translateZ(0.1px);
+    overflow: hidden;
     border-radius: var(--radius-xl);
+  }
+
+  /* Allow articles dropdown to extend outside the card when open */
+  .face--front:has(details[open]) {
+    overflow: visible;
   }
 
   .group-card-header {
