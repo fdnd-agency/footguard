@@ -55,7 +55,6 @@
 </div>
 
 <style>
-  /* Skip link - alleen zichtbaar bij keyboard focus */
   .skip-link {
     position: absolute;
     top: -100%;
@@ -84,25 +83,30 @@
 
   .app-layout {
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
   }
 
-  /* Main page content */
-  .page-content {
-    padding: 0;
-    @media (min-width: 769px) {
-      margin-left: 240px;
-      margin-top: 0;
+.page-content {
+  padding: 0;
+  overflow-y: auto;
+  height: 100vh;
 
-      &.collapsed {
-        margin-left: 80px;
-      }
-    }
+  @media (min-width: 769px) {
+    margin-left: 240px;
+    /* Fix: padding-top not needed since navbar is fixed and doesn't
+       push content down on desktop */
+    margin-top: 0;
 
-    @media (max-width: 768px) {
-      margin-top: 80px;
-      margin-left: 0;
+    &.collapsed {
+      margin-left: 80px;
     }
   }
+
+  @media (max-width: 768px) {
+    /* Fix: mobile navbar is 80px tall and fixed, so offset by that amount.
+       height must subtract the navbar to avoid overflow below viewport. */
+    margin-top: 80px;
+    margin-left: 0;
+    height: calc(100vh - 80px);
+  }
+}
 </style>

@@ -20,27 +20,27 @@
 </section>
 
 <style>
-	.main-container-checklist {
-		max-width: 100rem;
-  		margin: 0 auto;
-		width: 100%;
-		display: flex;
-		flex-direction: column;
-		gap: 1rem;
-		padding: 1rem 1rem 1rem 1rem;
+  .main-container-checklist {
+    max-width: 100rem;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
 
-		@media (min-width: 720px) {
-			padding: 1rem 2rem 1rem 2rem;
-		}
-	}
+    @media (min-width: 720px) {
+      padding: 1rem 2rem;
+    }
+  }
 
-	.pdf-questions-container {
-		display: grid;
-		grid-template-columns: 1fr;
-		gap: 1rem;
+  .pdf-questions-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
 
-		@media (min-width: 1100px) {
-			grid-template-columns: 1fr 1fr;
-		}
-	}
+    @media (min-width: 1100px) {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
 </style>

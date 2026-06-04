@@ -846,3 +846,11 @@ select {
     scroll-behavior: auto !important;
   }
 }
+
+/* Fix: Firefox makes the body scrollable when child elements use
+   height: 75vh inside a fixed-sidebar layout. overflow: hidden on
+   body stops the page from scrolling; the page content scrolls
+   inside .page-content instead via the layout. */
+body {
+  overflow: hidden;
+}
