@@ -49,28 +49,25 @@ function mapUserToMemberRole(rawRole) {
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ locals, url }) {
   try {
-    const groups = await fetchGroups()
-
-    // Fetch only articles per group — members are already included in fetchGroups()
-    const groupsWithData = await Promise.all(
-      groups.map(async (group) => {
-        try {
-          // Members already fetched inside fetchGroups(), only articles need separate fetch
-          const articles = await getGroupArticles(group.id)
-          return {
-            ...group,
-            articles
-          }
-        } catch {
-          // If articles fail for one group, keep page functional for others
-          return { ...group, articles: [] }
-        }
-      })
-    )
-
     const isAdmin = isAdminUser(locals.user)
     const openCreateGroupFromUrl = url.searchParams.has(CREATE_GROUP_QUERY)
-    const memberOptions = isAdmin ? await fetchUserOptions() : []
+
+    const [groups, memberOptions] = await Promise.all([
+      fetchGroups(),
+      isAdmin ? fetchUserOptions() : Promise.resolve([])
+    ])
+
+    let articlesByGroup = new Map()
+    try {
+      articlesByGroup = await getGroupArticles(groups.map((g) => g.id))
+    } catch {
+      // keep page usable if articles fail
+    }
+
+    const groupsWithData = groups.map((group) => ({
+      ...group,
+      articles: articlesByGroup.get(group.id) ?? []
+    }))
 
     return {
       groups: groupsWithData,
