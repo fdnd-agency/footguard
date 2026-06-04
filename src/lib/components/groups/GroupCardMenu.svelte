@@ -313,7 +313,7 @@
 
   .group-menu__actions {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     gap: var(--spacing-sm);
   }
 
