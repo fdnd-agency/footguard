@@ -846,3 +846,7 @@ select {
     scroll-behavior: auto !important;
   }
 }
+
+body {
+  overflow: hidden;
+}
