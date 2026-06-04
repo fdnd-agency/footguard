@@ -18,7 +18,7 @@
 <section>
   <div class="header-photo">
     <!-- TODO: Replace static header image with group avatar from dynamic group data. -->
-    <img src={groupImage} alt="Group icon" />
+    <img src={groupImage} alt="Group icon" decoding="async" />
   </div>
   <h2>{groupName}</h2>
   <ul>
