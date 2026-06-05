@@ -17,6 +17,7 @@
     groupId = '',
     groupName = '',
     onBack,
+    backLabel = 'Back to articles',
     memberCount = 0,
     memberLimit = null,
     /** @type {MemberRow[]} */
@@ -50,12 +51,12 @@
   <header class="header" style={`--group-header-color: ${groupHeaderColor};`}>
     <span class="group-name">{headerCountLabel}</span>
     {#if onBack}
-      <button type="button" class="back" onclick={onBack}>Back</button>
+      <button type="button" class="back" onclick={onBack}>{backLabel}</button>
     {:else if backHref}
       <!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
-      <a class="back" href={backHref}>Back</a>
+      <a class="back" href={backHref}>{backLabel}</a>
     {:else}
-      <button type="button" class="back">Back</button>
+      <button type="button" class="back" disabled>{backLabel}</button>
     {/if}
   </header>
 
@@ -144,7 +145,7 @@
       font-weight: 700;
       cursor: pointer;
       text-decoration: none;
-      white-space: nowrap;
+      text-align: center;
 
       &::before {
         content: '';
@@ -159,6 +160,11 @@
       &:focus-visible {
         outline: 2px solid var(--background-color-primary);
         outline-offset: 2px;
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
       }
     }
 
