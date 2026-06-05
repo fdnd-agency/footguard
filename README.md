@@ -11,7 +11,7 @@
 - [Pagina's](#paginas)
   - [Dashboard](#dashboard)
   - [Grading](#grading)
-  - [Workgroups](#workgroups)
+  - [Groups](#groups)
   - [Checklist](#checklist)
   - [Results](#results)
   - [Notifications](#notifications)
@@ -48,7 +48,7 @@ De applicatie brengt artikelen, checklists en reviewers samen in een overzichtel
 **Workflow:**
 
 - Feature branches worden gemaakt vanaf `dev`.
-- Alleen volledig geteste features worden naar `dev` gemerched.
+- Alleen volledig geteste features worden naar `dev` gemerged.
 - `main` branch wordt alleen gebruikt voor release candidates.
 
 ## Ontwerp en design
@@ -69,7 +69,22 @@ De applicatie brengt artikelen, checklists en reviewers samen in een overzichtel
 
 ## Datamodel
 
-> **Let op:** Mermaid diagram kan hier handmatig toegevoegd worden als afbeelding of `mermaid` codeblok.
+FootGuard slaat data op in Directus. De belangrijkste collecties en hun relaties:
+
+```mermaid
+erDiagram
+  footguard_users ||--o{ footguard_group_members : "lid van"
+  footguard_workgroups ||--o{ footguard_group_members : "heeft leden"
+  footguard_workgroups ||--o{ footguard_articles : "toegewezen aan"
+  footguard_users ||--o{ footguard_articles : "beoordeelt"
+```
+
+- `footguard_users` — gebruikers (naam, email, role, institute, profession, photo)
+- `footguard_workgroups` — workgroups (naam, status, condition label, afbeelding)
+- `footguard_group_members` — koppelt gebruikers aan workgroups (role, membership status)
+- `footguard_articles` — artikelen die aan een workgroup en reviewers zijn toegewezen
+
+Volledig diagram: [`docs/database.md`](./docs/database.md).
 
 ## Pagina's
 
@@ -84,11 +99,51 @@ De applicatie brengt artikelen, checklists en reviewers samen in een overzichtel
 - Cards bevatten titel, auteur, publicatiejaar en status (Not Started, In Progress, Finished).
 - Filteren op status en thema is mogelijk.
 
-### Workgroups
+### Groups
 
-- Overzicht van workgroups.
-- Elke workgroup heeft 2 members die samen artikelen beoordelen.
-- Klikken op een member opent het profiel.
+- Groepspagina op `/groups` — hier beheer je workgroups en zie je wie erin zit.
+- Data komt uit Directus (`footguard_workgroups`, `footguard_group_members` en `footguard_articles`), opgehaald op de server.
+
+**Wat je ziet op de pagina**
+
+- Een korte intro-banner bovenaan.
+- Een "Guidelines"-filter (dropdown) en, als je admin bent, een knop om een nieuwe groep aan te maken.
+- Een grid met groepskaarten. Elke kaart toont:
+  - Groepsnaam, status, condition label en een afbeelding.
+  - Een lijst met artikelen die aan de groep zijn gekoppeld.
+  - Een formulier om een bestaande gebruiker toe te voegen via e-mailadres.
+- Via de knop **Members** draai je de kaart om. Aan de achterkant zie je alle leden met naam, role en avatar.
+- Super Admins kunnen niet verwijderd worden via de remove-knop.
+
+**Wat je kunt doen (als gebruiker)**
+
+- Klik **Members** op een kaart om de ledenlijst te bekijken, en **Back** om terug te gaan.
+- Vul een e-mailadres in om iemand toe te voegen. Die persoon moet al een account hebben in FootGuard. Er wordt geen uitnodigingsmail verstuurd — de gebruiker wordt direct als lid toegevoegd.
+- Verwijder een lid via de min-knop naast hun naam (behalve Super Admin).
+
+**Wat je kunt doen (als admin)**
+
+- Klik **Add Group** om een nieuwe groep aan te maken. Vul minimaal een groepsnaam in; condition label, status, thumbnail en leden zijn optioneel.
+- Open het drie-puntjesmenu op een kaart om een groep te verwijderen (met bevestiging).
+- Bewerkmodus voor groepen staat in het menu maar is nog niet volledig uitgewerkt.
+
+**Als data niet laadt**
+
+- Als Directus helemaal niet bereikbaar is, krijg je een foutpagina (500).
+- Als alleen de artikelen van één groep niet laden, blijft de rest van de pagina werken — die groep toont dan gewoon geen artikelen.
+
+**Hoe de pagina werkt (voor developers)**
+
+Relevante bestanden: `src/routes/groups/+page.svelte`, `src/routes/groups/+page.server.js`, `src/lib/server/groups.js`, `src/lib/components/groups/GroupCard.svelte`, `src/lib/components/groups/GroupMemberCard.svelte`, `src/lib/components/groups/GroupInviteForm.svelte`, `src/lib/components/groups/CreateGroupModal.svelte`.
+
+Server actions in `+page.server.js`:
+
+- `?/addMember` — gebruiker toevoegen op basis van e-mail
+- `?/remove` — lid verwijderen (soft delete via `membership_status: inactive`)
+- `?/createGroup` — nieuwe groep aanmaken (alleen admin)
+- `?/deleteGroup` — groep verwijderen (alleen admin)
+
+Admin-rechten worden bepaald door de role van de ingelogde gebruiker (`admin` of `super_admin`). Het aanmaak-modal opent via `?create-new-group` in de url.
 
 ### Checklist
 
@@ -128,7 +183,8 @@ De applicatie brengt artikelen, checklists en reviewers samen in een overzichtel
 **Als Directus niet bereikbaar is**
 
 - De pagina blijft werken met gegevens uit de login-sessie.
-- Er is geen aparte foutmelding; de gebruiker ziet dan de sessiegegevens in plaats van de nieuwste data uit Directus.
+- Er is geen aparte foutmelding.
+- **Let op:** als Directus niet bereikbaar is en de sessiegegevens verouderd zijn, kan de pagina onjuiste gegevens tonen.
 
 **Hoe de pagina werkt (voor developers)**
 
@@ -175,11 +231,13 @@ Volg de technische conventies van [FDND Agency](https://docs.fdnd.nl/conventies.
 
 ## Changelog
 
-**Sprint 18 · Release Candidate**
+**Recente updates**
 
-- Basisfunctionaliteiten geïmplementeerd: Dashboard, Grading, Checklist, Results, Notifications.
+- **Groups:** groepen aanmaken (create modal met member picker en thumbnail upload), leden toevoegen/verwijderen, groep verwijderen met bevestiging, flip-kaarten met artikelen en ledenlijst.
+- **Profile:** profiel bekijken en bewerken (naam, beroep, institution, email, profielfoto).
+- Basisfunctionaliteiten: Dashboard, Grading, Checklist, Results, Notifications.
 - Sidebar navigatie, kleurenschema, typografie en hi-fi design toegepast.
-- Live versie beschikbaar op [FootGuard](https://footguard.dev.fdnd.nl/).
+- Live versie beschikbaar op [FootGuard](https://footguard-dev.netlify.app/).
 
 ## Teamleden
 
@@ -196,15 +254,13 @@ git clone https://github.com/fdnd-agency/footguard.git
 cd footguard
 npm install
 npm run dev
-npm install --save-dev eslint
-npm install --save-dev prettier
 ```
 
 ## Licentie
 
 This project is licensed under the terms of the [MIT license](./LICENSE).
 
-## CI/CD Comand
+## CI/CD Commands
 
 ```bash
 npm run build       # Build the project for production
