@@ -15,6 +15,7 @@
   - [Checklist](#checklist)
   - [Results](#results)
   - [Notifications](#notifications)
+  - [Profile](#profile)
   - [Settings](#settings)
 - [Gebruikershandleiding](#gebruikershandleiding)
 - [Bijdragen aan het project](#bijdragen-aan-het-project)
@@ -103,6 +104,39 @@ De applicatie brengt artikelen, checklists en reviewers samen in een overzichtel
 ### Notifications
 
 - Lijst van meldingen zoals nieuwe ingeleverde checklists door collega’s of workgroup members.
+
+### Profile
+
+- Profielpagina op `/profile` voor de ingelogde gebruiker.
+- Gegevens komen uit Directus (`footguard_users`), opgehaald op de server.
+
+**Wat je ziet op de pagina**
+
+- Bovenaan: profielfoto, naam en beroep.
+- Daaronder "General Information" (de sectietitel in de UI): role, institution, profession en email.
+- Onderaan een link naar Groups.
+- Role kun je niet aanpassen — dit wordt beheerd door een admin.
+
+**Profiel aanpassen (als gebruiker)**
+
+- Ga naar Profile in de sidebar en klik **Edit Profile** rechtsboven.
+- Je kunt dan naam, beroep, institution, email en profielfoto aanpassen. Role blijft alleen-lezen.
+- Kies eventueel een nieuwe foto via **Change photo**.
+- Klik **Save Changes** om op te slaan. Wijzigingen gaan via een POST naar `?/saveProfile` en je komt terug op `/profile` met een bevestigingsbanner.
+- Klik **Cancel** om te stoppen zonder op te slaan.
+
+**Als Directus niet bereikbaar is**
+
+- De pagina blijft werken met gegevens uit de login-sessie.
+- Er is geen aparte foutmelding; de gebruiker ziet dan de sessiegegevens in plaats van de nieuwste data uit Directus.
+
+**Hoe de pagina werkt (voor developers)**
+
+Relevante bestanden: `src/routes/profile/+page.svelte`, `src/routes/profile/+page.server.js`, `src/lib/components/profile/ProfileHero.svelte`, `src/lib/components/profile/ProfileInfo.svelte`, `src/lib/components/profile/EditActions.svelte`.
+
+Als je een veld wilt toevoegen of wijzigen: pas het aan in `ProfileHero` of `ProfileInfo`, voeg het toe in `formFieldsFromUser()` (in `+page.svelte` en `+page.server.js`), en zorg dat `saveProfile` in `+page.server.js` het ook opslaat. Het veld moet ook bestaan in Directus.
+
+Bewerkmodus gaat aan via `?edit` in de url (`/profile?edit`).
 
 ### Settings
 
