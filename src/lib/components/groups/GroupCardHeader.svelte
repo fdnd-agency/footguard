@@ -7,6 +7,10 @@
   export let status;
   export let conditionLabel;
   export let image;
+  /** Unique id for the group name heading (required when multiple cards on one page). */
+  export let nameHeadingId = undefined;
+  // When undefined, the section has no aria-labelledby — acceptable for single-card views
+  // but should always be provided when rendering multiple GroupCard components on one page.
 
   // Fallback values keep the header safe while API data is still incomplete
   $: groupName = name ?? "Unnamed group";
@@ -15,12 +19,12 @@
   $: groupImage = image ?? groupHeaderPhoto;
 </script>
 
-<section>
-  <div class="header-photo">
+<section aria-labelledby={nameHeadingId}>
+  <div class="header-photo" aria-hidden="true">
     <!-- TODO: Replace static header image with group avatar from dynamic group data. -->
-    <img src={groupImage} alt="Group icon" />
+    <img src={groupImage} alt="" decoding="async" />
   </div>
-  <h2>{groupName}</h2>
+  <h2 id={nameHeadingId}>{groupName}</h2>
   <ul>
     <li>{groupConditionLabel}</li>
     <li>{groupStatus}</li>
