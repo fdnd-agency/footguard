@@ -84,7 +84,7 @@ export const actions = {
     }
 
     // Build a simple JWT-like token (base64url header.payload.signature) using HMAC-SHA256
-    const SECRET = env.SESSION_SECRET || DIRECTUS_TOKEN
+    const SECRET = DIRECTUS_TOKEN
     const header = { alg: 'HS256', typ: 'JWT' }
     const payload = { ...sessionUser }
 
@@ -96,10 +96,7 @@ export const actions = {
         .replace(/\//g, '_')
 
     const signingInput = `${base64url(header)}.${base64url(payload)}`
-    const signature = crypto.createHmac('sha256', SECRET).update(signingInput).digest('base64')
-      .replace(/=/g, '')
-      .replace(/\+/g, '-')
-      .replace(/\//g, '_')
+    const signature = crypto.createHash('sha256').update(signingInput).digest('hex')
 
     const token = `${signingInput}.${signature}`
 
