@@ -1,6 +1,7 @@
 /** @author:Razan Sagheer **/
 import { redirect } from '@sveltejs/kit'
 import crypto from 'crypto'
+import { Buffer } from 'node:buffer'
 import { env } from '$env/dynamic/private'
 import { dev } from '$app/environment'
 
@@ -84,7 +85,6 @@ export const actions = {
     }
 
     // Build a simple JWT-like token (base64url header.payload.signature) using HMAC-SHA256
-    const SECRET = DIRECTUS_TOKEN
     const header = { alg: 'HS256', typ: 'JWT' }
     const payload = { ...sessionUser }
 
