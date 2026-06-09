@@ -160,16 +160,19 @@ Admin-rechten worden bepaald door de role van de ingelogde gebruiker (`admin` of
 - Lijst van meldingen zoals nieuwe ingeleverde checklists door collega’s of workgroup members.
 
 ### Login
+
 - Loginpagina op /login.
 - Gebruikers loggen in via een magic link die naar hun e-mailadres wordt verstuurd.
 - Gebruikersgegevens worden opgehaald uit Directus (footguard_users).
 
 **Wat je ziet op de pagina**
+
 - Een invoerveld voor het e-mailadres.
 - Een knop om een magic link aan te vragen.
 - Een bevestigingsscherm nadat de aanvraag is verzonden.
 
 **Hoe het werkt**
+
 - De gebruiker voert een geldig e-mailadres in.
 - Er wordt een tijdelijke magic link gegenereerd die 15 minuten geldig blijft.
 - De link wordt verstuurd via Resend.
@@ -177,6 +180,7 @@ Admin-rechten worden bepaald door de role van de ingelogde gebruiker (`admin` of
 - Na het klikken op Sign in to IWGDF wordt de sessie aangemaakt en wordt de gebruiker ingelogd.
 
 **Beveiliging**
+
 - Tokens worden gehasht opgeslagen in Directus.
 - Een magic link kan slechts één keer gebruikt worden.
 - Rate limiting voorkomt misbruik van het loginformulier.
@@ -184,9 +188,8 @@ Admin-rechten worden bepaald door de role van de ingelogde gebruiker (`admin` of
 
 **Hoe de pagina werkt (voor developers)**
 Relevante bestanden: src/routes/login/+page.svelte, src/routes/login/api/magic-link/+server.js, src/routes/login/magic-login/+page.server.js, src/routes/login/magic-login/+page.svelte, src/lib/server/email.js, src/hooks.server.ts.
+
 ### Profile
-
-
 
 - Profielpagina op `/profile` voor de ingelogde gebruiker.
 - Gegevens komen uit Directus (`footguard_users`), opgehaald op de server.
@@ -219,7 +222,6 @@ Relevante bestanden: `src/routes/profile/+page.svelte`, `src/routes/profile/+pag
 Als je een veld wilt toevoegen of wijzigen: pas het aan in `ProfileHero` of `ProfileInfo`, voeg het toe in `formFieldsFromUser()` (in `+page.svelte` en `+page.server.js`), en zorg dat `saveProfile` in `+page.server.js` het ook opslaat. Het veld moet ook bestaan in Directus.
 
 Bewerkmodus gaat aan via `?edit` in de url (`/profile?edit`).
-
 
 ## Gebruikershandleiding
 
@@ -283,6 +285,7 @@ npm run dev
 This project is licensed under the terms of the [MIT license](./LICENSE).
 
 ## CI/CD Commands
+
 - FootGuard maakt gebruik van GitHub Actions voor Continuous Integration.
 - Bij iedere Pull Request naar dev worden automatisch controles uitgevoerd:
 
@@ -296,4 +299,3 @@ npm run test        # Run tests (if available)
 ```
 
 Alleen wanneer deze controles succesvol zijn kan code veilig worden gemerged naar de ontwikkelbranch
-
