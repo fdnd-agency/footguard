@@ -1,7 +1,7 @@
 <script>
   /*
    * GroupMemberCard — back face of the flipped group card.
-   * Shows a title bar, a “Back” control, and a scrollable list of members.
+   * Shows a title bar, a “Flip back” control, and a scrollable list of members.
    */
 
   // Builds correct app URLs when the site uses a base path (SvelteKit `resolve`).
@@ -12,7 +12,7 @@
    * @typedef {{ id: number | string; name: string; role?: string; avatarUrl?: string }} MemberRow
    */
 
-  // With `onBack` from GroupCard, “Back” is a button (no URL change). Without it, `groupId` builds an optional hash link.
+  // With `onBack` from GroupCard, “Flip back” is a button (no URL change). Without it, `groupId` builds an optional hash link.
   let {
     groupId = '',
     groupName = '',
@@ -51,12 +51,12 @@
   <header class="header" style={`--group-header-color: ${groupHeaderColor};`}>
     <span class="group-name">{headerCountLabel}</span>
     {#if onBack}
-      <button type="button" class="back" onclick={onBack}>{backLabel}</button>
+      <button type="button" class="back" onclick={onBack}>Flip back</button>
     {:else if backHref}
       <!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
-      <a class="back" href={backHref}>{backLabel}</a>
+      <a class="back" href={backHref}>Flip back</a>
     {:else}
-      <button type="button" class="back" disabled>{backLabel}</button>
+      <button type="button" class="back">Flip back</button>
     {/if}
   </header>
 
@@ -99,7 +99,7 @@
     min-height: 0;
     background: var(--background-color-primary);
 
-    /* Top bar: group title left, Back right */
+    /* Top bar: member count left, Flip back right */
     & .header {
       display: flex;
       align-items: center;
