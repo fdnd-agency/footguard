@@ -1,5 +1,4 @@
 <script>
-  import { gsap } from "gsap";
   import { onMount } from "svelte";
 
   // The whole loader container
@@ -9,14 +8,11 @@
 
   // Used sources: https://github.com/fdnd-agency/footguard/issues/155#issue-3702085279
 
-  onMount(() => {
+  onMount(async () => {
     // https://gsap.com/community/forums/topic/39201-best-practices-for-autoalpha-progressive-enhancement/
-    const window = globalThis
-    const document = globalThis.document
+    mainContainer?.classList.toggle('js')
 
-    if (!window?.gsap) {
-    document?.querySelector('.js')?.classList.toggle('js')
-    }
+    const { gsap } = await import('gsap');
 
     gsap.fromTo(
       svgElement,

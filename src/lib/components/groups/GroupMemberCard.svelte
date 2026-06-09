@@ -17,6 +17,7 @@
     groupId = '',
     groupName = '',
     onBack,
+    backLabel = 'Back to articles',
     memberCount = 0,
     memberLimit = null,
     /** @type {MemberRow[]} */
@@ -144,7 +145,7 @@
       font-weight: 700;
       cursor: pointer;
       text-decoration: none;
-      white-space: nowrap;
+      text-align: center;
 
       &::before {
         content: '';
@@ -159,6 +160,11 @@
       &:focus-visible {
         outline: 2px solid var(--background-color-primary);
         outline-offset: 2px;
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
       }
     }
 

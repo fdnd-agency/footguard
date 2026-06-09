@@ -8,20 +8,50 @@
   import SwitchSidesButton from "$lib/components/groups/SwitchSidesButton.svelte";
   import GroupCardMenu from "$lib/components/groups/GroupCardMenu.svelte";
   import previewAvatarFallback from "$lib/assets/img/profile-avatar.webp";
+  import { tick } from "svelte";
 
   // Group data is passed from the groups page; `form` is invite action feedback from +page.svelte
   // `isAdmin` gates admin-only actions (delete); `onDeleted` lets the page drop the card live.
   let { group, form, isAdmin = false, onDeleted = null } = $props();
 
+  const FLIP_DURATION_MS = 650;
+
   let flipped = $state(false);
+  /** While true, both faces stay in the DOM so the 3D flip can animate. */
+  let isTransitioning = $state(false);
+  /** @type {HTMLDivElement | null} */
+  let membersFaceEl = $state(null);
+  /** @param {number} ms */
+  function wait(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
 
-  function flipToMembers() {
+  async function flipToMembers() {
+    isTransitioning = true;
     flipped = true;
+    await tick();
+    await wait(FLIP_DURATION_MS);
+    isTransitioning = false;
+    await tick();
+    membersFaceEl?.querySelector("button.back")?.focus();
   }
 
-  function flipToFront() {
+  async function flipToFront() {
+    isTransitioning = true;
     flipped = false;
+    await tick();
+    await wait(FLIP_DURATION_MS);
+    isTransitioning = false;
+    await tick();
+    document
+      .getElementById(frontFaceId)
+      ?.querySelector(".switch-sides-btn")
+      ?.focus();
   }
+
+  /** Inactive face is removed from tab order (hidden + no stray aria-hidden="false"). */
+  const hideFrontFace = $derived(flipped && !isTransitioning);
+  const hideBackFace = $derived(!flipped && !isTransitioning);
 
   // Fallback values keep the component safe while API data is still incomplete
   const groupId = $derived(group?.id ?? "");
@@ -68,28 +98,44 @@
         avatarUrl: m.avatarUrl ?? previewAvatarFallback
       }))
   );
+
 </script>
 
-<article class="group-card-root">
+<article class="group-card-root" aria-label={`${groupName} group`}>
   <div class="scene">
     <div class="flipper" class:flipped={flipped}>
 
-      <!-- Front face: group header + articles list + invite form + articles dropdown -->
-      <div class="face face--front" id={frontFaceId}>
+      <!-- Front face first in tab order; z-index keeps the visible side on top -->
+      <div
+        class="face face--front"
+        id={frontFaceId}
+        role="region"
+        aria-label={`${groupName}, articles and invite`}
+        aria-hidden={hideFrontFace ? true : undefined}
+        inert={hideFrontFace}
+        tabindex={hideFrontFace ? undefined : 0}
+      >
         <div class="group-card-header">
+          <!-- First in tab order; positioned top-right via CSS -->
+          <SwitchSidesButton
+            label="Members"
+            ariaLabel={`Show all members for ${groupName}`}
+            ariaExpanded={flipped}
+            ariaControls={membersFaceId}
+            onFlip={flipToMembers}
+          />
           <GroupCardHeader
             name={groupName}
             status={groupStatus}
             conditionLabel={conditionLabel}
             image={groupImage}
+            nameHeadingId={`${frontFaceId}-name`}
           />
-          <!-- Button to flip card to the members back face -->
-          <SwitchSidesButton label="Members" onclick={flipToMembers} />
         </div>
 
-        <section class="members-section">
+        <section class="members-section" aria-labelledby="{frontFaceId}-articles-heading">
           <header class="section-title-row">
-            <h2 class="title">Articles</h2>
+            <h2 class="title" id="{frontFaceId}-articles-heading">Articles</h2>
             <!-- Three-dot menu with Edit/Delete: admins/super admins only -->
             {#if isAdmin}
               <GroupCardMenu {groupId} {groupName} {onDeleted} />
@@ -139,8 +185,16 @@
         </details>
       </div>
 
-      <!-- Back face: full member list — unchanged -->
-      <div class="face face--back" id={membersFaceId}>
+      <div
+        class="face face--back"
+        id={membersFaceId}
+        bind:this={membersFaceEl}
+        role="region"
+        aria-label={`${groupName}, members`}
+        aria-hidden={hideBackFace ? true : undefined}
+        inert={hideBackFace}
+        tabindex={hideBackFace ? undefined : 0}
+      >
         <GroupMemberCard
           {groupId}
           {groupName}
@@ -148,6 +202,7 @@
           memberLimit={group?.maxMembers ?? null}
           members={membersForBackFace}
           onBack={flipToFront}
+          backLabel={`Back to ${groupName} articles`}
         />
       </div>
 
@@ -164,6 +219,13 @@
     container-type: inline-size;
     container-name: group-card;
     perspective: 1000px;
+    outline: none;
+  }
+
+  .face:focus-visible {
+    outline: 2px solid var(--blue-500);
+    outline-offset: 4px;
+    border-radius: var(--radius-xl);
   }
 
   .group-card-root:has(.face--front details[open]) {
@@ -186,26 +248,56 @@
     transform: rotateY(180deg);
   }
 
+  /* Active face on top for pointer and keyboard hit-testing */
+  .face--front {
+    z-index: 2;
+  }
+
+  .face--back {
+    z-index: 1;
+  }
+
+  .flipper.flipped .face--front {
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .flipper.flipped .face--back {
+    z-index: 2;
+  }
+
+  .flipper:not(.flipped) .face--back {
+    pointer-events: none;
+  }
+
   .face {
     position: absolute;
     inset: 0;
     border-radius: var(--radius-xl);
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
     overflow: hidden;
     background: var(--background-color-primary);
     box-shadow: var(--shadow-lg);
     display: flex;
     flex-direction: column;
+    transform-style: preserve-3d;
   }
 
   .face--back {
-    transform: rotateY(180deg);
+    transform: rotateY(180deg) translateZ(0.1px);
   }
 
   .face--front {
-    overflow: visible;
+    transform: rotateY(0deg) translateZ(0.1px);
+    overflow: hidden;
     border-radius: var(--radius-xl);
+  }
+
+  /* Allow articles dropdown to extend outside the card when open */
+  .face--front:has(details[open]) {
+    overflow: visible;
   }
 
   .group-card-header {

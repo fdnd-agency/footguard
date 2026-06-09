@@ -1,31 +1,57 @@
 <script>
   import SwitchSidesIcon from "$lib/assets/svg/SwitchSidesIcon.svelte";
 
-  /** Use `onclick` to flip without changing the URL, or `href` for a normal link (optional). */
-  let { label = "Members", disabled = false, href, onclick } = $props();
+  /**
+   * Use `onFlip` to flip without changing the URL, or `href` for a normal link (optional).
+   * @type {{
+   *   label?: string,
+   *   ariaLabel?: string,
+   *   ariaExpanded?: boolean,
+   *   ariaControls?: string,
+   *   disabled?: boolean,
+   *   href?: string,
+   *   onFlip?: (event: MouseEvent) => void
+   * }}
+   */
+  let {
+    label = "Members",
+    ariaLabel,
+    ariaExpanded = undefined,
+    ariaControls = undefined,
+    disabled = false,
+    href,
+    onFlip
+  } = $props();
 </script>
 
-{#if disabled || (!href && !onclick)}
-  <span class="switch-sides-btn" aria-disabled="true">
+{#if disabled || (!href && !onFlip)}
+  <span class="switch-sides-btn" aria-disabled="true" aria-label={ariaLabel ?? label}>
     <span class="switch-sides-btn__icon" aria-hidden="true">
       <SwitchSidesIcon width={19} height={19} />
     </span>
     <span class="switch-sides-btn__text">{label}</span>
   </span>
-{:else if onclick}
-  <button type="button" class="switch-sides-btn" {onclick}>
+{:else if onFlip}
+  <button
+    type="button"
+    class="switch-sides-btn"
+    onclick={onFlip}
+    aria-label={ariaLabel}
+    aria-expanded={ariaExpanded}
+    aria-controls={ariaControls}
+  >
     <span class="switch-sides-btn__icon" aria-hidden="true">
       <SwitchSidesIcon width={19} height={19} />
     </span>
-    <span class="switch-sides-btn__text">{label}</span>
+    <span class="switch-sides-btn__text" aria-hidden="true">{label}</span>
   </button>
 {:else}
   <!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
-  <a class="switch-sides-btn" {href}>
+  <a class="switch-sides-btn" {href} aria-label={ariaLabel ?? label}>
     <span class="switch-sides-btn__icon" aria-hidden="true">
       <SwitchSidesIcon width={19} height={19} />
     </span>
-    <span class="switch-sides-btn__text">{label}</span>
+    <span class="switch-sides-btn__text" aria-hidden="true">{label}</span>
   </a>
 {/if}
 
@@ -35,7 +61,6 @@
     align-items: center;
     gap: var(--spacing-xs);
     margin: 0;
-    appearance: none;
     padding: var(--spacing-sm) var(--spacing-md);
     border: none;
     border-radius: 10px 0 0 10px;
@@ -50,6 +75,10 @@
       box-shadow var(--transition-fast),
       color var(--transition-fast),
       transform var(--transition-fast);
+
+    &:is(button) {
+      appearance: none;
+    }
 
     &:hover:not([aria-disabled="true"]) {
       color: var(--grey-600);
