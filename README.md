@@ -278,12 +278,14 @@ Follow the technical conventions of [FDND Agency](https://docs.fdnd.nl/conventie
 - **Profile:** view and edit profile (name, profession, institution, email, profile photo).
 - Core features: Dashboard, Grading, Checklist, Results, Notifications.
 - Sidebar navigation, color scheme, typography, and hi-fi design applied.
+- A design system has been made for next groups to easily acces the webpages style.
 - Live version available at [FootGuard](https://footguard-dev.netlify.app/).
 
 ## Team Members
 
 - Razan Sagheer - Software Development - [GitHub](https://github.com/RazanSagheer)
 - Yamen Alsharabi - Frontend Developer - [GitHub](https://github.com/yamenAl)
+- Mees Bulsing - UX/UI Designer - [GitHub](https://github.com/meesbulsing)
 - Kim Nikita Schijf – Frontend Developer – [GitHub](https://github.com/Kimnikitaschijf)
 - Ravi Tjikhoeri – Frontend Developer – [GitHub](https://github.com/Ravirkt)
 - Suleyman Huzeyfe Gokgul – Frontend Developer – [GitHub](https://github.com/SuleymanHG)
