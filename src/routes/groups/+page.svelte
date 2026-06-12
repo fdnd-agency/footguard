@@ -138,9 +138,11 @@
 
     .groups-cards {
       display: grid;
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
       gap: var(--spacing-lg);
       align-items: start;
+      justify-items: stretch;
+      width: 100%;
     }
 
     .groups-controls {

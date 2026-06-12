@@ -17,7 +17,7 @@
     groupId = '',
     groupName = '',
     onBack,
-    backLabel = 'Back to articles',
+    backLabel = 'Back',
     memberCount = 0,
     memberLimit = null,
     /** @type {MemberRow[]} */
