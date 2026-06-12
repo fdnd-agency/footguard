@@ -86,3 +86,15 @@ PUBLIC_DIRECTUS_URL=https://fdnd-agency.directus.app
 DIRECTUS_TOKEN=your_token_here
 PUBLIC_APP_URL=https://footguard.dev.fdnd.nl
 ```
+# SECURITY
+During the security assessment one high-severity issue remains open and should be prioritised by the next team.
+#402 – Privilege escalation through manipulation of client-side session cookie
+
+The application currently relies on client-side session data for authorisation decisions. By modifying role information stored in the session cookie additional administrative functionality became accessible. Administrative actions performed with the modified role were successfully processed and persisted.
+
+## Recommended next steps
+Review the authentication and authorisation flow and ensure that user roles are validated server-side. Client-side session data should not be trusted for authorisation decisions.
+
+Review GitHub issue #402 and the attached PoC document. Verify whether role information can still be manipulated and implement a fix before the next release.
+
+Investigate a more secure session management approach such as signed JWTs, server-side session validation and/or cryptographically protected session data.
