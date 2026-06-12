@@ -19,6 +19,7 @@ At the moment this process mostly happens via Excel, which is messy and ineffici
   - Add member by email — a user can be added directly to a group by entering their email address. No invite email is sent, the user is added immediately
   - Remove member — any member except Super Admin can be removed. This is a soft delete, the row stays in Directus with membership_status set to inactive
   - Create group modal — admins can create a new group via a right-side drawer. The form includes group name, condition label, member search, status select and thumbnail upload
+  - Create group — backend functionality implemented including Directus record creation and permission checks.
   - Delete group — admins can delete a group via the three-dot menu. A confirmation dialog appears before the group is removed
   - Admin-only actions — the create button, three-dot menu and delete flow are only visible to admin and super admin users
   - Group theme colors — each group header uses its own theme color based on the group name
@@ -33,6 +34,29 @@ At the moment this process mostly happens via Excel, which is messy and ineffici
   - Role is always read-only and cannot be changed by the user
   - Toast feedback shown after every save, cancel or upload
   - If Directus is not reachable the page falls back to session data
+ 
+- **Authentication & Login**
+ - Passwordless authentication using Magic Links
+ - Login page at `/login`
+ - Secure token generation and SHA-256 token hashing
+ - Magic Links expire after 15 minutes and can only be used once
+ - Email delivery through Resend
+ - Session management using secure HTTP-only cookies
+ - Role-based route protection through `hooks.server.ts`
+ - Microsoft Safe Links protection implemented through an intermediate confirmation page before token validation
+
+- **Dashboard**
+  - Dashboard data is fetched from Directus and displayed using live data instead of placeholder content.
+
+- **Research / Grading page**
+  - Upload Article functionality for Super Admins
+  - Upload Article button visible only for Super Admins
+  - Modal form with Title, Author, Publisher, Theme and PDF upload
+  - PDF validation on both frontend and backend
+  - PDF files are uploaded directly to the Directus File Library
+  - Article records are automatically created in footguard_articles
+  - Uploaded articles appear immediately in the research overview after a successful upload
+  - Role-based protection implemented on both frontend and backend
 
 - **Style guide additions**
   - Global button system added to [styleguide.css](https://github.com/fdnd-agency/footguard/blob/dev/src/lib/css/styleguide.css)
@@ -52,7 +76,15 @@ At the moment this process mostly happens via Excel, which is messy and ineffici
   - Local dev environment works (`npm install` then `npm run dev`)
   - `dev` and `main` branch setup. Feature branches are made from `dev` and merged back into `dev`. `main` is only used for release candidates
   - FDND Agency conventions are followed
-  - CI/CD pipeline runs on every push and pull request with ESLint, Prettier and automated tests
+  - CI/CD pipeline runs on every push and pull request
+
+    Automated checks include:
+  - ESLint validation
+  - Prettier formatting checks
+  - Automated tests
+  - Production build validation
+
+This ensures code quality before merging into the dev branch.
 
 ## What is not finished yet?
 
