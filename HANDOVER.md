@@ -59,6 +59,7 @@ At the moment this process mostly happens via Excel, which is messy and ineffici
 - Edit group — the three-dot menu has an Edit Group option but the edit flow is not built yet
 - Group articles on the card come from limited data. Connecting this fully to Directus article data can be improved
 - The member search in the create group modal loads all users. For large user lists this should be filtered or paginated
+- The question page needs a design overhaul. We have made some [designs ins figma](https://www.figma.com/design/CNlARnfpaU0koXgKTTtxhM/Footguard-Stage?node-id=1396-1694&t=3EFE7Jw4NZQSdyym-4) after initial feedback from the client.
 
 ## Recommended next steps
 
