@@ -3,6 +3,7 @@
 ## Table of Contents
 
 **Overview**
+
 - [FootGuard](#footguard)
 - [Project Description](#project-description)
 - [Branches](#branches)
@@ -11,6 +12,7 @@
 - [Data Model](#data-model)
 
 **Pages**
+
 - [Pages](#pages)
   - [Dashboard](#dashboard)
   - [Grading](#grading)
@@ -21,6 +23,7 @@
   - [Profile](#profile)
 
 **Project**
+
 - [User Guide](#user-guide)
 - [Contributing](#contributing)
   - [Conventions](#conventions)
@@ -38,7 +41,6 @@ It helps specialists such as doctors and researchers evaluate scientific article
 Currently, the review process is largely done via Excel, which is unorganised and inefficient. FootGuard brings this process together in a single digital environment where articles can be assigned, reviewed, and tracked within workgroups.
 
 <img width="1190" height="842" alt="image" src="https://github.com/user-attachments/assets/ba73661c-91bd-4ac7-a603-44cc00b68375" />
-
 
 **Live version:** [FootGuard](https://footguard-dev.netlify.app/)
 
@@ -110,7 +112,7 @@ Full diagram: [`docs/database.md`](./docs/database.md).
 
 - Groups page at `/groups` — manage workgroups and view their members.
 - Data comes from Directus (`footguard_workgroups`, `footguard_group_members`, and `footguard_articles`), fetched on the server.
-Group page [Datamodel](https://github.com/fdnd-agency/footguard/issues/303).
+  Group page [Datamodel](https://github.com/fdnd-agency/footguard/issues/303).
 
 <img width="1461" height="833" alt="Screenshot 2026-06-05 at 13 43 25" src="https://github.com/user-attachments/assets/881201c8-da7f-46db-b52e-ef47230a2264" />
 
@@ -209,7 +211,6 @@ Relevant files: `src/routes/login/+page.svelte`, `src/routes/login/api/magic-lin
 - Data comes from Directus (`footguard_users`), fetched on the server.
 
   <img width="337" height="729" alt="Screenshot 2026-06-05 at 13 44 25" src="https://github.com/user-attachments/assets/33118e19-f1cb-48fb-b3df-18870af5100e" />
-
 
 **What you see on the page**
 
