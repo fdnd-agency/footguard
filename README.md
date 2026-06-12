@@ -114,7 +114,16 @@ Full diagram: [`docs/database.md`](./docs/database.md).
 - Data comes from Directus (`footguard_workgroups`, `footguard_group_members`, and `footguard_articles`), fetched on the server.
   Group page [Datamodel](https://github.com/fdnd-agency/footguard/issues/303).
 
-<img width="1461" height="833" alt="Screenshot 2026-06-05 at 13 43 25" src="https://github.com/user-attachments/assets/881201c8-da7f-46db-b52e-ef47230a2264" />
+- Mobile:<br>
+<img width="330" height="730" alt="Screenshot 2026-06-12 at 15 20 38" src="https://github.com/user-attachments/assets/e3488cdf-1fd8-4c85-b271-f03b4512756f" /><br>
+<hr>
+
+- Desktop:
+
+<img width="1393" height="844" alt="Screenshot 2026-06-12 at 15 17 27" src="https://github.com/user-attachments/assets/accb764f-42ef-4e6a-9feb-3a12dc6111c0" />
+
+
+
 
 **What you see on the page**
 
@@ -177,7 +186,12 @@ Admin permissions are determined by the role of the logged-in user (`admin` or `
 - Login page at `/login`.
 - Users log in via a magic link sent to their email address.
 - User data is retrieved from Directus (`footguard_users`).
+- Mobile:<br>
+<img width="490" height="704" alt="Screenshot 2026-06-05 at 13 45 41" src="https://github.com/user-attachments/assets/df99e23d-f180-48ee-a02c-d3247e0ffb61" />
+<br>
+<hr>
 
+- Desktop:<br>
 <img width="1461" height="833" alt="Screenshot 2026-06-05 at 13 42 34" src="https://github.com/user-attachments/assets/3cb174e3-077d-43ad-b893-6985ea2a7072" />
 
 **What you see on the page**
@@ -209,8 +223,13 @@ Relevant files: `src/routes/login/+page.svelte`, `src/routes/login/api/magic-lin
 
 - Profile page at `/profile` for the logged-in user.
 - Data comes from Directus (`footguard_users`), fetched on the server.
+- Mobile:<br>
+<img width="330" height="734" alt="Screenshot 2026-06-12 at 15 24 43" src="https://github.com/user-attachments/assets/a407b9f7-c27f-4245-a073-ea96baa10ddd" /><br>
+<hr>
 
-  <img width="337" height="729" alt="Screenshot 2026-06-05 at 13 44 25" src="https://github.com/user-attachments/assets/33118e19-f1cb-48fb-b3df-18870af5100e" />
+- Desktop:<br>
+<img width="1470" height="838" alt="Screenshot 2026-06-12 at 15 25 06" src="https://github.com/user-attachments/assets/73b92638-a4f1-41c9-9446-1a56b7d34bb4" />
+
 
 **What you see on the page**
 
