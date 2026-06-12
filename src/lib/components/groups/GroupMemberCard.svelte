@@ -17,7 +17,6 @@
     groupId = '',
     groupName = '',
     onBack,
-    backLabel = 'Back to articles',
     memberCount = 0,
     memberLimit = null,
     /** @type {MemberRow[]} */
@@ -51,12 +50,12 @@
   <header class="header" style={`--group-header-color: ${groupHeaderColor};`}>
     <span class="group-name">{headerCountLabel}</span>
     {#if onBack}
-      <button type="button" class="back" onclick={onBack}>Flip back</button>
+      <button type="button" class="back" onclick={onBack}>Back</button>
     {:else if backHref}
       <!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
-      <a class="back" href={backHref}>Flip back</a>
+      <a class="back" href={backHref}>Back</a>
     {:else}
-      <button type="button" class="back">Flip back</button>
+      <button type="button" class="back">Back</button>
     {/if}
   </header>
 

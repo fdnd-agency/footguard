@@ -34,16 +34,16 @@ At the moment this process mostly happens via Excel, which is messy and ineffici
   - Role is always read-only and cannot be changed by the user
   - Toast feedback shown after every save, cancel or upload
   - If Directus is not reachable the page falls back to session data
- 
+
 - **Authentication & Login**
- - Passwordless authentication using Magic Links
- - Login page at `/login`
- - Secure token generation and SHA-256 token hashing
- - Magic Links expire after 15 minutes and can only be used once
- - Email delivery through Resend
- - Session management using secure HTTP-only cookies
- - Role-based route protection through `hooks.server.ts`
- - Microsoft Safe Links protection implemented through an intermediate confirmation page before token validation
+- Passwordless authentication using Magic Links
+- Login page at `/login`
+- Secure token generation and SHA-256 token hashing
+- Magic Links expire after 15 minutes and can only be used once
+- Email delivery through Resend
+- Session management using secure HTTP-only cookies
+- Role-based route protection through `hooks.server.ts`
+- Microsoft Safe Links protection implemented through an intermediate confirmation page before token validation
 
 - **Dashboard**
   - Dashboard data is fetched from Directus and displayed using live data instead of placeholder content.
@@ -79,6 +79,7 @@ At the moment this process mostly happens via Excel, which is messy and ineffici
   - CI/CD pipeline runs on every push and pull request
 
     Automated checks include:
+
   - ESLint validation
   - Prettier formatting checks
   - Automated tests
@@ -120,13 +121,16 @@ PUBLIC_DIRECTUS_URL=https://fdnd-agency.directus.app
 DIRECTUS_TOKEN=your_token_here
 PUBLIC_APP_URL=https://footguard.dev.fdnd.nl
 ```
+
 # SECURITY
+
 During the security assessment one high-severity issue remains open and should be prioritised by the next team.
 #402 – Privilege escalation through manipulation of client-side session cookie
 
 The application currently relies on client-side session data for authorisation decisions. By modifying role information stored in the session cookie additional administrative functionality became accessible. Administrative actions performed with the modified role were successfully processed and persisted.
 
 ## Recommended next steps
+
 Review the authentication and authorisation flow and ensure that user roles are validated server-side. Client-side session data should not be trusted for authorisation decisions.
 
 Review GitHub issue #402 and the attached PoC document. Verify whether role information can still be manipulated and implement a fix before the next release.
