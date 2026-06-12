@@ -108,6 +108,49 @@ Full diagram: [`docs/database.md`](./docs/database.md).
 - Cards contain title, author, publication year, and status (Not Started, In Progress, Finished).
 - Filtering by status and theme is available.
 
+- Article Upload
+
+* Upload functionality available on `/research`.
+* Only accessible to Super Admins.
+* Articles are stored in Directus (`footguard_articles`) and PDF files are uploaded to the Directus File Library.
+
+**What you see on the page**
+
+- An **Upload Article** button in the research page header.
+- A modal containing fields for:
+  - Title
+  - Author
+  - Publisher
+  - Theme
+  - PDF file
+
+- Loading and error states during the upload process.
+
+**What you can do (as a Super Admin)**
+
+- Upload a new research article without accessing the Directus dashboard.
+- Add article metadata and select a PDF file.
+- Instantly add the article to the research overview page.
+
+**Security & Validation**
+
+- Only PDF files are accepted.
+- Files must be smaller than 20 MB.
+- Permissions are checked on both the frontend and backend.
+- Unauthorized users receive a `403 Forbidden` response.
+
+**How the page works (for developers)**
+
+Relevant files: `src/routes/research/+page.svelte`, `src/routes/research/+page.server.js`, `src/lib/server/articles.js`, `src/lib/components/buttons/UploadArticleButton.svelte`.
+
+Server action:
+
+- `?/uploadArticle` — uploads a PDF to Directus and creates a new article record.
+
+<img width="1297" height="764" alt="Screenshot 2026-06-12 at 14 46 07" src="https://github.com/user-attachments/assets/657fcc65-33ae-4d67-8f30-6b63f6494f51" />
+
+<img width="1293" height="767" alt="Screenshot 2026-06-12 at 14 46 16" src="https://github.com/user-attachments/assets/19396aac-b34a-4ea7-97f2-edb3c3a21c45" />
+
 ### Groups
 
 - Groups page at `/groups` — manage workgroups and view their members.
