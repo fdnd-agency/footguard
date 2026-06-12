@@ -39,7 +39,7 @@ At the moment this process mostly happens via Excel, which is messy and ineffici
   - Variants: `.button-primary`, `.button-secondary`, `.button-outline`, `.button-danger`
   - Sizes: `.button-small`, `.button-medium`, `.button-large`
   - Group theme color tokens added for each IWGDF group
-  - In Figma there is a Design System tab added
+  - In Figma(https://www.figma.com/design/CNlARnfpaU0koXgKTTtxhM/Footguard-Stage?node-id=1815-2263) there is a Design System tab added
 
 - **Project structure**
   - `src/lib/components` all components including groups and profile
