@@ -202,7 +202,6 @@
           memberLimit={group?.maxMembers ?? null}
           members={membersForBackFace}
           onBack={flipToFront}
-          backLabel={`Back to ${groupName} articles`}
         />
       </div>
 
@@ -214,8 +213,7 @@
   .group-card-root {
     position: relative;
     width: 100%;
-    max-width: 24rem;
-    justify-self: start;
+    justify-self: stretch;
     container-type: inline-size;
     container-name: group-card;
     perspective: 1000px;

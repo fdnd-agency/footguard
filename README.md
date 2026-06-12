@@ -1,14 +1,19 @@
 # FootGuard
 
-## Inhoudsopgave
+## Table of Contents
+
+**Overview**
 
 - [FootGuard](#footguard)
-- [Opdrachtomschrijving](#opdrachtomschrijving)
+- [Project Description](#project-description)
 - [Branches](#branches)
-- [Ontwerp en design](#ontwerp-en-design)
-- [Technische stack](#technische-stack)
-- [Datamodel](#datamodel)
-- [Pagina's](#paginas)
+- [Design](#design)
+- [Tech Stack](#tech-stack)
+- [Data Model](#data-model)
+
+**Pages**
+
+- [Pages](#pages)
   - [Dashboard](#dashboard)
   - [Grading](#grading)
   - [Groups](#groups)
@@ -16,28 +21,33 @@
   - [Results](#results)
   - [Notifications](#notifications)
   - [Profile](#profile)
-- [Gebruikershandleiding](#gebruikershandleiding)
-- [Bijdragen aan het project](#bijdragen-aan-het-project)
+
+**Project**
+
+- [User Guide](#user-guide)
+- [Contributing](#contributing)
   - [Conventions](#conventions)
 - [Changelog](#changelog)
-- [Teamleden](#teamleden)
-- [Installatie](#installatie)
-- [Licentie](#licentie)
-- [Openstaande functionaliteit & aandachtspunten](#openstaande-functionaliteit--aandachtspunten)
+- [Team Members](#team-members)
+- [Installation](#installation)
+- [License](#license)
+- [Open Features & Notes](#open-features--notes)
 
 ## FootGuard
 
-FootGuard is een webbased dashboard-tool voor de **International Working Group on the Diabetic Foot (IWGDF)**.  
-Het helpt specialisten zoals artsen en onderzoekers bij het beoordelen van wetenschappelijke artikelen over diabetische voetproblematiek.
+FootGuard is a web-based dashboard tool for the **International Working Group on the Diabetic Foot (IWGDF)**.  
+It helps specialists such as doctors and researchers evaluate scientific articles on diabetic foot conditions.
 
-Op dit moment gebeurt het beoordelingsproces grotendeels via Excel, wat onoverzichtelijk en inefficiënt is. FootGuard brengt dit proces samen in één digitale omgeving waarin artikelen toegewezen, beoordeeld en opgevolgd kunnen worden binnen workgroups.
+Currently, the review process is largely done via Excel, which is unorganised and inefficient. FootGuard brings this process together in a single digital environment where articles can be assigned, reviewed, and tracked within workgroups.
 
-**Live versie:** [FootGuard](https://footguard-dev.netlify.app/)
+<img width="1190" height="842" alt="image" src="https://github.com/user-attachments/assets/ba73661c-91bd-4ac7-a603-44cc00b68375" />
 
-## Opdrachtomschrijving
+**Live version:** [FootGuard](https://footguard-dev.netlify.app/)
 
-Het doel van deze sprint was het opzetten van een **release candidate** met basisfunctionaliteiten van de webapplicatie.  
-De applicatie brengt artikelen, checklists en reviewers samen in een overzichtelijk dashboard en maakt het beoordelen efficiënter.
+## Project Description
+
+The goal of this sprint was to set up a **release candidate** with the core functionalities of the web application.  
+The application brings articles, checklists, and reviewers together in a clear dashboard, making the review process more efficient.
 
 ## Branches
 
@@ -46,57 +56,57 @@ De applicatie brengt artikelen, checklists en reviewers samen in een overzichtel
 
 **Workflow:**
 
-- Feature branches worden gemaakt vanaf `dev`.
-- Alleen volledig geteste features worden naar `dev` gemerged.
-- `main` branch wordt alleen gebruikt voor release candidates.
+- Feature branches are created from `dev`.
+- Only fully tested features are merged into `dev`.
+- The `main` branch is only used for release candidates.
 
-## Ontwerp en design
+## Design
 
-- **Kleurenpallet:** gebaseerd op het IWGDF-logo, consistent in alle UI-elementen.
-- **Typografie:** DM Sans, modern en goed leesbaar.
-- **Navigatie:** Sidebar links, inklapbaar op kleinere schermen.
-- **Hi-fi designs & UML:** Schetsen en diagrammen in [Figma](https://www.figma.com/design/FcenWarr4zCNYt1xSufqHv/Sprint-14-Footguard?node-id=16-2&p=f).
+- **Color palette:** based on the IWGDF logo, consistent across all UI elements.
+- **Typography:** DM Sans, modern and highly readable.
+- **Navigation:** Sidebar on the left, collapsible on smaller screens.
+- **Hi-fi designs & UML:** Sketches and diagrams in [Figma](https://www.figma.com/design/CNlARnfpaU0koXgKTTtxhM/Footguard-Stage?node-id=0-1&t=9Hs8vHhyd5kdKcZr-1).
 
-## Technische stack
+## Tech Stack
 
 - Frontend: Svelte / SvelteKit
 - Styling: CSS + Styleguide.css
 - Package manager: npm
 - Version control: Git / GitHub
-- Branching model: Feature branches via `dev` → merge na review
-- Conventies: FDND Agency & [`CONTRIBUTING.md`](./CONTRIBUTING.md)
+- Branching model: Feature branches via `dev` → merge after review
+- Conventions: FDND Agency & [`CONTRIBUTING.md`](./CONTRIBUTING.md)
 
-## Datamodel
+## Data Model
 
-FootGuard slaat data op in Directus. De belangrijkste collecties en hun relaties:
+FootGuard stores data in Directus. The main collections and their relationships:
 
 ```mermaid
 erDiagram
-  footguard_users ||--o{ footguard_group_members : "lid van"
-  footguard_workgroups ||--o{ footguard_group_members : "heeft leden"
-  footguard_workgroups ||--o{ footguard_articles : "toegewezen aan"
-  footguard_users ||--o{ footguard_articles : "beoordeelt"
+  footguard_users ||--o{ footguard_group_members : "member of"
+  footguard_workgroups ||--o{ footguard_group_members : "has members"
+  footguard_workgroups ||--o{ footguard_articles : "assigned to"
+  footguard_users ||--o{ footguard_articles : "reviews"
 ```
 
-- `footguard_users` — gebruikers (naam, email, role, institute, profession, photo)
-- `footguard_workgroups` — workgroups (naam, status, condition label, afbeelding)
-- `footguard_group_members` — koppelt gebruikers aan workgroups (role, membership status)
-- `footguard_articles` — artikelen die aan een workgroup en reviewers zijn toegewezen
+- `footguard_users` — users (name, email, role, institute, profession, photo)
+- `footguard_workgroups` — workgroups (name, status, condition label, image)
+- `footguard_group_members` — links users to workgroups (role, membership status)
+- `footguard_articles` — articles assigned to a workgroup and reviewers
 
-Volledig diagram: [`docs/database.md`](./docs/database.md).
+Full diagram: [`docs/database.md`](./docs/database.md).
 
-## Pagina's
+## Pages
 
 ### Dashboard
 
-- Overzicht van de status van onderzoeken en openstaande taken.
-- Navigatie naar onafgemaakte checklists, compare grading pagina en persoonlijke statistieken.
+- Overview of the status of studies and outstanding tasks.
+- Navigation to unfinished checklists, the compare grading page, and personal statistics.
 
 ### Grading
 
-- Overzicht van artikelen toegewezen aan de gebruiker.
-- Cards bevatten titel, auteur, publicatiejaar en status (Not Started, In Progress, Finished).
-- Filteren op status en thema is mogelijk.
+- Overview of articles assigned to the user.
+- Cards contain title, author, publication year, and status (Not Started, In Progress, Finished).
+- Filtering by status and theme is available.
 
 - Article Upload
 
@@ -143,143 +153,166 @@ Server action:
 
 ### Groups
 
-- Groepspagina op `/groups` — hier beheer je workgroups en zie je wie erin zit.
-- Data komt uit Directus (`footguard_workgroups`, `footguard_group_members` en `footguard_articles`), opgehaald op de server.
+- Groups page at `/groups` — manage workgroups and view their members.
+- Data comes from Directus (`footguard_workgroups`, `footguard_group_members`, and `footguard_articles`), fetched on the server.
+  Group page [Datamodel](https://github.com/fdnd-agency/footguard/issues/303).
 
-**Wat je ziet op de pagina**
+- Mobile:<br>
+<img width="330" height="730" alt="Screenshot 2026-06-12 at 15 20 38" src="https://github.com/user-attachments/assets/e3488cdf-1fd8-4c85-b271-f03b4512756f" /><br>
+<hr>
 
-- Een korte intro-banner bovenaan.
-- Een "Guidelines"-filter (dropdown) en, als je admin bent, een knop om een nieuwe groep aan te maken.
-- Een grid met groepskaarten. Elke kaart toont:
-  - Groepsnaam, status, condition label en een afbeelding.
-  - Een lijst met artikelen die aan de groep zijn gekoppeld.
-  - Een formulier om een bestaande gebruiker toe te voegen via e-mailadres.
-- Via de knop **Members** draai je de kaart om. Aan de achterkant zie je alle leden met naam, role en avatar.
-- Super Admins kunnen niet verwijderd worden via de remove-knop.
+- Desktop:
 
-**Wat je kunt doen (als gebruiker)**
+<img width="1393" height="844" alt="Screenshot 2026-06-12 at 15 17 27" src="https://github.com/user-attachments/assets/accb764f-42ef-4e6a-9feb-3a12dc6111c0" />
 
-- Klik **Members** op een kaart om de ledenlijst te bekijken, en **Back** om terug te gaan.
-- Vul een e-mailadres in om iemand toe te voegen. Die persoon moet al een account hebben in FootGuard. Er wordt geen uitnodigingsmail verstuurd — de gebruiker wordt direct als lid toegevoegd.
-- Verwijder een lid via de min-knop naast hun naam (behalve Super Admin).
+**What you see on the page**
 
-**Wat je kunt doen (als admin)**
+- A short intro banner at the top.
+- A "Guidelines" filter (dropdown) and, if you are an admin, a button to create a new group.
+- A grid of group cards. Each card shows:
+  - Group name, status, condition label, and an image.
+  - A list of articles linked to the group.
+  - A form to add an existing user via email address.
+- Clicking the **Members** button flips the card. On the back you see all members with their name, role, and avatar.
+- Super Admins cannot be removed via the remove button.
 
-- Klik **Add Group** om een nieuwe groep aan te maken. Vul minimaal een groepsnaam in; condition label, status, thumbnail en leden zijn optioneel.
-- Open het drie-puntjesmenu op een kaart om een groep te verwijderen (met bevestiging).
-- Bewerkmodus voor groepen staat in het menu maar is nog niet volledig uitgewerkt.
+**What you can do (as a user)**
 
-**Als data niet laadt**
+- Click **Members** on a card to view the member list, and **Back** to return.
+- Enter an email address to add someone. That person must already have an account in FootGuard. No invitation email is sent — the user is added as a member directly.
+- Remove a member via the minus button next to their name (except Super Admin).
 
-- Als Directus helemaal niet bereikbaar is, krijg je een foutpagina (500).
-- Als alleen de artikelen van één groep niet laden, blijft de rest van de pagina werken — die groep toont dan gewoon geen artikelen.
+**What you can do (as an admin)**
 
-**Hoe de pagina werkt (voor developers)**
+- Click **Add Group** to create a new group. At minimum, enter a group name; condition label, status, thumbnail, and members are optional.
+- Open the three-dot menu on a card to delete a group (with confirmation).
+- Edit mode for groups is in the menu but has not been fully implemented yet.
 
-Relevante bestanden: `src/routes/groups/+page.svelte`, `src/routes/groups/+page.server.js`, `src/lib/server/groups.js`, `src/lib/components/groups/GroupCard.svelte`, `src/lib/components/groups/GroupMemberCard.svelte`, `src/lib/components/groups/GroupInviteForm.svelte`, `src/lib/components/groups/CreateGroupModal.svelte`.
+**If data fails to load**
+
+- If Directus is completely unreachable, you will get an error page (500).
+- If only the articles for one group fail to load, the rest of the page continues to work — that group will simply show no articles.
+
+**How the page works (for developers)**
+
+Relevant files: `src/routes/groups/+page.svelte`, `src/routes/groups/+page.server.js`, `src/lib/server/groups.js`, `src/lib/components/groups/GroupCard.svelte`, `src/lib/components/groups/GroupMemberCard.svelte`, `src/lib/components/groups/GroupInviteForm.svelte`, `src/lib/components/groups/CreateGroupModal.svelte`.
 
 Server actions in `+page.server.js`:
 
-- `?/addMember` — gebruiker toevoegen op basis van e-mail
-- `?/remove` — lid verwijderen (soft delete via `membership_status: inactive`)
-- `?/createGroup` — nieuwe groep aanmaken (alleen admin)
-- `?/deleteGroup` — groep verwijderen (alleen admin)
+- `?/addMember` — add a user by email
+- `?/remove` — remove a member (soft delete via `membership_status: inactive`)
+- `?/createGroup` — create a new group (admin only)
+- `?/deleteGroup` — delete a group (admin only)
 
-Admin-rechten worden bepaald door de role van de ingelogde gebruiker (`admin` of `super_admin`). Het aanmaak-modal opent via `?create-new-group` in de url.
+Admin permissions are determined by the role of the logged-in user (`admin` or `super_admin`). The creation modal opens via `?create-new-group` in the URL.
 
 ### Checklist
 
-- PDF van artikel naast de checklist.
-- Antwoorden en notities invullen.
-- 25 vragen met voortgangscounter.
+- PDF of the article displayed alongside the checklist.
+- Fill in answers and notes.
+- 25 questions with a progress counter.
 
 ### Results / Compare Grading
 
-- Overzicht van ingevulde checklist-antwoorden van 2 reviewers.
-- Mogelijkheid om verschillen te vergelijken en definitieve beoordeling te bepalen.
+- Overview of completed checklist answers from 2 reviewers.
+- Ability to compare differences and determine the final assessment.
 
 ### Notifications
 
-- Lijst van meldingen zoals nieuwe ingeleverde checklists door collega’s of workgroup members.
+- List of notifications such as newly submitted checklists by colleagues or workgroup members.
 
 ### Login
 
-- Loginpagina op /login.
-- Gebruikers loggen in via een magic link die naar hun e-mailadres wordt verstuurd.
-- Gebruikersgegevens worden opgehaald uit Directus (footguard_users).
+- Login page at `/login`.
+- Users log in via a magic link sent to their email address.
+- User data is retrieved from Directus (`footguard_users`).
+- Mobile:<br>
+<img width="490" height="704" alt="Screenshot 2026-06-05 at 13 45 41" src="https://github.com/user-attachments/assets/df99e23d-f180-48ee-a02c-d3247e0ffb61" />
+<br>
+<hr>
 
-**Wat je ziet op de pagina**
+- Desktop:<br>
+  <img width="1461" height="833" alt="Screenshot 2026-06-05 at 13 42 34" src="https://github.com/user-attachments/assets/3cb174e3-077d-43ad-b893-6985ea2a7072" />
 
-- Een invoerveld voor het e-mailadres.
-- Een knop om een magic link aan te vragen.
-- Een bevestigingsscherm nadat de aanvraag is verzonden.
+**What you see on the page**
 
-**Hoe het werkt**
+- An input field for the email address.
+- A button to request a magic link.
+- A confirmation screen after the request has been submitted.
 
-- De gebruiker voert een geldig e-mailadres in.
-- Er wordt een tijdelijke magic link gegenereerd die 15 minuten geldig blijft.
-- De link wordt verstuurd via Resend.
-- Bij het openen van de link komt de gebruiker eerst op een bevestigingspagina.
-- Na het klikken op Sign in to IWGDF wordt de sessie aangemaakt en wordt de gebruiker ingelogd.
+**How it works**
 
-**Beveiliging**
+- The user enters a valid email address.
+- A temporary magic link is generated that remains valid for 15 minutes.
+- The link is sent via Resend.
+- Opening the link takes the user to a confirmation page first.
+- After clicking Sign in to IWGDF, the session is created and the user is logged in.
 
-- Tokens worden gehasht opgeslagen in Directus.
-- Een magic link kan slechts één keer gebruikt worden.
-- Rate limiting voorkomt misbruik van het loginformulier.
-- De oplossing is compatibel met Microsoft Safe Links doordat token-validatie pas gebeurt na een POST-request.
+**Security**
 
-**Hoe de pagina werkt (voor developers)**
-Relevante bestanden: src/routes/login/+page.svelte, src/routes/login/api/magic-link/+server.js, src/routes/login/magic-login/+page.server.js, src/routes/login/magic-login/+page.svelte, src/lib/server/email.js, src/hooks.server.ts.
+- Tokens are stored hashed in Directus.
+- A magic link can only be used once.
+- Rate limiting prevents abuse of the login form.
+- The solution is compatible with Microsoft Safe Links because token validation only occurs after a POST request.
+
+**How the page works (for developers)**
+
+Relevant files: `src/routes/login/+page.svelte`, `src/routes/login/api/magic-link/+server.js`, `src/routes/login/magic-login/+page.server.js`, `src/routes/login/magic-login/+page.svelte`, `src/lib/server/email.js`, `src/hooks.server.ts`.
 
 ### Profile
 
-- Profielpagina op `/profile` voor de ingelogde gebruiker.
-- Gegevens komen uit Directus (`footguard_users`), opgehaald op de server.
+- Profile page at `/profile` for the logged-in user.
+- Data comes from Directus (`footguard_users`), fetched on the server.
+- Mobile:<br>
+<img width="330" height="734" alt="Screenshot 2026-06-12 at 15 24 43" src="https://github.com/user-attachments/assets/a407b9f7-c27f-4245-a073-ea96baa10ddd" /><br>
+<hr>
 
-**Wat je ziet op de pagina**
+- Desktop:<br>
+  <img width="1470" height="838" alt="Screenshot 2026-06-12 at 15 25 06" src="https://github.com/user-attachments/assets/73b92638-a4f1-41c9-9446-1a56b7d34bb4" />
 
-- Bovenaan: profielfoto, naam en beroep.
-- Daaronder "General Information" (de sectietitel in de UI): role, institution, profession en email.
-- Onderaan een link naar Groups.
-- Role kun je niet aanpassen — dit wordt beheerd door een admin.
+**What you see on the page**
 
-**Profiel aanpassen (als gebruiker)**
+- At the top: profile photo, name, and profession.
+- Below that, "General Information" (the section title in the UI): role, institution, profession, and email.
+- At the bottom, a link to Groups.
+- Role cannot be changed — this is managed by an admin.
 
-- Ga naar Profile in de sidebar en klik **Edit Profile** rechtsboven.
-- Je kunt dan naam, beroep, institution, email en profielfoto aanpassen. Role blijft alleen-lezen.
-- Kies eventueel een nieuwe foto via **Change photo**.
-- Klik **Save Changes** om op te slaan. Wijzigingen gaan via een POST naar `?/saveProfile` en je komt terug op `/profile` met een bevestigingsbanner.
-- Klik **Cancel** om te stoppen zonder op te slaan.
+**Editing your profile (as a user)**
 
-**Als Directus niet bereikbaar is**
+- Go to Profile in the sidebar and click **Edit Profile** in the top right.
+- You can then change your name, profession, institution, email, and profile photo. Role remains read-only.
+- Optionally choose a new photo via **Change photo**.
+- Click **Save Changes** to save. Changes are submitted via a POST to `?/saveProfile` and you are returned to `/profile` with a confirmation banner.
+- Click **Cancel** to stop without saving.
 
-- De pagina blijft werken met gegevens uit de login-sessie.
-- Er is geen aparte foutmelding.
-- **Let op:** als Directus niet bereikbaar is en de sessiegegevens verouderd zijn, kan de pagina onjuiste gegevens tonen.
+**If Directus is unreachable**
 
-**Hoe de pagina werkt (voor developers)**
+- The page continues to work using data from the login session.
+- There is no separate error message.
+- **Note:** if Directus is unreachable and the session data is outdated, the page may display incorrect information.
 
-Relevante bestanden: `src/routes/profile/+page.svelte`, `src/routes/profile/+page.server.js`, `src/lib/components/profile/ProfileHero.svelte`, `src/lib/components/profile/ProfileInfo.svelte`, `src/lib/components/profile/EditActions.svelte`.
+**How the page works (for developers)**
 
-Als je een veld wilt toevoegen of wijzigen: pas het aan in `ProfileHero` of `ProfileInfo`, voeg het toe in `formFieldsFromUser()` (in `+page.svelte` en `+page.server.js`), en zorg dat `saveProfile` in `+page.server.js` het ook opslaat. Het veld moet ook bestaan in Directus.
+Relevant files: `src/routes/profile/+page.svelte`, `src/routes/profile/+page.server.js`, `src/lib/components/profile/ProfileHero.svelte`, `src/lib/components/profile/ProfileInfo.svelte`, `src/lib/components/profile/EditActions.svelte`.
 
-Bewerkmodus gaat aan via `?edit` in de url (`/profile?edit`).
+To add or change a field: update it in `ProfileHero` or `ProfileInfo`, add it to `formFieldsFromUser()` (in both `+page.svelte` and `+page.server.js`), and make sure `saveProfile` in `+page.server.js` also saves it. The field must also exist in Directus.
 
-## Gebruikershandleiding
+Edit mode is toggled via `?edit` in the URL (`/profile?edit`).
 
-- Log in met je account.
-- Ga naar **Grading** om toegewezen artikelen te bekijken.
-- Klik op een artikel om de **Checklist** te openen.
-- Vul de checklistvragen in en voeg eventueel notities toe.
-- Gebruik **Dashboard** om voortgang te volgen en naar Results te navigeren.
-- Bekijk **Notifications** voor updates van je workgroup.
+## User Guide
 
-## Bijdragen aan het project
+- Log in with your account.
+- Go to **Grading** to view your assigned articles.
+- Click on an article to open the **Checklist**.
+- Fill in the checklist questions and optionally add notes.
+- Use **Dashboard** to track progress and navigate to Results.
+- Check **Notifications** for updates from your workgroup.
+
+## Contributing
 
 ### Conventions
 
-Volg de technische conventies van [FDND Agency](https://docs.fdnd.nl/conventies.html):
+Follow the technical conventions of [FDND Agency](https://docs.fdnd.nl/conventies.html):
 
 - Git workflow
 - Commits
@@ -287,34 +320,36 @@ Volg de technische conventies van [FDND Agency](https://docs.fdnd.nl/conventies.
 - Code conventions
 - Design conventions
 
-> Houd ook rekening met [`CONTRIBUTING.md`](./CONTRIBUTING.md) en [`HANDOVER.md`](./HANDOVER.md):
+> Also refer to [`CONTRIBUTING.md`](./CONTRIBUTING.md) and [`HANDOVER.md`](./HANDOVER.md):
 
 - Code style & conventions
-- Commitregels
-- Merge- en reviewproces
-- Werkwijze projectboard
-- Opbouw van user story’s
-- Samenwerking
+- Commit rules
+- Merge and review process
+- Project board workflow
+- Structure of user stories
+- Collaboration
 
 ## Changelog
 
-**Recente updates**
+**Recent updates**
 
-- **Groups:** groepen aanmaken (create modal met member picker en thumbnail upload), leden toevoegen/verwijderen, groep verwijderen met bevestiging, flip-kaarten met artikelen en ledenlijst.
-- **Profile:** profiel bekijken en bewerken (naam, beroep, institution, email, profielfoto).
-- Basisfunctionaliteiten: Dashboard, Grading, Checklist, Results, Notifications.
-- Sidebar navigatie, kleurenschema, typografie en hi-fi design toegepast.
-- Live versie beschikbaar op [FootGuard](https://footguard-dev.netlify.app/).
+- **Groups:** create groups (create modal with member picker and thumbnail upload), add/remove members, delete group with confirmation, flip cards with articles and member list.
+- **Profile:** view and edit profile (name, profession, institution, email, profile photo).
+- Core features: Dashboard, Grading, Checklist, Results, Notifications.
+- Sidebar navigation, color scheme, typography, and hi-fi design applied.
+- A design system has been made for next groups to easily acces the webpages style.
+- Live version available at [FootGuard](https://footguard-dev.netlify.app/).
 
-## Teamleden
+## Team Members
 
 - Razan Sagheer - Software Development - [GitHub](https://github.com/RazanSagheer)
-- Yamen alsharabi - Frontend Developer - [Github](https://github.com/yamenAl)
+- Yamen Alsharabi - Frontend Developer - [GitHub](https://github.com/yamenAl)
+- Mees Bulsing - UX/UI Designer - [GitHub](https://github.com/meesbulsing)
 - Kim Nikita Schijf – Frontend Developer – [GitHub](https://github.com/Kimnikitaschijf)
 - Ravi Tjikhoeri – Frontend Developer – [GitHub](https://github.com/Ravirkt)
 - Suleyman Huzeyfe Gokgul – Frontend Developer – [GitHub](https://github.com/SuleymanHG)
 
-## Installatie
+## Installation
 
 ```bash
 git clone https://github.com/fdnd-agency/footguard.git
@@ -323,14 +358,14 @@ npm install
 npm run dev
 ```
 
-## Licentie
+## License
 
 This project is licensed under the terms of the [MIT license](./LICENSE).
 
 ## CI/CD Commands
 
-- FootGuard maakt gebruik van GitHub Actions voor Continuous Integration.
-- Bij iedere Pull Request naar dev worden automatisch controles uitgevoerd:
+FootGuard uses GitHub Actions for Continuous Integration.  
+On every Pull Request to `dev`, checks are run automatically:
 
 ```bash
 npm run build       # Build the project for production
@@ -341,4 +376,4 @@ npm run format:fix  # Automatically format the code using Prettier
 npm run test        # Run tests (if available)
 ```
 
-Alleen wanneer deze controles succesvol zijn kan code veilig worden gemerged naar de ontwikkelbranch
+Only when these checks pass can code safely be merged into the development branch.
