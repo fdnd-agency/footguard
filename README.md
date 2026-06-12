@@ -165,9 +165,6 @@ Server action:
 
 <img width="1393" height="844" alt="Screenshot 2026-06-12 at 15 17 27" src="https://github.com/user-attachments/assets/accb764f-42ef-4e6a-9feb-3a12dc6111c0" />
 
-
-
-
 **What you see on the page**
 
 - A short intro banner at the top.
@@ -235,7 +232,7 @@ Admin permissions are determined by the role of the logged-in user (`admin` or `
 <hr>
 
 - Desktop:<br>
-<img width="1461" height="833" alt="Screenshot 2026-06-05 at 13 42 34" src="https://github.com/user-attachments/assets/3cb174e3-077d-43ad-b893-6985ea2a7072" />
+  <img width="1461" height="833" alt="Screenshot 2026-06-05 at 13 42 34" src="https://github.com/user-attachments/assets/3cb174e3-077d-43ad-b893-6985ea2a7072" />
 
 **What you see on the page**
 
@@ -271,8 +268,7 @@ Relevant files: `src/routes/login/+page.svelte`, `src/routes/login/api/magic-lin
 <hr>
 
 - Desktop:<br>
-<img width="1470" height="838" alt="Screenshot 2026-06-12 at 15 25 06" src="https://github.com/user-attachments/assets/73b92638-a4f1-41c9-9446-1a56b7d34bb4" />
-
+  <img width="1470" height="838" alt="Screenshot 2026-06-12 at 15 25 06" src="https://github.com/user-attachments/assets/73b92638-a4f1-41c9-9446-1a56b7d34bb4" />
 
 **What you see on the page**
 
