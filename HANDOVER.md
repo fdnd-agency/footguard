@@ -1,179 +1,88 @@
-# Handover – FootGuard (Sprint 18 · Release Candidate)
+# Handover – FootGuard (Sprint 19 & 20)
 
-Dit document is opgesteld als oplevering van deze sprint. Het beschrijft de huidige **projectstatus**, wat er is **uitgewerkt**, wat nog **openstaat** en wat een volgend team kan oppakken.
+This document is the handover for sprint 19 and 20. It describes the current project status, what has been built, what is still open and what a next team can pick up.
 
-## Projectoverzicht
+## Project overview
 
-FootGuard is een webbased dashboard-tool voor de **International Working Group on the Diabetic Foot (IWGDF)**.  
-De tool helpt specialisten zoals artsen en onderzoekers bij het beoordelen van wetenschappelijke artikelen over diabetische voetproblematiek.
+FootGuard is a web-based dashboard tool for the **International Working Group on the Diabetic Foot (IWGDF)**.
+The tool helps specialists such as doctors and researchers assess scientific articles about diabetic foot problems.
 
-Op dit moment gebeurt dit beoordelingsproces grotendeels via Excel, wat onoverzichtelijk en inefficiënt is. Met FootGuard wordt dit proces samengebracht in één digitale omgeving waarin artikelen toegewezen, beoordeeld en opgevolgd kunnen worden binnen workgroups.
+At the moment this process mostly happens via Excel, which is messy and inefficient. FootGuard brings this together in one digital environment where articles can be assigned, assessed and followed up within groups.
 
-## Huidige status
+## Current status
 
-### Wat werkt op dit moment?
+### What works right now?
 
-- **Algemene structuur**
-  - De applicatie heeft een duidelijke pagina-indeling:
-    - Dashboard
-    - Grading (vanuit hier ook te navigeren naar de checklist completion page)
-    - Results (ook wel de compare grading page)
-    - Admin (alleen voor de hoofdgebruiker bedoeld).
-    - Notifications center
-    - Settings
-  - Navigatie via een sidebar aan de linkerkant, die inklapbaar is op kleinere schermen.
+- **Groups page**
+  - Group cards showing group name, status, condition label and a header image
+  - Card flip — clicking Members flips the card to show a scrollable member list with avatars, names and roles
+  - Add member by email — a user can be added directly to a group by entering their email address. No invite email is sent, the user is added immediately
+  - Remove member — any member except Super Admin can be removed. This is a soft delete, the row stays in Directus with membership_status set to inactive
+  - Create group modal — admins can create a new group via a right-side drawer. The form includes group name, condition label, member search, status select and thumbnail upload
+  - Delete group — admins can delete a group via the three-dot menu. A confirmation dialog appears before the group is removed
+  - Admin-only actions — the create button, three-dot menu and delete flow are only visible to admin and super admin users
+  - Group theme colors — each group header uses its own theme color based on the group name
+  - The page works without JavaScript via progressive enhancement
 
-- **Mappen structuur SvelteKit project**
-  - `src/lib/assets`, hier kunnen jullie alle foto's, svg, fonts, components, css styleguide vinde. Alles rondom content is hier gedocumenteerd
-  - `src/lib/assets/index.js` in dit document zitten de imports van de de componenten die we gebruiken, we raden aan om dit te grbuiken voor een overzichtelijk project en clean code.
-  - `src/routes` hier zitten alle pages van footguard
-  - `static/robot.txt` hebben wij niks niet veel mee gedaan, seo en andere improvents kunnen gedaan worden via dit bestand. zie [bron](https://medium.com/@priyankaharlalka/delving-deeper-into-robots-txt-a-comprehensive-guide-for-seo-optimization-df04972b95c7) voor extra info.
-  -
-- **Ontwerp & gebruikservaring**
-  - Huisstijl is gebaseerd op het IWGDF-logo.
-  - Vast kleurenpalet en typografie (DM Sans), je kan het vinden in de [styleguide.css](https://github.com/fdnd-agency/footguard/blob/dev/src/lib/css/styleguide.css).
-  - Hi-fi designs, schetsen en UML-diagrammen zijn uitgewerkt in Figma en vormen de leidraad voor de UI.
+- **Profile page**
+  - Profile hero showing avatar, name and profession
+  - General information section showing role, institution, profession and email
+  - Inline edit mode — clicking Edit Profile switches the page to edit mode
+  - Avatar upload — in edit mode a Change photo button appears
+  - Save and cancel — Save Changes posts to the server and updates Directus. Cancel reverts all changes
+  - Role is always read-only and cannot be changed by the user
+  - Toast feedback shown after every save, cancel or upload
+  - If Directus is not reachable the page falls back to session data
 
-- **Pagina’s**
-  - **Dashboard**  
-    Geeft een overzicht van de status van verschillende onderzoeken en werkt als reminder voor openstaande taken. Vanuit hier te navigeren naar een onafgemaakte checklist, de compare grading pagina van ingevulde artikelen en persoonlijke statistieken.
-  - **Grading**  
-    Overzicht van artikelen die aan de gebruiker zijn toegewezen. Artikelen worden weergegeven in cards met informatie zoals titel, auteur, publicatiejaar en status (Not Started, In Progress, Finished). Filteren op status en thema is mogelijk.
-  - **Checklist completion page**  
-    Een PDF-bestand van het betreffende researchartikel. Aan de rechterkant is de checklist weergegeven. Deze kan vanuit hier worden doorgelopen naast het research paper en worden verstuurd.
-  - **Results**  
-    Overzicht van 2 ingevulde checklist antwoordmodellen. Hier kan er vergeleken worden of de antwoorden overeen komen en de uiteindelijke versie kan hier worden verstuurd.
-  - **Admin**
-  - Functies voor de admin gebruiker, zoals papieren uploaden, final verdict, managen van workgroups
-  - **Notification centre**  
-    Een overzichtelijke pagina waar alle meldingen worden weergeven in een lijst. Hier worden meldingen getoond over mensen uit onder andere jouw workgroup die een research paper hebben ingeleverd, waarna je deze kan gaan comparen met jouw eigen.
-  - **Settings**
-    Nog niet uitgewerkt. Hier komen uiteindelijk persoonlijke instellingen over bijvoorbeeld preferred color scheme (dark of light mode) maar ook taal voorkeuren etc.
+- **Style guide additions**
+  - Global button system added to [styleguide.css](https://github.com/fdnd-agency/footguard/blob/dev/src/lib/css/styleguide.css)
+  - Variants: `.button-primary`, `.button-secondary`, `.button-outline`, `.button-danger`
+  - Sizes: `.button-small`, `.button-medium`, `.button-large`
+  - Group theme color tokens added for each IWGDF group
 
-- **Technische basis**
-  - Lokale ontwikkelomgeving werkt (`npm install` -> `npm install gsap` -> `npm run dev`).
-  - Gebruik van een `dev` en `main` branch.
-  - `dev` branch werkt met feature branches. Deze worden gemaakt vanaf de dev en ook hiernaartoe gemerched. De `main` branch wordt **niet** zomaar naar gemerched zonder volledige testing.
-  - FDND Agency conventies worden gevolgd.
+- **Project structure**
+  - `src/lib/components` all components including groups and profile
+  - `src/lib/css/styleguide.css` global styles and design tokens
+  - `src/lib/server/groups.js` all Directus server helpers for the groups page
+  - `src/routes/groups` groups page and server actions
+  - `src/routes/profile` profile page and server actions
 
-- **CI/CD & Kwaliteitscontrole**
-  Binnen dit project wordt gebruik gemaakt van een CI/CD pipeline om de codekwaliteit te waarborgen.
-  De pipeline voert automatisch controles uit bij elke push en pull request, waaronder:
-- Linting (ESLint) -> controle op codekwaliteit en consistentie
-- Formatting (Prettier) -> automatische code-opmaak
-- Automated tests -> uitvoeren van unit en integration tests
-  Dit zorgt ervoor dat fouten vroegtijdig worden ontdekt en dat de codebase consistent blijft tussen verschillende developers.
-  De pipeline draait automatisch en geeft feedback (pass/fail), zodat alleen werkende code gemerged wordt.
+- **Technical foundation**
+  - Local dev environment works (`npm install` then `npm run dev`)
+  - `dev` and `main` branch setup. Feature branches are made from `dev` and merged back into `dev`. `main` is only used for release candidates
+  - FDND Agency conventions are followed
+  - CI/CD pipeline runs on every push and pull request with ESLint, Prettier and automated tests
 
-## Wat is nog niet af?
+## What is not finished yet?
 
-- **Datamodel**
-  - Het datamodel is nog niet volledig uitgewerkt of geïmplementeerd.
-  - Relaties tussen users, artikelen, workgroups en beoordelingen zijn nog niet vastgelegd in code.
-  - Dingen zoals berichten zijn ook nog niet gekoppeld
+- Edit group — the three-dot menu has an Edit Group option but the edit flow is not built yet
+- Group articles on the card come from limited data. Connecting this fully to Directus article data can be improved
+- The member search in the create group modal loads all users. For large user lists this should be filtered or paginated
 
-- **Backend & data-opslag**
-  - Er is nog geen backend gebouwd voor onder andere het login systeem.
-  - De database is nog niet overal gekoppeld.
-  - Ingevoerde data zoals checklist-antwoorden, notities en statussen worden nog niet opgeslagen.
-  - Persoonlijke statistieken worden ook nog niet opgeslagen in de database.
+## Recommended next steps
 
-- **Checklist-functionaliteit**
-  - Antwoorden en notities worden nog niet persistent opgeslagen.
-  - Het afronden of indienen van een beoordeling ontbreekt.
-  - Samenwerking tussen workgroup-leden binnen één artikel (zoals het vergelijken en samenvoegen van beoordelingen) is nog niet uitgewerkt.
+1. Build the edit group flow triggered from the three-dot menu
+2. Connect group articles fully to the Directus articles dataset
 
-- **Gebruikersbeheer**
-  - Er is geen authenticatie of autorisatie.
-  - Rollen (bijvoorbeeld reviewer of admin) zijn niet geïmplementeerd.
-  - Profielpagina’s zijn nog niet functioneel.
-  - Er worden nog geen (e-mail) notifications gestuurd als een checklist klaar is om vergeleken te worden.
+## Backlog and open issues
 
-- **Afronding richting productie**
-  - Er is nog geen live versie op de `main` branch gezet. Wel al op de `dev`.
-  - Error handling, validatie en toegankelijkheid zijn nog niet uitgewerkt.
+All issues without a status are open in the backlog. These are meant for future sprints.
+The backlog contains technical tasks, new ideas and feedback from the client.
+Prioritisation can be decided per sprint by the next team.
 
-## Aandachtspunten & uitdagingen
-
-- **Samenwerking binnen workgroups**
-  - Er is nog geen oplossing voor het vergelijken of samenvoegen van beoordelingen van meerdere reviewers.
-
-- **PDF-annotaties**
-  - Het opslaan en delen van annotaties in PDF’s kan technisch complex worden en vraagt om duidelijke keuzes.
-
-- **Schaalbaarheid**
-  - Het huidige concept gaat uit van workgroups van twee personen. Uitbreiding hiervan vraagt aanpassingen in het datamodel en de UI.
-
-- **Ontwerp vs. implementatie**
-  - De Figma designs zijn leidend. Nieuwe functionaliteiten moeten hierop blijven aansluiten.
-
-- **Projectafspraken**
-  - Het project volgt FDND Agency conventies. Het is belangrijk dat toekomstige teams deze blijven volgen voor consistentie.
-
-## Aanbevolen volgende stappen
-
-1. **Datamodel uitwerken**
-   - Vastleggen van entiteiten zoals User, Article, Workgroup, Review en ChecklistAnswer.
-   - Relaties en statussen duidelijk definiëren.
-
-2. **Backend en opslag**
-   - Implementeren van een backend.
-   - Zorgen dat checklist-antwoorden, notities en voortgang automatisch worden opgeslagen.
-
-3. **Checklist afronden**
-   - Mogelijkheid toevoegen om een beoordeling af te ronden of in te dienen.
-   - Artikelstatus automatisch laten aanpassen op basis van voortgang.
-
-4. **Gebruikersbeheer**
-   - Inloggen en rollen toevoegen.
-   - Profielpagina’s functioneel maken.
-
-5. **Samenwerking verbeteren**
-   - Inzichtelijk maken wie welke antwoorden heeft ingevuld.
-   - Eventueel ondersteuning voor feedback of consensus tussen reviewers.
-
-6. **Livegang**
-   - Applicatie op de `main` branch deployen.
-   - Testen op toegankelijkheid, performance en edge cases.
-
-## Backlog & openstaande issues
-
-Alle issues **zonder status** staan open in de backlog. Deze zijn bedoeld om in volgende sprints verder aan te werken.  
-Hierin staan zowel:
-
-- technische taken en open functionaliteiten
-- nieuwe ideeën
-- feedback en wensen vanuit de opdrachtgever
-
-De backlog fungeert als verzamelplek voor verdere doorontwikkeling van het project.
-
-De prioritering van deze issues is nog niet overal vastgelegd en kan per volgende sprint worden bepaald.
-
-## Installatie (voor volgend team)
+## Installation
 
 ```bash
 git clone https://github.com/fdnd-agency/footguard.git
+cd footguard
 npm install
 npm run dev
 ```
 
-<hr>
+Make sure you have a `.env` file with:
 
-## Sprint 19, Sprint doel.
-
-## Wie willen we in Sprint 19 vooral helpen (welke gebruiker / stakeholder)?
-
-De specialisten, zoals artsen en onderzoekers, helpen we bij het beoordelen van wetenschappelijke artikelen over diabetische voetproblematiek.
-
-## Welk probleem lossen we deze sprint op?
-
-We lossen alle gevonden bugs en problemen op de website op, zoals navigatieproblemen tussen pagina's. Dubbele code en componenten worden verwijderd en behoud alleen de volledig werkende versies.
-
-## Welke uitkomst willen we aan het einde kunnen laten zien/demonstreren?
-
-Wij willen een goed functionele website die op alle apparaten werkt en een goed getest eindproduct is.
-Verwijder alle dubbele code en componenten, en behoud alleen de volledig werkende versies.
-
-## Sprintdoel
-
-Voor deze sprint willen we als eerste focus de project board en issues aanmaken, testresultaten fixen, en misschien nog aan de backend werken.
+```
+PUBLIC_DIRECTUS_URL=https://fdnd-agency.directus.app
+DIRECTUS_TOKEN=your_token_here
+PUBLIC_APP_URL=https://footguard.dev.fdnd.nl
+```
