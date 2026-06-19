@@ -21,7 +21,7 @@ export const handle: Handle = async ({ event, resolve }) => {
   if (raw) {
     try {
       // Verify JWT-like token signed with HMAC-SHA256
-      const SECRET = env.DIRECTUS_TOKEN
+      const SECRET = env.SESSION_SECRET || env.DIRECTUS_TOKEN
 
       const base64urlDecode = (str: string) =>
         Buffer.from(str.replace(/-/g, '+').replace(/_/g, '/'), 'base64').toString()
@@ -33,7 +33,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 
       const [encodedHeader, encodedPayload, signature] = parts
       const signingInput = `${encodedHeader}.${encodedPayload}`
-      const expectedSig = crypto.createHash('sha256').update(signingInput).digest('hex')
+      const expectedSig = crypto.createHmac('sha256', SECRET).update(signingInput).digest('hex')
 
       let session: SessionCookie | null = null
 
@@ -93,7 +93,7 @@ export const handle: Handle = async ({ event, resolve }) => {
                 .replace(/\//g, '_')
 
             const newSigningInput = `${base64url({ alg: 'HS256', typ: 'JWT' })}.${base64url(refreshed)}`
-            const newSignature = crypto.createHash('sha256').update(newSigningInput).digest('hex')
+            const newSignature = crypto.createHmac('sha256', SECRET).update(newSigningInput).digest('hex')
 
             const newToken = `${newSigningInput}.${newSignature}`
 

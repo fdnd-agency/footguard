@@ -85,6 +85,7 @@ export const actions = {
     }
 
     // Build a simple JWT-like token (base64url header.payload.signature) using HMAC-SHA256
+    const SECRET = env.SESSION_SECRET || DIRECTUS_TOKEN
     const header = { alg: 'HS256', typ: 'JWT' }
     const payload = { ...sessionUser }
 
