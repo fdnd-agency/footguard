@@ -93,7 +93,10 @@ export const handle: Handle = async ({ event, resolve }) => {
                 .replace(/\//g, '_')
 
             const newSigningInput = `${base64url({ alg: 'HS256', typ: 'JWT' })}.${base64url(refreshed)}`
-            const newSignature = crypto.createHmac('sha256', SECRET).update(newSigningInput).digest('hex')
+            const newSignature = crypto
+              .createHmac('sha256', SECRET)
+              .update(newSigningInput)
+              .digest('hex')
 
             const newToken = `${newSigningInput}.${newSignature}`
 
