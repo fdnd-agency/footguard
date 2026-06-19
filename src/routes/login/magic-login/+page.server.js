@@ -96,7 +96,7 @@ export const actions = {
         .replace(/\//g, '_')
 
     const signingInput = `${base64url(header)}.${base64url(payload)}`
-    const signature = crypto.createHash('sha256').update(signingInput).digest('hex')
+    const signature = crypto.createHmac('sha256', SECRET).update(signingInput).digest('hex')
 
     const token = `${signingInput}.${signature}`
 
