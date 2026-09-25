@@ -15,7 +15,7 @@
 
   function updateFilters(event) {
     const { status, theme } = event.detail;
-    goto(resolve("?status=" + status + "&theme=" + theme), {
+    goto(resolve("/research/?status=" + status + "&theme=" + theme), {
       noscroll: true,
       replaceState: true,
     });
