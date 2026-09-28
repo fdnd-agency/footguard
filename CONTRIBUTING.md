@@ -1,8 +1,9 @@
 # Teamcanvas 
 
-<img width="2466" height="1770" alt="Team Canvas" src="https://github.com/user-attachments/assets/01159b9c-fb36-424b-8fce-1d462c16c8a5" />
+<img width="2378" height="1682" alt="Team canvas" src="https://github.com/user-attachments/assets/2da7a3e4-2617-43c7-99ae-a287e76c5d6d" />
 
-https://www.figma.com/design/FcenWarr4zCNYt1xSufqHv/Sprint-14-Footguard?node-id=1-21&t=0Jeb26pnMYttmn42-1
+[28-9-26 team canvas/design](https://www.figma.com/design/3wQnpUmmgis2KUbpc4lcH8/team-canvas?node-id=0-1&p=f&t=Hy6TRcbV59DhIQFI-0)
+[vorig team designs](https://www.figma.com/design/FcenWarr4zCNYt1xSufqHv/Sprint-14-Footguard?node-id=1-21&t=0Jeb26pnMYttmn42-1)
 
 # Taakverdeling
 Teamleden pakken openstaande issues zelfstandig op. We wijzen alleen issues toe aan de leden die daadwerkelijk aan deze issues werken. Zo is altijd zichtbaar wie met welke taak bezig is en welke issues nog openstaan. Dit maakt het ook voor nieuwe teamleden eenvoudig om in het project te starten.
@@ -11,7 +12,6 @@ Teamleden pakken openstaande issues zelfstandig op. We wijzen alleen issues toe 
 
 
 ## Naamgevingen 
-- Animaties schrijven we op als: animation-(de actie bv. fade-in)-(de richting bv. up) --> animation-fade-in-up
 - Gebruik maken van kebab-case
 - Naamgeving classes, id's etc. in het Engels
 - Duidelijke omschrijving bij PR
