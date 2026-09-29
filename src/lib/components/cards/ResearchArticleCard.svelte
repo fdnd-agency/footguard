@@ -1,26 +1,18 @@
 <script>
   // components
-  import InProgressLabel from "$lib/components/textual/InProgressLabel.svelte";
-  import FinishedLabel from "$lib/components/textual/FinishedLabel.svelte";
-  import NotStartedLabel from "$lib/components/textual/NotStartedLabel.svelte";
-  import ThemeLabel from "$lib/components/textual/ThemeLabel.svelte";
+  import InProgressLabel from '$lib/components/textual/InProgressLabel.svelte'
+  import FinishedLabel from '$lib/components/textual/FinishedLabel.svelte'
+  import NotStartedLabel from '$lib/components/textual/NotStartedLabel.svelte'
+  import ThemeLabel from '$lib/components/textual/ThemeLabel.svelte'
 
-  import { resolve } from "$app/paths";
+  import { resolve } from '$app/paths'
 
   // icons
-  import authorIcon from "$lib/assets/svg/author-icon.svg";
-  import calenderIcon from "$lib/assets/svg/calendar-icon.svg";
+  import authorIcon from '$lib/assets/svg/author-icon.svg'
+  import calenderIcon from '$lib/assets/svg/calendar-icon.svg'
 
   // Dynamic data variables
-  let {
-    name,
-    article_id,
-    Publisher,
-    publishing_year,
-    status,
-    theme,
-    Author,
-  } = $props();
+  let { name, article_id, Publisher, publishing_year, status, theme, Author } = $props()
 </script>
 
 <a class="anchor-container-card" href={resolve(`/research/${article_id}`)}>
@@ -33,34 +25,22 @@
 
       <div class="research-card-author-date-container">
         <figure class="author-container">
-          <img
-            src={authorIcon}
-            class="author-icon"
-            alt="Author icon"
-            height="15"
-            width="15"
-          />
+          <img src={authorIcon} class="author-icon" alt="Author icon" height="15" width="15" />
           <figcaption class="author-name">{Author} — {Publisher}</figcaption>
         </figure>
 
         <figure class="calender-container">
-          <img
-            src={calenderIcon}
-            class="calender-icon"
-            alt=""
-            height="15"
-            width="15"
-          />
+          <img src={calenderIcon} class="calender-icon" alt="" height="15" width="15" />
           <time class="calender-date">{publishing_year}</time>
         </figure>
       </div>
 
       <div class="action-container">
-        {#if status === "Not started"}
+        {#if status === 'Not started'}
           <NotStartedLabel />
-        {:else if status === "In progress"}
+        {:else if status === 'In progress'}
           <InProgressLabel />
-        {:else if status === "Finished"}
+        {:else if status === 'Finished'}
           <FinishedLabel />
         {/if}
 
@@ -139,7 +119,7 @@
 
     & .author-name,
     .calender-date {
-      font-size: clamp(10px, 1.5vw, 12px);
+      font-size: clamp(16px, 1.5vw, 18px);
       color: var(--grey-700);
     }
   }
