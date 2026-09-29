@@ -135,10 +135,10 @@ export const handle: Handle = async ({ event, resolve }) => {
   if (isPublicTestEnvironment) {
     event.locals.user = {
       // Gebruik indien mogelijk gegevens van een echte testgebruiker uit Directus.
-      id: env.AUTH_BYPASS_USER_ID ?? 'public-test-user',
-      email: env.AUTH_BYPASS_EMAIL ?? 'public-test@voorbeeld.nl',
-      role: env.AUTH_BYPASS_ROLE ?? 'tester',
-      workgroup: env.AUTH_BYPASS_WORKGROUP ?? null
+      id: env.AUTH_BYPASS_USER_ID,
+      email: env.AUTH_BYPASS_EMAIL,
+      role: env.AUTH_BYPASS_ROLE,
+      workgroup: env.AUTH_BYPASS_WORKGROUP
     }
   }
 
