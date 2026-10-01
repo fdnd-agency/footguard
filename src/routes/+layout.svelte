@@ -4,6 +4,7 @@
   import { isCollapsed } from "$lib/stores/sidebar.js";
   import { onMount } from "svelte";
   import { page } from '$app/stores';
+  import NewNavbar from "$lib/components/layout/NewNavbar.svelte"
 
   let { children, data } = $props();
 
@@ -31,13 +32,14 @@
 
 <div class="app-layout">
   {#if !$page.url.pathname.startsWith('/login')}
-  {#if isMobile}
+  <NewNavbar user={data.user}/>
+  <!-- {#if isMobile} -->
     <!-- user doorgeven -->
-      <MobileNav user={data.user} />
-    {:else}
+      <!-- <MobileNav user={data.user} /> -->
+    <!-- {:else} -->
       <!-- user doorgeven -->
-      <Navbar user={data.user} />
-  {/if}
+      <!-- <Navbar user={data.user} /> -->
+  <!-- {/if} -->
   {/if}
 
   <!-- tabindex="-1" maakt het element focusbaar voor de skip-link -->
