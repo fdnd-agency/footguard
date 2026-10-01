@@ -92,6 +92,7 @@
 
 <style>
   nav {
+    z-index: 9999;
     position: fixed;
     top: 0;
     left: 0;
