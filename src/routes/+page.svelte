@@ -61,9 +61,9 @@
     min-height: 100vh;
     background: radial-gradient(
       circle at 100% 0%,
-      hsla(208, 100%, 32%, 0.12) 0%,
-      hsla(217, 100%, 79%, 0.06) 25%,
-      hsl(0, 0%, 100%) 35%
+      var(--blue-100) 0%,
+      var(--blue-50) 25%,
+      var(--grey-50) 35%
     );
   }
 

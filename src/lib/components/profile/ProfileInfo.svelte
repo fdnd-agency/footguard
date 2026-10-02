@@ -89,7 +89,7 @@
       }
 
       span {
-        color: var(--grey-300);
+        color: var(--grey-600);
       }
 
       input {

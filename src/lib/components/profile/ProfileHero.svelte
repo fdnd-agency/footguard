@@ -143,7 +143,7 @@
 
       p {
         margin-top: 0.3rem;
-        color: var(--grey-400);
+        color: var(--grey-600);
       }
 
       .name-input {
