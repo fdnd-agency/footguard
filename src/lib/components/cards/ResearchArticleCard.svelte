@@ -12,7 +12,7 @@
   import calenderIcon from '$lib/assets/svg/calendar-icon.svg'
 
   // Dynamic data variables
-  let { name, article_id, Publisher, publishing_year, status, theme, Author } = $props()
+  let { name, article_id, Publisher, publishing_year, status, theme, Author, estimated_survey_time, partner_status, estimated_reading_time } = $props()
 </script>
 
 <a class="anchor-container-card" href={resolve(`/research/${article_id}`)}>
@@ -114,7 +114,6 @@
   }
 
   .research-card-author-date-container {
-    display: flex;
     flex-direction: row;
     align-items: center;
     gap: 0.5rem;
