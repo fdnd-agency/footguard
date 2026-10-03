@@ -19,7 +19,7 @@
   <article class="research-card">
     <div class="research-card-data-container">
       <h2 class="research-card-title h4">
-        <span class="research-id">{article_id} # -</span>
+        <span class="research-id">#{article_id} -</span>
         {name}
       </h2>
 
