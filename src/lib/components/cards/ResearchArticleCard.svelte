@@ -35,6 +35,14 @@
         </figure>
       </div>
 
+      <div>
+          <svg></svg>
+          <span>18 min read + 5 min survey</span>
+
+          <svg></svg>
+          <span>Partner status: Not Started</span>
+      </div>
+
       <div class="action-container">
         {#if status === 'Not started'}
           <NotStartedLabel />
