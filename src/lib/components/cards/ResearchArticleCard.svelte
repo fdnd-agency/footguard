@@ -125,8 +125,11 @@
       flex-direction: row;
       align-items: center;
       gap: 0.2rem;
-      justify-content: center;
       text-align: center;
+    }
+
+    .calender-container {
+      margin-bottom: 1rem;
     }
 
     & .author-name,
