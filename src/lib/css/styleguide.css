@@ -168,7 +168,7 @@
 
   /* Text */
   --main-text-color: var(--grey-700);
-  --font-color-card: hsl(0, 0%, 100%);
+  --font-color-card: hsl(0, 0%, 26%);
 
   /* Notification */
   --favorite-notification-color: hsl(54, 100%, 60%);
@@ -178,6 +178,72 @@
   --shadow-md:
     0 0.25rem 0.75rem hsla(0, 12%, 15%, 0.12), 0 0.125rem 0.25rem hsla(213, 12%, 15%, 0.08);
   --shadow-lg: 0 0.5rem 1rem hsla(213, 12%, 15%, 0.15), 0 0.25rem 0.5rem hsla(213, 12%, 15%, 0.1);
+
+
+  @media (prefers-color-scheme: dark) {
+
+    /* Blue inverted */
+    --blue-700: hsl(203, 90%, 78%);
+    --blue-600: hsl(203, 85%, 68%);
+    --blue-500: hsl(203, 80%, 58%);
+    --blue-500-ring: hsl(203 80% 58% / 30%);
+    --blue-400: hsl(203, 70%, 52%);
+    --blue-300: hsl(203, 60%, 40%);
+    --blue-200: hsl(203, 55%, 28%);
+    --blue-100: hsl(203, 50%, 18%);
+    --blue-50: hsl(203, 50%, 12%);
+
+    /* Red inverted */
+    --red-700: hsl(4, 75%, 78%);
+    --red-600: hsl(4, 70%, 68%);
+    --red-500: hsl(4, 65%, 58%);
+    --red-400: hsl(4, 60%, 50%);
+    --red-300: hsl(4, 55%, 38%);
+    --red-200: hsl(4, 50%, 28%);
+    --red-100: hsl(4, 45%, 20%);
+
+    /* Orange inverted */
+    --orange-700: hsl(30, 80%, 78%);
+    --orange-600: hsl(30, 75%, 66%);
+    --orange-500: hsl(30, 70%, 56%);
+    --orange-400: hsl(30, 65%, 48%);
+    --orange-300: hsl(30, 60%, 38%);
+    --orange-200: hsl(30, 55%, 28%);
+    --orange-100: hsl(30, 50%, 20%);
+
+    /* Green inverted */
+    --green-700: hsl(150, 70%, 75%);
+    --green-600: hsl(150, 70%, 62%);
+    --green-500: hsl(150, 70%, 50%);
+    --green-400: hsl(150, 70%, 40%);
+    --green-300: hsl(150, 65%, 30%);
+    --green-200: hsl(150, 55%, 22%);
+    --green-100: hsl(150, 45%, 16%);
+
+    /* Neutrals inverted */
+    --grey-900: hsl(210, 14%, 95%);
+    --grey-700: hsl(210, 12%, 88%);
+    --grey-600: hsl(210, 10%, 75%);
+    --grey-500: hsl(210, 8%, 60%);
+    --grey-400: hsl(210, 7%, 45%);
+    --grey-300: hsl(210, 6%, 30%);
+    --grey-200: hsl(210, 5%, 22%);
+    --grey-100: hsl(240, 4%, 16%);
+    --grey-50: hsl(210, 5%, 12%);
+
+    --font-color-card: hsl(0, 0%, 87%);
+
+    /* Backgrounds */
+    --background-color-primary: hsl(210, 14%, 9%);
+    --background-color-secondary: hsl(210, 12%, 13%);
+
+    --shadow-sm: 0 0.125rem 0.25rem hsla(0, 0%, 0%, 0.4);
+    --shadow-md:
+      0 0.25rem 0.75rem hsla(0, 0%, 0%, 0.5), 0 0.125rem 0.25rem hsla(0, 0%, 0%, 0.4);
+    --shadow-lg: 0 0.5rem 1rem hsla(0, 0%, 0%, 0.55), 0 0.25rem 0.5rem hsla(0, 0%, 0%, 0.45);
+  }
+
+
 
   /* Border Radius */
   --radius-sm: 0.5rem;
@@ -378,23 +444,23 @@ button {
     gap: var(--spacing-md);
     min-width: min(100%, 22rem);
 
-    & > .button__text {
+    &>.button__text {
       flex: 1;
     }
 
-    & > .button__icon {
+    &>.button__icon {
       margin-inline-start: auto;
     }
   }
 
-  & > .button__text {
+  &>.button__text {
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
 
-  & > .button__icon {
+  &>.button__icon {
     display: flex;
     flex-shrink: 0;
     align-items: center;
@@ -403,7 +469,7 @@ button {
     line-height: 0;
     color: inherit;
 
-    & > svg {
+    &>svg {
       display: block;
       flex-shrink: 0;
       align-self: center;
@@ -837,6 +903,7 @@ select {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {

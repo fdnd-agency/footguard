@@ -9,16 +9,16 @@
 </div>
 
 <style>
-  div {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 1rem;
-    border-radius: 0.6rem;
-    padding: 0.5rem;
-    transition: transform 0.3s ease;
-    min-height: 4.5rem;
-    background-color: var(--grey-700);
+    div {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 1rem;
+        border-radius: 0.6rem;
+        padding: 0.5rem;
+        transition: transform 0.3s ease;
+        min-height: 4.5rem;
+        background-color: var(--grey-200);
 
     &:hover {
       transform: translateY(-0.1rem);
