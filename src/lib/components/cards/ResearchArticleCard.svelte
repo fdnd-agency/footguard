@@ -12,14 +12,14 @@
   import calenderIcon from '$lib/assets/svg/calendar-icon.svg'
 
   // Dynamic data variables
-  let { name, article_id, Publisher, publishing_year, status, theme, Author } = $props()
+  let { name, article_id, Publisher, publishing_year, status, theme, Author, estimated_survey_time, partner_status, estimated_reading_time } = $props()
 </script>
 
 <a class="anchor-container-card" href={resolve(`/research/${article_id}`)}>
   <article class="research-card">
     <div class="research-card-data-container">
       <h2 class="research-card-title h4">
-        <span class="research-id">{article_id} # -</span>
+        <span class="research-id">#{article_id} -</span>
         {name}
       </h2>
 
@@ -33,6 +33,18 @@
           <img src={calenderIcon} class="calender-icon" alt="" height="15" width="15" />
           <time class="calender-date">{publishing_year}</time>
         </figure>
+      </div>
+
+      <div class="research-card-estimated-time-partner-status-container">
+        <div class="research-card-estimated-time-container">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clock preview-icon"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          <p>{estimated_reading_time ?? '18 min'} read + {estimated_survey_time ?? '5 min'} survey</p>
+        </div>
+
+        <div class="research-card-partner-status-container">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users preview-icon"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><path d="M16 3.128a4 4 0 0 1 0 7.744"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></svg>
+          <p>Partner status: <span class="research-card-partner-status">{partner_status ?? 'Not started'}</span></p>
+        </div>
       </div>
 
       <div class="action-container">
@@ -102,7 +114,6 @@
   }
 
   .research-card-author-date-container {
-    display: flex;
     flex-direction: row;
     align-items: center;
     gap: 0.5rem;
@@ -113,14 +124,34 @@
       flex-direction: row;
       align-items: center;
       gap: 0.2rem;
-      justify-content: center;
       text-align: center;
+    }
+
+    .calender-container {
+      margin-bottom: 1rem;
     }
 
     & .author-name,
     .calender-date {
       font-size: clamp(16px, 1.5vw, 18px);
       color: var(--grey-700);
+    }
+  }
+
+  .research-card-estimated-time-partner-status-container {
+    .research-card-estimated-time-container, .research-card-partner-status-container {
+      display: flex;
+      gap: .5rem;
+    }
+
+    .research-card-estimated-time-container {
+      margin-bottom: .5rem;
+    }
+
+    .research-card-partner-status-container {
+      .research-card-partner-status {
+        color: #701610;
+      }
     }
   }
 
