@@ -1,11 +1,11 @@
 <script>
-    // custom variables for reuse
-    const { question, questionNumber } = $props();
+  // custom variables for reuse
+  const { question, questionNumber } = $props()
 </script>
 
 <div class="card-container">
-    <span>{questionNumber}.</span>
-    <p class="paragraph">{question}</p>
+  <span>{questionNumber}.</span>
+  <p class="paragraph">{question}</p>
 </div>
 
 <style>
@@ -20,28 +20,28 @@
         min-height: 4.5rem;
         background-color: var(--grey-200);
 
-        &:hover {
-            transform: translateY(-0.1rem);
-        }
-
-        span {
-            color: var(--font-color-card);
-            padding-left: 0.2rem;
-        }
-
-        p {
-            font-size: clamp(11px, 2vw, 12px);
-            color: var(--font-color-card);
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: auto;
-
-            @media (min-width: 920px) {
-                -webkit-line-clamp: 3;
-                -webkit-box-orient: normal;
-                overflow: scroll;
-            }
-        }
+    &:hover {
+      transform: translateY(-0.1rem);
     }
+
+    span {
+      color: var(--font-color-card);
+      padding-left: 0.2rem;
+    }
+
+    p {
+      font-size: clamp(16px, 2vw, 18px);
+      color: var(--font-color-card);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: auto;
+
+      @media (min-width: 920px) {
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: normal;
+        overflow: scroll;
+      }
+    }
+  }
 </style>

@@ -1,31 +1,35 @@
 <script>
-    // Components
-    import QuestionFieldset from "$lib/components/form/QuestionFieldset.svelte";
-    import questionIcon from "$lib/assets/svg/round-question-icon.svg";
+  // Components
+  import QuestionFieldset from '$lib/components/form/QuestionFieldset.svelte'
+  import questionIcon from '$lib/assets/svg/round-question-icon.svg'
 
-    let { article, questions } = $props();
+  let { article, questions } = $props()
 </script>
 
 <article class="questions-container">
-    <h2 class="h3"><span class="">{article.id} # - </span> {article.title}</h2>
+  <h2 class="h3"><span class="">{article.id} # - </span> {article.title}</h2>
 
-    <figure class="anwsered-questions-count-container">
-        <img src="{questionIcon}" alt="" height="25" width="25">
-        <p class="h5 answered-questions"><span>0 of 25</span> questions answered</p>
-    </figure>
+  <figure class="anwsered-questions-count-container">
+    <img src={questionIcon} alt="" height="25" width="25" />
+    <p class="h5 answered-questions"><span>0 of 25</span> questions answered</p>
+  </figure>
 
-	<form class="questions-form" method="post">
-        <div class="questions-scroll-container">
-            {#each questions as question (question.id)}
-                <QuestionFieldset questionId={question.id} questionName={'question-' + question.id} questionTitle={question.question_title}/>
-            {/each}
-        </div>
+  <form class="questions-form" method="post">
+    <div class="questions-scroll-container">
+      {#each questions as question (question.id)}
+        <QuestionFieldset
+          questionId={question.id}
+          questionName={'question-' + question.id}
+          questionTitle={question.question_title}
+        />
+      {/each}
+    </div>
 
-        <div class="buttons-container">
-            <button class="form-save-button paragraph" type="button">Save</button>
-            <button class="form-submit-button paragraph" type="submit">Submit</button>
-        </div>
-    </form>
+    <div class="buttons-container">
+      <button class="form-save-button paragraph" type="button">Save</button>
+      <button class="form-submit-button paragraph" type="submit">Submit</button>
+    </div>
+  </form>
 </article>
 
 <style>
@@ -92,7 +96,7 @@
       border-radius: 1rem;
       width: fit-content;
       white-space: nowrap;
-      font-size: clamp(10px, 1.5vw, 16px);
+      font-size: clamp(16px, 1.5vw, 18px);
       transition: 0.2s ease-in-out;
       cursor: pointer;
     }

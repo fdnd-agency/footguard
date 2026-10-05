@@ -306,7 +306,7 @@ body {
 
 .h4,
 .large-copy {
-  font-size: clamp(14px, 2.5vw, 18px);
+  font-size: clamp(16px, 2.5vw, 18px);
   font-weight: 300;
   line-height: 1.5;
 }
@@ -320,19 +320,19 @@ body {
 
 .h6,
 .micro-copy {
-  font-size: clamp(12px, 1.5vw, 14px);
+  font-size: clamp(16px, 1.5vw, 18px);
   font-weight: 300;
   line-height: 1.4;
 }
 
 .paragraph {
-  font-size: clamp(12px, 1.5vw, 13px);
+  font-size: clamp(16px, 1.5vw, 18px);
   font-weight: 400;
   line-height: 1.6;
 }
 
 .sub-text {
-  font-size: clamp(10px, 1.5vw, 11px);
+  font-size: clamp(16px, 1.5vw, 17px);
   font-weight: 400;
   line-height: 1.5;
 }
@@ -419,19 +419,19 @@ button {
   &.button-small {
     padding-block: 0.5rem;
     padding-inline: 1rem;
-    font-size: clamp(10px, 1.5vw, 12px);
+    font-size: clamp(16px, 1.5vw, 18px);
   }
 
   &.button-medium {
     padding-block: 0.75rem;
     padding-inline: 1.25rem;
-    font-size: clamp(12px, 2vw, 14px);
+    font-size: clamp(18px, 2vw, 20px);
   }
 
   &.button-large {
     padding-block: var(--spacing-sm);
     padding-inline: var(--spacing-lg);
-    font-size: clamp(14px, 2vw, 16px);
+    font-size: clamp(20px, 2vw, 22px);
   }
 
   &.button-full-width {

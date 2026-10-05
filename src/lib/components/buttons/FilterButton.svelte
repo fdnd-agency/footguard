@@ -1,15 +1,12 @@
 <script>
-
   // dynamic data select button to reuse
-  let {labelText, selectValues, filterLabel_ID} = $props()
-
+  let { labelText, selectValues, filterLabel_ID } = $props()
 </script>
 
 <!-- https://github.com/sveltejs/kit/discussions/8499
  voor het sumbitten van een geselecteerde value in een selectbutton -->
-<label for="{filterLabel_ID}" class="visually-hidden">{labelText}</label>
-  <select id="{filterLabel_ID}" class="filter-button" name="filter">
-
+<label for={filterLabel_ID} class="visually-hidden">{labelText}</label>
+<select id={filterLabel_ID} class="filter-button" name="filter">
   {#each selectValues as selectValue (selectValue.value)}
     <option value={selectValue.value}>{selectValue.text}</option>
   {/each}
@@ -31,9 +28,9 @@
 
     background-color: var(--blue-700);
     color: var(--background-color-secondary);
-    font-size: clamp(13px, 1.5vw, 15px);
+    font-size: clamp(16px, 1.5vw, 18px);
 
-    background-image: url("/src/lib/assets/svg/select-button-arrow.svg");
+    background-image: url('/src/lib/assets/svg/select-button-arrow.svg');
     background-repeat: no-repeat;
     background-position: right 0.5rem center;
     background-size: 1rem;
