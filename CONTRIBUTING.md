@@ -53,3 +53,16 @@ Een issue is done wanneer:
 - Alle sub-issues zijn gesloten
 - Feedback is verwerkt
 - Pull Request is gemerged naar de dev branch
+
+## Retrospective 9-10-26
+Vandaag hebben we voor het eerst een Retrospective gehouden over onze samenwerking deze sprint. Hierin hebben we gereflecteerd op onze samenwerking en een zelfreflectie uitgevoerd. Hierin hebben we als team nieuwe afspraken gemaakt betreft onze samenwerking:
+
+- Als je niet aanwezig bent tijdens de les probeer het programma bij te houden, zodat je niet achterloopt.
+- Als je een beslissing maakt bespreek die beslissing met alle teamgenoten, zodat problemen voorkomen kunnen worden.
+- De volgende keer bij de sprintplanning het projectboard goed zetten voor de aankomende sprint.
+- Daily standups op onze vrije dagen vanaf nu online uitvoeren in plaats van via een tekstbericht.
+- Reageren op belangrijke Teamsberichten, zodat we geen tijdsgebrek veroorzaken.
+- Meer ruimte maken voor discussies over taken die we willen oppakken of juist niet (bv scrumpoker serieuzer nemen).
+
+<img width="1663" height="1247" alt="image" src="https://github.com/user-attachments/assets/d8d8c715-fa55-460c-80ee-0ff7831f2239" />
+<img width="1663" height="1247" alt="image" src="https://github.com/user-attachments/assets/f3441c6b-d753-462d-84b9-12bd3c8d1648" />
