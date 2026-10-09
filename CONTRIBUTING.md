@@ -32,6 +32,28 @@ Teamleden pakken openstaande issues zelfstandig op. We wijzen alleen issues toe 
 
 Hiernaast wordt er ook gehouden aan de conventions van de [FDND Agency](https://docs.fdnd.nl/conventies.html).
 
+## DoR
+Wanneer een issue klaar is om in Ready/To Do te zetten.
+
+Een DoR heeft een:
+- Story
+- Een probleem erbij beschreven
+- Een oplossing erbij beschreven
+- Acceptatie criteria
+- Sub-issues (indien nodig)
+- Assignees
+- Labels
+- Pokerpunten
+
+## DoD
+Alle taken van een issue zijn af.
+
+Een issue is done wanneer:
+- Alles van de acceptatiecriteria is afgevinkt
+- Alle sub-issues zijn gesloten
+- Feedback is verwerkt
+- Pull Request is gemerged naar de dev branch
+
 ## Retrospective 9-10-26
 Vandaag hebben we voor het eerst een Retrospective gehouden over onze samenwerking deze sprint. Hierin hebben we gereflecteerd op onze samenwerking en een zelfreflectie uitgevoerd. Hierin hebben we als team nieuwe afspraken gemaakt betreft onze samenwerking:
 
