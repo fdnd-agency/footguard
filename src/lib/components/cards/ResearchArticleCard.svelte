@@ -150,7 +150,7 @@
 
     .research-card-partner-status-container {
       .research-card-partner-status {
-        color: #701610;
+        color: var(--red-700);
       }
     }
   }
