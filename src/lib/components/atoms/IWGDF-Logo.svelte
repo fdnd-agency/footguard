@@ -1,6 +1,6 @@
 <script>
   import logo from '$lib/assets/img/IWGDF-logo.webp';
-  import logoDarkMode from '$lib/assets/img/footguard-icon-darkmode.png';
+  import logoDarkMode from '$lib/assets/img/footguard-icon-darkmode.webp';
 </script>
 
 <picture>
