@@ -4,7 +4,7 @@
   import { isCollapsed } from "$lib/stores/sidebar.js";
   import { onMount } from "svelte";
   import { page } from '$app/stores';
-  import NewNavbar from "$lib/components/layout/NewNavbar.svelte"
+  import NewNavbar from "$lib/components/orginism/NewNavbar.svelte"
 
   let { children, data } = $props();
 
