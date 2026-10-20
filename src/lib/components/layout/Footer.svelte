@@ -1,11 +1,13 @@
 <script>
+  import {IwgdfLogo} from "$lib";
   export let year = new Date().getFullYear();
-  export let logoSrc = "/src/lib/assets/IWGDF-logo.png";
 </script>
 
 <footer class="footer">
   <div class="footer-content">
-    <img src={logoSrc} alt="IWGDF Logo" class="footer-logo" />
+    <div class="footer-logo">
+	    <IwgdfLogo />
+    </div>
 
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/address -->
     <address class="footer-madeby paragraph">

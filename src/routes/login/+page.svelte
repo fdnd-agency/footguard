@@ -1,6 +1,6 @@
 <script>
 	import PageLoader from '$lib/components/animations/PageLoader.svelte';
-    	import IWGDFLogo from '$lib/components/navbar-icons/IWGDF-Logo.svelte';
+    	import IWGDFLogo from '$lib/components/atoms/IWGDF-Logo.svelte';
         
 	// Frontend-only state for basic validation + UI
 	let email = '';
