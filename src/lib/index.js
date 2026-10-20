@@ -9,9 +9,9 @@ export { default as GradingIcon } from './components/navbar-icons/grading-icon.s
 export { default as NotificationIcon } from './components/navbar-icons/notification-icon.svelte'
 export { default as ResultsIcon } from './components/navbar-icons/results-icon.svelte'
 export { default as ProfileIcon } from './components/navbar-icons/profile-icon.svelte'
-export { default as IwgdfLogo } from './components/navbar-icons/IWGDF-Logo.svelte'
+export { default as IwgdfLogo } from './components/atoms/IWGDF-Logo.svelte'
 export { default as IwgdfLogoCollapsed } from './components/navbar-icons/IWGDGF-Logo-Collapsed.svelte'
-export { default as IwgdfLogoMobile } from './components/navbar-icons/IWGDF-Logo-Mobile.svelte'
+export { default as IwgdfLogoMobile } from './components/atoms/IWGDF-Logo-Mobile.svelte'
 export { default as HamburgerMenuIcon } from './components/navbar-icons/hamburger-menu-icon.svelte'
 export { default as LogoutIcon } from './components/navbar-icons/logout-icon.svelte'
 
