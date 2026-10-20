@@ -1,8 +1,12 @@
 <script>
   import logo from '$lib/assets/img/IWGDF-logo.webp';
+  import logoDarkMode from '$lib/assets/img/footguard-icon-darkmode.png';
 </script>
 
-<img src={logo} alt="IWGDF Logo" width="150" height="43" decoding="async" class="logo-img" />
+<picture>
+  <source srcset={logoDarkMode} media="(prefers-color-scheme: dark)" />
+  <img src={logo} alt="IWGDF Logo" width="150" height="43" decoding="async" class="logo-img" />
+</picture>
 
 <style>
   .logo-img {
