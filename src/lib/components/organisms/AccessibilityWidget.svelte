@@ -41,3 +41,16 @@
         </div>
     </section>
 </article>
+
+<style>
+    .accessibility-widget-info-container {
+        .accessibility-widget-content {
+            .font-size-container {
+                .font-size-title-container {
+                    display: flex;
+                    gap: .5em;
+                }
+            }
+        }
+    }
+</style>
