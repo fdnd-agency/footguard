@@ -21,12 +21,12 @@ export async function load({ fetch, params, locals }) {
   // Access control based on user role:
   // Assessors can only access articles assigned to their email
   if (user.role === 'assessor' && detailsInfo.assigned_to !== user.email) {
-    throw redirect(302, '/research')
+    throw redirect(302, '/grading')
   }
 
   // Admins can only access articles within their own workgroup
   if (user.role === 'admin' && detailsInfo.workgroup !== user.workgroup) {
-    throw redirect(302, '/research')
+    throw redirect(302, '/grading')
   }
 
   const questionResponse = await fetch(

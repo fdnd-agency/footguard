@@ -19,7 +19,7 @@
     <Button
       variant="primary"
       size="medium"
-      on:click={() => (window.location.href = "/research")}
+      on:click={() => (window.location.href = "/grading")}
     >
       View detailed breakdown
     </Button>

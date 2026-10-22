@@ -39,10 +39,7 @@ export const handle: Handle = async ({ event, resolve }) => {
       const [encodedHeader, encodedPayload, signature] = parts
       const signingInput = `${encodedHeader}.${encodedPayload}`
 
-      const expectedSig = crypto
-        .createHmac('sha256', SECRET)
-        .update(signingInput)
-        .digest('hex')
+      const expectedSig = crypto.createHmac('sha256', SECRET).update(signingInput).digest('hex')
 
       // Cookie is ongeldig als de handtekening niet klopt.
       // Een cookie mag nooit als los JSON-object worden vertrouwd.
@@ -91,8 +88,7 @@ export const handle: Handle = async ({ event, resolve }) => {
             .replace(/\//g, '_')
 
         const newSigningInput =
-          `${base64url({ alg: 'HS256', typ: 'JWT' })}.` +
-          `${base64url(refreshed)}`
+          `${base64url({ alg: 'HS256', typ: 'JWT' })}.` + `${base64url(refreshed)}`
 
         const newSignature = crypto
           .createHmac('sha256', SECRET)
@@ -129,8 +125,7 @@ export const handle: Handle = async ({ event, resolve }) => {
     .filter(Boolean)
 
   const isPublicTestEnvironment =
-    env.AUTH_BYPASS === 'true' &&
-    bypassHosts.includes(event.url.hostname)
+    env.AUTH_BYPASS === 'true' && bypassHosts.includes(event.url.hostname)
 
   if (isPublicTestEnvironment) {
     event.locals.user = {
@@ -164,9 +159,9 @@ export const handle: Handle = async ({ event, resolve }) => {
       throw redirect(302, '/')
     }
 
-    // Guest mag alleen naar /research.
+    // Guest mag alleen naar /grading.
     if (role === 'guest') {
-      const guestAllowed = ['/research', '/login', '/logout', '/']
+      const guestAllowed = ['/grading', '/login', '/logout', '/']
 
       const isAllowed = guestAllowed.some((allowedPath) =>
         allowedPath === '/'
@@ -175,7 +170,7 @@ export const handle: Handle = async ({ event, resolve }) => {
       )
 
       if (!isAllowed) {
-        throw redirect(302, '/research')
+        throw redirect(302, '/grading')
       }
     }
   }

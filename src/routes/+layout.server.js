@@ -5,11 +5,11 @@ export function load({ locals, url }) {
   const path = url.pathname
   const role = user?.role?.toLowerCase() ?? null
 
-  // Guest mag alleen /research
+  // Guest mag alleen /grading
   if (role === 'guest') {
-    const guestAllowed = ['/research', '/login', '/logout']
+    const guestAllowed = ['/grading', '/login', '/logout']
     if (!guestAllowed.some((p) => path.startsWith(p))) {
-      throw redirect(302, '/research')
+      throw redirect(302, '/grading')
     }
   }
 
