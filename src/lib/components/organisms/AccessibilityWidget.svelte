@@ -1,0 +1,37 @@
+<article>
+    <section>
+        <h2>Content</h2>
+        <div>
+            <div>
+                <svg></svg>
+                <strong>Font-size</strong>
+            </div>
+            <button>Klein</button>
+            <button>Normaal</button>
+            <button>Groot</button>
+            <button>Groter</button>
+        </div>
+
+        <div>
+            <div>
+                <svg></svg>
+                <strong>Line-height</strong>
+            </div>
+            <button>Klein</button>
+            <button>Normaal</button>
+            <button>Groot</button>
+            <button>Groter</button>
+        </div>
+
+        <div>
+            <div>
+                <svg></svg>
+                <strong>Letter-spacing</strong>
+            </div>
+            <button>Klein</button>
+            <button>Normaal</button>
+            <button>Groot</button>
+            <button>Groter</button>
+        </div>
+    </section>
+</article>
