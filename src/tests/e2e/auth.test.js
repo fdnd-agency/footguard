@@ -69,10 +69,10 @@ test.describe('Route protection', () => {
   // -------------------------------------------------
   // Extra test: /research is protected without session
   // -------------------------------------------------
-  test('user without a session is redirected to /login when visiting /research', async ({
+  test('user without a session is redirected to /login when visiting /grading', async ({
     page
   }) => {
-    await page.goto('/research')
+    await page.goto('/grading')
 
     // Should be redirected to /login
     await expect(page).toHaveURL(/.*\/login/)

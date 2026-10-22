@@ -76,7 +76,7 @@
       <Button
         variant="primary"
         size="medium"
-        on:click={() => (window.location.href = "/research")}
+        on:click={() => (window.location.href = "/grading")}
       >
         View all research papers
       </Button>
