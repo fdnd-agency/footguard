@@ -155,6 +155,8 @@
     display: flex;
     flex-direction: column;
     height: fit-content;
+    container-type: inline-size;
+    container-name: mobile;
 
     div:nth-of-type(1) {
       display: flex;
@@ -169,6 +171,19 @@
       flex-direction: column;
       gap: var(--spacing-md);
       padding-block: var(--spacing-xl);
+    }
+  }
+
+  @container mobile (max-width: 700px) {
+    .mobile-menu {
+      display: none;
+    }
+  }
+  .main-menu {
+    display: none;
+
+    @container (width > 48em) {
+      display: flex;
     }
   }
 </style>
