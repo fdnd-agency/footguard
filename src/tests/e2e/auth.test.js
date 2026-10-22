@@ -67,7 +67,7 @@ test.describe('Route protection', () => {
   })
 
   // -------------------------------------------------
-  // Extra test: /research is protected without session
+  // Extra test: /grading is protected without session
   // -------------------------------------------------
   test('user without a session is redirected to /login when visiting /grading', async ({
     page

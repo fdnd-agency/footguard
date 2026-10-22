@@ -164,9 +164,9 @@ export const handle: Handle = async ({ event, resolve }) => {
       throw redirect(302, '/')
     }
 
-    // Guest mag alleen naar /research.
+    // Guest mag alleen naar /grading.
     if (role === 'guest') {
-      const guestAllowed = ['/research', '/login', '/logout', '/']
+      const guestAllowed = ['/grading', '/login', '/logout', '/']
 
       const isAllowed = guestAllowed.some((allowedPath) =>
         allowedPath === '/'
@@ -175,7 +175,7 @@ export const handle: Handle = async ({ event, resolve }) => {
       )
 
       if (!isAllowed) {
-        throw redirect(302, '/research')
+        throw redirect(302, '/grading')
       }
     }
   }

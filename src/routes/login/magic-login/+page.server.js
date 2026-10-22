@@ -111,7 +111,7 @@ export const actions = {
 
     // 7) Redirect based on role
     if (sessionUser.role === 'guest') {
-      throw redirect(302, '/research')
+      throw redirect(302, '/grading')
     }
 
     throw redirect(302, '/')
