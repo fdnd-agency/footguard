@@ -24,7 +24,7 @@
   const toggle = () => (isOpen = !isOpen)
 </script>
 
-<nav>
+<nav class="mobile-menu">
   <div>
     <a href={resolve('/')}>
       <IwgdfLogo />
@@ -97,7 +97,7 @@
   </div>
 </nav>
 
-<!-- <nav>
+<nav class="main-menu">
   {#if $isCollapsed}
     <IwgdfLogoCollapsed />
   {:else}
@@ -142,10 +142,10 @@
       </a>
     </div>
   {/if}
-</nav> -->
+</nav>
 
 <style>
-  nav {
+  .mobile-menu {
     position: fixed;
     top: 0;
     left: 0;
