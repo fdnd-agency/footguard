@@ -48,24 +48,26 @@
 <style>
     .accessibility-widget-info-container {
         .accessibility-widget-content {
-            .size-container {
-                .size-title-container {
-                    display: flex;
-                    gap: .5em;
-                    margin-bottom: .5em;
-                }
-
-                .size-buttons-container {
-                    margin-bottom: 1em;
-
-                        button {
-                            border: 2px solid dodgerblue;
-                            padding-block: .25em;
-                            padding-inline: .75em;
-                            border-radius: 8px;
-                            font-weight: 500;
-                        }
+            .content-container {
+                .size-container {
+                    .size-title-container {
+                        display: flex;
+                        gap: .5em;
+                        margin-bottom: .5em;
                     }
+
+                    .size-buttons-container {
+                        margin-bottom: 1em;
+
+                            button {
+                                border: 2px solid dodgerblue;
+                                padding-block: .25em;
+                                padding-inline: .75em;
+                                border-radius: 8px;
+                                font-weight: 500;
+                            }
+                        }
+                }
             }
         }
     }
