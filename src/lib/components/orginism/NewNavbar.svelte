@@ -151,7 +151,6 @@
     left: 0;
     right: 0;
     background: var(--background-color-primary);
-    transition: height 0.25s ease;
     padding: 1rem 1.5rem;
     display: flex;
     flex-direction: column;
