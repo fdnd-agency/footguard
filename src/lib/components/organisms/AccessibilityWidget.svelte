@@ -1,7 +1,6 @@
 <article class="accessibility-widget-info-container">
+    <h2>Content</h2>
     <section class="accessibility-widget-content">
-        <h2>Content</h2>
-
         <div class="size-container">
             <div class="size-title-container">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-settings preview-icon"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"/><circle cx="12" cy="12" r="3"/></svg>
@@ -45,7 +44,20 @@
 
 <style>
     .accessibility-widget-info-container {
+        border: 2px solid #C7C7C7;
+        padding: 1em;
+        margin-inline: 1em;
+        border-radius: 16px;
+
+        h2 {
+            margin-bottom: .3em;
+        }
+
         .accessibility-widget-content {
+            border: 2px solid #DDDDDD;
+            padding: .5em;
+            border-radius: 12px;
+
             .size-container {
                 .size-title-container {
                     display: flex;
