@@ -3,12 +3,15 @@
 	import Heading from "$lib/components/textual/Heading.svelte";
 	import QuestionsForm from "$lib/components/form/QuestionsForm.svelte";
 	import PdfCard from "$lib/components/cards/PdfCard.svelte";
+  import AccessibilityWidget from "$lib/components/organisms/AccessibilityWidget.svelte"
 
 	// Dynamic data variables
 	let { data } = $props();
 	const article = data.detailsInfo;
 	const questions = data.questionInfo;
 </script>
+
+<AccessibilityWidget />
 
 <section class="main-container-checklist">
 	<Heading title="Checklist completion" subTitle="Fill in the checklist based on your expertise"/>
