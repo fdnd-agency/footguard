@@ -191,6 +191,32 @@
       bottom: 0;
       width: 15rem;
       display: flex;
+      flex-direction: column;
+      gap: var(--spacing-lg);
+      background: var(--background-color-primary);
+      padding: 1.5rem 0.5rem;
+      border-right: 1px solid var(--grey-200);
+
+      @media (prefers-reduced-motion: no-preference) {
+        transition: width 0.2s ease;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 25px;
+      }
+
+      &.collapsed {
+        width: 80px;
+
+        .logo {
+          flex-direction: column;
+          align-items: center;
+          gap: var(--spacing-md);
+        }
+      }
     }
   }
 </style>
