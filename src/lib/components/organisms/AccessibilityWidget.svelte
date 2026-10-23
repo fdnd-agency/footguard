@@ -61,6 +61,10 @@
 
         h2 {
             margin-bottom: .3em;
+
+            &:not(:first-of-type) {
+                margin-top: .7em;
+            }
         }
 
         .accessibility-widget-content {
