@@ -44,6 +44,7 @@
     <h2>Colors</h2>
     <section class="accessibility-widget-content">
         <strong>Grayscale</strong>
+        <br>
         <label class="accessibility-widget-switch">
             <input type="checkbox">
             <span class="accessibility-widget-switch-slider"></span>
