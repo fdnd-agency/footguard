@@ -93,6 +93,7 @@
                             padding-inline: .75em;
                             border-radius: 8px;
                             font-weight: 500;
+                            font-size: 13.7px;
                         }
                     }
             }
