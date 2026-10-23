@@ -40,6 +40,14 @@
             </div>
         </div>
     </section>
+
+    <section class="accessibility-widget-colors">
+        <h2>Colors</h2>
+        <label class="accessibility-widget-switch">
+            <input type="checkbox">
+            <span class="accessibility-widget-switch-slider"></span>
+        </label>
+    </section>
 </article>
 
 <style>
@@ -78,5 +86,54 @@
                     }
             }
         }
+
+        .accessibility-widget-colors {
+            .accessibility-widget-switch {
+                position: relative;
+                display: inline-block;
+                width: 35px;
+                height: 20px;
+
+                input {
+                opacity: 0;
+                width: 0;
+                height: 0;
+
+                    &:checked + .accessibility-widget-switch-slider {
+                        background-color: dodgerblue;
+                    }
+
+                    &:checked + .accessibility-widget-switch-slider::before {
+                        transform: translateX(15px);
+                    }
+
+                    &:focus-visible + .accessibility-widget-switch-slider {
+                        outline: 2px solid dodgerblue;
+                        outline-offset: 2px;
+                    }
+                }
+
+                .accessibility-widget-switch-slider {
+                    position: absolute;
+                    inset: 0;
+                    background-color: var(--grey-300);
+                    border-radius: var(--radius-full);
+                    cursor: pointer;
+                    transition: .4s;
+
+                    &::before {
+                        content: "";
+                        position: absolute;
+                        width: 16px;
+                        height: 16px;
+                        left: 2px;
+                        bottom: 2px;
+                        background-color: white;
+                        border-radius: 50%;
+                        transition: .4s;
+                    }
+                }
+            }
+        }    
     }
 </style>
