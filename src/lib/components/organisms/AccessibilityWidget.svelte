@@ -152,8 +152,9 @@
             display: flex;
             align-items: center;
             background-color: dodgerblue;
-            padding-block: .25em;
-            padding-inline: .75em;
+            padding-block: .5em;
+            padding-inline: 1em;
+            border-radius: 1rem;
             margin-inline-start: auto;
             margin-top: 2em;
             gap: .5em;
