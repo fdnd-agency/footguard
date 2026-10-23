@@ -41,8 +41,9 @@
         </div>
     </section>
 
-    <section class="accessibility-widget-colors">
-        <h2>Colors</h2>
+    <h2>Colors</h2>
+    <section class="accessibility-widget-content">
+        <strong>Grayscale</strong>
         <label class="accessibility-widget-switch">
             <input type="checkbox">
             <span class="accessibility-widget-switch-slider"></span>
@@ -87,7 +88,7 @@
             }
         }
 
-        .accessibility-widget-colors {
+        .accessibility-widget-content {
             .accessibility-widget-switch {
                 position: relative;
                 display: inline-block;
