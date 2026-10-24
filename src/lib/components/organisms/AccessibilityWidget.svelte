@@ -1,3 +1,8 @@
+<script>
+    // array voor de font-sizes van klein naar groter (let ipv const, omdat de waarden nog kunnen veranderen)
+    let fontSizeOffsets = [-1, 0, 2, 4]
+</script>
+
 <article class="accessibility-widget-info-container">
     <h2>Content</h2>
     <section class="accessibility-widget-content">
