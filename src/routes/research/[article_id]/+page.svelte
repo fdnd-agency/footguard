@@ -11,8 +11,6 @@
 	const questions = data.questionInfo;
 </script>
 
-<AccessibilityWidget />
-
 <section class="main-container-checklist">
 	<Heading title="Checklist completion" subTitle="Fill in the checklist based on your expertise"/>
 

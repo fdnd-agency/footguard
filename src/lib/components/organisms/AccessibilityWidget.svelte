@@ -7,16 +7,18 @@
 
     // deze functie werkt pas wanneer alle HTML is ingeladen
      onMount(() => {
+        const groups = document.querySelectorAll('.size-buttons-container')
+
         //zoekt alle elementen met de class size-buttons-container. ForEach voert de functie voor elk element uit
-        document.querySelectorAll('.size-buttons-container').forEach((button) => {
+        document.querySelectorAll('.size-buttons-container').forEach((group) => {
             // eventListener toegevoegd voor de click op de button
-            button.addEventListener('click', (e) => {
+            group.addEventListener('click', (e) => {
                 // e.target is de button waar je op dat moment op klikt en het resultaat daarvan bewaar je in de variabele clicked
                 const clicked = e.target.closest('button')
                 if (!clicked) return
 
                 // pakt alle buttons in elke class met de naam size-buttons-container. De puntjes zet de resultaten om in een array
-                const buttons = [...button.querySelectorAll('button')]
+                const buttons = [...group.querySelectorAll('button')]
 
                 // loopt langs elke button
                 buttons.forEach((btn) => {
@@ -34,6 +36,24 @@
             })
         })
     })
+
+    // zoekt naar de reset button
+    const resetButton = document.querySelector('.accessibility-widget-reset-button')
+
+        // onclick wordt de CSS variabele font-size-offset verwijderd
+        resetButton.addEventListener('click', () => {
+            document.documentElement.style.removeProperty('--font-size-offset')
+
+            // gaat langs alle knoppen binnen het group class size-buttons-container en zet de button "normaal" weer op actief (z'n standaard waarde)
+            groups.forEach((group) => {
+                const buttons = [...group.querySelectorAll('button')]
+
+                // gaat langs elke button en vergelijkt of de button gelijk is aan index 1 (de normale button). Als dat zo is dan is de uitkomst true en wordt de normaal button weer actief
+                buttons.forEach((btn, index) => {
+                    btn.setAttribute('aria-pressed', index === 1)
+                })
+            })
+        })
 </script>
 
 <article class="accessibility-widget-info-container">
