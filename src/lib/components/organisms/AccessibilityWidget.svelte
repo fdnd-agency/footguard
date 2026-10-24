@@ -1,6 +1,39 @@
 <script>
+    // voert code pas uit wanneer de HTML van dit component op de pagina staat
+    import { onMount } from 'svelte'
+
     // array voor de font-sizes van klein naar groter (let ipv const, omdat de waarden nog kunnen veranderen)
     let fontSizeOffsets = [-1, 0, 2, 4]
+
+    // deze functie werkt pas wanneer alle HTML is ingeladen
+     onMount(() => {
+        //zoekt alle elementen met de class size-buttons-container. ForEach voert de functie voor elk element uit
+        document.querySelectorAll('.size-buttons-container').forEach((button) => {
+            // eventListener toegevoegd voor de click op de button
+            button.addEventListener('click', (e) => {
+                // e.target is de button waar je op dat moment op klikt en het resultaat daarvan bewaar je in de variabele clicked
+                const clicked = e.target.closest('button')
+                if (!clicked) return
+
+                // pakt alle buttons in elke class met de naam size-buttons-container. De puntjes zet de resultaten om in een array
+                const buttons = [...button.querySelectorAll('button')]
+
+                // loopt langs elke button
+                buttons.forEach((btn) => {
+                    // zet aria-pressed om naar true of false. Hier maken we een vergelijking
+                    btn.setAttribute('aria-pressed', btn === clicked)
+                })
+
+                // checkt of deze class de data-setting="font-size" heeft in HTML
+                if (button.dataset.setting === 'font-size') {
+                    // bepaalt welke offset wordt toegepast
+                    const offset = fontSizeOffsets[buttons.indexOf(clicked)]
+                    // offset toepassen met een CSS variabele en daarna krijg je de px waarde na het klikken op een button
+                    document.documentElement.style.setProperty('--font-size-offset', `${offset}px`)
+                }
+            })
+        })
+    })
 </script>
 
 <article class="accessibility-widget-info-container">
@@ -11,7 +44,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-case-sensitive preview-icon"><path d="m2 16 4.039-9.69a.5.5 0 0 1 .923 0L11 16"/><path d="M22 9v7"/><path d="M3.304 13h6.392"/><circle cx="18.5" cy="12.5" r="3.5"/></svg>
             <strong>Font-size</strong>
             </div>
-            <div class="size-buttons-container">
+            <div class="size-buttons-container" data-setting="font-size">
                 <button aria-pressed="false">Klein</button>
                 <button aria-pressed="true">Normaal</button>
                 <button aria-pressed="false">Groot</button>

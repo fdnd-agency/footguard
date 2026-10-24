@@ -103,6 +103,7 @@
   --main-font: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
   --font-weight-500: 500;
   --line-height-tight: 1.2;
+  --font-size-offset: 0px;
 
   /* Primary blue colors */
   --blue-700: hsl(203, 90%, 22%);
@@ -179,9 +180,7 @@
     0 0.25rem 0.75rem hsla(0, 12%, 15%, 0.12), 0 0.125rem 0.25rem hsla(213, 12%, 15%, 0.08);
   --shadow-lg: 0 0.5rem 1rem hsla(213, 12%, 15%, 0.15), 0 0.25rem 0.5rem hsla(213, 12%, 15%, 0.1);
 
-
   @media (prefers-color-scheme: dark) {
-
     /* Blue inverted */
     --blue-700: hsl(203, 90%, 78%);
     --blue-600: hsl(203, 85%, 68%);
@@ -238,12 +237,9 @@
     --background-color-secondary: hsl(210, 12%, 13%);
 
     --shadow-sm: 0 0.125rem 0.25rem hsla(0, 0%, 0%, 0.4);
-    --shadow-md:
-      0 0.25rem 0.75rem hsla(0, 0%, 0%, 0.5), 0 0.125rem 0.25rem hsla(0, 0%, 0%, 0.4);
+    --shadow-md: 0 0.25rem 0.75rem hsla(0, 0%, 0%, 0.5), 0 0.125rem 0.25rem hsla(0, 0%, 0%, 0.4);
     --shadow-lg: 0 0.5rem 1rem hsla(0, 0%, 0%, 0.55), 0 0.25rem 0.5rem hsla(0, 0%, 0%, 0.45);
   }
-
-
 
   /* Border Radius */
   --radius-sm: 0.5rem;
@@ -444,23 +440,23 @@ button {
     gap: var(--spacing-md);
     min-width: min(100%, 22rem);
 
-    &>.button__text {
+    & > .button__text {
       flex: 1;
     }
 
-    &>.button__icon {
+    & > .button__icon {
       margin-inline-start: auto;
     }
   }
 
-  &>.button__text {
+  & > .button__text {
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
 
-  &>.button__icon {
+  & > .button__icon {
     display: flex;
     flex-shrink: 0;
     align-items: center;
@@ -469,7 +465,7 @@ button {
     line-height: 0;
     color: inherit;
 
-    &>svg {
+    & > svg {
       display: block;
       flex-shrink: 0;
       align-self: center;
@@ -903,7 +899,6 @@ select {
 }
 
 @media (prefers-reduced-motion: reduce) {
-
   *,
   *::before,
   *::after {
