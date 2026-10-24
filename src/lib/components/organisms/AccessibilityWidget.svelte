@@ -7,10 +7,10 @@
             <strong>Font-size</strong>
             </div>
             <div class="size-buttons-container">
-                <button>Klein</button>
-                <button>Normaal</button>
-                <button>Groot</button>
-                <button>Groter</button>
+                <button aria-pressed="false">Klein</button>
+                <button aria-pressed="true">Normaal</button>
+                <button aria-pressed="false">Groot</button>
+                <button aria-pressed="false">Groter</button>
             </div>
         </div>
 
@@ -20,10 +20,10 @@
             <strong>Line-height</strong>
             </div>
             <div class="size-buttons-container">
-                <button>Klein</button>
-                <button>Normaal</button>
-                <button>Groot</button>
-                <button>Groter</button>
+                <button aria-pressed="false">Klein</button>
+                <button aria-pressed="true">Normaal</button>
+                <button aria-pressed="false">Groot</button>
+                <button aria-pressed="false">Groter</button>
             </div>
         </div>
 
@@ -33,10 +33,10 @@
             <strong>Letter-spacing</strong>
             </div>
             <div class="size-buttons-container">
-                <button>Klein</button>
-                <button>Normaal</button>
-                <button>Groot</button>
-                <button>Groter</button>
+                <button aria-pressed="false">Klein</button>
+                <button aria-pressed="true">Normaal</button>
+                <button aria-pressed="false">Groot</button>
+                <button aria-pressed="false">Groter</button>
             </div>
         </div>
     </section>
@@ -102,6 +102,10 @@
                             border-radius: 8px;
                             font-weight: 500;
                             font-size: 13.7px;
+
+                            &[aria-pressed="true"] {
+                                background: dodgerblue;
+                            }
                         }
                     }
             }
