@@ -66,64 +66,66 @@
     <span>Accessibility</span>
 </button>
 
-<article class="accessibility-widget-info-container">
+<section class="accessibility-widget-info-container">
     <h2>Content</h2>
-    <section class="accessibility-widget-content">
-        <div class="size-container">
-            <div class="size-title-container">
+    <div class="accessibility-widget-content">
+        <fieldset class="size-container">
+            <legend class="size-title-container">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-case-sensitive preview-icon"><path d="m2 16 4.039-9.69a.5.5 0 0 1 .923 0L11 16"/><path d="M22 9v7"/><path d="M3.304 13h6.392"/><circle cx="18.5" cy="12.5" r="3.5"/></svg>
             <strong>Font-size</strong>
-            </div>
+            </legend>
             <div class="size-buttons-container" data-setting="font-size">
-                <button aria-pressed="false">Small</button>
-                <button aria-pressed="true">Normal</button>
-                <button aria-pressed="false">Big</button>
-                <button aria-pressed="false">Bigger</button>
+                <button type="button" aria-pressed="false">Small</button>
+                <button type="button" aria-pressed="true">Normal</button>
+                <button type="button" aria-pressed="false">Big</button>
+                <button type="button" aria-pressed="false">Bigger</button>
             </div>
-        </div>
+        </fieldset>
 
-        <div class="size-container">
-            <div class="size-title-container">
+        <fieldset class="size-container">
+            <legend class="size-title-container">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 5h10"/><path d="M7 19h10"/><path d="M12 5v14"/></svg>
             <strong>Line-height</strong>
-            </div>
+            </legend>
             <div class="size-buttons-container">
-                <button aria-pressed="false">Small</button>
-                <button aria-pressed="true">Normal</button>
-                <button aria-pressed="false">Big</button>
-                <button aria-pressed="false">Bigger</button>
+                <button type="button" aria-pressed="false">Small</button>
+                <button type="button" aria-pressed="true">Normal</button>
+                <button type="button" aria-pressed="false">Big</button>
+                <button type="button" aria-pressed="false">Bigger</button>
             </div>
-        </div>
+        </fieldset>
 
-        <div class="size-container">
-            <div class="size-title-container">
+        <fieldset class="size-container">
+            <legend class="size-title-container">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18"/><path d="M7 8l-4 4 4 4"/><path d="M17 8l4 4-4 4"/></svg>
             <strong>Letter-spacing</strong>
-            </div>
+            </legend>
             <div class="size-buttons-container">
-                <button aria-pressed="false">Small</button>
-                <button aria-pressed="true">Normal</button>
-                <button aria-pressed="false">Big</button>
-                <button aria-pressed="false">Bigger</button>
+                <button type="button" aria-pressed="false">Small</button>
+                <button type="button" aria-pressed="true">Normal</button>
+                <button type="button" aria-pressed="false">Big</button>
+                <button type="button" aria-pressed="false">Bigger</button>
             </div>
-        </div>
-    </section>
+        </fieldset>
+    </div>
 
     <h2>Colors</h2>
-    <section class="accessibility-widget-content">
-        <strong>Grayscale</strong>
+    <fieldset class="accessibility-widget-content">
+        <legend>
+            <strong>Grayscale</strong>
+        </legend>
         <br>
         <label class="accessibility-widget-switch">
             <input type="checkbox">
             <span class="accessibility-widget-switch-slider"></span>
         </label>
-    </section>
+    </fieldset>
 
     <button class="accessibility-widget-reset-button">
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rotate-ccw preview-icon"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
         <span>Reset</span>
     </button>
-</article>
+</section>
 
 <style>
     .accessibility-widget-trigger {
