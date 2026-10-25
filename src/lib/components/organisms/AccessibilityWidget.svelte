@@ -3,7 +3,7 @@
     import { onMount } from 'svelte'
 
     // array voor de font-sizes van klein naar groter (let ipv const, omdat de waarden nog kunnen veranderen)
-    let fontSizeOffsets = [-1, 0, 2, 4]
+    let fontSizeOffsets = [-1, 0, 3, 5]
 
     // deze functie werkt pas wanneer alle HTML is ingeladen
      onMount(() => {
@@ -27,7 +27,7 @@
                 })
 
                 // checkt of deze class de data-setting="font-size" heeft in HTML
-                if (button.dataset.setting === 'font-size') {
+                if (group.dataset.setting === 'font-size') {
                     // bepaalt welke offset wordt toegepast
                     const offset = fontSizeOffsets[buttons.indexOf(clicked)]
                     // offset toepassen met een CSS variabele en daarna krijg je de px waarde na het klikken op een button
@@ -35,10 +35,9 @@
                 }
             })
         })
-    })
 
-    // zoekt naar de reset button
-    const resetButton = document.querySelector('.accessibility-widget-reset-button')
+        // zoekt naar de reset button
+        const resetButton = document.querySelector('.accessibility-widget-reset-button')
 
         // onclick wordt de CSS variabele font-size-offset verwijderd
         resetButton.addEventListener('click', () => {
@@ -54,6 +53,7 @@
                 })
             })
         })
+    })
 </script>
 
 <article class="accessibility-widget-info-container">

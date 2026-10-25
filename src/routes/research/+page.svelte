@@ -22,8 +22,6 @@
   }
 </script>
 
-<AccessibilityWidget />
-
 <section class="main-container-research">
   <div class="research-header">
     <Heading
