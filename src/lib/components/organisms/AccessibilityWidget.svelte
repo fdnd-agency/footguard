@@ -7,6 +7,11 @@
 
     // deze functie werkt pas wanneer alle HTML is ingeladen
      onMount(() => {
+        const trigger = document.querySelector('.accessibility-widget-trigger')
+        const content = document.querySelector('.accessibility-widget-info-container')
+
+        trigger.addEventListener('click', () => content.classList.add('is-open'))
+
         const groups = document.querySelectorAll('.size-buttons-container')
 
         //zoekt alle elementen met de class size-buttons-container. ForEach voert de functie voor elk element uit
@@ -138,14 +143,21 @@
 
     .accessibility-widget-info-container {
         position: fixed;
+        width: min(90vw, 28rem);
+        height: fit-content;
+        max-height: 73dvh;
+        inset: 0;
+        margin: auto;
+        overflow-y: auto;
         border: 2px solid #C7C7C7;
+        background-color: white;
+        box-shadow: 0 0 0 100vmax rgb(0 0 0 / .6);
         padding: 1em;
-        margin-inline: 1em;
         border-radius: 16px;
         opacity: 0;
         visibility: hidden;
 
-        .is-open {
+        &:global(.is-open) {
             opacity: 1;
             visibility: visible;
         }
