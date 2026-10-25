@@ -3,7 +3,7 @@
 	import Heading from "$lib/components/textual/Heading.svelte";
 	import QuestionsForm from "$lib/components/form/QuestionsForm.svelte";
 	import PdfCard from "$lib/components/cards/PdfCard.svelte";
-  import AccessibilityWidget from "$lib/components/organisms/AccessibilityWidget.svelte"
+  import AccessibilityWidget from "$lib/components/AccessibilityWidget.svelte"
 
 	// Dynamic data variables
 	let { data } = $props();
