@@ -56,6 +56,11 @@
     })
 </script>
 
+<button class="accessibility-widget-trigger">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-person-standing preview-icon"><circle cx="12" cy="5" r="1"/><path d="m9 20 3-6 3 6"/><path d="m6 8 6 2 6-2"/><path d="M12 10v4"/></svg>
+    <span>Accessibility</span>
+</button>
+
 <article class="accessibility-widget-info-container">
     <h2>Content</h2>
     <section class="accessibility-widget-content">
@@ -116,6 +121,21 @@
 </article>
 
 <style>
+    .accessibility-widget-trigger {
+        display: flex;
+        align-items: center;
+        padding-block: .75em;
+        padding-inline: 1em;
+        border-radius: 24px;
+        border: 2px solid black;
+        background-color: white;
+
+        span {
+            font-size: 16px;
+            font-weight: 500;
+        }
+    }
+
     .accessibility-widget-info-container {
         border: 2px solid #C7C7C7;
         padding: 1em;
