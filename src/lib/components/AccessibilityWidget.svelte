@@ -208,9 +208,7 @@
                         }
                     }
             }
-        }
 
-        .accessibility-widget-content {
             .accessibility-widget-switch {
                 position: relative;
                 display: inline-block;
