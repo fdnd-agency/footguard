@@ -196,14 +196,16 @@
                     margin-bottom: 1em;
 
                         button {
-                            border: 2px solid dodgerblue;
+                            border: 2px solid var(--blue-500);
+                            color: var(--background-color-primary);
                             padding-block: .25em;
                             padding-inline: .75em;
                             border-radius: 8px;
                             font-size: 15px;
 
                             &[aria-pressed="true"] {
-                                background: dodgerblue;
+                                background: var(--blue-500);
+                                color: var(--background-color-primary);
                             }
                         }
                     }
@@ -221,7 +223,8 @@
                 height: 0;
 
                     &:checked + .accessibility-widget-switch-slider {
-                        background-color: dodgerblue;
+                        background-color: var(--blue-500);
+                        color: var(--background-color-primary);
                     }
 
                     &:checked + .accessibility-widget-switch-slider::before {
@@ -229,7 +232,8 @@
                     }
 
                     &:focus-visible + .accessibility-widget-switch-slider {
-                        outline: 2px solid dodgerblue;
+                        outline: 2px solid var(--blue-500);
+                        color: var(--background-color-primary);
                         outline-offset: 2px;
                     }
                 }
@@ -260,7 +264,8 @@
         .accessibility-widget-reset-button {
             display: flex;
             align-items: center;
-            background-color: dodgerblue;
+            background-color: var(--blue-500);
+            color: var(--background-color-primary);
             padding-block: .5em;
             padding-inline: 1em;
             border-radius: 1rem;
