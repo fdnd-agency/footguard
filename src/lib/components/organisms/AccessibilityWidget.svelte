@@ -65,10 +65,10 @@
             <strong>Font-size</strong>
             </div>
             <div class="size-buttons-container" data-setting="font-size">
-                <button aria-pressed="false">Klein</button>
-                <button aria-pressed="true">Normaal</button>
-                <button aria-pressed="false">Groot</button>
-                <button aria-pressed="false">Groter</button>
+                <button aria-pressed="false">Small</button>
+                <button aria-pressed="true">Normal</button>
+                <button aria-pressed="false">Big</button>
+                <button aria-pressed="false">Bigger</button>
             </div>
         </div>
 
@@ -78,10 +78,10 @@
             <strong>Line-height</strong>
             </div>
             <div class="size-buttons-container">
-                <button aria-pressed="false">Klein</button>
-                <button aria-pressed="true">Normaal</button>
-                <button aria-pressed="false">Groot</button>
-                <button aria-pressed="false">Groter</button>
+                <button aria-pressed="false">Small</button>
+                <button aria-pressed="true">Normal</button>
+                <button aria-pressed="false">Big</button>
+                <button aria-pressed="false">Bigger</button>
             </div>
         </div>
 
@@ -91,10 +91,10 @@
             <strong>Letter-spacing</strong>
             </div>
             <div class="size-buttons-container">
-                <button aria-pressed="false">Klein</button>
-                <button aria-pressed="true">Normaal</button>
-                <button aria-pressed="false">Groot</button>
-                <button aria-pressed="false">Groter</button>
+                <button aria-pressed="false">Small</button>
+                <button aria-pressed="true">Normal</button>
+                <button aria-pressed="false">Big</button>
+                <button aria-pressed="false">Bigger</button>
             </div>
         </div>
     </section>
@@ -158,8 +158,7 @@
                             padding-block: .25em;
                             padding-inline: .75em;
                             border-radius: 8px;
-                            font-weight: 500;
-                            font-size: 13.7px;
+                            font-size: 15px;
 
                             &[aria-pressed="true"] {
                                 background: dodgerblue;
