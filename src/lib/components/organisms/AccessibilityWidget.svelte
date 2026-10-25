@@ -137,10 +137,18 @@
     }
 
     .accessibility-widget-info-container {
+        position: fixed;
         border: 2px solid #C7C7C7;
         padding: 1em;
         margin-inline: 1em;
         border-radius: 16px;
+        opacity: 0;
+        visibility: hidden;
+
+        .is-open {
+            opacity: 1;
+            visibility: visible;
+        }
 
         h2 {
             margin-bottom: .3em;
