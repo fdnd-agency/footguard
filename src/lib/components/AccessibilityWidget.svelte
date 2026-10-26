@@ -206,6 +206,7 @@
                             font-size: 15px;
                             transition: background-color var(--transition-base), color var(--transition-base), border-color var(--transition-base), transform var(--transition-base), box-shadow var(--transition-base);
 
+                            &:hover,
                             &:focus-visible {
                                 background-color: var(--blue-600);
                                 color: var(--background-color-primary);
@@ -215,13 +216,6 @@
                                 background: var(--blue-500);
                                 color: var(--background-color-primary);
 
-                                &:hover {
-                                    background-color: var(--blue-600);
-                                    color: var(--background-color-primary);
-                                }
-                            }
-
-                            &[aria-pressed="false"] {
                                 &:hover {
                                     background-color: var(--blue-600);
                                     color: var(--background-color-primary);
