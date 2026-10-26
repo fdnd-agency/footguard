@@ -15,15 +15,15 @@
 
   function updateFilters(event) {
     const { status, theme } = event.detail;
-    goto(resolve("/research/?status=" + status + "&theme=" + theme), {
+    goto(resolve("/grading/?status=" + status + "&theme=" + theme), {
       noscroll: true,
       replaceState: true,
     });
   }
 </script>
 
-<section class="main-container-research">
-  <div class="research-header">
+<section class="main-container-grading">
+  <div class="grading-header">
     <Heading
       title="Assigned Gradings"
       subTitle="An overview of all your gradings"
@@ -47,7 +47,7 @@
   {#if data.cardData.length === 0}
     <NoItemsFoundNote />
   {:else}
-    <div class="research-cards-container">
+    <div class="grading-cards-container">
       {#each data.cardData as cardInfo (cardInfo.id)}
         <div transition:fly={{ y: 600, duration: 700 }}>
           <GradingArticleCard
@@ -66,7 +66,7 @@
 </section>
 
 <style>
-  .main-container-research {
+  .main-container-grading {
     max-width: 100rem;
     margin: 0 auto;
     padding: 1rem 1rem 1rem 1rem;
@@ -77,7 +77,7 @@
     }
   }
   /* Mobile-first: title and button stack vertically */
-  .research-header {
+  .grading-header {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-md);
@@ -86,14 +86,14 @@
 
    /* Desktop: title left, button right */
   @media (min-width: 720px) {
-    .research-header {
+    .grading-header {
       flex-direction: row;
       align-items: flex-start;
       justify-content: space-between;
     }
   }
 
-  .research-cards-container {
+  .grading-cards-container {
     margin-top: 1rem;
     display: flex;
     flex-direction: column;

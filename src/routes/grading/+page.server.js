@@ -1,4 +1,4 @@
-// src/routes/research/+page.server.js
+// src/routes/grading/+page.server.js
 import { fail } from '@sveltejs/kit'
 import { DIRECTUS_URL, DIRECTUS_TOKEN } from '$env/static/private'
 import { uploadPdfToDirectus, createArticleRecord } from '$lib/server/articles.js'
