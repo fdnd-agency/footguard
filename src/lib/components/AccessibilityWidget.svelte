@@ -137,6 +137,7 @@
         background-color: white;
 
         span {
+            font-family: 'DM Sans';
             font-size: 16px;
             font-weight: 500;
         }
@@ -303,7 +304,6 @@
         }
 
         span {
-            font-weight: 500;
             font-size: 16px;
         }
     }
