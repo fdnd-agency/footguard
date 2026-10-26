@@ -114,7 +114,6 @@
         <legend>
             <strong>Grayscale</strong>
         </legend>
-        <br>
         <label class="accessibility-widget-switch">
             <input type="checkbox">
             <span class="accessibility-widget-switch-slider"></span>
@@ -165,6 +164,7 @@
         }
 
         h2 {
+            border-bottom: 2px solid #DDDDDD;
             margin-bottom: .3em;
 
             &:not(:first-of-type) {
@@ -173,11 +173,11 @@
         }
 
         .accessibility-widget-content {
-            border: 2px solid #DDDDDD;
-            padding: .5em;
-            border-radius: 12px;
+            border: none;
 
             .size-container {
+                border: none;
+
                 .size-title-container {
                     display: flex;
                     align-items: center;
@@ -197,7 +197,7 @@
 
                         button {
                             border: 2px solid var(--blue-500);
-                            color: var(--background-color-primary);
+                            color: black;
                             padding-block: .25em;
                             padding-inline: .75em;
                             border-radius: 8px;
