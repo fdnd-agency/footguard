@@ -197,15 +197,34 @@
 
                         button {
                             border: 2px solid var(--blue-500);
+                            box-shadow: var(--shadow-sm);
                             color: black;
                             padding-block: .25em;
                             padding-inline: .75em;
-                            border-radius: 8px;
+                            border-radius: var(--radius-sm);
                             font-size: 15px;
+                            transition: background-color var(--transition-base), color var(--transition-base), border-color var(--transition-base), transform var(--transition-base), box-shadow var(--transition-base);
+
+                            &:focus-visible {
+                                background-color: var(--blue-600);
+                                color: var(--background-color-primary);
+                            }
 
                             &[aria-pressed="true"] {
                                 background: var(--blue-500);
                                 color: var(--background-color-primary);
+
+                                &:hover {
+                                    background-color: var(--blue-600);
+                                    color: var(--background-color-primary);
+                                }
+                            }
+
+                            &[aria-pressed="false"] {
+                                &:hover {
+                                    background-color: var(--blue-600);
+                                    color: var(--background-color-primary);
+                                }
                             }
                         }
                     }
