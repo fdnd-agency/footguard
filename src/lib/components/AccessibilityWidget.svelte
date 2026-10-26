@@ -291,6 +291,15 @@
             margin-inline-start: auto;
             margin-top: 2em;
             gap: .5em;
+            box-shadow: var(--shadow-sm);
+            border-radius: var(--radius-sm);
+            transition: background-color var(--transition-base), color var(--transition-base), border-color var(--transition-base), transform var(--transition-base), box-shadow var(--transition-base);
+
+            &:hover,
+            &:focus-visible {
+                background-color: var(--blue-600);
+                color: var(--background-color-primary);
+            }
         }
 
         span {
