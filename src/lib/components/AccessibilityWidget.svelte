@@ -9,8 +9,10 @@
      onMount(() => {
         const trigger = document.querySelector('.accessibility-widget-trigger')
         const content = document.querySelector('.accessibility-widget-info-container')
+        const closButton = content.querySelector('button')
 
         trigger.addEventListener('click', () => content.classList.add('is-open'))
+        content.addEventListener('click', () => content.classList.remove('is-open'))
 
         const groups = document.querySelectorAll('.size-buttons-container')
 
@@ -67,6 +69,11 @@
 </button>
 
 <section class="accessibility-widget-info-container">
+    <button class="accessibility-widget-close-button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x preview-icon"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        <span>Close</span>
+    </button>
+
     <h2>Content</h2>
     <div class="accessibility-widget-content">
         <fieldset class="size-container">
@@ -162,6 +169,12 @@
         &:global(.is-open) {
             opacity: 1;
             visibility: visible;
+        }
+
+        .accessibility-widget-close-button {
+            display: flex;
+            align-items: center;
+            margin-inline-start: auto;
         }
 
         h2 {
