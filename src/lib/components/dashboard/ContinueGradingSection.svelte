@@ -176,14 +176,14 @@
   }
 
   .empty-title {
-    font-size: 1.25rem;
+    font-size: 2.441rem;
     font-weight: 600;
     color: var(--grey-700);
     margin: 0 0 0.5rem;
   }
 
   .empty-text {
-    font-size: 0.875rem;
+    font-size: 1rem;
     color: var(--grey-600);
     margin: 0 0 1.5rem;
     max-width: 25rem;

@@ -401,7 +401,7 @@
   }
 
   .modal__title {
-    font-size: clamp(16px, 3vw, 20px);
+    font-size: clamp(48.83px, 3vw, 50px);
     font-weight: 700;
     color: var(--grey-700);
     margin: 0;
