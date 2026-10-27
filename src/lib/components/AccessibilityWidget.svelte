@@ -1,11 +1,8 @@
 <script>
-    // voert code pas uit wanneer de HTML van dit component op de pagina staat
     import { onMount } from 'svelte'
 
-    // array voor de font-sizes van klein naar groter (let ipv const, omdat de waarden nog kunnen veranderen)
     let fontSizeOffsets = [-1, 0, 3, 5]
 
-    // deze functie werkt pas wanneer alle HTML is ingeladen
      onMount(() => {
         const trigger = document.querySelector('.accessibility-widget-trigger')
         const content = document.querySelector('.accessibility-widget-info-container')
@@ -16,45 +13,32 @@
 
         const groups = document.querySelectorAll('.size-buttons-container')
 
-        //zoekt alle elementen met de class size-buttons-container. ForEach voert de functie voor elk element uit
         document.querySelectorAll('.size-buttons-container').forEach((group) => {
-            // eventListener toegevoegd voor de click op de button
             group.addEventListener('click', (e) => {
-                // e.target is de button waar je op dat moment op klikt en het resultaat daarvan bewaar je in de variabele clicked
                 const clicked = e.target.closest('button')
                 if (!clicked) return
 
-                // pakt alle buttons in elke class met de naam size-buttons-container. De puntjes zet de resultaten om in een array
                 const buttons = [...group.querySelectorAll('button')]
 
-                // loopt langs elke button
                 buttons.forEach((btn) => {
-                    // zet aria-pressed om naar true of false. Hier maken we een vergelijking
                     btn.setAttribute('aria-pressed', btn === clicked)
                 })
 
-                // checkt of deze class de data-setting="font-size" heeft in HTML
                 if (group.dataset.setting === 'font-size') {
-                    // bepaalt welke offset wordt toegepast
                     const offset = fontSizeOffsets[buttons.indexOf(clicked)]
-                    // offset toepassen met een CSS variabele en daarna krijg je de px waarde na het klikken op een button
                     document.documentElement.style.setProperty('--font-size-offset', `${offset}px`)
                 }
             })
         })
 
-        // zoekt naar de reset button
         const resetButton = document.querySelector('.accessibility-widget-reset-button')
 
-        // onclick wordt de CSS variabele font-size-offset verwijderd
         resetButton.addEventListener('click', () => {
             document.documentElement.style.removeProperty('--font-size-offset')
 
-            // gaat langs alle knoppen binnen het group class size-buttons-container en zet de button "normaal" weer op actief (z'n standaard waarde)
             groups.forEach((group) => {
                 const buttons = [...group.querySelectorAll('button')]
 
-                // gaat langs elke button en vergelijkt of de button gelijk is aan index 1 (de normale button). Als dat zo is dan is de uitkomst true en wordt de normaal button weer actief
                 buttons.forEach((btn, index) => {
                     btn.setAttribute('aria-pressed', index === 1)
                 })
