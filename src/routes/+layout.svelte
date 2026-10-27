@@ -62,7 +62,7 @@
     padding: 0.75rem 1.5rem;
     border-radius: 0.5rem;
     font-weight: 600;
-    font-size: 0.875rem;
+    font-size: 1rem;
     text-decoration: none;
     box-shadow: 0 0.25rem 0.75rem hsla(213, 12%, 15%, 0.15);
     transition: all 0.2s ease;

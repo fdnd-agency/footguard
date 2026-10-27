@@ -67,21 +67,17 @@
   .card-title {
     color: var(--grey-700);
     font-weight: 600;
-    font-size: 1.125rem;
+    font-size: 2.441rem;
     line-height: 1.4;
     flex: 1;
     margin: 0;
     word-wrap: break-word;
-
-    @media (min-width: 768px) {
-      font-size: 1.25rem;
-    }
   }
 
   .badge {
     background: var(--orange-500);
     color: var(--background-color-primary);
-    font-size: 0.875rem;
+    font-size: 1rem;
     font-weight: 600;
     padding: 0.5rem 1rem;
     border-radius: var(--radius-sm);
@@ -121,7 +117,7 @@
   }
 
   .progress-label {
-    font-size: 0.875rem;
+    font-size: 1rem;
     font-weight: 800;
     margin: 0;
   }
@@ -165,7 +161,7 @@
   }
 
   .progress-value {
-    font-size: 0.875rem;
+    font-size: 1rem;
     font-weight: 600;
     color: var(--grey-700);
     text-align: right;

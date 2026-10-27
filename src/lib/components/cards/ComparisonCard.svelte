@@ -243,7 +243,7 @@
 
   .compare-dot {
     color: var(--grey-400);
-    font-size: 0.75rem;
+    font-size: 0.8rem;
   }
 
   .compare-date {
@@ -276,14 +276,14 @@
   }
 
   .empty-title {
-    font-size: 1.125rem;
+    font-size: 2.441rem;
     font-weight: 600;
     color: var(--grey-700);
     margin: 0 0 0.5rem;
   }
 
   .empty-text {
-    font-size: 0.875rem;
+    font-size:  1rem;
     color: var(--grey-600);
     margin: 0;
     max-width: 20rem;

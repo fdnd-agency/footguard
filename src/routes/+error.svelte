@@ -31,7 +31,7 @@
 
   .error-container h1 {
     margin-bottom: 1rem;
-    font-size: clamp(16px, 4.5vw, 40px);
+    font-size: clamp(58px, 4.5vw, 61.04px);
   }
 
   .link-container {
@@ -43,7 +43,7 @@
     color: var(--red-500);
     text-decoration: underline;
     font-weight: 600;
-    font-size: clamp(16px, 4.5vw, 40px);
+    font-size: clamp(58px, 4.5vw, 61.04px);
 
     &:hover {
       text-decoration-color: var(--red-400);
