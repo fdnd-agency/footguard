@@ -121,8 +121,8 @@
     .accessibility-widget-trigger {
         display: flex;
         align-items: center;
-        padding-block: .75em;
-        padding-inline: 1em;
+        padding-block: var(--spacing-sm);
+        padding-inline: var(--spacing-md);
         border-radius: var(--radius-xl);
         border: 2px solid black;
         background-color: white;
