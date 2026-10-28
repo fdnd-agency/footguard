@@ -322,8 +322,9 @@ body {
 }
 
 p,
-strong {
-  font-size: calc(1rem + var(--font-size-offset));
+strong,
+span {
+  font-size: calc(clamp(16px, 1.5vw, 18px) + var(--font-size-offset));
 }
 
 .paragraph {
