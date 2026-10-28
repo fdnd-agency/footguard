@@ -330,7 +330,7 @@
   /* Empty state for members section */
   .members-empty {
     margin: 0 0 var(--spacing-lg);
-    font-size: 0.875rem;
+    font-size: 1rem;
     color: var(--grey-500);
   }
 

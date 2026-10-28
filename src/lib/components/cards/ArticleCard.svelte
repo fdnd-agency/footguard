@@ -55,7 +55,7 @@
     font-weight: 600;
 
     @media (min-width: 768px) {
-      font-size: 1.125rem;
+      font-size: 2.441rem;
     }
   }
 
@@ -95,7 +95,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-    font-size: 0.875rem;
+    font-size: 0.8rem;
     color: var(--grey-500);
   }
 

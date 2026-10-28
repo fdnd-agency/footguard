@@ -42,7 +42,7 @@
   <ul>
     {#if isGuest}
       <li>
-         <a href={resolve("/research")}>
+         <a href={resolve("/grading")}>
       <span class="icon"><GradingIcon /></span>
       <span class="label">Grading</span>
         </a>
@@ -61,7 +61,7 @@
         </a>
       </li>
       <li>
-        <a href={resolve("/research")}>
+        <a href={resolve("/grading")}>
           <span class="icon"><GradingIcon /></span>
           <span class="label">Grading</span>
         </a>

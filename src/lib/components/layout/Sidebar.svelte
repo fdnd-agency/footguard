@@ -131,7 +131,7 @@
     justify-content: space-between;
     padding: 0.75rem 1rem;
     border-radius: 0.5rem;
-    font-size: 0.875rem;
+    font-size: 1rem;
     font-weight: 500;
     list-style: none;
     transition: all 0.2s ease;
@@ -176,7 +176,7 @@
     display: block;
     padding: 0.5rem 1rem 0.5rem 2.5rem;
     color: var(--grey-600);
-    font-size: 0.875rem;
+    font-size: 1rem;
     text-decoration: none;
     border-radius: 0.5rem;
     transition: all 0.2s ease;
@@ -232,7 +232,7 @@
   /* User name text */
   .user-name {
     font-weight: 600;
-    font-size: 0.875rem;
+    font-size: 1rem;
     color: var(--grey-700);
     margin: 0 0 0.125rem 0;
     line-height: 1.4;
@@ -240,7 +240,7 @@
 
   /* User role text */
   .user-role {
-    font-size: 0.875rem;
+    font-size: 1rem;
     color: var(--grey-500);
     margin: 0;
     line-height: 1.4;

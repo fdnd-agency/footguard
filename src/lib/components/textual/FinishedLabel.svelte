@@ -1,28 +1,21 @@
 <script>
-    import finished from "$lib/assets/svg/finished-icon.svg";
-
     // add class to component
     let {className} = $props()
 </script>
 
-<figure class="finished-label paragraph {className}">
-    <img src={finished} alt="" height="15" width="15">
-    Finished
-</figure>
+<div class="finished-label paragraph {className}">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user preview-icon"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    <p>Your status: <span>Finished</span></p>
+</div>
 
 <style>
     .finished-label {
         display: flex;
-        flex-direction: row;
         align-items: center;
-        gap: 0.5rem;
-        border: 1px solid var(--green-700);
-        width: fit-content;
-        padding: 0.35rem;
-        border-radius: 0.5rem;
-        color: var(--green-700);
-        background-color: var(--green-100);
-        white-space: nowrap;
-    }
+        gap: .5rem;
 
+        span {
+            color: var(--green-700);
+        }
+    }
 </style>

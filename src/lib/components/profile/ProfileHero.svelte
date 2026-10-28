@@ -108,7 +108,7 @@
         border-radius: var(--radius-full);
         background: var(--blue-700);
         color: var(--background-color-primary);
-        font-size: 0.875rem;
+        font-size: 1rem;
         padding: var(--spacing-xs) var(--spacing-sm);
         cursor: pointer;
 
@@ -173,7 +173,7 @@
       .profession-hero-hint {
         display: block;
         margin-top: 0.25rem;
-        font-size: 0.75rem;
+        font-size: 0.8rem;
         color: var(--grey-400);
         max-width: 18rem;
       }
