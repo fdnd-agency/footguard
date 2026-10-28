@@ -6,7 +6,6 @@
      onMount(() => {
         const trigger = document.querySelector('.accessibility-widget-trigger')
         const content = document.querySelector('.accessibility-widget-info-container')
-        const closButton = content.querySelector('button')
 
         trigger.addEventListener('click', () => content.classList.add('is-open'))
         content.addEventListener('click', () => content.classList.remove('is-open'))
