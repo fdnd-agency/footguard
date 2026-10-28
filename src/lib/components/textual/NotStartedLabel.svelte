@@ -1,6 +1,4 @@
 <script>
-    import notStarted from "$lib/assets/svg/notstarted-icon.svg";
-
     let {className} = $props()
 </script>
 

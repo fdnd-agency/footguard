@@ -1,6 +1,4 @@
 <script>
-    import inprogress from "$lib/assets/svg/inprogress-icon.svg";
-
     // add class to component
     let {className} = $props()
 </script>

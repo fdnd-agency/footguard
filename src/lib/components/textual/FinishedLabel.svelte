@@ -1,6 +1,4 @@
 <script>
-    import finished from "$lib/assets/svg/finished-icon.svg";
-
     // add class to component
     let {className} = $props()
 </script>
