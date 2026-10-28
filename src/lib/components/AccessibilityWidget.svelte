@@ -128,7 +128,6 @@
         background-color: white;
 
         span {
-            font-size: 16px;
             font-weight: 500;
         }
     }
