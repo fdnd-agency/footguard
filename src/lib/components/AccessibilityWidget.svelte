@@ -123,7 +123,7 @@
         align-items: center;
         padding-block: .75em;
         padding-inline: 1em;
-        border-radius: 24px;
+        border-radius: var(--radius-xl);
         border: 2px solid black;
         background-color: white;
 
