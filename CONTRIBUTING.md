@@ -66,3 +66,7 @@ Vandaag hebben we voor het eerst een Retrospective gehouden over onze samenwerki
 
 <img width="1663" height="1247" alt="image" src="https://github.com/user-attachments/assets/d8d8c715-fa55-460c-80ee-0ff7831f2239" />
 <img width="1663" height="1247" alt="image" src="https://github.com/user-attachments/assets/f3441c6b-d753-462d-84b9-12bd3c8d1648" />
+
+## retrospect sprint 15
+- iedere dag een standup half 10
+- sprint review voorbereiden dag ervoor op school of als anders afgesproken om 9 uur voor de sprint review
