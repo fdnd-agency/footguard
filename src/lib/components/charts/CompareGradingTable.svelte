@@ -27,7 +27,7 @@
     {#each questions as question (question.id)}
       <tr>
         <td class="question-cell">
-          <QuestionCard question={question.question_title} questionIcon={minus} questionNumber={question.id}/>
+          <QuestionCard questionIcon={minus} questionNumber={question.id}/>
         </td>
 
         <td class="assessor-cell paragraph">
@@ -100,7 +100,7 @@
     }
 
     .question-cell {
-        width: 68%;
+        width: 17.5%;
     }
 
     .assessor-cell {
