@@ -2,7 +2,7 @@
     import minus from "$lib/assets/svg/minus-icon.svg";
 
     // Components
-    import QuestionCard from "$lib/components/cards/QuestionCard.svelte";
+    import QuestionCard from "$lib/components/molecules/QuestionCard.svelte";
     import GradingValue from "../textual/GradingValue.svelte";
 
     let { questions } = $props();
