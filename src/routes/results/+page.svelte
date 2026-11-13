@@ -3,7 +3,7 @@
 	// Components
 	import Heading from "$lib/components/textual/Heading.svelte";
 	import QuestionsForm from "$lib/components/form/QuestionsForm.svelte";
-	import CompareGradingTable from "$lib/components/charts/CompareGradingTable.svelte";
+	import CompareGradingTable from "$lib/components/organisms/CompareGradingTable.svelte";
 
 	// Dynamic data variables
 	let { data } = $props();
