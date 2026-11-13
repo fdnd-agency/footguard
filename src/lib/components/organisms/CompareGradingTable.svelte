@@ -3,7 +3,7 @@
 
     // Components
     import QuestionCard from "$lib/components/molecules/QuestionCard.svelte";
-    import GradingValue from "../textual/GradingValue.svelte";
+    import GradingValue from "../atoms/GradingValue.svelte";
 
     let { questions } = $props();
 </script>
@@ -46,7 +46,6 @@
 
 <style>
     .assessment-table-container {
-        height: 75vh;
         background: var(--background-color-primary);
         padding: 1rem;
         border-radius: 1rem;
@@ -55,13 +54,11 @@
             0 0.125rem 0.25rem hsla(213, 12%, 15%, 0.08);
         border: 1px solid hsla(213, 12%, 15%, 0.06);
         transition: transform 0.3s ease;
-        overflow-y: auto;
     }
 
     .assessment-table {
         width: 100%;
         border-spacing: 0 0.5rem;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         background-color: var(--background-color-primary);
 
         & th,
