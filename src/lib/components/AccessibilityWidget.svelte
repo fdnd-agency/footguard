@@ -46,13 +46,13 @@
     })
 </script>
 
-<button class="accessibility-widget-trigger">
+<button class="accessibility-widget-trigger" popovertarget="accessibility-widget">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-person-standing preview-icon"><circle cx="12" cy="5" r="1"/><path d="m9 20 3-6 3 6"/><path d="m6 8 6 2 6-2"/><path d="M12 10v4"/></svg>
     <span>Accessibility</span>
 </button>
 
-<form class="accessibility-widget-info-container">
-    <button class="accessibility-widget-close-button" type="button">
+<form id="accessibility-widget" class="accessibility-widget-info-container" popover>
+    <button class="accessibility-widget-close-button" type="button" popovertarget="accessibility-widget" popovertargetaction="hide">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x preview-icon"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
         <span>Close</span>
     </button>
