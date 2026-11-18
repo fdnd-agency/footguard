@@ -62,7 +62,7 @@
                 <input type="radio" name="font-size" id="font-small" value="small">
                 <label for="font-small">Small</label>
 
-                <input type="radio" name="font-size" id="font-normal" value="normal">
+                <input type="radio" name="font-size" id="font-normal" value="normal" checked>
                 <label for="font-normal">Normal</label>
 
                 <input type="radio" name="font-size" id="font-large" value="large">
