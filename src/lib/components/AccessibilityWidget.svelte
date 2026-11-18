@@ -17,16 +17,16 @@
             <strong>Font-size</strong>
             </legend>
             <div class="size-buttons-container">
-                <input type="radio" name="font-size" id="font-small" value="small">
+                <input type="radio" name="font-size" id="font-small">
                 <label for="font-small">Small</label>
 
-                <input type="radio" name="font-size" id="font-normal" value="normal" checked>
+                <input type="radio" name="font-size" id="font-normal" checked>
                 <label for="font-normal">Normal</label>
 
-                <input type="radio" name="font-size" id="font-large" value="large">
+                <input type="radio" name="font-size" id="font-large">
                 <label for="font-large">Large</label>
 
-                <input type="radio" name="font-size" id="font-larger" value="larger">
+                <input type="radio" name="font-size" id="font-larger" >
                 <label for="font-larger">Larger</label>
             </div>
         </fieldset>
