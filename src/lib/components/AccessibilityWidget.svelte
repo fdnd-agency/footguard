@@ -150,6 +150,11 @@
 
                     input {
                         appearance: none;
+
+                        &:checked + label {
+                            background-color: var(--blue-500);
+                            color: var(--background-color-primary);
+                        }
                     }
 
                     label {
