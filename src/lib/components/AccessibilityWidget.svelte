@@ -4,12 +4,6 @@
     let fontSizeOffsets = [-1, 0, 3, 5]
 
      onMount(() => {
-        const trigger = document.querySelector('.accessibility-widget-trigger')
-        const content = document.querySelector('.accessibility-widget-info-container')
-
-        trigger.addEventListener('click', () => content.classList.add('is-open'))
-        content.addEventListener('click', () => content.classList.remove('is-open'))
-
         const groups = document.querySelectorAll('.size-buttons-container')
 
         document.querySelectorAll('.size-buttons-container').forEach((group) => {
