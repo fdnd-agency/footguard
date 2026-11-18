@@ -149,8 +149,7 @@
                     margin-block: .5em 1.75em;
 
                     input {
-                        position: absolute;
-                        opacity: 0;
+                        appearance: none;
                     }
 
                     label {
