@@ -130,6 +130,9 @@
     }
 
     .accessibility-widget-info-container {
+        position: fixed;
+        inset: 0;
+        margin: auto;
         width: min(90vw, 28rem);
         height: fit-content;
         max-height: 73dvh;
