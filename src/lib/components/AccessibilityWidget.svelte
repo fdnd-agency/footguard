@@ -154,6 +154,10 @@
                         &:checked + label {
                             background-color: var(--blue-500);
                             color: var(--background-color-primary);
+
+                            &:hover {
+                                background-color: var(--blue-600);
+                            }
                         }
                     }
 
