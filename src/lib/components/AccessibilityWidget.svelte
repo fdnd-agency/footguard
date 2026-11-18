@@ -146,7 +146,10 @@
                 }
 
                 .size-buttons-container {
-                    margin-bottom: 1em;
+                    input {
+                        position: absolute;
+                        opacity: 0;
+                    }
 
                         button {
                             border: 2px solid var(--blue-500);
