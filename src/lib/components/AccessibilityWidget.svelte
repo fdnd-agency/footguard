@@ -295,4 +295,8 @@
             font-size: 16px;
         }
     }
+
+    :global(:root:has(#font-small:checked)) { --font-size-offset: -1px; }
+    :global(:root:has(#font-large:checked)) { --font-size-offset: 3px; }
+    :global(:root:has(#font-larger:checked)) { --font-size-offset: 5px; }
 </style>
