@@ -151,6 +151,15 @@
                         opacity: 0;
                     }
 
+                    label {
+                        padding-block: .5em;
+                        padding-inline: .75em;
+                        border: 2px solid var(--blue-500);
+                        box-shadow: var(--shadow-sm);
+                        border-radius: var(--radius-sm);
+                        transition: background-color var(--transition-base), color var(--transition-base), border-color var(--transition-base), transform var(--transition-base), box-shadow var(--transition-base);
+                    }
+
                         button {
                             border: 2px solid var(--blue-500);
                             box-shadow: var(--shadow-sm);
