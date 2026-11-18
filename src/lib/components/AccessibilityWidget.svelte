@@ -120,6 +120,10 @@
     .accessibility-widget-trigger {
         display: flex;
         align-items: center;
+        position: fixed;
+        right: 1rem;
+        bottom: 1rem;
+        z-index: 10;
         padding-block: var(--spacing-sm);
         padding-inline: var(--spacing-md);
         border-radius: var(--radius-xl);
