@@ -59,10 +59,17 @@
             <strong>Font-size</strong>
             </legend>
             <div class="size-buttons-container" data-setting="font-size">
-                <button type="button" aria-pressed="false">Small</button>
-                <button type="button" aria-pressed="true">Normal</button>
-                <button type="button" aria-pressed="false">Big</button>
-                <button type="button" aria-pressed="false">Bigger</button>
+                <input type="radio" name="font-size" id="font-small" value="small">
+                <label for="font-small">Small</label>
+
+                <input type="radio" name="font-size" id="font-normal" value="normal">
+                <label for="font-normal">Normal</label>
+
+                <input type="radio" name="font-size" id="font-large" value="large">
+                <label for="font-large">Large</label>
+
+                <input type="radio" name="font-size" id="font-larger" value="larger">
+                <label for="font-larger">Larger</label>
             </div>
         </fieldset>
 
