@@ -182,6 +182,7 @@
                         box-shadow: var(--shadow-sm);
                         border-radius: var(--radius-sm);
                         transition: background-color var(--transition-base), color var(--transition-base), border-color var(--transition-base), transform var(--transition-base), box-shadow var(--transition-base);
+                        cursor: pointer;
 
                         &:hover {
                             background-color: var(--blue-600);
