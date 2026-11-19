@@ -94,8 +94,8 @@
         display: flex;
         align-items: center;
         position: fixed;
-        right: 1rem;
-        bottom: 1rem;
+        right: var(--spacing-md);
+        bottom: var(--spacing-md);
         z-index: 10;
         padding-block: var(--spacing-sm);
         padding-inline: var(--spacing-md);
@@ -118,8 +118,8 @@
         overflow-y: auto;
         border: 2px solid #C7C7C7;
         background-color: white;
-        padding: 1em;
-        border-radius: 16px;
+        padding: var(--spacing-md);
+        border-radius: var(--radius-lg);
 
         &::backdrop {
             background-color: rgb(0 0 0 / .6);
@@ -148,14 +148,14 @@
                 .size-title-container {
                     display: flex;
                     align-items: center;
-                    gap: .5em;
-                    margin-bottom: .5em;
+                    gap: var(--spacing-xs);
+                    margin-bottom: var(--spacing-xs);
 
                     svg {
                         box-sizing: content-box;
                         padding: .2rem;
                         background-color: #EBF0FA;
-                        border-radius: 8px;
+                        border-radius: var(--radius-sm);
                     }
                 }
 
@@ -248,12 +248,11 @@
             align-items: center;
             background-color: var(--blue-500);
             color: var(--background-color-primary);
-            padding-block: .5em;
-            padding-inline: 1em;
-            border-radius: 1rem;
+            padding-block: var(--spacing-xs);
+            padding-inline: var(--spacing-md);
             margin-inline-start: auto;
-            margin-top: 2em;
-            gap: .5em;
+            margin-top: var(--spacing-lg);
+            gap: var(--spacing-xs);
             box-shadow: var(--shadow-sm);
             border-radius: var(--radius-sm);
             transition: background-color var(--transition-base), color var(--transition-base), border-color var(--transition-base), transform var(--transition-base), box-shadow var(--transition-base);
@@ -263,10 +262,6 @@
                 background-color: var(--blue-600);
                 color: var(--background-color-primary);
             }
-        }
-
-        span {
-            font-size: 16px;
         }
     }
 
