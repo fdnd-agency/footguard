@@ -57,10 +57,17 @@
             <strong>Letter-spacing</strong>
             </legend>
             <div class="size-buttons-container">
-                <button type="button" aria-pressed="false">Small</button>
-                <button type="button" aria-pressed="true">Normal</button>
-                <button type="button" aria-pressed="false">Big</button>
-                <button type="button" aria-pressed="false">Bigger</button>
+                <input type="radio" name="letter-spacing" id="lett-spacing-small">
+                <label for="lett-spacing-small">Small</label>
+
+                <input type="radio" name="letter-spacing" id="lett-spacing-normal" checked>
+                <label for="lett-spacing-normal">Normal</label>
+
+                <input type="radio" name="letter-spacing" id="lett-spacing-large">
+                <label for="lett-spacing-large">Large</label>
+
+                <input type="radio" name="letter-spacing" id="lett-spacing-larger" >
+                <label for="lett-spacing-larger">Larger</label>
             </div>
         </fieldset>
     </div>
