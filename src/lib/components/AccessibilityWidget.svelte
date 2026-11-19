@@ -146,7 +146,7 @@
                 }
 
                 .size-buttons-container {
-                    margin-block: .5em 1.75em;
+                    margin-block: var(--spacing-xs) 1.75rem;
 
                     input {
                         appearance: none;
@@ -162,8 +162,8 @@
                     }
 
                     label {
-                        padding-block: .5em;
-                        padding-inline: .75em;
+                        padding-block: var(--spacing-xs);
+                        padding-inline: var(--spacing-sm);
                         border: 2px solid var(--blue-500);
                         box-shadow: var(--shadow-sm);
                         border-radius: var(--radius-sm);
