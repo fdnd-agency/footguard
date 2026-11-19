@@ -37,10 +37,17 @@
             <strong>Line-height</strong>
             </legend>
             <div class="size-buttons-container">
-                <button type="button" aria-pressed="false">Small</button>
-                <button type="button" aria-pressed="true">Normal</button>
-                <button type="button" aria-pressed="false">Big</button>
-                <button type="button" aria-pressed="false">Bigger</button>
+                <input type="radio" name="line-height" id="line-small">
+                <label for="line-small">Small</label>
+
+                <input type="radio" name="line-height" id="line-normal" checked>
+                <label for="line-normal">Normal</label>
+
+                <input type="radio" name="line-height" id="line-large">
+                <label for="line-large">Large</label>
+
+                <input type="radio" name="line-height" id="line-larger" >
+                <label for="line-larger">Larger</label>
             </div>
         </fieldset>
 
