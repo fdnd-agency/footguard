@@ -321,10 +321,12 @@ body {
   line-height: 1.4;
 }
 
-p,
-strong,
-span {
+p {
   font-size: calc(clamp(16px, 1.5vw, 18px) + var(--font-size-offset));
+}
+
+span {
+  font-size: clamp(16px, 1.5vw, 18px);
 }
 
 .paragraph {

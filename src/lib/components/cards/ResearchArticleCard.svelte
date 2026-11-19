@@ -103,7 +103,6 @@
       color: var(--grey-700);
 
       display: -webkit-box;
-      -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
@@ -153,12 +152,5 @@
         color: var(--red-700);
       }
     }
-  }
-
-  .action-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 0.5rem;
   }
 </style>
