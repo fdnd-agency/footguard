@@ -171,6 +171,7 @@
 
                         &:hover {
                             background-color: var(--blue-600);
+                            border-color: var(--blue-600);
                             color: var(--background-color-primary);
                         }
                     }
