@@ -127,6 +127,10 @@
             margin-inline-start: auto;
         }
 
+        @media (prefers-color-scheme: dark) {
+            background-color: var(--background-color-primary);
+        }
+
         h2 {
             border-bottom: 2px solid #DDDDDD;
             margin-bottom: .3em;
