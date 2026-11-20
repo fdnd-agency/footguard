@@ -280,8 +280,10 @@
         }
 
         strong,
-        span {
+        span,
+        svg {
             color: var(--main-text-color);
+            stroke: var(--main-text-color);
         }
     }
 
