@@ -279,7 +279,8 @@
             }
         }
 
-        strong {
+        strong,
+        span {
             color: var(--main-text-color);
         }
     }
