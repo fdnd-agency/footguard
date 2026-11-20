@@ -271,6 +271,10 @@
                 color: var(--background-color-primary);
             }
         }
+
+        strong {
+            color: var(--main-text-color);
+        }
     }
 
     :global(:root:has(#font-small:checked)) { --font-size-offset: -1px; }
