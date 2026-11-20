@@ -187,6 +187,10 @@
                             &:hover {
                                 background-color: var(--blue-600);
                             }
+
+                            @media (prefers-color-scheme: dark) {
+                                color: var(--main-text-color);
+                            }
                         }
                     }
 
