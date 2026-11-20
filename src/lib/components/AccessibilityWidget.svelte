@@ -141,6 +141,10 @@
             &:not(:first-of-type) {
                 margin-top: .7em;
             }
+
+            @media (prefers-color-scheme: dark) {
+                color: var(--main-text-color);
+            }
         }
 
         .accessibility-widget-content {
