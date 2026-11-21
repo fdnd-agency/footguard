@@ -260,8 +260,9 @@
         .accessibility-widget-reset-button {
             display: flex;
             align-items: center;
-            background-color: var(--blue-500);
+            background-color: light-dark(var(--blue-500), hsl(205, 55%, 35%));
             color: var(--background-color-primary);
+            border: 1.5px solid light-dark(var(--blue-500), hsl(205, 55%, 35%));
             padding-block: var(--spacing-xs);
             padding-inline: var(--spacing-md);
             margin-inline-start: auto;
