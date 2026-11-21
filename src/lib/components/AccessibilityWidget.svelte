@@ -137,13 +137,10 @@
         h2 {
             border-bottom: 2px solid #DDDDDD;
             margin-bottom: .3em;
+            color: var(--main-text-color);
 
             &:not(:first-of-type) {
                 margin-top: .7em;
-            }
-
-            @media (prefers-color-scheme: dark) {
-                color: var(--main-text-color);
             }
         }
 
