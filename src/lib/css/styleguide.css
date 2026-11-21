@@ -104,6 +104,7 @@
   --font-weight-500: 500;
   --line-height-tight: 1.2;
   --font-size-offset: 0px;
+  color-scheme: light dark;
 
   /* Primary blue colors */
   --blue-700: hsl(203, 90%, 22%);
