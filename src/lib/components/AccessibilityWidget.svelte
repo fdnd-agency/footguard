@@ -116,7 +116,7 @@
         height: fit-content;
         max-height: 73dvh;
         overflow-y: auto;
-        border: 2px solid #C7C7C7;
+        border: 2px solid light-dark(#C7C7C7, hsl(218, 16%, 30%));
         background-color: white;
         padding: var(--spacing-md);
         border-radius: var(--radius-lg);
