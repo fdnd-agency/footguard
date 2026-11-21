@@ -135,7 +135,7 @@
         }
 
         h2 {
-            border-bottom: 2px solid #DDDDDD;
+            border-bottom: 2px solid light-dark(hsl(0, 0%, 87%), hsl(0, 0%, 23%));
             margin-bottom: .3em;
             color: var(--main-text-color);
 
