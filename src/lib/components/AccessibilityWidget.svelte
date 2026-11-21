@@ -171,8 +171,9 @@
                         appearance: none;
 
                         &:checked + label {
-                            background-color: var(--blue-500);
+                            background-color: light-dark(var(--blue-500), hsl(205, 55%, 35%));
                             color: var(--background-color-primary);
+                            border-color: hsl(205, 55%, 35%);
 
                             &:hover {
                                 background-color: var(--blue-600);
@@ -187,7 +188,7 @@
                     label {
                         padding-block: var(--spacing-xs);
                         padding-inline: var(--spacing-sm);
-                        border: 2px solid var(--blue-500);
+                        border: 2px solid light-dark(var(--blue-500), hsl(215, 12%, 59%));
                         box-shadow: var(--shadow-sm);
                         border-radius: var(--radius-sm);
                         transition: background-color var(--transition-base), color var(--transition-base), border-color var(--transition-base), transform var(--transition-base), box-shadow var(--transition-base);
