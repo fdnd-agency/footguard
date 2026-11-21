@@ -156,7 +156,7 @@
                     svg {
                         box-sizing: content-box;
                         padding: .2rem;
-                        background-color: #EBF0FA;
+                        background-color: light-dark(hsl(220, 55%, 95%), hsl(220, 22%, 19%));
                         border-radius: var(--radius-sm);
                     }
                 }
