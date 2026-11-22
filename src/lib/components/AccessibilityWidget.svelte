@@ -206,10 +206,6 @@
                             border-color: var(--blue-600);
                             color: var(--background-color-primary);
                         }
-
-                        @media (prefers-color-scheme: dark) {
-                            color: var(--main-text-color);
-                        }
                     }
                 }
             }
