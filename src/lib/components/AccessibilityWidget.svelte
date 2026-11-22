@@ -120,7 +120,7 @@
         max-height: 73dvh;
         overflow-y: auto;
         border: 2px solid light-dark(hsl(0, 0%, 78%), hsl(218, 16%, 30%));
-        background-color: white;
+        background-color: light-dark(white, var(--background-color-primary));
         padding: var(--spacing-md);
         border-radius: var(--radius-lg);
 
@@ -131,10 +131,6 @@
             display: flex;
             align-items: center;
             margin-inline-start: auto;
-        }
-
-        @media (prefers-color-scheme: dark) {
-            background-color: var(--background-color-primary);
         }
 
         h2 {
