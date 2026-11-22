@@ -179,11 +179,12 @@
                         &:checked + label {
                             background-color: light-dark(var(--blue-500), hsl(205, 55%, 35%));
                             color: var(--background-color-primary);
-                            border-color: hsl(205, 55%, 35%);
-                            color: var(--main-text-color);
+                            border-color: var(--blue-500);
+                            color: white;
 
                             &:hover {
                                 background-color: var(--blue-600);
+                                border-color: var(--blue-600);
 
                                 @media (prefers-color-scheme: dark) {
                                     background-color: var(--blue-200);
@@ -193,6 +194,7 @@
 
                             @media (prefers-color-scheme: dark) {
                                 color: var(--main-text-color);
+                                border-color: hsl(205, 55%, 35%);
                             }
                         }
                     }
@@ -208,8 +210,8 @@
                         color: var(--main-text-color);
                         
                         &:hover {
-                            background-color: var(--blue-600);
-                            border-color: var(--blue-600);
+                            background-color: var(--blue-500);
+                            border-color: var(--blue-500);
                             color: var(--background-color-primary);
 
                             @media (prefers-color-scheme: dark) {
@@ -276,7 +278,6 @@
             display: flex;
             align-items: center;
             background-color: light-dark(var(--blue-500), hsl(205, 55%, 35%));
-            color: var(--background-color-primary);
             border: 1.5px solid light-dark(var(--blue-500), hsl(205, 55%, 35%));
             padding-block: var(--spacing-xs);
             padding-inline: var(--spacing-md);
@@ -286,6 +287,12 @@
             box-shadow: var(--shadow-sm);
             border-radius: var(--radius-sm);
             transition: background-color var(--transition-base), color var(--transition-base), border-color var(--transition-base), transform var(--transition-base), box-shadow var(--transition-base);
+
+            span,
+            svg {
+                color: white;
+                stroke: white;
+            }
 
             &:hover,
             &:focus-visible {
