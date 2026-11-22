@@ -187,8 +187,8 @@
                                 background-color: var(--blue-600);
 
                                 @media (prefers-color-scheme: dark) {
-                                    background-color: var(--blue-100);
-                                    border-color: var(--blue-100);
+                                    background-color: var(--blue-200);
+                                    border-color: var(--blue-200);
                                 }
                             }
 
