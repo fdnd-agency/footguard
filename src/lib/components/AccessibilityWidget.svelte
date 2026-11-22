@@ -103,11 +103,8 @@
         span,
         svg {
             font-weight: 500;
-
-            @media (prefers-color-scheme: dark) {
-                color: var(--main-text-color);
-                stroke: var(--main-text-color);
-            }
+            color: var(--main-text-color);
+            stroke: var(--main-text-color);
         }
     }
 
