@@ -98,11 +98,7 @@
         padding-inline: var(--spacing-md);
         border-radius: var(--radius-xl);
         border: 2px solid light-dark(black, hsl(218, 16%, 30%));
-        background-color: white;
-
-        @media (prefers-color-scheme: dark) {
-            background-color: var(--background-color-primary);
-        }
+        background-color: light-dark(white, var(--background-color-primary));
 
         span,
         svg {
