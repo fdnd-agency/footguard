@@ -292,6 +292,11 @@
             &:focus-visible {
                 background-color: var(--blue-600);
                 color: var(--background-color-primary);
+
+                @media (prefers-color-scheme: dark) {
+                    background-color: var(--blue-200);
+                    border-color: var(--blue-200);
+                }
             }
         }
 
