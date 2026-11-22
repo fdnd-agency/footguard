@@ -181,6 +181,7 @@
                             background-color: light-dark(var(--blue-500), hsl(205, 55%, 35%));
                             color: var(--background-color-primary);
                             border-color: hsl(205, 55%, 35%);
+                            color: var(--main-text-color);
 
                             &:hover {
                                 background-color: var(--blue-600);
@@ -200,6 +201,7 @@
                         border-radius: var(--radius-sm);
                         transition: background-color var(--transition-base), color var(--transition-base), border-color var(--transition-base), transform var(--transition-base), box-shadow var(--transition-base);
                         cursor: pointer;
+                        color: var(--main-text-color);
                         
                         &:hover {
                             background-color: var(--blue-600);
