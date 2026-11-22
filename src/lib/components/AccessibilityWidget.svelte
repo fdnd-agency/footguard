@@ -212,6 +212,12 @@
                             background-color: var(--blue-600);
                             border-color: var(--blue-600);
                             color: var(--background-color-primary);
+
+                            @media (prefers-color-scheme: dark) {
+                                background-color: var(--blue-300);
+                                border-color: var(--blue-300);
+                                color: var(--main-text-color);
+                            }
                         }
                     }
                 }
