@@ -1,6 +1,6 @@
 <script>
   // custom variables for reuse
-  const { question, questionNumber } = $props()
+  const { questionNumber } = $props()
 </script>
 
 <div class="card-container">
@@ -11,7 +11,7 @@
     div {
         display: flex;
         align-items: center;
-        padding: 0.5rem;
+        padding: var(--radius-sm);
         transition: transform 0.3s ease;
         min-height: 4.5rem;
 
@@ -21,7 +21,6 @@
 
     span {
       color: var(--font-color-card);
-      padding-left: 0.2rem;
     }
   }
 </style>

@@ -11,10 +11,9 @@
   }
 
   p {
-    margin: 0.7rem;
-    border-radius: 0.5rem;
+    border-radius: var(--radius-sm);
     color: var(--grey-100);
-    width: 3rem;
+    
   }
 
   @container valueCell (min-width: 80px) {
