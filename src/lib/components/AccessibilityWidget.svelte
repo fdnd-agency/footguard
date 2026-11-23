@@ -162,7 +162,17 @@
                     margin-block: var(--spacing-xs) 1.75rem;
 
                     input {
-                        appearance: none;
+                        position: absolute;
+                        opacity: 0;
+
+                        &:focus-visible {
+                            outline: none;
+                        }
+
+                        &:focus-visible + label {
+                            outline: 2px solid var(--blue-500);
+                            outline-offset: 2px;
+                        }
 
                         &:checked + label {
                             background-color: var(--blue-500);
