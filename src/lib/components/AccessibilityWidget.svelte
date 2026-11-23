@@ -96,7 +96,6 @@
         position: fixed;
         right: var(--spacing-md);
         bottom: var(--spacing-md);
-        z-index: 10;
         padding-block: var(--spacing-sm);
         padding-inline: var(--spacing-md);
         border-radius: var(--radius-xl);
