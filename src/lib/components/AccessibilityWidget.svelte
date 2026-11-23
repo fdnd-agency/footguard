@@ -94,7 +94,7 @@
         display: flex;
         align-items: center;
         position: fixed;
-        right: var(--spacing-md);
+        left: var(--spacing-md);
         bottom: var(--spacing-md);
         padding-block: var(--spacing-sm);
         padding-inline: var(--spacing-md);
