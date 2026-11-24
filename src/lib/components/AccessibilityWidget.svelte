@@ -10,6 +10,10 @@
         if (button.id === savedFontSize) {
             button.checked = true
         }
+
+        button.addEventListener('change', () => {
+            localStorage.setItem('font-size', button.id)
+        })
     })
 </script>
 
