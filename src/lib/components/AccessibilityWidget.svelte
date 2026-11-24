@@ -4,15 +4,15 @@
     onMount(() => {
         const fontSizeButtons = document.querySelectorAll('input[name="font-size"]')
         const savedFontSize = localStorage.getItem('font-size')
-    })
 
-    fontSizeButtons.forEach(button => {
-        if (button.id === savedFontSize) {
-            button.checked = true
-        }
+        fontSizeButtons.forEach(button => {
+            if (button.id === savedFontSize) {
+                button.checked = true
+            }
 
-        button.addEventListener('change', () => {
-            localStorage.setItem('font-size', button.id)
+            button.addEventListener('change', () => {
+                localStorage.setItem('font-size', button.id)
+            })
         })
     })
 </script>
