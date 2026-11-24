@@ -1,58 +1,10 @@
-<script>
-    import { onMount } from 'svelte'
-
-    let fontSizeOffsets = [-1, 0, 3, 5]
-
-     onMount(() => {
-        const trigger = document.querySelector('.accessibility-widget-trigger')
-        const content = document.querySelector('.accessibility-widget-info-container')
-
-        trigger.addEventListener('click', () => content.classList.add('is-open'))
-        content.addEventListener('click', () => content.classList.remove('is-open'))
-
-        const groups = document.querySelectorAll('.size-buttons-container')
-
-        document.querySelectorAll('.size-buttons-container').forEach((group) => {
-            group.addEventListener('click', (e) => {
-                const clicked = e.target.closest('button')
-                if (!clicked) return
-
-                const buttons = [...group.querySelectorAll('button')]
-
-                buttons.forEach((btn) => {
-                    btn.setAttribute('aria-pressed', btn === clicked)
-                })
-
-                if (group.dataset.setting === 'font-size') {
-                    const offset = fontSizeOffsets[buttons.indexOf(clicked)]
-                    document.documentElement.style.setProperty('--font-size-offset', `${offset}px`)
-                }
-            })
-        })
-
-        const resetButton = document.querySelector('.accessibility-widget-reset-button')
-
-        resetButton.addEventListener('click', () => {
-            document.documentElement.style.removeProperty('--font-size-offset')
-
-            groups.forEach((group) => {
-                const buttons = [...group.querySelectorAll('button')]
-
-                buttons.forEach((btn, index) => {
-                    btn.setAttribute('aria-pressed', index === 1)
-                })
-            })
-        })
-    })
-</script>
-
-<button class="accessibility-widget-trigger">
+<button class="accessibility-widget-trigger" popovertarget="accessibility-widget">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-person-standing preview-icon"><circle cx="12" cy="5" r="1"/><path d="m9 20 3-6 3 6"/><path d="m6 8 6 2 6-2"/><path d="M12 10v4"/></svg>
     <span>Accessibility</span>
 </button>
 
-<form class="accessibility-widget-info-container">
-    <button class="accessibility-widget-close-button" type="button">
+<form id="accessibility-widget" class="accessibility-widget-info-container" popover>
+    <button class="accessibility-widget-close-button" type="button" popovertarget="accessibility-widget" popovertargetaction="hide">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x preview-icon"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
         <span>Close</span>
     </button>
@@ -64,11 +16,18 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-case-sensitive preview-icon"><path d="m2 16 4.039-9.69a.5.5 0 0 1 .923 0L11 16"/><path d="M22 9v7"/><path d="M3.304 13h6.392"/><circle cx="18.5" cy="12.5" r="3.5"/></svg>
             <strong>Font-size</strong>
             </legend>
-            <div class="size-buttons-container" data-setting="font-size">
-                <button type="button" aria-pressed="false">Small</button>
-                <button type="button" aria-pressed="true">Normal</button>
-                <button type="button" aria-pressed="false">Big</button>
-                <button type="button" aria-pressed="false">Bigger</button>
+            <div class="size-buttons-container">
+                <input type="radio" name="font-size" id="font-small">
+                <label for="font-small">Small</label>
+
+                <input type="radio" name="font-size" id="font-normal" checked>
+                <label for="font-normal">Normal</label>
+
+                <input type="radio" name="font-size" id="font-large">
+                <label for="font-large">Large</label>
+
+                <input type="radio" name="font-size" id="font-larger" >
+                <label for="font-larger">Larger</label>
             </div>
         </fieldset>
 
@@ -78,10 +37,17 @@
             <strong>Line-height</strong>
             </legend>
             <div class="size-buttons-container">
-                <button type="button" aria-pressed="false">Small</button>
-                <button type="button" aria-pressed="true">Normal</button>
-                <button type="button" aria-pressed="false">Big</button>
-                <button type="button" aria-pressed="false">Bigger</button>
+                <input type="radio" name="line-height" id="line-small">
+                <label for="line-small">Small</label>
+
+                <input type="radio" name="line-height" id="line-normal" checked>
+                <label for="line-normal">Normal</label>
+
+                <input type="radio" name="line-height" id="line-large">
+                <label for="line-large">Large</label>
+
+                <input type="radio" name="line-height" id="line-larger" >
+                <label for="line-larger">Larger</label>
             </div>
         </fieldset>
 
@@ -91,10 +57,17 @@
             <strong>Letter-spacing</strong>
             </legend>
             <div class="size-buttons-container">
-                <button type="button" aria-pressed="false">Small</button>
-                <button type="button" aria-pressed="true">Normal</button>
-                <button type="button" aria-pressed="false">Big</button>
-                <button type="button" aria-pressed="false">Bigger</button>
+                <input type="radio" name="letter-spacing" id="lett-spacing-small">
+                <label for="lett-spacing-small">Small</label>
+
+                <input type="radio" name="letter-spacing" id="lett-spacing-normal" checked>
+                <label for="lett-spacing-normal">Normal</label>
+
+                <input type="radio" name="letter-spacing" id="lett-spacing-large">
+                <label for="lett-spacing-large">Large</label>
+
+                <input type="radio" name="letter-spacing" id="lett-spacing-larger" >
+                <label for="lett-spacing-larger">Larger</label>
             </div>
         </fieldset>
     </div>
@@ -110,7 +83,7 @@
         </label>
     </fieldset>
 
-    <button class="accessibility-widget-reset-button" type="button">
+    <button class="accessibility-widget-reset-button" type="reset">
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rotate-ccw preview-icon"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
         <span>Reset</span>
     </button>
@@ -120,6 +93,7 @@
     .accessibility-widget-trigger {
         display: flex;
         align-items: center;
+        position: fixed;
         padding-block: var(--spacing-sm);
         padding-inline: var(--spacing-md);
         border-radius: var(--radius-xl);
@@ -133,25 +107,20 @@
 
     .accessibility-widget-info-container {
         position: fixed;
+        inset: 0;
+        margin: auto;
         width: min(90vw, 28rem);
         height: fit-content;
         max-height: 73dvh;
-        inset: 0;
-        margin: auto;
         overflow-y: auto;
         border: 2px solid #C7C7C7;
         background-color: white;
-        box-shadow: 0 0 0 100vmax rgb(0 0 0 / .6);
-        padding: 1em;
-        border-radius: 16px;
-        opacity: 0;
-        visibility: hidden;
+        padding: var(--spacing-md);
+        border-radius: var(--radius-lg);
 
-        &:global(.is-open) {
-            opacity: 1;
-            visibility: visible;
+        &::backdrop {
+            background-color: rgb(0 0 0 / .6);
         }
-
         .accessibility-widget-close-button {
             display: flex;
             align-items: center;
@@ -176,47 +145,59 @@
                 .size-title-container {
                     display: flex;
                     align-items: center;
-                    gap: .5em;
-                    margin-bottom: .5em;
+                    gap: var(--spacing-xs);
+                    margin-bottom: var(--spacing-xs);
 
                     svg {
                         box-sizing: content-box;
                         padding: .2rem;
                         background-color: #EBF0FA;
-                        border-radius: 8px;
+                        border-radius: var(--radius-sm);
                     }
                 }
 
                 .size-buttons-container {
-                    margin-bottom: 1em;
+                    margin-block: var(--spacing-xs) 1.75rem;
 
-                        button {
-                            border: 2px solid var(--blue-500);
-                            box-shadow: var(--shadow-sm);
-                            color: black;
-                            padding-block: .25em;
-                            padding-inline: .75em;
-                            border-radius: var(--radius-sm);
-                            font-size: 15px;
-                            transition: background-color var(--transition-base), color var(--transition-base), border-color var(--transition-base), transform var(--transition-base), box-shadow var(--transition-base);
+                    input {
+                        position: absolute;
+                        opacity: 0;
 
-                            &:hover,
-                            &:focus-visible {
+                        &:focus-visible {
+                            outline: none;
+                        }
+
+                        &:focus-visible + label {
+                            outline: 2px solid var(--blue-500);
+                            outline-offset: 2px;
+                        }
+
+                        &:checked + label {
+                            background-color: var(--blue-500);
+                            color: var(--background-color-primary);
+
+                            &:hover {
                                 background-color: var(--blue-600);
-                                color: var(--background-color-primary);
-                            }
-
-                            &[aria-pressed="true"] {
-                                background: var(--blue-500);
-                                color: var(--background-color-primary);
-
-                                &:hover {
-                                    background-color: var(--blue-600);
-                                    color: var(--background-color-primary);
-                                }
                             }
                         }
                     }
+
+                    label {
+                        padding-block: var(--spacing-xs);
+                        padding-inline: var(--spacing-sm);
+                        border: 2px solid var(--blue-500);
+                        box-shadow: var(--shadow-sm);
+                        border-radius: var(--radius-sm);
+                        transition: background-color var(--transition-base), color var(--transition-base), border-color var(--transition-base), transform var(--transition-base), box-shadow var(--transition-base);
+                        cursor: pointer;
+                        
+                        &:hover {
+                            background-color: var(--blue-600);
+                            border-color: var(--blue-600);
+                            color: var(--background-color-primary);
+                        }
+                    }
+                }
             }
 
             .accessibility-widget-switch {
@@ -274,12 +255,11 @@
             align-items: center;
             background-color: var(--blue-500);
             color: var(--background-color-primary);
-            padding-block: .5em;
-            padding-inline: 1em;
-            border-radius: 1rem;
+            padding-block: var(--spacing-xs);
+            padding-inline: var(--spacing-md);
             margin-inline-start: auto;
-            margin-top: 2em;
-            gap: .5em;
+            margin-top: var(--spacing-lg);
+            gap: var(--spacing-xs);
             box-shadow: var(--shadow-sm);
             border-radius: var(--radius-sm);
             transition: background-color var(--transition-base), color var(--transition-base), border-color var(--transition-base), transform var(--transition-base), box-shadow var(--transition-base);
@@ -290,9 +270,9 @@
                 color: var(--background-color-primary);
             }
         }
-
-        span {
-            font-size: 16px;
-        }
     }
+
+    :global(:root:has(#font-small:checked)) { --font-size-offset: -1px; }
+    :global(:root:has(#font-large:checked)) { --font-size-offset: 3px; }
+    :global(:root:has(#font-larger:checked)) { --font-size-offset: 5px; }
 </style>
