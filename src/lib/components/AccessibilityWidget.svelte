@@ -5,6 +5,12 @@
         const fontSizeButtons = document.querySelectorAll('input[name="font-size"]')
         const savedFontSize = localStorage.getItem('font-size')
     })
+
+    fontSizeButtons.forEach(button => {
+        if (button.id === savedFontSize) {
+            button.checked = true
+        }
+    })
 </script>
 
 <button class="accessibility-widget-trigger" popovertarget="accessibility-widget">
