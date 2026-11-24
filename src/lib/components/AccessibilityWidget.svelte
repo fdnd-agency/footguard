@@ -1,5 +1,9 @@
 <script>
     import { onMount } from 'svelte'
+
+    onMount(() => {
+        const fontSizeButtons = document.querySelectorAll('input[name="font-size"]')
+    });
 </script>
 
 <button class="accessibility-widget-trigger" popovertarget="accessibility-widget">
