@@ -16,7 +16,7 @@
         min-height: 4.5rem;
 
     &:hover {
-      transform: translateY(-0.1rem);
+      transform: translateY(-1.6px);
     }
 
     span {
