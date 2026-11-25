@@ -5,7 +5,7 @@
 
 <picture>
   <source srcset={logoDarkMode} media="(prefers-color-scheme: dark)" />
-  <img src={logo} alt="IWGDF Logo" width="150" height="43" decoding="async" class="logo-img" />
+  <img src={logo} alt="IWGDF Logo" width="150" height="43" decoding="async" class="logo-img" fetchpriority="high" />
 </picture>
 
 <style>
