@@ -116,11 +116,14 @@
         padding-block: var(--spacing-sm);
         padding-inline: var(--spacing-md);
         border-radius: var(--radius-xl);
-        border: 2px solid black;
-        background-color: white;
+        border: 2px solid light-dark(black, hsl(218, 16%, 30%));
+        background-color: light-dark(white, var(--background-color-primary));
 
-        span {
+        span,
+        svg {
             font-weight: 500;
+            color: var(--main-text-color);
+            stroke: var(--main-text-color);
         }
     }
 
@@ -132,14 +135,15 @@
         height: fit-content;
         max-height: 73dvh;
         overflow-y: auto;
-        border: 2px solid #C7C7C7;
-        background-color: white;
+        border: 2px solid light-dark(hsl(0, 0%, 78%), hsl(218, 16%, 30%));
+        background-color: light-dark(white, var(--background-color-primary));
         padding: var(--spacing-md);
         border-radius: var(--radius-lg);
 
         &::backdrop {
             background-color: rgb(0 0 0 / .6);
         }
+
         .accessibility-widget-close-button {
             display: flex;
             align-items: center;
@@ -147,8 +151,9 @@
         }
 
         h2 {
-            border-bottom: 2px solid #DDDDDD;
+            border-bottom: 2px solid light-dark(hsl(0, 0%, 87%), hsl(0, 0%, 23%));
             margin-bottom: .3em;
+            color: var(--main-text-color);
 
             &:not(:first-of-type) {
                 margin-top: .7em;
@@ -170,7 +175,7 @@
                     svg {
                         box-sizing: content-box;
                         padding: .2rem;
-                        background-color: #EBF0FA;
+                        background-color: light-dark(hsl(220, 55%, 95%), hsl(220, 22%, 19%));
                         border-radius: var(--radius-sm);
                     }
                 }
@@ -192,11 +197,24 @@
                         }
 
                         &:checked + label {
-                            background-color: var(--blue-500);
+                            background-color: light-dark(var(--blue-500), hsl(205, 55%, 35%));
                             color: var(--background-color-primary);
+                            border-color: var(--blue-500);
+                            color: white;
 
                             &:hover {
                                 background-color: var(--blue-600);
+                                border-color: var(--blue-600);
+
+                                @media (prefers-color-scheme: dark) {
+                                    background-color: var(--blue-200);
+                                    border-color: var(--blue-200);
+                                }
+                            }
+
+                            @media (prefers-color-scheme: dark) {
+                                color: var(--main-text-color);
+                                border-color: hsl(205, 55%, 35%);
                             }
                         }
                     }
@@ -204,16 +222,23 @@
                     label {
                         padding-block: var(--spacing-xs);
                         padding-inline: var(--spacing-sm);
-                        border: 2px solid var(--blue-500);
+                        border: 2px solid light-dark(var(--blue-500), hsl(215, 12%, 59%));
                         box-shadow: var(--shadow-sm);
                         border-radius: var(--radius-sm);
                         transition: background-color var(--transition-base), color var(--transition-base), border-color var(--transition-base), transform var(--transition-base), box-shadow var(--transition-base);
                         cursor: pointer;
+                        color: var(--main-text-color);
                         
                         &:hover {
-                            background-color: var(--blue-600);
-                            border-color: var(--blue-600);
+                            background-color: var(--blue-500);
+                            border-color: var(--blue-500);
                             color: var(--background-color-primary);
+
+                            @media (prefers-color-scheme: dark) {
+                                background-color: var(--blue-300);
+                                border-color: var(--blue-300);
+                                color: var(--main-text-color);
+                            }
                         }
                     }
                 }
@@ -272,8 +297,8 @@
         .accessibility-widget-reset-button {
             display: flex;
             align-items: center;
-            background-color: var(--blue-500);
-            color: var(--background-color-primary);
+            background-color: light-dark(var(--blue-500), hsl(205, 55%, 35%));
+            border: 1.5px solid light-dark(var(--blue-500), hsl(205, 55%, 35%));
             padding-block: var(--spacing-xs);
             padding-inline: var(--spacing-md);
             margin-inline-start: auto;
@@ -283,11 +308,29 @@
             border-radius: var(--radius-sm);
             transition: background-color var(--transition-base), color var(--transition-base), border-color var(--transition-base), transform var(--transition-base), box-shadow var(--transition-base);
 
+            span,
+            svg {
+                color: white;
+                stroke: white;
+            }
+
             &:hover,
             &:focus-visible {
                 background-color: var(--blue-600);
                 color: var(--background-color-primary);
+
+                @media (prefers-color-scheme: dark) {
+                    background-color: var(--blue-200);
+                    border-color: var(--blue-200);
+                }
             }
+        }
+
+        strong,
+        span,
+        svg {
+            color: var(--main-text-color);
+            stroke: var(--main-text-color);
         }
     }
 
