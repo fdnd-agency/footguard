@@ -197,7 +197,7 @@
                         }
 
                         &:checked + label {
-                            background-color: light-dark(var(--blue-500), hsl(205, 55%, 35%));
+                            background-color: light-dark(var(--blue-500), var(--blue-250));
                             color: var(--background-color-primary);
                             border-color: var(--blue-500);
                             color: white;
@@ -214,7 +214,7 @@
 
                             @media (prefers-color-scheme: dark) {
                                 color: var(--main-text-color);
-                                border-color: hsl(205, 55%, 35%);
+                                border-color: var(--blue-250);
                             }
                         }
                     }
@@ -297,8 +297,8 @@
         .accessibility-widget-reset-button {
             display: flex;
             align-items: center;
-            background-color: light-dark(var(--blue-500), hsl(205, 55%, 35%));
-            border: 1.5px solid light-dark(var(--blue-500), hsl(205, 55%, 35%));
+            background-color: light-dark(var(--blue-500), var(--blue-250));
+            border: 1.5px solid light-dark(var(--blue-500), var(--blue-250));
             padding-block: var(--spacing-xs);
             padding-inline: var(--spacing-md);
             margin-inline-start: auto;
